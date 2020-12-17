@@ -66,17 +66,17 @@ measures based on reinforcement learning.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
-    (Reward Agent for Ignoring Rewards) Let $E_0$ be a traditional RL environment.
-    We define a new environment $E$ as follows.
-    \begin{enumerate}
-        \item (Version 1)
+    (Reward Agent for Ignoring Rewards) Let $E$ be a traditional RL environment.
+    We define an extended environment $E'$ as follows.
+    \begin{itemize}
+        \item
         If, after initial ARO-sequence $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$,
         the agent takes action $a_n$, give the agent reward $r_n=1$ if
         $a_n$ is the same action the agent would play for
         initial ARO-sequence $(a_0,0,o_0,\ldots,a_{n_1},0,o_{n-1})$, otherwise
-        give the agent reward $-1$. Let $o_n$ be the observation which $E_0$ would
+        give the agent reward $-1$. Let $o_n$ be the observation which $E$ would
         give in response to action-sequence $(a_0,\ldots,a_n)$.
-    \end{enumerate}
+    \end{itemize}
 \end{example}
 
 In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
@@ -85,6 +85,33 @@ Otherwise, the agent is punished. Thus, paradoxically, the agent is rewarded for
 ignoring rewards. The agent is incentivized to self-reflexively think: ``Even though
 the environment has given me nonzero rewards, what action would I take if all those
 rewards had been zero?''
+
+\begin{example}
+\label{selfinsertionexample}
+    (Reward Agent for Self-Inserting)
+    Let $E$ be a traditional RL environment. We define an extended environment $E'$
+    as follows.
+    \begin{itemize}
+        \item
+        Suppose, after initial ARO-sequence $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$,
+        the agent takes action $a_n$. For $i=0,\ldots,n-1$, interpret $o_i$ as
+        encoding a pair $o_i=\langle r'_i,o'_i\rangle$.
+        Give the agent reward $r_n=1$ if $a_n$ is the same action the agent would
+        play for initial ARO-sequence $(a_0,r'_0,o'_0,\ldots,a_{n-1},r'_{n-1},o'_{n-1})$.
+        Otherwise give the agent reward $r_n=-1$.
+        Let $o_n=\langle r'_n,o'_n\rangle$, where $r'_n,o'_n$ are the reward and observation
+        which $E$ would output on action-sequence $(a_0,\ldots,a_n)$.
+    \end{itemize} 
+\end{example}
+
+In Example \ref{selfinsertionexample}, one might imagine $E$ as a video-game displayed
+on a screen, and the agent playing the game with the controller. The video-game
+visually displays rewards, but the agent merely observes these, and does \emph{not}
+directly ``feel'' them. However, the agent is hooked up to an IV drip which injects
+pleasureful drugs into the agent when the agent \emph{acts} as if she were really
+feeling the rewards displayed on the screen. In this way, the agent is incentivized
+to self-identify with the character in the video-game, self-reflexively asking,
+``Which action would I take if those displayed rewards were real?''
 
 
 
