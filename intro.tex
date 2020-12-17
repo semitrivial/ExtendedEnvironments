@@ -66,7 +66,7 @@ measures based on reinforcement learning.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
-    (Reward Agent for Ignoring Rewards) Let $E$ be a traditional RL environment.
+    (Reward Agent for Ignoring Rewards) Let $E$ be an environment.
     We define an extended environment $E'$ as follows.
     \begin{itemize}
         \item
@@ -89,7 +89,7 @@ rewards had been zero?''
 \begin{example}
 \label{selfinsertionexample}
     (Reward Agent for Self-Inserting)
-    Let $E$ be a traditional RL environment. We define an extended environment $E'$
+    Let $E$ be an environment. We define an extended environment $E'$
     as follows.
     \begin{itemize}
         \item
@@ -112,6 +112,34 @@ pleasureful drugs into the agent when the agent \emph{acts} as if she were reall
 feeling the rewards displayed on the screen. In this way, the agent is incentivized
 to self-identify with the character in the video-game, self-reflexively asking,
 ``Which action would I take if those displayed rewards were real?''
+
+\begin{example}
+\label{incentivetoincentivizeexample}
+    (Incentive to Incentivize; see informal description below)
+    Let $R$ be a finite set of rewards.
+    Suppose, after initial ARO-sequence
+    $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$
+    (where each $a_0\in R$ is a reward considered as an action),
+    the agent takes action $a_n\in R$ (a reward considered as an action).
+    Suppose $a'_0,\ldots,a'_n\in\{0,1\}$ are the actions which the agent would
+    take if the agent were required to choose actions from action-set $\{0,1\}$
+    and received reward-observation pairs $(a_0,0,a_1,0,\ldots,a_n,0)$
+    in response to its actions. Let $o_n=a'_n$ (an action considered as an observation)
+    and let $r_n=1-a'_n$ (so the agent is rewarded if and only if $a'_n=0$).
+    \end{itemize}
+\end{example}
+
+In Example \ref{incentivetoincentivizeexample}, the agent observes
+actions (from action-set $\{0,1\}$), and the agent's must act by
+choosing rewards for those observed actions.
+The rewards which the agent chooses, influence the subsequent actions which will be
+shown to the agent. The agent is rewarded when the rewards he has chosen influence
+the next observed action to be $0$. Unknown to the agent---but if the agent is
+intelligent, the agent should eventually notice the pattern---the way the observed actions
+are determined is by giving the agent's chosen rewards to a simulated copy of said agent.
+Thus, the agent is incentivized to choose rewards by considering:
+``Which reward would do the best job of compelling me to take action $0$ as often
+as possible?''
 
 
 
