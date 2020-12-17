@@ -62,6 +62,32 @@ engage could not possibly perform well in said environments.
 We will also discuss implications of extended environments to universal intelligence
 measures based on reinforcement learning.
 
+\section{Examples of Self-reflection-incentivizing Environments}
+
+\begin{example}
+\label{rewardagentforignoringrewardsexample}
+    (Reward Agent for Ignoring Rewards) Let $E_0$ be a traditional RL environment.
+    We define a new environment $E$ as follows.
+    \begin{enumerate}
+        \item (Version 1)
+        If, after initial ARO-sequence $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$,
+        the agent takes action $a_n$, give the agent reward $r_n=1$ if
+        $a_n$ is the same action the agent would play for
+        initial ARO-sequence $(a_0,0,o_0,\ldots,a_{n_1},0,o_{n-1})$, otherwise
+        give the agent reward $-1$. Let $o_n$ be the observation which $E_0$ would
+        give in response to action-sequence $(a_0,\ldots,a_n)$.
+    \end{enumerate}
+\end{example}
+
+In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
+agent acts the same way the agent would act if all rewards so far had been $0$.
+Otherwise, the agent is punished. Thus, paradoxically, the agent is rewarded for
+ignoring rewards. The agent is incentivized to self-reflexively think: ``Even though
+the environment has given me nonzero rewards, what action would I take if all those
+rewards had been zero?''
+
+
+
 \bibliographystyle{splncs04}
 \bibliography{intro}
 
