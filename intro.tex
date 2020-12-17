@@ -130,16 +130,24 @@ to self-identify with the character in the video-game, self-reflexively asking,
 \end{example}
 
 In Example \ref{incentivetoincentivizeexample}, the agent observes
-actions (from action-set $\{0,1\}$), and the agent's must act by
+actions (from action-set $\{0,1\}$), and the agent must act by
 choosing rewards for those observed actions.
-The rewards which the agent chooses, influence the subsequent actions which will be
+The rewards which the agent chooses influence the subsequent actions which will be
 shown to the agent. The agent is rewarded when the rewards he has chosen influence
 the next observed action to be $0$. Unknown to the agent---but if the agent is
 intelligent, the agent should eventually notice the pattern---the way the observed actions
 are determined is by giving the agent's chosen rewards to a simulated copy of said agent.
-Thus, the agent is incentivized to choose rewards by considering:
+Thus, the agent is incentivized to choose rewards by self-reflecting:
 ``Which reward would do the best job of compelling me to take action $0$ as often
-as possible?''
+as possible?'' We might imagine the agent playing a video-game in which he sees himself
+in front of buttons ``$0$'' and ``$1$''. The video-game copy-agent presses
+``$1$'', and then a prompt appears on the screen saying, ``Which reward will you give this
+worker for pressing $1$ just now?'' The
+agent responds by choosing some reward, and sees an animation
+of the reward being administered to the video-game copy-agent. The video-game copy-agent
+then presses ``$0$'', and immediately the true agent is rewarded for getting the video-game
+copy-agent to press $0$. Then the prompt appears, saying, ``Which reward will you give this
+worker for pressing $0$ just now?'' And so on forever.
 
 
 
