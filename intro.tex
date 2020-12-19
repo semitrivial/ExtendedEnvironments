@@ -169,6 +169,29 @@ punishments, if possible, when its clone from takes action $1$. This could be co
 evidence in favor of generalizing RL to allow rewards from other number systems
 besides the real numbers, as in \cite{alexander2020archimedean}.
 
+\begin{example}
+\label{selfrecognitionexample}
+    (Incentivizing Self-recognition)
+    Let $s_0,s_1,\ldots$ be an enumeration of all OAR-sequences with award-set
+    $\{0,1\}$. We define an environment $E$ as follows.
+    Suppose, after initial OAR-sequence $(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n)$,
+    in which each $o_i=s_i$,
+    the agent takes action $a_n\in\{0,1\}$. If $o_n$ is consistent with the agent
+    (meaning that the agent would take the actions in $s_n$ in response to the observations
+    and rewards in $s_n$), then give the agent reward $r_n=a_n$.
+    Otherwise, give the agent reward $1-a_n$. Let $o_n=s_n$.
+\end{example}
+
+In Example \ref{selfrecognitionexample}, the agent is shown various OAR-sequences, and for
+each sequence, the agent either pushes button ``Looks like me'' ($1$)
+or ``Doesn't look like me'' ($0$). For each OAR-sequence, the agent is rewarded if and
+only if the agent correctly guessed whether or not the OAR-sequence is an OAR-sequence
+which that agent would produce, given the observations and rewards in the sequence.
+Thus, the agent is incentivized to self-reflect in order to ask, ``If I experienced the
+observations and rewards in that OAR-sequence, would I act that way?''
+
+
+
 \bibliographystyle{splncs04}
 \bibliography{intro}
 
