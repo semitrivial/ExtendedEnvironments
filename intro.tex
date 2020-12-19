@@ -1,4 +1,5 @@
 \documentclass[runningheads]{llncs}
+\usepackage{amsfonts}
 
 \newtheorem{mytheorem}{Theorem}
 \newtheorem{mylemma}[mytheorem]{Lemma}
@@ -189,6 +190,68 @@ only if the agent correctly guessed whether or not the OAR-sequence is an OAR-se
 which that agent would produce, given the observations and rewards in the sequence.
 Thus, the agent is incentivized to self-reflect in order to ask, ``If I experienced the
 observations and rewards in that OAR-sequence, would I act that way?''
+
+\begin{example}
+\label{otheraspectsexample}
+    (Recognizing other aspects of oneself)
+    All the below environments are similar to Example \ref{selfrecognitionexample},
+    and we describe them informally to avoid technical details.
+    \begin{itemize}
+        \item
+        (Supervised learning)
+        Assume there is a canonical, computable function $f$ which transforms
+        each RL agent $A$ into a supervised learning agent $f(A)$. By a \emph{supervised
+        learning trial} we mean quadruple $\langle L,T,I,p\rangle$ where $L$ is a finite set
+        of labels, $T$ is a sequence of images with labels from $L$ (a \emph{training set}),
+        $I$ is an unlabeled image, and $p:L\to \mathbb Q\cap [0,1]$ is a function
+        assigning to each label $\ell\in L$ a probability that $\ell$ is the correct label
+        for $I$. We define an extended environment as follows.
+        The agent $A$ is sytematically shown all supervised learning trials and must
+        take action $1$ (``Looks like me'') or $0$ (``Doesn't look like me''), and is
+        rewarded or punished accordingly depending whether or not $f(A)$ would
+        output $p$ in response to $I$ after being trained with $T$.
+        \item
+        (Unsupervised learning)
+        Assume there is a canonical, computable function $g$ which transforms each RL
+        agent $A$ into an unsupervised learning agent $g(A)$.
+        By an \emph{unsupervised learning trial} we mean a triple
+        $\langle n,D,C\rangle$ where $n$ is a positive integer, $D\subseteq \mathbb Q^n$
+        is a finite set of $n$-dimensional points with rational coordinates, and $C$
+        is a clustering of $D$.
+        We define an extended environment as follows. The agent $A$ is systematically
+        shown all unsupervised learning trials and must take action $1$ (``Looks like me'')
+        or $0$ (``Doesn't look like me''), and is rewarded or punished accordingly depending
+        whether or not $g(A)$ would cluster $D$ into clustering $C$.
+        \item
+        (The Turing Test)
+        Assume there is a canonical, computable function $h$ which transforms each RL
+        agent $A$ into an English-speaking chatbot $h(A)$.
+        By a \emph{chatbot trial} we mean a sequence of strings of English characters.
+        We define an extended environment as follows. The agent $A$ is systematically
+        shown all chatbot trials and must take action $1$ (``Looks like me'') or $0$
+        (``Doesn't look like me''), and is rewarded or punished accordingly depending
+        whether or not even-numbered strings in the chatbot trial are what $h(A)$ would
+        say in response to the user saying the odd-numbered strings.
+        \item
+        (Adversarial sequence prediction) Similar to the above environments, assuming
+        a canonical computable function which transforms each RL agent into a predictor
+        in the game of adversarial sequence prediction \cite{hibbard2008adversarial}
+        \cite{hibbard}.
+        \item
+        (Mechanical knowing agent) Assume there is a canonical, computable function
+        $i$ which transforms each RL agent $A$ into a code $i(A)$ of a computably
+        enumerable set of sentences in the language of Epistemic Arithmetic
+        \cite{shapiro}; $i(A)$ is thought of as a mechanical knowing agent
+        \cite{carlson}. We define an extended environment as follows. The agent $A$
+        is systematically shown all sentences in the language of Epistemic Arithmetic,
+        with repetition, in such a way that each sentence is shown infinitely often.
+        Upon being shown sentence $\phi$ for the $n$th time, the agent must take action
+        $1$ (``I know $\phi$ is true'')
+        or $0$ (``I'm not sure if $\phi$ is true'')
+        and is rewarded if and only if $\phi$ is
+        enumerated by $i(A)$ in $\leq n$ steps of computation.
+    \end{itemize}
+\end{example}
 
 
 
