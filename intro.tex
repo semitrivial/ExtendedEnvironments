@@ -71,11 +71,14 @@ measures based on reinforcement learning.
     We define an extended environment $E'$ as follows.
     \begin{itemize}
         \item
-        If, after initial ARO-sequence $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$,
+        If, after initial OAR-sequence
+        \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n),\]
         the agent takes action $a_n$, give the agent reward $r_n=1$ if
         $a_n$ is the same action the agent would play for
-        initial ARO-sequence $(a_0,0,o_0,\ldots,a_{n_1},0,o_{n-1})$, otherwise
-        give the agent reward $-1$. Let $o_n$ be the observation which $E$ would
+        initial OAR-sequence
+        \[(o_0,a_0,0,\ldots,o_{n-1},a_{n-1},0,o_n),\]
+        otherwise
+        give the agent reward $-1$. Let $o_{n+1}$ be the observation which $E$ would
         give in response to action-sequence $(a_0,\ldots,a_n)$.
     \end{itemize}
 \end{example}
@@ -94,11 +97,15 @@ rewards had been zero?''
     as follows.
     \begin{itemize}
         \item
-        Suppose, after initial ARO-sequence $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$,
-        the agent takes action $a_n$. For $i=0,\ldots,n-1$, interpret $o_i$ as
-        encoding a pair $o_i=\langle r'_i,o'_i\rangle$.
+        Suppose, after initial OAR-sequence
+        \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n),\]
+        %\[(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1}),\]
+        the agent takes action $a_n$. For $0<i\leq n$, interpret $o_i$ as
+        encoding a pair $o_i=\langle r'_{i-1},o'_i\rangle$.
         Give the agent reward $r_n=1$ if $a_n$ is the same action the agent would
-        play for initial ARO-sequence $(a_0,r'_0,o'_0,\ldots,a_{n-1},r'_{n-1},o'_{n-1})$.
+        play for initial OAR-sequence
+        \[(o_0,a_0,r'_0,o'_1,a_1,r'_1,\ldots,o'_{n-1},a_{n-1},o'_n).\]
+        %\[(a_0,r'_0,o'_0,\ldots,a_{n-1},r'_{n-1},o'_{n-1}).\]
         Otherwise give the agent reward $r_n=-1$.
         Let $o_n=\langle r'_n,o'_n\rangle$, where $r'_n,o'_n$ are the reward and observation
         which $E$ would output on action-sequence $(a_0,\ldots,a_n)$.
@@ -108,9 +115,10 @@ rewards had been zero?''
 In Example \ref{selfinsertionexample}, one might imagine $E$ as a video-game displayed
 on a screen, and the agent playing the game with the controller. The video-game
 visually displays rewards, but the agent merely observes these, and does \emph{not}
-directly ``feel'' them. However, the agent is hooked up to an IV drip which injects
+directly ``feel'' them. However, the agent is hooked up to an intravenous tube which injects
 pleasureful drugs into the agent when the agent \emph{acts} as if she were really
-feeling the rewards displayed on the screen. In this way, the agent is incentivized
+feeling the rewards displayed on the screen (and injects painful drugs into the agent
+otherwise). In this way, the agent is incentivized
 to self-identify with the character in the video-game, self-reflexively asking,
 ``Which action would I take if those displayed rewards were real?''
 
@@ -118,13 +126,15 @@ to self-identify with the character in the video-game, self-reflexively asking,
 \label{incentivetoincentivizeexample}
     (Incentive to Incentivize; see informal description below)
     Let $R$ be a finite set of rewards.
-    Suppose, after initial ARO-sequence
-    $(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$
-    (where each $a_0\in R$ is a reward considered as an action),
+    Suppose, after initial OAR-sequence
+    \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n)\]
+    %$(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$
+    (where each $a_i\in R$ is a reward considered as an action),
     the agent takes action $a_n\in R$ (a reward considered as an action).
     Suppose $a'_0,\ldots,a'_n\in\{0,1\}$ are the actions which the agent would
     take if the agent were required to choose actions from action-set $\{0,1\}$
-    and received reward-observation pairs $(a_0,0,a_1,0,\ldots,a_n,0)$
+    and received observations $(0,0,\ldots,0)$ and rewards
+    $(a_0,a_1,\ldots,a_n)$
     in response to its actions. Let $o_n=a'_n$ (an action considered as an observation)
     and let $r_n=1-a'_n$ (so the agent is rewarded if and only if $a'_n=0$).
 \end{example}
@@ -175,7 +185,8 @@ besides the real numbers, as in \cite{alexander2020archimedean}.
     (Incentivizing Self-recognition)
     Let $s_0,s_1,\ldots$ be an enumeration of all OAR-sequences with award-set
     $\{0,1\}$. We define an environment $E$ as follows.
-    Suppose, after initial OAR-sequence $(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n)$,
+    Suppose, after initial OAR-sequence
+    \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n),\]
     in which each $o_i=s_i$,
     the agent takes action $a_n\in\{0,1\}$. If $o_n$ is consistent with the agent
     (meaning that the agent would take the actions in $s_n$ in response to the observations
@@ -258,7 +269,7 @@ to self-reflect, asking itself questions like ``Does that look like how I would
 classify that image, given that training set?'' or ``Does that look like how I would
 cluster that set of points?'' or ``Does that conversation participant say the same things
 I would say?'' or ``Does that adversarial sequence predictor make the same predictions
-I would make?'' or ``Does that mechanical agent know the same things as I?''
+I would make?'' or ``Does that mechanical agent know the same things I know?''
 
 \bibliographystyle{splncs04}
 \bibliography{intro}
