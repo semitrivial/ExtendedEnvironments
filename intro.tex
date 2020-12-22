@@ -12,7 +12,8 @@
 
 \begin{document}
 
-\title{Extending environments to incentivize self-reflection in reinforcement learning}
+\title{Extending environments to incentivize self-reflection
+in deterministic reinforcement learning}
 \titlerunning{Extending environments to incentivize self-reflection}
 
 \author{Samuel Allen Alexander\inst{1}\orcidID{0000-0002-7930-110X}}
@@ -29,39 +30,56 @@
 
 \section{Introduction}
 
-In building the road to AGI, we must appeal AGI's unique properties.
-Indeed, if we built a road using only more general properties, which hold of other things
-as well as of AGIs, then how could it be a road to AGI? It would be a road to a
-more general class of things, not to AGI. Take reinforcement learning (RL) for example, in
-which an agent interacts with a certain type of reward-giving environment (hereafter called
-a \emph{traditional RL environment}).
-An AGI could interact with such
-a traditional RL environment, but so could various other creatures: humans, animals,
-human societies. If there is nothing unique about how an AGI interacts with
-traditional RL environments,
-then how could traditional RL environments possibly lead to AGI?
-Thinking along these lines motivated us to consider
-special extended environments in which AGIs can participate, but in which humans or animals
-can not realistically participate.
+In this paper, we consider computable agents in a deterministic variant of the reinforcement
+learning (RL) framework. Such agents are intended to interact with deterministic RL
+environments, where they take actions and receive rewards and observations in
+response to those actions. Essentially, such an environment is basically a function $e$
+which outputs a reward-observation pair
+$\langle r,o\rangle=e(a_0,\ldots,a_n)$ in response to an action-sequence $(a_0,\ldots,a_n)$.
 
-AGIs (as we envision them here) have a key property which uniquely allows them to
-participate in extended environments in which other actors could not practically
-participate. Namely, we envision an AGIs as acting deterministically according to
-a well-defined computer program. This is crucial because, unlike a human or animal
-actor, such a computer program can be perfectly simulated and forked. Whereas a
-traditional RL environment chooses rewards and updates states based solely on the
-actions which an agent takes, our extended environments will have access to the AGI's
-source-code, allowing the environment to choose rewards and states based on, for example,
-what the agent \emph{would have done} in various situations. For example, a chess-playing
-environment, when deciding whether to make a move which would potentially expose it to
-checkmate, can, as part of its deliberations, simulate the AGI opponent in order to
-determine whether or not the AGI opponent would take advantage of said opportunity.
+However, there is another type of environment in which these
+same RL agents can interact just as well. Essentially, we define an \emph{extended
+environment} to be a function $e$ which outputs a reward-observation pair
+$\langle r,o\rangle=e((a_0,\ldots,a_n), T)$ in response to an action-sequence
+$(a_0,\ldots,a_n)$ along with a Turing machine $T$ which computes an agent.
+Intuitively, this should be thought of as follows: when the agent enters the environment,
+the environment is made aware of the source-code of the agent, and can use that
+source-code when computing what rewards and observations to give to the agent in response
+to the agent's actions.
 
-We will give examples of extended environments designed to incentivize RL agents to
-recursively engage in self-reflection, in the sense that any agent who does not so
-engage could not possibly perform well in said environments.
-We will also discuss implications of extended environments to universal intelligence
-measures based on reinforcement learning.
+For example, the environment might be a game consisting of a
+labyrinth where the agent wanders from
+room to room, each room containing a treasure, and most (but not all) rooms containing
+a guard. The agent can only see one room at a time, and cannot look ahead into adjacent
+rooms. In a room with no guard, the agent can choose to take the treasure, in which
+case the agent receives a positive reward.
+If the player chooses to take the treasure in a guarded room,
+then, by simulating the agent, the guard determines: ``If
+I (the guard) were not present in this room, would the agent take the treasure?''
+If the answer is ``yes'', then the guard prevents the agent from taking the treasure,
+and zaps the agent (which the agent feels as a negative reward, i.e., a punishment).
+If the answer is ``no'', then the guard allows the agent to take the treasure (and the
+agent is rewarded). 
+
+The above environment would apparently be impossible (or prohibitively expensive)
+for a human to play, due to the difficulty of the guards simulating the human player.
+But there is no reason why the above game could not be played by an RL agent (the
+RL agent's source-code being fed to the game-engine beforehand). Clearly this kind of
+extended environment is not the kind of environment the RL agent is intended to be
+applied to, however, such environments could be useful on the path to Artificial
+General Intelligence (AGI) because they seem to incentivize self-reflection: in order
+to perform well in the above example, the agent would evidently need to achieve some
+degree of self-awareness in order to figure out the underlying pattern behind the
+guards.
+
+We will give examples of some interesting
+extended environments of the above kind, designed to incentivize RL agents to
+recursively engage in self-reflection in various ways.
+We conjecture that traditional RL techniques will not perform well in these extended
+environments, because traditional RL techniques do not involve any sort of
+self-reflection. Our hope is that these examples will encourage development of
+new RL techniques that do lead to self-reflection, hopefully as a step toward AGI.
+
 
 \section{Examples of Self-reflection-incentivizing Environments}
 
