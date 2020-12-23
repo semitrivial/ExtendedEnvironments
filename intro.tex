@@ -138,9 +138,10 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
         where $\langle\rangle$ is the empty ROA-play.
         \item $a_0$ is the output of $T$ on $\langle A, \langle r_0,o_0\rangle\rangle$.
         \item For $i>0$, $r_i$ and $o_i$ are obtained by computing $e$
-        on $\langle T,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle\rangle$.
+        on
+        \[\langle T,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle\rangle.\]
         \item For $i>0$, $a_i$ is obtained by computing $T$ on
-        $\langle A,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1},r_i,o_i\rangle\rangle$.
+        \[\langle A,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1},r_i,o_i\rangle\rangle.\]
     \end{itemize}
 \end{definition}
 
@@ -281,6 +282,8 @@ only if the agent correctly guessed whether or not the OAR-sequence is an OAR-se
 which that agent would produce, given the observations and rewards in the sequence.
 Thus, the agent is incentivized to self-reflect in order to ask, ``If I experienced the
 observations and rewards in that OAR-sequence, would I act that way?''
+
+The following example is partly motivated by \cite{yampolskiy2012ai}.
 
 \begin{example}
 \label{otheraspectsexample}
