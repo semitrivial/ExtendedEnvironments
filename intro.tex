@@ -108,6 +108,7 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
 \end{definition}
 
 \begin{definition}
+\label{agentandenvironment}
 (Agents and environments)
     \begin{enumerate}
     \item An \emph{agent} is a Turing machine which takes as input a finite action-set $A$
@@ -125,6 +126,25 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
         \end{enumerate}
     \end{enumerate}
 \end{definition}
+
+There is a subtle nuance in Definition \ref{agentandenvironment}. Should the agent's
+next action depend on the entire history (including prior actions), or only on prior
+rewards and observations? One could argue that
+the agent's next action needn't depend on its own past actions, since its own past actions
+can be inferred from past rewards and observations.
+Normally, it would not matter much whether
+or not the agent's next action depend on its own past actions\footnote{In
+\cite{alexander2019intelligence}, we
+formalize agents whose actions depend only on past rewards and observations.
+Legg and Hutter give a formalization where the agent's next action does explicitly
+depend on its past actions \cite{legg2007universal}.}. In formalizing examples of extended
+environments that incentivize self-reflection, we have found it convenient for the agent's
+next action to formally depend on past actions. Perhaps this reflects that known
+conscious agents (e.g.\ humans)
+evidently do \emph{not} carefully re-compute their own
+past actions from remembered observations and rewards, but instead, a human maintains
+memories of her past actions as well, regardless whether doing so is formally superfluous.
+
 
 \begin{definition}
     Suppose $T$ is an agent and $E=\langle A,e\rangle$ is an extended environment.
