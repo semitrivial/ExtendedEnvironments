@@ -110,14 +110,14 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
 \begin{definition}
 (Agents and environments)
     \begin{enumerate}
-    \item An \emph{agent} is a computable function which takes as input a finite action-set $A$
+    \item An \emph{agent} is a Turing machine which takes as input a finite action-set $A$
     and an ROA-prompt $s$ from $A$, and outputs an action $a\in A$.
     \item An \emph{extended environment} is a pair $\langle A,e\rangle$ such that:
         \begin{enumerate}
             \item $A$ is a finite action-set.
             \item $e$ is a Turing machine.
             \item
-            For every Turing machine $T$ which computes an agent, for every
+            For every agent $T$, for every
             ROA-play $s$ from $A$,
             when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input
             and outputs a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
@@ -126,6 +126,23 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
     \end{enumerate}
 \end{definition}
 
+\begin{definition}
+    Suppose $T$ is an agent and $E=\langle A,e\rangle$ is an extended environment.
+    The \emph{result of $T$ interacting with $E$} is the infinite
+    reward-observation-action sequence
+    \[r_0,o_0,a_0,r_1,o_1,a_1,\ldots\]
+    (each $r_i\in\mathbb Q$, $o_i\in\mathbb N$, and $a\in A$)
+    defined inductively as follows.
+    \begin{itemize}
+        \item $r_0$ and $o_0$ are obtained by computing $e$ on $\langle T,\langle\rangle\rangle$
+        where $\langle\rangle$ is the empty ROA-play.
+        \item $a_0$ is the output of $T$ on $\langle A, \langle r_0,o_0\rangle\rangle$.
+        \item For $i>0$, $r_i$ and $o_i$ are obtained by computing $e$
+        on $\langle T,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle\rangle$.
+        \item For $i>0$, $a_i$ is obtained by computing $T$ on
+        $\langle A,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1},r_i,o_i\rangle\rangle$.
+    \end{itemize}
+\end{definition}
 
 \section{Examples of Self-reflection-incentivizing Environments}
 
