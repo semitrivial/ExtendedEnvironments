@@ -81,6 +81,51 @@ environments, because traditional RL techniques do not involve any sort of
 self-reflection. Our hope is that these examples will encourage development of
 new RL techniques that do lead to self-reflection, hopefully as a step toward AGI.
 
+\section{Preliminaries}
+
+\begin{definition}
+(Plays and prompts)
+    Suppose $A$ is a finite set (thought of as a set of permissible actions).
+    \begin{enumerate}
+        \item
+        By an \emph{ROA-play from $A$} (or simply an \emph{ROA-prompt} if $A$
+        is clear from context), we mean either the empty sequence,
+        or else a sequence of the form
+        \[
+            r_0,o_0,a_0,\ldots,r_k,o_k,a_k
+        \]
+        where each $r_i\in\mathbb Q$ (thought of as a \emph{reward}),
+        each $o_i\in\mathbb N$ (thought of as an \emph{observation}),
+        and each $a_k\in A$ (thought of as an \emph{action}).
+        \item
+        By an \emph{ROA-prompt from $A$} (or simply an \emph{ROA-prompt} if $A$
+        is clear from context), we mean a sequence of the form
+        $s\frown r\frown o$
+        where $s$ is an ROA-play, $\frown$ denotes concatenation,
+        $r\in\mathbb Q$ (thought of as a \emph{reward}),
+        and $o\in\mathbb N$ (thought of as an \emph{observation}).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+(Agents and environments)
+    \begin{enumerate}
+    \item An \emph{agent} is a computable function which takes as input a finite action-set $A$
+    and an ROA-prompt $s$ from $A$, and outputs an action $a\in A$.
+    \item An \emph{extended environment} is a pair $\langle A,e\rangle$ such that:
+        \begin{enumerate}
+            \item $A$ is a finite action-set.
+            \item $e$ is a Turing machine.
+            \item
+            For every Turing machine $T$ which computes an agent, for every
+            ROA-play $s$ from $A$,
+            when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input
+            and outputs a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
+            as a reward) and $o\in\mathbb N$ (thought of as an observation).
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
 
 \section{Examples of Self-reflection-incentivizing Environments}
 
