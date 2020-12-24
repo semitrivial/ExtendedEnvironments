@@ -1,5 +1,6 @@
 \documentclass[runningheads]{llncs}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 
 \newtheorem{mytheorem}{Theorem}
 \newtheorem{mylemma}[mytheorem]{Lemma}
@@ -169,20 +170,30 @@ memories of her past actions as well, regardless whether doing so is formally su
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
-    (Reward Agent for Ignoring Rewards) Let $E$ be an environment.
-    We define an extended environment $E'$ as follows.
-    \begin{itemize}
-        \item
-        If, after initial OAR-sequence
-        \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n),\]
-        the agent takes action $a_n$, give the agent reward $r_n=1$ if
-        $a_n$ is the same action the agent would play for
-        initial OAR-sequence
-        \[(o_0,a_0,0,\ldots,o_{n-1},a_{n-1},0,o_n),\]
-        otherwise
-        give the agent reward $-1$. Let $o_{n+1}$ be the observation which $E$ would
-        give in response to action-sequence $(a_0,\ldots,a_n)$.
-    \end{itemize}
+    (Reward Agent for Ignoring Rewards)
+    For any ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
+    all rewards are $0$.
+    For any environment $E=\langle A,e\rangle$, we define a new environment
+    $E'=\langle A,e'\rangle$ where $e'$ is defined as follows
+    (where $T$ is a Turing machine, $p$ is an ROA-prompt, and $a\in A$ is thought of as
+    an agent's most recent action):
+    \begin{align*}
+        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
+        e'(T,p\frown a)
+        &= \langle r_{k+1},o_{k+1}\rangle,
+    \end{align*}
+    where $o_{k+1}$ is the observation component of
+    $e(T,p\frown a)$ (if $e$ does not halt on input $\langle T,p\frown a\rangle$
+    then neither does $e'$) and
+    \[
+        r_{k+1} =
+        \begin{cases}
+            1 & \mbox{if $a=T(A,p^0)$,}\\
+            -1 & \mbox{if $a\not=T(A,p^0)$.}
+        \end{cases}
+    \]
+    (if $T$ does not halt on input $\langle A,p^0\rangle$ then $e'$ does not halt on input
+    $\langle T,p\frown a\rangle$).
 \end{example}
 
 In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
