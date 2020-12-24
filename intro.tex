@@ -162,7 +162,24 @@ memories of her past actions as well, regardless whether doing so is formally su
     \end{itemize}
 \end{definition}
 
+One important implication of extended environments is that they further divide
+the (already divided) ways of measuring intelligence of RL agents. Intelligence
+measures
+\cite{alexander2019intelligence} \cite{hernandez} \cite{legg2007universal}
+which aggregate performance over traditional environments only measure
+an agent's intelligence over those environments. The same measures could easily
+be extended to also take extended environments into account, perhaps providing
+measures which better capture agents' self-reflection ability.
+
 \section{Examples of Self-reflection-incentivizing Environments}
+
+In this section, we give examples of some interesting extended environments which seem
+to incentivize various forms of self-reflection. We are inspired by various libraries of
+traditional RL environments \cite{bellemare2013arcade}
+\cite{beyret2019animal} \cite{brockman2016openai} \cite{chollet2019measure}
+\cite{cobbe2020leveraging}. Some of our examples do not provide individual environments,
+but rather, procedures for obtaining new environments from old (these could be iterated,
+in order to build up environments incentivizing deeper and deeper nested self-reflection).
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
