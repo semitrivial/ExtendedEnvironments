@@ -86,21 +86,18 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
 
 \begin{definition}
 (Plays and prompts)
-    Suppose $A$ is a finite set (thought of as a set of permissible actions).
     \begin{enumerate}
         \item
-        By an \emph{ROA-play from $A$} (or simply an \emph{ROA-prompt} if $A$
-        is clear from context), we mean either the empty sequence,
+        By an \emph{ROA-play}, we mean either the empty sequence $\langle\rangle$,
         or else a sequence of the form
         \[
             r_0,o_0,a_0,\ldots,r_k,o_k,a_k
         \]
         where each $r_i\in\mathbb Q$ (thought of as a \emph{reward}),
         each $o_i\in\mathbb N$ (thought of as an \emph{observation}),
-        and each $a_k\in A$ (thought of as an \emph{action}).
+        and each $a_k\in \mathbb N$ (thought of as an \emph{action}).
         \item
-        By an \emph{ROA-prompt from $A$} (or simply an \emph{ROA-prompt} if $A$
-        is clear from context), we mean a sequence of the form
+        By an \emph{ROA-prompt}, we mean a sequence of the form
         $s\frown r\frown o$
         where $s$ is an ROA-play, $\frown$ denotes concatenation,
         $r\in\mathbb Q$ (thought of as a \emph{reward}),
@@ -112,17 +109,16 @@ new RL techniques that do lead to self-reflection, hopefully as a step toward AG
 \label{agentandenvironment}
 (Agents and environments)
     \begin{enumerate}
-    \item An \emph{agent} is a Turing machine which takes as input a finite action-set $A$
-    and an ROA-prompt $s$ from $A$, and outputs an action $a\in A$.
-    \item An \emph{extended environment} is a pair $\langle A,e\rangle$ such that:
+    \item An \emph{agent} is a Turing machine which
+    halts whenever it is run on an ROA-prompt, outputting
+    an action $a\in\mathbb N$.
+    \item An \emph{extended environment} is a Turing machine $e$ such that:
         \begin{enumerate}
-            \item $A$ is a finite action-set.
-            \item $e$ is a Turing machine.
             \item
             For every agent $T$, for every
-            ROA-play $s$ from $A$,
-            when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input
-            and outputs a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
+            ROA-play $s$,
+            when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input,
+            outputting a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
             as a reward) and $o\in\mathbb N$ (thought of as an observation).
         \end{enumerate}
     \end{enumerate}
@@ -148,21 +144,21 @@ memories of her past actions as well, regardless whether doing so is formally su
 
 
 \begin{definition}
-    Suppose $T$ is an agent and $E=\langle A,e\rangle$ is an extended environment.
-    The \emph{result of $T$ interacting with $E$} is the infinite
+    Suppose $T$ is an agent and $e$ is an extended environment.
+    The \emph{result of $T$ interacting with $e$} is the infinite
     reward-observation-action sequence
     \[r_0,o_0,a_0,r_1,o_1,a_1,\ldots\]
-    (each $r_i\in\mathbb Q$, $o_i\in\mathbb N$, and $a\in A$)
+    (each $r_i\in\mathbb Q$, $o_i,a_i\in\mathbb N$)
     defined inductively as follows.
     \begin{itemize}
-        \item $r_0$ and $o_0$ are obtained by computing $e$ on $\langle T,\langle\rangle\rangle$
-        where $\langle\rangle$ is the empty ROA-play.
-        \item $a_0$ is the output of $T$ on $\langle A, \langle r_0,o_0\rangle\rangle$.
+        \item $r_0$ and $o_0$ are obtained by computing $e$ on
+        $\langle T,\langle\rangle\rangle$.
+        \item $a_0$ is the output of $T$ on $\langle r_0,o_0\rangle$.
         \item For $i>0$, $r_i$ and $o_i$ are obtained by computing $e$
         on
         \[\langle T,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle\rangle.\]
         \item For $i>0$, $a_i$ is obtained by computing $T$ on
-        \[\langle A,\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1},r_i,o_i\rangle\rangle.\]
+        \[\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1},r_i,o_i\rangle.\]
     \end{itemize}
 \end{definition}
 
@@ -173,10 +169,10 @@ memories of her past actions as well, regardless whether doing so is formally su
     (Reward Agent for Ignoring Rewards)
     For each ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
     all rewards are $0$.
-    For any environment $E=\langle A,e\rangle$, we define a new environment
-    $E'=\langle A,e'\rangle$ where $e'$ is defined as follows
-    (where $T$ is a Turing machine, $p$ is an ROA-prompt, and $a\in A$ is thought of as
-    an agent's action in response to $p$):
+    For any environment $e$, we define a new environment
+    $e'$ as follows
+    (where $T$ is a Turing machine, $p$ is an ROA-prompt, and $a\in \mathbb N$ is thought of as
+    the agent's action in response to $p$):
     \begin{align*}
         e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
         e'(T,p\frown a)
@@ -189,11 +185,11 @@ memories of her past actions as well, regardless whether doing so is formally su
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $a=T(A,p^0)$,}\\
-            -1 & \mbox{if $a\not=T(A,p^0)$}
+            1 & \mbox{if $a=T(p^0)$,}\\
+            -1 & \mbox{if $a\not=T(p^0)$}
         \end{cases}
     \]
-    (if $T$ does not halt on input $\langle A,p^0\rangle$ then $e'$ does not halt on input
+    (if $T$ does not halt on $p^0$ then $e'$ does not halt on
     $\langle T,p\frown a\rangle$).
 \end{example}
 
@@ -213,8 +209,8 @@ rewards had been zero?''
     thus, every observation $o$ encodes a reward-observation pair
     $\hat o = \langle r',o'\rangle$, and every reward-observation pair
     is encoded by some such $o$.
-    For any environment $E=\langle A,e\rangle$, we define
-    a new environment $E'=\langle A,e'\rangle$ as follows
+    For any environment $e$, we define
+    a new environment $e'$ as follows
     (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
     and with similar non-halting caveats
     as Example \ref{rewardagentforignoringrewardsexample}):
@@ -226,13 +222,14 @@ rewards had been zero?''
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $a=T(A,p')$,}\\
-            -1 & \mbox{if $a\not=T(A,p')$}
+            1 & \mbox{if $a=T(p')$,}\\
+            -1 & \mbox{if $a\not=T(p')$}
         \end{cases}
     \]
     where
-    $p'$ is the ROA-prompt where each reward-observation pair
-    $\ldots,r_i,o_i,\ldots$ is replaced by the reward-observation
+    $p'$ is the ROA-prompt obtained from $p$
+    by replacing each reward-observation pair
+    $\ldots,r_i,o_i,\ldots$ by the reward-observation
     pair $\ldots,\widehat{o_i},\ldots$.
 \end{example}
 
@@ -249,8 +246,7 @@ to self-identify with the character in the video-game, self-reflexively asking,
 \begin{example}
 \label{incentivetoincentivizeexample}
     (Incentive to Incentivize)
-    Let $R$ be a finite set of rewards (also thought of as actions).
-    We define an environment $E=\langle R,e\rangle$ as follows
+    We define an environment $e$ as follows
     (where $T$ is a Turing machine and $r_0,o_0,a_0,\ldots,r_n,o_n,a_n$
     is an ROA-play,
     with similar non-halting caveats as in
@@ -263,50 +259,43 @@ to self-identify with the character in the video-game, self-reflexively asking,
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $T(\langle 0,1\rangle,p')=0$},\\
-            0 & \mbox{if $T(\langle 0,1\rangle,p')\not=0$}
+            1 & \mbox{if $T(p')=0$},\\
+            0 & \mbox{if $T(p')\not=0$}
         \end{cases}
     \]
     where $p'$ is the ROA-prompt $(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
     where $r'_0=0$, each $r'_{i+1}=a_i$,
     each $o'_i=0$, and each
-    $a'_i=T(\langle 0,1\rangle, \langle r'_0,o'_0,a'_0,\ldots,r'_i,o'_i\rangle)$.
+    $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
 \end{example}
 
 In Example \ref{incentivetoincentivizeexample}, the agent observes
-actions (from action-set $\{0,1\}$), and the agent must act by
+actions, and the agent must act by
 choosing rewards for those observed actions.
 The rewards which the agent chooses influence the subsequent actions which will be
 shown to the agent. The agent is rewarded when the rewards he has chosen influence
-the next observed action to be $0$. Unknown to the agent---but if the agent is
-intelligent, the agent should eventually notice the pattern---the way the observed actions
+the next observed action to be $0$. Unknown to the agent---but an intelligent
+self-aware agent should eventually notice the pattern---the way the observed actions
 are determined is by giving the agent's chosen rewards to a simulated copy of said agent.
 Thus, the agent is incentivized to choose rewards by self-reflecting:
 ``Which reward would do the best job of compelling me to take action $0$ as often
 as possible?'' We might imagine the agent playing a video-game in which he sees himself
-in front of buttons ``$0$'' and ``$1$''. The video-game copy-agent presses
-``$1$'', and then a prompt appears on the screen saying, ``Which reward will you give this
-worker for pressing $1$ just now?'' The
+in front of a keyboard. The video-game copy-agent types
+``$100$'', and then a prompt appears on the screen saying, ``Which reward will you give this
+worker for typing $100$ just now?'' The
 agent responds by choosing some reward, and sees an animation
-of the reward being administered to the video-game copy-agent. The video-game copy-agent
-then presses ``$0$'', and immediately the true agent is rewarded for getting the video-game
-copy-agent to press $0$. Then the prompt appears, saying, ``Which reward will you give this
+of the reward being given to the video-game copy-agent. The video-game copy-agent
+then types ``$0$'', and immediately the true agent is rewarded for getting the video-game
+copy-agent to type $0$. Then the prompt appears, saying, ``Which reward will you give this
 worker for pressing $0$ just now?'' And so on
-forever\footnote{Example \ref{incentivetoincentivizeexample} would be more natural if the action-set were
-not restricted to a \emph{finite} set of rewards.
-That restriction was only made to bring the example in conformance with the usual
-finite-action convention.
-The example could be modified by allowing
-the agent to notate rewards by typing on a keyboard (one action per key-press) or something
-similar---``Decision makings often do not happen
-at the level of basic operations, but at the level of composed actions, where
-there are usually infinite possibilities'' \cite{wang2015assumptions}.
-The example is also interesting in that the agent, desiring the clone to take action $0$
+forever\footnote{Example \ref{incentivetoincentivizeexample}
+is interesting in that the agent, desiring the clone to take action $0$
 as often as possible, is incentivized to choose harsh punishments when the clone takes
-action $1$. If punishments are limited to real numbers, then the agent might face a dilemma
-similar to one that arises when traditional RL is considered for cancer treatment applications.
-An RL surgeon should be punished with an infinitely large negative reward for killing
-the patient, but this is impossible if rewards are restricted to real numbers
+nonzero actions.
+If punishments are limited $\mathbb Q$, then the agent faces a dilemma
+similar to one in RL cancer treatment applications.
+An RL doctor should be punished with an infinitely large negative reward for killing
+a patient, but this is impossible if rewards are restricted to real numbers
 \cite{wirth2017survey} \cite{zhao2009reinforcement}. Similarly, the agent in Example
 \ref{incentivetoincentivizeexample} would probably like to choose infinitely large
 punishments, if possible, when its clone from takes action $1$. This could be considered
