@@ -180,13 +180,13 @@ memories of her past actions as well, regardless whether doing so is formally su
     \begin{align*}
         e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
         e'(T,p\frown a)
-        &= \langle r_{k+1},o_{k+1}\rangle,
+        &= \langle r,o\rangle,
     \end{align*}
-    where $o_{k+1}$ is the observation component of
+    where $o$ is the observation component of
     $e(T,p\frown a)$ (if $e$ does not halt on input $\langle T,p\frown a\rangle$
     then neither does $e'$) and
     \[
-        r_{k+1} =
+        r =
         \begin{cases}
             1 & \mbox{if $a=T(A,p^0)$,}\\
             -1 & \mbox{if $a\not=T(A,p^0)$.}
