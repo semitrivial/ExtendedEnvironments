@@ -248,19 +248,29 @@ to self-identify with the character in the video-game, self-reflexively asking,
 
 \begin{example}
 \label{incentivetoincentivizeexample}
-    (Incentive to Incentivize; see informal description below)
-    Let $R$ be a finite set of rewards.
-    Suppose, after initial OAR-sequence
-    \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n)\]
-    %$(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1})$
-    (where each $a_i\in R$ is a reward considered as an action),
-    the agent takes action $a_n\in R$ (a reward considered as an action).
-    Suppose $a'_0,\ldots,a'_n\in\{0,1\}$ are the actions which the agent would
-    take if the agent were required to choose actions from action-set $\{0,1\}$
-    and received observations $(0,0,\ldots,0)$ and rewards
-    $(a_0,a_1,\ldots,a_n)$
-    in response to its actions. Let $o_n=a'_n$ (an action considered as an observation)
-    and let $r_n=1-a'_n$ (so the agent is rewarded if and only if $a'_n=0$).
+    (Incentive to Incentivize)
+    Let $R$ be a finite set of rewards (also thought of as actions).
+    We define an environment $E=\langle R,e\rangle$ as follows
+    (where $T$ is a Turing machine and $r_0,o_0,a_0,\ldots,r_n,o_n,a_n$
+    is an ROA-play,
+    with similar non-halting caveats as in
+    Example \ref{rewardagentforignoringrewardsexample}).
+    \begin{align*}
+        e(T,\langle\rangle) &= \langle 0, 0\rangle\\
+        e(T,r_0,o_0,a_0,\ldots,r_n,o_n,a_n) &= \langle r, 0\rangle,
+    \end{align*}
+    where
+    \[
+        r =
+        \begin{cases}
+            1 & \mbox{if $T(\langle 0,1\rangle,p')=0$},\\
+            0 & \mbox{if $T(\langle 0,1\rangle,p')\not=0$}
+        \end{cases}
+    \]
+    where $p'$ is the ROA-prompt $(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
+    where $r'_0=0$, each $r'_{i+1}=a_i$,
+    each $o'_i=0$, and each
+    $a'_i=T(\langle 0,1\rangle, \langle r'_0,o'_0,a'_0,\ldots,r'_i,o'_i\rangle)$.
 \end{example}
 
 In Example \ref{incentivetoincentivizeexample}, the agent observes
