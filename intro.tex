@@ -171,7 +171,7 @@ memories of her past actions as well, regardless whether doing so is formally su
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
     (Reward Agent for Ignoring Rewards)
-    For any ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
+    For each ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
     all rewards are $0$.
     For any environment $E=\langle A,e\rangle$, we define a new environment
     $E'=\langle A,e'\rangle$ where $e'$ is defined as follows
@@ -184,12 +184,13 @@ memories of her past actions as well, regardless whether doing so is formally su
     \end{align*}
     where $o$ is the observation component of
     $e(T,p\frown a)$ (if $e$ does not halt on input $\langle T,p\frown a\rangle$
+    (resp.\ $\langle T,\langle\rangle\rangle$)
     then neither does $e'$) and
     \[
         r =
         \begin{cases}
             1 & \mbox{if $a=T(A,p^0)$,}\\
-            -1 & \mbox{if $a\not=T(A,p^0)$.}
+            -1 & \mbox{if $a\not=T(A,p^0)$}
         \end{cases}
     \]
     (if $T$ does not halt on input $\langle A,p^0\rangle$ then $e'$ does not halt on input
@@ -206,23 +207,33 @@ rewards had been zero?''
 \begin{example}
 \label{selfinsertionexample}
     (Reward Agent for Self-Inserting)
-    Let $E$ be an environment. We define an extended environment $E'$
-    as follows.
-    \begin{itemize}
-        \item
-        Suppose, after initial OAR-sequence
-        \[(o_0,a_0,r_0,\ldots,o_{n-1},a_{n-1},r_{n-1},o_n),\]
-        %\[(a_0,r_0,o_0,\ldots,a_{n-1},r_{n-1},o_{n-1}),\]
-        the agent takes action $a_n$. For $0<i\leq n$, interpret $o_i$ as
-        encoding a pair $o_i=\langle r'_{i-1},o'_i\rangle$.
-        Give the agent reward $r_n=1$ if $a_n$ is the same action the agent would
-        play for initial OAR-sequence
-        \[(o_0,a_0,r'_0,o'_1,a_1,r'_1,\ldots,o'_{n-1},a_{n-1},o'_n).\]
-        %\[(a_0,r'_0,o'_0,\ldots,a_{n-1},r'_{n-1},o'_{n-1}).\]
-        Otherwise give the agent reward $r_n=-1$.
-        Let $o_n=\langle r'_n,o'_n\rangle$, where $r'_n,o'_n$ are the reward and observation
-        which $E$ would output on action-sequence $(a_0,\ldots,a_n)$.
-    \end{itemize} 
+    Fix a canonical computable bijection
+    $o\mapsto \hat o$
+    from $\mathbb N$ to $\mathbb Q\times \mathbb N$:
+    thus, every observation $o$ encodes a reward-observation pair
+    $\hat o = \langle r',o'\rangle$, and every reward-observation pair
+    is encoded by some such $o$.
+    For any environment $E=\langle A,e\rangle$, we define
+    a new environment $E'=\langle A,e'\rangle$ as follows
+    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
+    and with similar non-halting caveats
+    as Example \ref{rewardagentforignoringrewardsexample}):
+    \begin{align*}
+        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
+        e'(T,p\frown a) &= \langle r,o\rangle,
+    \end{align*}
+    where $o$ is such that $\hat o = e(T,p\frown a)$ and
+    \[
+        r =
+        \begin{cases}
+            1 & \mbox{if $a=T(A,p')$,}\\
+            -1 & \mbox{if $a\not=T(a,p')$}
+        \end{cases}
+    \]
+    where
+    $p'$ is the ROA-prompt where each reward-observation pair
+    $\ldots,r_i,o_i,\ldots$ is replaced by the reward-observation
+    pair $\ldots,\widehat{o_i},\ldots$. 
 \end{example}
 
 In Example \ref{selfinsertionexample}, one might imagine $E$ as a video-game displayed
