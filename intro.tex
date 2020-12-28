@@ -36,55 +36,67 @@ in reinforcement learning}
 \section{Introduction}
 
 In this paper, we consider computable agents in a deterministic variant of the reinforcement
-learning (RL) framework. Such agents are intended to interact with deterministic RL
+learning (RL) framework (we restrict our attention to deterministic environments and
+agents for the sake of simplicity, but the basic ideas would not be difficult to adapt
+to non-deterministic RL). Such agents are intended to interact with deterministic RL
 environments, where they take actions and receive rewards and observations in
-response to those actions. Essentially, such an environment is basically a function $e$
-which outputs a reward-observation pair
-$\langle r,o\rangle=e(a_0,\ldots,a_n)$ in response to an action-sequence $(a_0,\ldots,a_n)$.
+response to those actions.
 
-However, there is another type of environment in which these
-same RL agents can interact just as well. Essentially, we define an \emph{extended
+Traditionally, a deterministic RL environment is essentially a function
+$e$ which outputs a reward-observation pair
+$\langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ in response to an
+award-observation-action sequence $(a_0,\ldots,a_n)$.
+However, there is another type of environment in which
+computable RL agents can interact just as well. Essentially, we define an \emph{extended
 environment} to be a function $e$ which outputs a reward-observation pair
-$\langle r,o\rangle=e((a_0,\ldots,a_n), T)$ in response to an action-sequence
-$(a_0,\ldots,a_n)$ along with a Turing machine $T$ which computes an agent.
+$\langle r,o\rangle=e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n \rangle)$ in response
+to a reward-observation-action sequence
+along with a Turing machine $T$ which computes the agent.
 Intuitively, this should be thought of as follows: when the agent enters the environment,
-the environment is made aware of the source-code of the agent, and can use that
-source-code when computing what rewards and observations to give to the agent in response
-to the agent's actions.
+the environment is made aware of the agent's source-code, and can use that
+source-code to simulate the agent when computing rewards and observations.
 
-For example, the environment might be a game consisting of a
-labyrinth where the agent wanders from
+For example, imagine a game\footnote{This game bears some similarity to Newcomb's
+Paradox \cite{nozick1969newcomb}.} consisting of a
+labyrinth where the player wanders from
 room to room, each room containing a treasure, and most (but not all) rooms containing
-a guard. The agent can only see one room at a time, and cannot look ahead into adjacent
-rooms. In a room with no guard, the agent can choose to take the treasure, in which
-case the agent receives a positive reward.
-If the player chooses to take the treasure in a guarded room,
-then, by simulating the agent, the guard determines: ``If
-I (the guard) were not present in this room, would the agent take the treasure?''
-If the answer is ``yes'', then the guard prevents the agent from taking the treasure,
-and zaps the agent (which the agent feels as a negative reward, i.e., a punishment).
-If the answer is ``no'', then the guard allows the agent to take the treasure (and the
-agent is rewarded)\footnote{This environment bears some similarity to Newcomb's
-Paradox \cite{nozick1969newcomb}.}.
+a guard.
+\begin{itemize}
+    \item
+    The player can only see one room at a time, and cannot look ahead into adjacent
+    rooms, nor visit the same room twice.
+    \item
+    In a room with no guard, the player can take the treasure, yielding a reward.
+    \item
+    If the player chooses to take the treasure in a guarded room,
+    then, by simulating the player, the guard determines: ``If
+    this room had been unguarded, would the player have taken the treasure?''
+    If so, the guard blocks the player and zaps them (yielding a negative reward).
+    Otherwise, the guard allows the player to take the treasure (and the player is rewarded).
+\end{itemize}
 
-The above environment would apparently be impossible (or prohibitively expensive)
-for a human to play, due to the difficulty of the guards simulating the human player.
+The above game would apparently be impossible (or prohibitively expensive)
+for a human to play, due to the difficulty of simulating a human player.
 But there is no reason why the above game could not be played by an RL agent (the
-RL agent's source-code being fed to the game-engine beforehand). Clearly this kind of
+agent's source-code being given to the game-engine beforehand). Clearly this kind of
 extended environment is not the kind of environment the RL agent is intended to be
-applied to, however, such environments could be useful on the path to Artificial
+applied to and is not representative of the kind of environments RL agents are
+applied to\footnote{Such environments might, however, accidentally arise if both environment
+and agent are implemented on the same machine and the environment is managed by an AI
+sophisticated enough to exploit unintended informational side channels, as in
+\cite{yampolskiy2012leakproofing}.}. However, such environments could be
+useful on the path to Artificial
 General Intelligence (AGI) because they seem to incentivize self-reflection: in order
-to perform well in the above example, the agent would evidently need to achieve some
-degree of self-awareness in order to figure out the underlying pattern behind the
-guards.
+to perform well across many games like the above, the player would evidently need
+some degree of self-awareness.
 
-We will give examples of some interesting
+We will give examples of interesting
 extended environments of the above kind, designed to incentivize RL agents to
 recursively engage in self-reflection in various ways.
-We conjecture that traditional RL techniques will not perform well in these extended
+We conjecture that traditional RL agents would perform poorly in these extended
 environments, because traditional RL techniques do not involve any sort of
-self-reflection. Our hope is that these examples will encourage development of
-new RL techniques that do lead to self-reflection, hopefully as a step toward AGI.
+self-reflection. We hope these examples will facilitate
+new RL techniques that do involve self-reflection, hopefully as a step toward AGI.
 
 \section{Preliminaries}
 
