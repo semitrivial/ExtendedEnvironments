@@ -397,8 +397,8 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         assigning to each label $\ell\in L$ a probability that $\ell$ is the correct label
         for $I$. We define an extended environment as follows.
         The agent $A$ is sytematically shown all supervised learning trials and must
-        take action $1$ (``Looks like me'') or $0$ (``Doesn't look like me''), and is
-        rewarded or punished accordingly depending whether or not $f(A)$ would
+        take action $>0$ (``Looks like me'') or $0$ (``Doesn't look like me''), and is
+        rewarded or punished depending whether or not $f(A)$ would
         output $p$ in response to $I$ after being trained with $T$.
         \item
         (Unsupervised learning)
@@ -409,8 +409,8 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         is a finite set of $n$-dimensional points with rational coordinates, and $C$
         is a clustering of $D$.
         We define an extended environment as follows. The agent $A$ is systematically
-        shown all unsupervised learning trials and must take action $1$ (``Looks like me'')
-        or $0$ (``Doesn't look like me''), and is rewarded or punished accordingly depending
+        shown all unsupervised learning trials and must take action $>0$ (``Looks like me'')
+        or $0$ (``Doesn't look like me''), and is rewarded or punished depending
         whether or not $g(A)$ would cluster $D$ into clustering $C$.
         \item
         (The Turing Test)
@@ -418,7 +418,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         agent $A$ into an English-speaking chatbot $h(A)$.
         By a \emph{chatbot trial} we mean a sequence of strings of English characters.
         We define an extended environment as follows. The agent $A$ is systematically
-        shown all chatbot trials and must take action $1$ (``Looks like me'') or $0$
+        shown all chatbot trials and must take action $>0$ (``Looks like me'') or $0$
         (``Doesn't look like me''), and is rewarded or punished accordingly depending
         whether or not even-numbered strings in the chatbot trial are what $h(A)$ would
         say in response to the user saying the odd-numbered strings.
@@ -436,7 +436,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         is systematically shown all sentences in the language of Epistemic Arithmetic,
         with repetition, in such a way that each sentence is shown infinitely often.
         Upon being shown sentence $\phi$ for the $n$th time, the agent must take action
-        $1$ (``I know $\phi$ is true'')
+        $>0$ (``I know $\phi$ is true'')
         or $0$ (``I'm not sure if $\phi$ is true'')
         and is rewarded if and only if $\phi$ is
         enumerated by $i(A)$ in $\leq n$ steps of computation.
