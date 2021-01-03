@@ -20,6 +20,13 @@ def decode_rewards(prompt):
         _, obs, action = prompt[0:3]
         return hat(obs) + [action] + decode_rewards(prompt[3:])
 
+def hat(obs):
+    a, b = inverse_cantor_pairing_fnc(obs)
+    return [natural_to_rational(a), b]
+
+def reverse_hat(reward, obs):
+    return cantor_pairing_fnc(rational_to_natural(reward), obs)
+
 def cantor_pairing_fnc(k1,k2):
     # From https://en.wikipedia.org/wiki/Pairing_function#Cantor_pairing_function
     # As accessed on Jan 3rd, 2021
@@ -47,10 +54,3 @@ def natural_to_rational(n):
 def rational_to_natural(q):
     q = Fraction(q)
     return cantor_pairing_fnc(q.numerator, q.denominator)
-
-def hat(obs):
-    a, b = inverse_cantor_pairing_fnc(obs)
-    return [natural_to_rational(a), b]
-
-def reverse_hat(reward, obs):
-    return cantor_pairing_fnc(rational_to_natural(reward), obs)
