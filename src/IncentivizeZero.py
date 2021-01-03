@@ -24,4 +24,4 @@ def incentivize_zero(T, play):
 
     reward = 1 if T(inner_prompt) == 0 else 0
     obs = 0
-    return [reward, 0]
+    return [reward, obs]
