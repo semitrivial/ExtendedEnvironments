@@ -5,7 +5,7 @@ def ignore_rewards(base_env):
 
         prompt, action = play[:-1], play[-1]
         _, obs = base_env(T, play)
-        reward = 1 if action = T(strip_rewards(prompt)) else -1
+        reward = 1 if action == T(strip_rewards(prompt)) else -1
         return [reward, obs]
 
     return modified_env

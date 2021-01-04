@@ -9,7 +9,7 @@ def self_insert(base_env):
         obs = reverse_hat(base_env(T, play))
         prompt, action = play[:-1], play[-1]
         inner_prompt = decode_rewards(prompt)
-        reward = 1 if action = T(inner_prompt) else -1
+        reward = 1 if action == T(inner_prompt) else -1
         return [reward, obs]
 
 def decode_rewards(prompt):

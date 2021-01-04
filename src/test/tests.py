@@ -1,16 +1,23 @@
 from test_agents import agents
-from IncentivizeZero import incentivize_zero
-from GuardedTreasures import guarded_treasures
 from util import run_environment
 
+from IncentivizeZero import incentivize_zero
+from GuardedTreasures import guarded_treasures
+from IgnoreRewards import ignore_rewards
+from SelfInsert import self_insert
+
+def test_environment(env, env_name):
+    for agent_name in agents.keys():
+        agent = agents[agent_name]
+        results = run_environment(env, agent, 100)
+        print("Reward for "+agent_name+" in "+env_name+": "+str(results['total_reward']))
+
 def test_incentivize_zero():
-    for name in agents.keys():
-        agent = agents[name]
-        results = run_environment(incentivize_zero, agent, 100)
-        print("Results for "+name+" in incentivize_zero: " + str(results['total_reward']))
+    test_environment(incentivize_zero, "incentivize_zero")
 
 def test_guarded_treasures():
-    for name in agents.keys():
-        agent = agents[name]
-        results = run_environment(guarded_treasures, agent, 100)
-        print("Results for "+name+" in guarded_treasures: " + str(results['total_reward']))
+    test_environment(guarded_treasures, "guarded_treasures")
+
+def test_ignore_rewards():
+    test_environment(ignore_rewards(incentivize_zero), "ignore_rewards(incentivize_zero)")
+    test_environment(ignore_rewards(guarded_treasures), "ignore_rewards(guarded_treasures)")
