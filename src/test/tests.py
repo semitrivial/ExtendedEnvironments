@@ -21,3 +21,7 @@ def test_guarded_treasures():
 def test_ignore_rewards():
     test_environment(ignore_rewards(incentivize_zero), "ignore_rewards(incentivize_zero)")
     test_environment(ignore_rewards(guarded_treasures), "ignore_rewards(guarded_treasures)")
+
+def test_self_insert():
+    test_environment(self_insert(incentivize_zero), "self_insert(incentivize_zero)")
+    test_environment(self_insert(guarded_treasures), "self_insert(guarded_treasures)")
