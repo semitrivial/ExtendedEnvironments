@@ -31,7 +31,7 @@ def inverse_cantor_pairing_fnc(z):
     return [x,y]
 
 def natural_to_integer(n):
-    return n/2 if (n%2)==0 else -((n-1)/2)
+    return n/2 if (n%2)==0 else -((n+1)/2)
 
 def integer_to_natural(z):
     return z*2 if z>=0 else (-z*2)+1
