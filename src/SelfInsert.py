@@ -1,5 +1,6 @@
-from math import sqrt
-from fractions import Fraction
+from util import (cantor_pairing_fnc, inverse_cantor_pairing_fnc,
+    natural_to_rational, rational_to_natural
+)
 
 def self_insert(base_env):
     def modified_env(T, play):
@@ -28,31 +29,3 @@ def hat(obs):
 
 def reverse_hat(reward, obs):
     return cantor_pairing_fnc(rational_to_natural(reward), obs)
-
-def cantor_pairing_fnc(k1,k2):
-    # From https://en.wikipedia.org/wiki/Pairing_function#Cantor_pairing_function
-    # As accessed on Jan 3rd, 2021
-    return (.5*(k1+k2)*(k1+k2+1)) + k2
-
-def inverse_cantor_pairing_fnc(z):
-    # From https://en.wikipedia.org/wiki/Pairing_function#Cantor_pairing_function
-    # As accessed on Jan 3rd, 2021
-    w = int((sqrt(8*z+1)-1)*.5)
-    t = (w*w+w)/2
-    y = z-t
-    x = w-y
-    return [x,y]
-
-def natural_to_integer(n):
-    return n/2 if (n%2)==0 else -((n-1)/2)
-
-def integer_to_natural(z):
-    return z*2 if z>=0 else (-z*2)+1
-
-def natural_to_rational(n):
-    a, b = inverse_cantor_pairing_fnc(n)
-    return float(natural_to_integer(a))/b if b!=0 else 0
-
-def rational_to_natural(q):
-    q = Fraction(q)
-    return cantor_pairing_fnc(q.numerator, q.denominator)
