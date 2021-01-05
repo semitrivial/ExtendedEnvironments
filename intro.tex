@@ -107,7 +107,7 @@ new RL techniques that do involve self-reflection, hopefully as a step toward AG
         By an \emph{ROA-play}, we mean either the empty sequence $\langle\rangle$,
         or else a sequence of the form
         \[
-            r_0,o_0,a_0,\ldots,r_k,o_k,a_k
+            \langle r_0,o_0,a_0,\ldots,r_k,o_k,a_k\rangle
         \]
         where each $r_i\in\mathbb Q$ (thought of as a \emph{reward}),
         each $o_i\in\mathbb N$ (thought of as an \emph{observation}),
@@ -121,6 +121,27 @@ new RL techniques that do involve self-reflection, hopefully as a step toward AG
     \end{enumerate}
 \end{definition}
 
+\begin{lemma}
+\label{roaplaydecompositionlemma}
+    If $s$ is an ROA-play, then either $s=\langle\rangle$, or else
+    $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
+\end{lemma}
+
+\begin{proof}
+    If $s\not=\langle\rangle$ then we can write
+    $s=\langle r_0,o_0,a_0,\ldots,r_k,o_k,a_k \rangle$.
+
+    \textbf{Case 1:}
+    $k=0$. By definition, $\langle\rangle$ is an ROA-play,
+    therefore $p=\langle\rangle\frown r_0\frown o_0$ is an ROA-prompt,
+    and $s=p\frown a_0$.
+
+    \textbf{Case 2:} $k>0$.
+    Then $p'=\langle r_0,o_0,a_0,\ldots,r_{k-1},o_{k-1},a_{k-1}\rangle$ is an ROA-play,
+    therefore $p=p'\frown r_k\frown o_k$ is an ROA-prompt,
+    and $s=p\frown a_k$.
+\end{proof}
+
 \begin{definition}
 \label{agentandenvironment}
 (Agents and environments)
@@ -129,14 +150,14 @@ new RL techniques that do involve self-reflection, hopefully as a step toward AG
     halts whenever it is run on an ROA-prompt, outputting
     an action $a\in\mathbb N$.
     \item An \emph{extended environment} is a Turing machine $e$ such that:
-        \begin{enumerate}
+        \begin{itemize}
             \item
             For every agent $T$, for every
             ROA-play $s$,
             when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input,
             outputting a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
             as a reward) and $o\in\mathbb N$ (thought of as an observation).
-        \end{enumerate}
+        \end{itemize}
     \end{enumerate}
 \end{definition}
 
@@ -164,7 +185,7 @@ memories of her past actions as well, regardless whether doing so is formally su
     Suppose $T$ is an agent and $e$ is an extended environment.
     The \emph{result of $T$ interacting with $e$} is the infinite
     reward-observation-action sequence
-    \[r_0,o_0,a_0,r_1,o_1,a_1,\ldots\]
+    \[\langle r_0,o_0,a_0,r_1,o_1,a_1,\ldots\rangle\]
     (each $r_i\in\mathbb Q$, $o_i,a_i\in\mathbb N$)
     defined inductively as follows.
     \begin{itemize}
@@ -213,7 +234,7 @@ measures
 which aggregate performance over traditional environments only measure
 an agent's intelligence over those environments. The same measures could easily
 be extended to also take extended environments into account, perhaps providing
-measures which better capture agents' self-reflection ability.
+measures which better capture agents' self-reflection abilities.
 
 \section{Examples of Self-reflection-incentivizing Environments}
 
@@ -260,6 +281,42 @@ Otherwise, the agent is punished. Thus, paradoxically, the agent is rewarded for
 ignoring rewards. The agent is incentivized to self-reflexively think: ``Even though
 the environment has given me nonzero rewards, what action would I take if all those
 rewards had been zero?''
+
+\begin{lemma}
+\label{example1workslemma}
+    Example \ref{rewardagentforignoringrewardsexample} really does define an
+    extended environment.
+\end{lemma}
+
+\begin{proof}
+    Fix an environment $e$ and let $e'$ be as in
+    Example \ref{rewardagentforignoringrewardsexample}.
+    We must show $e'$ is an extended environment (Definition \ref{agentandenvironment}
+    part 2). We must show that for each agent $T$ and ROA-play $s$,
+    $e'$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
+    such that $r\in\mathbb Q$ and $o\in\mathbb N$.
+
+    \textbf{Case 1:} $s=\langle\rangle$. Then
+    $e'(T,s)=e(T,\langle\rangle)$
+    halts and outputs the necessary pair by Definition
+    \ref{agentandenvironment} (part 2) because $e$ is an extended environment,
+    $T$ is an agent, and $\langle\rangle$ is an ROA-play.
+
+    \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
+    $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
+    Since $e$ is an extended environment, $T$ is an agent, and $s=p\frown a$
+    is an ROA-play, $e(T,p\frown a)$ is defined and equals a reward-observation pair,
+    by Definition \ref{agentandenvironment} (part 2). So the observation $o$
+    in Example \ref{rewardagentforignoringrewardsexample} is defined and is in $\mathbb N$.
+    Since $p$ is an ROA-prompt, clearly $p^0$ is also an ROA-prompt, therefore
+    since $T$ is an agent, Definition \ref{agentandenvironment} (part 1)
+    guarantees $T(p^0)$ is defined and is in $\mathbb N$. It follows that the reward
+    $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is in
+    $\mathbb Q$.
+\end{proof}
+
+For future examples, we will suppress the corresponding lemmas like
+Lemma \ref{example1workslemma} which say that those examples really work.
 
 \begin{example}
 \label{selfinsertionexample}
