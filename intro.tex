@@ -491,6 +491,36 @@ These steps would not be available to a traditional RL environment, but they are
 available to an extended environment because of the inclusion of $T$ itself as an
 argument passed to the extended environment.
 
+\subsection{Binocular vision}
+
+Humans seem to consciously perceive a three-dimensional model of their surrounding
+world, even though the raw data which we actually receive consists of two two-dimensional
+image feeds (one for each eye). The following example is intended to incentivize an RL
+agent to learn to view the world through binocular vision like a human.
+
+\begin{example}
+\label{binocularexample}
+    Suppose $V$ is a video game intended to be played on a virtual-reality headset,
+    so at any moment during the game, $V$ produces two snapshots, one for the player's
+    left eye, one for the player's right eye. Assume the player is constrained in $V$
+    so as never to be able to put their eyes into weird configurations (such as in
+    \cite{gallagher2020third}): thus, at any moment, the two snapshots $s_1,s_2$
+    which $V$ is
+    displaying to the player are equivalent to a single 3-D matrix encoding
+    the model $m(s_1,s_2)$ which the player is intended to perceive (with cells blanked
+    out where the player's vision is obstructed by obstacles). Let $e$ be the extended
+    environment whose observations encode pairs $\langle s_1,s_2\rangle$ of snapshots
+    displayed by $V$ in response to the player pressing keys encoded by the agent's
+    actions. In response to an ROA-play $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ (where
+    each $o_i$ encodes $\langle s^i_1,s^i_2\rangle$), let $r_{n+1}=1$ if
+    $a_n=T(r_0,o'_0,a_0,\ldots,r_n,o'_n)$, where each $o'_i$ encodes
+    $m(s^i_1,s^i_2)$, otherwise let $r_{n+1}=-1$.
+\end{example}
+
+In Example \ref{binocularexample}, upon being presented a sequence of pairs of snapshots,
+the agent is incentivized to self-reflectively ask, ``Which action would I take if instead
+of observing those pairs of snapshots, I observed the 3-D model into which they
+stereographically fuse?
 
 \section{Meta-Examples}
 
