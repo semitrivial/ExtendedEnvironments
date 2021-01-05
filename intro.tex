@@ -160,6 +160,7 @@ memories of her past actions as well, regardless whether doing so is formally su
 
 
 \begin{definition}
+\label{interactiondefn}
     Suppose $T$ is an agent and $e$ is an extended environment.
     The \emph{result of $T$ interacting with $e$} is the infinite
     reward-observation-action sequence
@@ -177,6 +178,33 @@ memories of her past actions as well, regardless whether doing so is formally su
         \[\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1},r_i,o_i\rangle.\]
     \end{itemize}
 \end{definition}
+
+\begin{lemma}
+    For any agent $T$ and extended environment $e$, the result of $T$ interacting
+    with $e$ (Definition \ref{interactiondefn}) is defined (all of the computations
+    in question halt with the necessary outputs).
+\end{lemma}
+
+\begin{proof}
+    By a simultaneous induction:
+    \begin{itemize}
+        \item
+        Each $r_i$ and $o_i$ are defined (and $r_i\in\mathbb Q$
+        and $o_i\in\mathbb Q$) because, by induction,
+        $\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle$
+        is defined and is an ROA-play (because, inductively,
+        each $r_j\in\mathbb Q$, $o_j\in\mathbb N$ and $a_j\in\mathbb N$
+        for all $j<i$) and thus
+        $r_i$ and $o_i$ are defined with the correct form by
+        Definition \ref{agentandenvironment} (part 2).
+        \item
+        Each $a_i$ is defined (and $a_i\in\mathbb N$) because, by induction,
+        $\langle r_0,o_0,a_0,\ldots,r_i,o_i\rangle$
+        is defined and is an ROA-prompt (similar to the above) and thus
+        $a_i$ is defined with the correct form by Definition
+        \ref{agentandenvironment} (part 1).
+    \end{itemize}
+\end{proof}
 
 One important implication of extended environments is that they further divide
 the (already divided) ways of measuring intelligence of RL agents. Intelligence
