@@ -464,7 +464,33 @@ imagination and conclude with some more abstract examples.
 
 It has been suggested that the act of recognizing oneself in the mirror is linked
 to the development of certain parts of the human psychology
-\cite{lacan}.
+\cite{lacan}. Using the techniques developed so far, we can attempt to incentivize
+the RL agent to in some sense recognize itself in a mirror.
+
+\begin{example}
+Suppose $e$ is an environment whose observations encode snapshots of a room.
+Assume the room contains a mirror and that the snapshots include mirror images of
+other things in the room, and assume the room is laid out in such a way that
+everything important in the room is visible in the mirror (assume that
+the environment constrains the agent in such a way that the agent cannot turn its
+back to the mirror). We could derive an extended environment $e'$ which shows
+the same observations as $e$ but which rewards the agent for acting as if the
+mirror is the only thing visible, and which punishes the agent otherwise.
+To make this precise, for any ROA-prompt $p=(r_0,o_0,a_0,\ldots,r_n,o_n)$ produced
+by $e'$, and any action $T(p)=a_n$, we would say that ``$a_n$ is as if the mirror
+is the only thing visible'' if $T(p')=a_n$, where $p'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
+where each $o'_i$ is the restriction of $o_i$ to only the mirror.
+\end{example}
+
+To make this even more elaborate, the $o'_i$ in the above example could be further
+modified by adding an image of the agent's ``body'' into the mirror. For example,
+the agent's ``body'' shown in $o'_i$
+might be a visualization systematically derived from the steps which the Turing
+machine $T$ performed in the computation of $T(r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1})$.
+These steps would not be available to a traditional RL environment, but they are
+available to an extended environment because of the inclusion of $T$ itself as an
+argument passed to the extended environment.
+
 
 \section{Meta-Examples}
 
