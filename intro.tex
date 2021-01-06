@@ -530,7 +530,8 @@ agent to learn to view the world through binocular vision like a human.
     Suppose $V$ is a video game intended to be played on a virtual-reality headset,
     so at any moment during the game, $V$ produces two snapshots, one for the player's
     left eye, one for the player's right eye. Assume the player is constrained in $V$
-    so as never to be able to put their eyes into weird configurations (such as in
+    so as never to be able to put their eyes into weird configurations (such as
+    the weird configurations in
     \cite{gallagher2020third}): thus, at any moment, the two snapshots $s_1,s_2$
     which $V$ is
     displaying to the player are equivalent to a single 3-D matrix encoding
@@ -548,6 +549,70 @@ In Example \ref{binocularexample}, upon being presented a sequence of pairs of s
 the agent is incentivized to self-reflectively ask, ``Which action would I take if instead
 of observing those pairs of snapshots, I observed the 3-D model into which they
 stereographically fuse?''
+
+\subsection{Nature and Nurture}
+
+\begin{quote}
+    ``If only one soul was created, and all human souls are descended from it,
+    who can say that he did not sin when Adam sinned?''---Augustine \cite{augustine1993free}
+\end{quote}
+
+How much of our personality is unique to us, and how much is common to all humans?
+Would I perform the same actions as you if I were exposed to the exact same stimuli as
+you all my life? Probably not, because our bodies are different; but in what sense are
+we our bodies, and in what sense are our bodies part of our environment?
+The following example is motivated by contemplating the possibility that maybe we all
+run the same software on some deep level.
+
+\begin{example}
+    (The Crying Baby)
+    We define an extended environment $e$ as follows.
+    \begin{itemize}
+        \item
+        Considered as actions taken by an adult
+        (and also as observations seen by a baby), let $0$ denote ``feed the baby''
+        and let all naturals $>0$ denote ``don't feed the baby''.
+        \item
+        Considered as actions taken by a baby
+        (and also as observations seen by an adult), let $0$ denote ``giggle'' and let
+        all naturals $>0$ denote ``cry''.
+        \item
+        We define a function $s$, which stands for \emph{satiation}, defined on
+        ROA-plays, by $s(p)=100+25f(p)-\mbox{len}(p)$ where $f(p)$ is the number of
+        times that the action ``feed the baby'' is taken in $p$.
+        \item
+        Let $e(T,\langle\rangle)=\langle 1,\mbox{``giggle''}\rangle$.
+        \item
+        For each ROA-play $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle$,
+        let
+        \[
+            e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)
+            =
+            \langle r,o\rangle
+        \]
+        where $r$ and $o$ are defined as follows.
+        For each $i=1,\ldots,n$, define
+        \begin{align*}
+            r'_i &=
+                \begin{cases}
+                    1 &
+                    \mbox{if
+                    $50\leq s(\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)\leq 200$,}\\
+                    -1 & \mbox{otherwise,}
+                \end{cases}\\
+            o'_i &= a_i\\
+            a'_i &= T(\langle r'_0,o'_0,a'_0,\ldots,r'_i,o'_i\rangle).
+        \end{align*}
+        Define $o=a'_n$ and
+        \[
+            r =
+            \begin{cases}
+                1 & \mbox{if $a'_n=\mbox{``giggle''}$,}\\
+                -1 &\mbox{if $a'_n=\mbox{``cry''}$.}
+            \end{cases}
+        \]
+    \end{itemize}
+\end{example}
 
 \section{Meta-Examples}
 
