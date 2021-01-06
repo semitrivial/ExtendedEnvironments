@@ -6,6 +6,7 @@ from GuardedTreasures import guarded_treasures
 from IgnoreRewards import ignore_rewards
 from SelfInsert import self_insert
 from DejaVu import deja_vu
+from CryingBaby import crying_baby
 
 def test_environment(env, env_name):
     for agent_name in agents.keys():
@@ -22,12 +23,17 @@ def test_guarded_treasures():
 def test_deja_vu():
     test_environment(deja_vu, "deja_vu")
 
+def test_crying_baby():
+    test_environment(crying_baby, "crying_baby")
+
 def test_ignore_rewards():
     test_environment(ignore_rewards(incentivize_zero), "ignore_rewards(incentivize_zero)")
     test_environment(ignore_rewards(guarded_treasures), "ignore_rewards(guarded_treasures)")
     test_environment(ignore_rewards(deja_vu), "ignore_rewards(deja_vu)")
+    test_environment(ignore_rewards(crying_baby), "ignore_rewards(crying_baby)")
 
 def test_self_insert():
     test_environment(self_insert(incentivize_zero), "self_insert(incentivize_zero)")
     test_environment(self_insert(guarded_treasures), "self_insert(guarded_treasures)")
     test_environment(self_insert(deja_vu), "self_insert(deja_vu)")
+    #test_environment(self_insert(crying_baby), "self_insert(crying_baby)")
