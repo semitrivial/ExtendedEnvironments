@@ -443,6 +443,33 @@ rewards, if possible, when its clone takes action $0$. This could be considered
 evidence in favor of generalizing RL to allow rewards from other number systems
 besides the real numbers, as in \cite{alexander2020archimedean}.}.
 
+\begin{example}
+\label{dejavuexample}
+    (D\'{e}j\`{a} Vu)
+    We define an environment $e$ as follows
+    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
+    and with similar non-halting caveats
+    as Example \ref{rewardagentforignoringrewardsexample}):
+    \begin{align*}
+        e(T,\langle\rangle) &= \langle 0,0\rangle\\
+        e(T,p\frown a) &= \langle r,0\rangle\\
+    \end{align*}
+    where
+    \[
+        r =
+        \begin{cases}
+            1 & \mbox{if $T(p\frown a\frown p)=a$},\\
+            -1 & \mbox{if $T(p\frown a\frown p)\not=a$}.
+        \end{cases}
+    \]
+\end{example}
+
+In Example \ref{dejavuexample},
+the agent is incentivized to self-reflect and ask: ``Which action
+would I take in order to ensure that I would take that same action if everything
+which has happened so far were to repeat itself verbatim?''
+
+
 Many other interesting examples could be given. For example, an extended environment
 could reward agents based on how long (or how much memory)
 they use to compute each action\footnote{In some sense, by giving the environment
