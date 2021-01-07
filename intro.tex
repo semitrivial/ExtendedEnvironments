@@ -257,19 +257,15 @@ traditional RL environments \cite{bellemare2013arcade}
     (Reward Agent for Ignoring Rewards)
     For each ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
     all rewards are $0$.
-    For any environment $e$, we define a new environment
-    $e'$ as follows
+    We define an extended environment $e$ as follows
     (where $T$ is a Turing machine, $p$ is an ROA-prompt, and $a\in \mathbb N$ is thought of as
     the agent's action in response to $p$):
     \begin{align*}
-        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
-        e'(T,p\frown a)
-        &= \langle r,o\rangle,
+        e(T,\langle\rangle) &= \langle 0,0\rangle\\
+        e(T,p\frown a)
+        &= \langle r,0\rangle,
     \end{align*}
-    where $o$ is the observation component of
-    $e(T,p\frown a)$ (if $e$ does not halt on input $\langle T,p\frown a\rangle$
-    (resp.\ $\langle T,\langle\rangle\rangle$)
-    then neither does $e'$) and
+    where
     \[
         r =
         \begin{cases}
@@ -295,30 +291,26 @@ rewards had been zero?''
 \end{lemma}
 
 \begin{proof}
-    Fix an environment $e$ and let $e'$ be as in
+    Let $e$ be as in
     Example \ref{rewardagentforignoringrewardsexample}.
-    We must show $e'$ is an extended environment (Definition \ref{agentandenvironment}
+    We must show $e$ is an extended environment (Definition \ref{agentandenvironment}
     part 2). We must show that for each agent $T$ and ROA-play $s$,
-    $e'$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
+    $e$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
     such that $r\in\mathbb Q$ and $o\in\mathbb N$.
 
-    \textbf{Case 1:} $s=\langle\rangle$. Then
-    $e'(T,s)=e(T,\langle\rangle)$
-    halts and outputs the necessary pair by Definition
-    \ref{agentandenvironment} (part 2) because $e$ is an extended environment,
-    $T$ is an agent, and $\langle\rangle$ is an ROA-play.
+    \textbf{Case 1:} $s=\langle\rangle$. Then $e(T,s)$ halts with output
+    $\langle 0,0\rangle$, so $r=0\in\mathbb Q$ and $o=0\in\mathbb N$.
+
 
     \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
     $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
-    Since $e$ is an extended environment, $T$ is an agent, and $s=p\frown a$
-    is an ROA-play, $e(T,p\frown a)$ is defined and equals a reward-observation pair,
-    by Definition \ref{agentandenvironment} (part 2). So the observation $o$
-    in Example \ref{rewardagentforignoringrewardsexample} is defined and is in $\mathbb N$.
     Since $p$ is an ROA-prompt, clearly $p^0$ is also an ROA-prompt, therefore
     since $T$ is an agent, Definition \ref{agentandenvironment} (part 1)
     guarantees $T(p^0)$ is defined and is in $\mathbb N$. It follows that the reward
     $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is in
-    $\mathbb Q$.
+    $\mathbb Q$. And certainly the observation $0$ is in $\mathbb N$.
+    So $e(T,s)$ outputs a pair $\langle r,o\rangle$ meeting the necessary
+    requirements.
 \end{proof}
 
 For future examples, we will suppress the corresponding lemmas like
