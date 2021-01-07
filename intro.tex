@@ -246,13 +246,11 @@ measures which better capture agents' self-reflection abilities.
 
 \section{Examples of Self-reflection-incentivizing Environments}
 
-In this section, we give examples of some interesting extended environments which seem
+In this section, we give simple examples of interesting extended environments which seem
 to incentivize various forms of self-reflection. We are inspired by various libraries of
 traditional RL environments \cite{bellemare2013arcade}
 \cite{beyret2019animal} \cite{brockman2016openai} \cite{chollet2019measure}
-\cite{cobbe2020leveraging}. Some of our examples do not provide individual environments,
-but rather, procedures for obtaining new environments from old (these could be iterated,
-in order to build up environments incentivizing deeper and deeper nested self-reflection).
+\cite{cobbe2020leveraging}.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
@@ -348,51 +346,6 @@ if you were being paid \$1,000 per hour. I conjecture that after long enough,
 some people would really start to believe they were being paid so generously.
 
 \begin{example}
-\label{selfinsertionexample}
-    (Reward Agent for Self-Inserting)
-    Fix a canonical computable bijection
-    $o\mapsto \hat o$
-    from $\mathbb N$ to $\mathbb Q\times \mathbb N$:
-    thus, every observation $o$ encodes a reward-observation pair
-    $\hat o = \langle r',o'\rangle$, and every reward-observation pair
-    is encoded by some such $o$.
-    For any environment $e$, we define
-    a new environment $e'$ as follows
-    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
-    and with similar non-halting caveats
-    as Example \ref{rewardagentforignoringrewardsexample}):
-    \begin{align*}
-        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
-        e'(T,p\frown a) &= \langle r,o\rangle,
-    \end{align*}
-    where $o$ is such that $\hat o = e(T,p\frown a)$ and
-    \[
-        r =
-        \begin{cases}
-            1 & \mbox{if $a=T(p')$,}\\
-            -1 & \mbox{if $a\not=T(p')$}
-        \end{cases}
-    \]
-    where
-    $p'$ is the ROA-prompt obtained from $p$
-    by replacing each reward-observation pair
-    $\ldots,r_i,o_i,\ldots$ by the reward-observation
-    pair $\ldots,\widehat{o_i},\ldots$.
-\end{example}
-
-In Example \ref{selfinsertionexample}, one might imagine $e'$ as a room containing nothing
-but an arcade game $e$. There is nothing for the agent in the room to do
-except play this arcade game.
-When played, the arcade game
-visually displays rewards, but the agent merely observes them, and does not
-``feel'' them. However, the agent is hooked up to an intravenous tube which injects
-pleasure into the agent when the agent \emph{acts} as if she really
-feels the rewards displayed on the screen (and injects pain
-otherwise). In this way, the agent is incentivized
-to self-identify with the protagonist in the video-game, self-reflexively asking,
-``Which action would I take if those displayed rewards were real?''
-
-\begin{example}
 \label{incentivetoincentivizeexample}
     (Incentive to Incentivize)
     We define an environment $e$ as follows
@@ -486,6 +439,58 @@ own internal signals. Thus, extended environments seem to generalize the idea of
 agents modified to manually predict their own internal signals, as in
 \cite{sherstan2016introspective}.}. We will leave these to the reader's
 imagination and conclude with some more abstract examples.
+
+\section{New environments from old}
+
+We will now give some examples of procedures for obtaining new environments from old.
+These procedures could be iterated (just like layers of a neural network),
+in order to build up environments incentivizing deeper and deeper nested self-reflection.
+
+\begin{example}
+\label{selfinsertionexample}
+    (Reward Agent for Self-Inserting)
+    Fix a canonical computable bijection
+    $o\mapsto \hat o$
+    from $\mathbb N$ to $\mathbb Q\times \mathbb N$:
+    thus, every observation $o$ encodes a reward-observation pair
+    $\hat o = \langle r',o'\rangle$, and every reward-observation pair
+    is encoded by some such $o$.
+    For any environment $e$, we define
+    a new environment $e'$ as follows
+    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
+    and with similar non-halting caveats
+    as Example \ref{rewardagentforignoringrewardsexample}):
+    \begin{align*}
+        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
+        e'(T,p\frown a) &= \langle r,o\rangle,
+    \end{align*}
+    where $o$ is such that $\hat o = e(T,p\frown a)$ and
+    \[
+        r =
+        \begin{cases}
+            1 & \mbox{if $a=T(p')$,}\\
+            -1 & \mbox{if $a\not=T(p')$}
+        \end{cases}
+    \]
+    where
+    $p'$ is the ROA-prompt obtained from $p$
+    by replacing each reward-observation pair
+    $\ldots,r_i,o_i,\ldots$ by the reward-observation
+    pair $\ldots,\widehat{o_i},\ldots$.
+\end{example}
+
+In Example \ref{selfinsertionexample}, one might imagine $e'$ as a room containing nothing
+but an arcade game $e$. There is nothing for the agent in the room to do
+except play this arcade game.
+When played, the arcade game
+visually displays rewards, but the agent merely observes them, and does not
+``feel'' them. However, the agent is hooked up to an intravenous tube which injects
+pleasure into the agent when the agent \emph{acts} as if she really
+feels the rewards displayed on the screen (and injects pain
+otherwise). In this way, the agent is incentivized
+to self-identify with the protagonist in the video-game, self-reflexively asking,
+``Which action would I take if those displayed rewards were real?''
+
 
 \section{Some more ambitious examples}
 
