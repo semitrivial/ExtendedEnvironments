@@ -392,6 +392,31 @@ thinking, ``How would I respond if everything that has happened so far actually
 happened in reverse?'' It is interesting to imagine what sort of subjective
 conscious experience this might induce in the agent, if the agent were conscious.
 
+\begin{example}
+\label{dejavuexample}
+    (D\'{e}j\`{a} Vu)
+    We define an environment $e$ as follows
+    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
+    and with similar non-halting caveats
+    as Example \ref{rewardagentforignoringrewardsexample}):
+    \begin{align*}
+        e(T,\langle\rangle) &= \langle 0,0\rangle\\
+        e(T,p\frown a) &= \langle r,0\rangle\\
+    \end{align*}
+    where
+    \[
+        r =
+        \begin{cases}
+            1 & \mbox{if $T(p\frown a\frown p)=a$},\\
+            -1 & \mbox{if $T(p\frown a\frown p)\not=a$}.
+        \end{cases}
+    \]
+\end{example}
+
+In Example \ref{dejavuexample},
+the agent is incentivized to self-reflect and ask: ``Which action
+would I take in order to ensure that I would take that same action if everything
+which has happened so far were to repeat itself verbatim?''
 
 \begin{example}
 \label{incentivetoincentivizeexample}
@@ -452,32 +477,6 @@ rewards, if possible, when its clone takes action $0$. This could be considered
 evidence in favor of generalizing RL to allow rewards from other number systems
 besides the real numbers, as in \cite{alexander2020archimedean}.}.
 
-\begin{example}
-\label{dejavuexample}
-    (D\'{e}j\`{a} Vu)
-    We define an environment $e$ as follows
-    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
-    and with similar non-halting caveats
-    as Example \ref{rewardagentforignoringrewardsexample}):
-    \begin{align*}
-        e(T,\langle\rangle) &= \langle 0,0\rangle\\
-        e(T,p\frown a) &= \langle r,0\rangle\\
-    \end{align*}
-    where
-    \[
-        r =
-        \begin{cases}
-            1 & \mbox{if $T(p\frown a\frown p)=a$},\\
-            -1 & \mbox{if $T(p\frown a\frown p)\not=a$}.
-        \end{cases}
-    \]
-\end{example}
-
-In Example \ref{dejavuexample},
-the agent is incentivized to self-reflect and ask: ``Which action
-would I take in order to ensure that I would take that same action if everything
-which has happened so far were to repeat itself verbatim?''
-
 Many other interesting examples could be given. For example, an extended environment
 could reward agents based on how long (or how much memory)
 they use to compute each action\footnote{In some sense, by giving the environment
@@ -487,7 +486,7 @@ agents modified to manually predict their own internal signals, as in
 \cite{sherstan2016introspective}.}. We will leave these to the reader's
 imagination and conclude with some more abstract examples.
 
-\section{New environments from old}
+\section{New extended environments from old}
 
 In this section, we will discuss ways of obtaining new environments from old.
 These procedures could be iterated (just like layers of a neural network),
@@ -528,7 +527,7 @@ from $e$ are not changed).
     version $e'=e*h$ of $e$ modified to incentivize the corresponding type of self-reflection.
     \begin{itemize}
         \item
-        Handicapping $e$ using Example \ref{rewardagentforignoringrewardsexample}
+        Modifying $e$ using Example \ref{rewardagentforignoringrewardsexample}
         (``Reward Agent for Ignoring Rewards'')
         yields a version of $e$ where the agent is penalized for taking actions in
         response to nonzero rewards. The agent is incentivized to strategically
@@ -537,7 +536,7 @@ from $e$ are not changed).
         action which wins a large enough reward from $e$ to make up for said
         penalties.
         \item
-        Handicapping $e$ using Example \ref{falsememoryexample}
+        Modifying $e$ using Example \ref{falsememoryexample}
         (``False Memories'') yields a version of $e$ where the agent is penalized
         whenever it acts inconsistently with a fictitious history. The agent is
         incentivized to strategically choose when to act so inconsistently so that
@@ -547,9 +546,38 @@ from $e$ are not changed).
         with lifelong friendship) during a time of small need, so as to be able to
         swoop in and save the day (an action consistent with lifelong friendship)
         during a time of great need.
+        \item
+        Modifying $e$ using Example \ref{backwardexample}
+        (``Backward Consciousness'') would yield a version of $e$
+        where the agent must act as if time is reversed, or else suffer punishment.
+        The agent can strategically choose to accept some punishment, acting other
+        than it would act if time really were reversed, in order to get into a state
+        where subsequently acting as if time is reversed will yield more reward.
+        \item
+        Modifying $e$ using Example \ref{dejavuexample} (``D\'{e}j\`{a} Vu'')
+        would yield a version of $e$ where the agent is incentivized
+        (at pain of punishment) to act as if
+        everything (including said action) had all happened before.
+        The agent can strategically choose to not so act (thus suffering some
+        pain) in order to get to a state where it is easier to so act and
+        to gain rewards from $e$ by so acting.
+        \item
+        Modifying $e$ using Example \ref{incentivetoincentivizeexample}
+        (``Incentive to Incentivize'') would yield an environment in which
+        the agent watches a copy of itself interacting with $e$, and has to
+        guide that copy by choosing rewards to give to it, in such a
+        way as to incentivize the copy to take prescribed actions. When the copy
+        takes the prescribed actions, the true agent enjoys whatever rewards
+        $e$ would give for those actions. The agent can strategically guide the
+        copy to take non-prescribed actions (this will cause the agent to suffer
+        pain), so as to get the copy into a position where subsequently taking
+        prescribed actions will yield more reward.
     \end{itemize}
 \end{example}
 
+So far, in all our examples, observations have either been $0$ or else have been
+imported without modification from an initial environment. In the next example,
+we will finally make some nontrivial usage of observations.
 
 \begin{example}
 \label{selfinsertionexample}
