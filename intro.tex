@@ -250,7 +250,10 @@ In this section, we give simple examples of interesting extended environments wh
 to incentivize various forms of self-reflection. We are inspired by various libraries of
 traditional RL environments \cite{bellemare2013arcade}
 \cite{beyret2019animal} \cite{brockman2016openai} \cite{chollet2019measure}
-\cite{cobbe2020leveraging}.
+\cite{cobbe2020leveraging}. All the environments in this section have a certain special
+form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
+This is intentional: in the next section, this uniformity will allow all these examples
+to be generalized.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
@@ -300,7 +303,6 @@ rewards had been zero?''
 
     \textbf{Case 1:} $s=\langle\rangle$. Then $e(T,s)$ halts with output
     $\langle 0,0\rangle$, so $r=0\in\mathbb Q$ and $o=0\in\mathbb N$.
-
 
     \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
     $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
