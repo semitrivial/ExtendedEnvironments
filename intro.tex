@@ -338,6 +338,34 @@ if you were being paid \$1,000 per hour. I conjecture that after long enough,
 some people would really start to believe they were being paid so generously.
 
 \begin{example}
+\label{falsememoryexample}
+    (False Memories)
+    Suppose $p_0$ is any ROA-play. We define an extended environment
+    $e$ as follows.
+    \begin{align*}
+        e(T,\langle\rangle) &= \langle 0,0\rangle,\\
+        e(T,p\frown a) &= \langle r,0\rangle,
+    \end{align*}
+    where
+    \[
+        r=
+        \begin{cases}
+            1 &\mbox{if $a=T(p_0\frown p)$,}\\
+            -1 &\mbox{if $a\not=T(p_0\frown p)$}.
+        \end{cases}
+    \]
+\end{example}
+
+In Example \ref{falsememoryexample}, the agent is incentivized to self-reflect,
+thinking: ``What would I do if, before this environment started, such-and-such
+other things happened beforehand?'' If a stranger hired you to act like their lifelong
+friend, you probably wouldn't be sincere in your acting. But if said stranger could
+perfectly simulate you in order to base your pay on your acting like you \emph{really
+would} act if you were their lifelong friend, then you would be incentivized to
+find a way to remember being their lifelong friend, whether those memories are true
+or not.
+
+\begin{example}
 \label{incentivetoincentivizeexample}
     (Incentive to Incentivize)
     We define an environment $e$ as follows
@@ -421,7 +449,6 @@ In Example \ref{dejavuexample},
 the agent is incentivized to self-reflect and ask: ``Which action
 would I take in order to ensure that I would take that same action if everything
 which has happened so far were to repeat itself verbatim?''
-
 
 Many other interesting examples could be given. For example, an extended environment
 could reward agents based on how long (or how much memory)
