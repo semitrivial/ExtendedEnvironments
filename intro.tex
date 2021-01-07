@@ -245,6 +245,7 @@ be extended to also take extended environments into account, perhaps providing
 measures which better capture agents' self-reflection abilities.
 
 \section{Examples of Self-reflection-incentivizing Environments}
+\label{basicexamplessection}
 
 In this section, we give simple examples of interesting extended environments which seem
 to incentivize various forms of self-reflection. We are inspired by various libraries of
@@ -488,9 +489,67 @@ imagination and conclude with some more abstract examples.
 
 \section{New environments from old}
 
-We will now give some examples of procedures for obtaining new environments from old.
+In this section, we will discuss ways of obtaining new environments from old.
 These procedures could be iterated (just like layers of a neural network),
 in order to build up environments incentivizing deeper and deeper nested self-reflection.
+First, we will generalize the examples from Section \ref{basicexamplessection}.
+
+\begin{definition}
+    \begin{enumerate}
+        \item
+        An extended environment is \emph{merciful} if it never outputs negative rewards.
+        \item
+        By a \emph{handicap}, we mean an extended environment which always outputs $0$ as
+        observation and always outputs either $1$ or $-1$ as reward.
+        \item
+        If $e$ is a merciful environment and $h$ is a handicap,
+        we define a new environment $e*h$ as follows:
+        \[
+            (e*h)(T,p) =
+            \begin{cases}
+                \langle r_e, o_e\rangle &\mbox{if $r_h=1$,}\\
+                \langle -1, o_e\rangle &\mbox{if $r_h=-1$,},
+            \end{cases}
+        \]
+        where $e(T,p)=\langle r_e,o\rangle$ and $h(T,p)=\langle r_h,0\rangle$.
+    \end{enumerate}
+\end{definition}
+
+Intuitively, $e*h$ is just like $e$ except that $h$ imposes an additional constraint
+on the agent. Any time the agent violates that constraint, the agent is punished,
+and forfeits any reward that would otherwise have been won from $e$. Aside from the
+pain caused by $h$, the agent otherwise perceives $e$ unaltered (that is, the observations
+from $e$ are not changed).
+
+\begin{example}
+    Each example in Section \ref{basicexamplessection} is a handicap.
+    For any merciful extended environment $e$, each example $h$ in
+    Section \ref{basicexamplessection} can be applied as a handicap, yielding a
+    version $e'=e*h$ of $e$ modified to incentivize the corresponding type of self-reflection.
+    \begin{itemize}
+        \item
+        Handicapping $e$ using Example \ref{rewardagentforignoringrewardsexample}
+        (``Reward Agent for Ignoring Rewards'')
+        yields a version of $e$ where the agent is penalized for taking actions in
+        response to nonzero rewards. The agent is incentivized to strategically
+        take non-bored actions (for which it receives small penalties) in order to
+        put itself in a position where its next bored action coincidentally is an
+        action which wins a large enough reward from $e$ to make up for said
+        penalties.
+        \item
+        Handicapping $e$ using Example \ref{falsememoryexample}
+        (``False Memories'') yields a version of $e$ where the agent is penalized
+        whenever it acts inconsistently with a fictitious history. The agent is
+        incentivized to strategically choose when to act so inconsistently so that
+        a later action, consistent with said false history, happens to win a large
+        reward from $e$. For example, the agent hired to act as a lifelong friend
+        might strategically choose to abandon its employer (an action inconsistent
+        with lifelong friendship) during a time of small need, so as to be able to
+        swoop in and save the day (an action consistent with lifelong friendship)
+        during a time of great need.
+    \end{itemize}
+\end{example}
+
 
 \begin{example}
 \label{selfinsertionexample}
