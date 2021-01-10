@@ -272,11 +272,11 @@ an agent's intelligence over those environments. The same measures could easily
 be extended to also take extended environments into account, perhaps providing
 measures which better capture agents' self-awareness and self-reflection abilities.
 
-\section{Examples of Self-reflection-incentivizing Environments}
+\section{Examples of Self-awareness-incentivizing Environments}
 \label{basicexamplessection}
 
 In this section, we give simple examples of interesting extended environments which seem
-to incentivize various forms of self-reflection. We are inspired by various libraries of
+to incentivize various forms of self-awareness. We are inspired by various libraries of
 traditional RL environments \cite{bellemare2013arcade}
 \cite{beyret2019animal} \cite{brockman2016openai} \cite{chollet2019measure}
 \cite{cobbe2020leveraging}. All the environments in this section have a certain special
@@ -305,7 +305,7 @@ to be generalized.
             -1 & \mbox{if $a\not=T(p^0)$}
         \end{cases}
     \]
-    (if $T$ does not halt on $p^0$ then $e'$ does not halt on
+    (if $T$ does not halt on $p^0$ then $e$ does not halt on
     $\langle T,p\frown a\rangle$).
 \end{example}
 
@@ -420,6 +420,9 @@ In Example \ref{backwardexample}, the agent is incentivized to self-reflect,
 thinking, ``How would I respond if everything that has happened so far actually
 happened in reverse?'' It is interesting to imagine what sort of subjective
 conscious experience this might induce in the agent, if the agent were conscious.
+Would the incentives eventually brainwash the agent into perceiving itself
+moving backward through time?
+
 
 \begin{example}
 \label{dejavuexample}
