@@ -1,14 +1,12 @@
-def ignore_rewards(base_env):
-    def modified_env(T, play):
-        if len(play) == 0:
-            return base_env(T, play)
-
-        prompt, action = play[:-1], play[-1]
-        _, obs = base_env(T, play)
-        reward = 1 if action == T(strip_rewards(prompt)) else -1
+def ignore_rewards(T, play):
+    if len(play) == 0:
+        reward, obs = 0, 0
         return [reward, obs]
 
-    return modified_env
+    prompt, action = play[:-1], play[-1]
+    reward = 1 if action == T(strip_rewards(prompt)) else -1
+    obs = 0
+    return [reward, obs]
 
 def strip_rewards(prompt):
     if len(prompt) < 3:

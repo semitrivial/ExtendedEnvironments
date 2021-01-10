@@ -27,10 +27,7 @@ def test_crying_baby():
     test_environment(crying_baby, "crying_baby")
 
 def test_ignore_rewards():
-    test_environment(ignore_rewards(incentivize_zero), "ignore_rewards(incentivize_zero)")
-    test_environment(ignore_rewards(guarded_treasures), "ignore_rewards(guarded_treasures)")
-    test_environment(ignore_rewards(deja_vu), "ignore_rewards(deja_vu)")
-    test_environment(ignore_rewards(crying_baby), "ignore_rewards(crying_baby)")
+    test_environment(ignore_rewards, "ignore_rewards")
 
 def test_self_insert():
     test_environment(self_insert(incentivize_zero), "self_insert(incentivize_zero)")
