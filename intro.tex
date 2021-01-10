@@ -60,20 +60,24 @@ and penalties eventually cause you to believe you were really being paid
 \$1,000 per hour?
 
 In this paper, we consider a deterministic variant of the reinforcement
-learning (RL) framework. We restrict our attention to deterministic environments and
-agents for the sake of simplicity, but the basic ideas would not be difficult to adapt
+learning (RL) framework. For sake of simplicity, we restrict our attention
+to deterministic environments and deterministic agents, but the basic idea
+would easily adapt
 to non-deterministic RL. RL agents are intended to interact with deterministic RL
 environments, where they take actions and receive rewards and observations in
 response to those actions.
 
 Traditionally, a deterministic RL environment is essentially a function
 $e$ which outputs a reward-observation pair
-$\langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ in response to an
-award-observation-action sequence $(a_0,\ldots,a_n)$.
+$\langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ in response to a
+reward-observation-action sequence $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$.
 However, there is another type of environment in which
 computable RL agents can interact just as well. Essentially, we define an \emph{extended
 environment} to be a function $e$ which outputs a reward-observation pair
-$\langle r,o\rangle=e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n \rangle)$ in response
+\[
+    \langle r,o\rangle=e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n \rangle)
+\]
+in response
 to a reward-observation-action sequence
 along with a Turing machine $T$ which computes the agent.
 Intuitively, this should be thought of as follows: when the agent enters the environment,
@@ -103,16 +107,14 @@ The above game would apparently be impossible (or prohibitively expensive)
 for a human to play, due to the difficulty of simulating a human player.
 But there is no reason why the above game could not be played by an RL agent (the
 agent's source-code being given to the game-engine beforehand). Clearly this kind of
-extended environment is not the kind of environment the RL agent is intended to be
-applied to and is not representative of the kind of environments RL agents are
-applied to\footnote{Such environments might, however, accidentally arise if both environment
+extended environment is not the sort of environment RL agents are traditionally
+intended to interact with\footnote{Such environments might, however,
+accidentally arise if both environment
 and agent are implemented on the same machine and the environment is managed by an AI
 sophisticated enough to exploit unintended informational side channels, as in
 \cite{yampolskiy2012leakproofing}.}. However, such environments could be
 useful on the path to Artificial
-General Intelligence (AGI) because they seem to incentivize self-reflection: in order
-to perform well across many games like the above, the player would evidently need
-some degree of self-awareness.
+General Intelligence (AGI) because they seem to incentivize self-awareness.
 
 One might try to imitate an extended environment with a traditional environment by
 backtracking---rewinding the environment itself to a prior state after seeing how the
@@ -124,11 +126,11 @@ the agent to determine what the agent would do if sent along the first path.
 
 We will give examples of interesting
 extended environments of the above kind, designed to incentivize RL agents to
-recursively engage in self-reflection in various ways.
+recursively engage in self-awareness in various ways.
 We conjecture that traditional RL agents would perform poorly in these extended
 environments, because traditional RL techniques do not involve any sort of
-self-reflection. We hope these examples will facilitate
-new RL techniques that do involve self-reflection, hopefully as a step toward AGI.
+self-awareness. We hope these examples will facilitate
+new RL techniques that do involve self-awareness, hopefully as a step toward AGI.
 
 \section{Preliminaries}
 
