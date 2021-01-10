@@ -22,14 +22,16 @@ def decode_observations(prompt):
 
 hat_dict = {}
 reverse_hat_dict = {}
-
+counter = 0
 def reverse_hat(x, y):
-    if not((x,y) in reverse_hat_dict):
-        counter = len(reverse_hat_dict)
+    global counter
+    if (x,y) in reverse_hat_dict:
+        return reverse_hat_dict[(x,y)]
+    else:
         reverse_hat_dict[(x,y)] = counter
         hat_dict[counter] = [x,y]
-
-    return reverse_hat_dict[(x,y)]
+        counter += 1
+        return reverse_hat_dict[(x,y)]
 
 def hat(n):
     return hat_dict[n]
