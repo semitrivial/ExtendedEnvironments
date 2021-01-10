@@ -373,7 +373,9 @@ some people would really start to believe they were being paid so generously.
 \label{falsememoryexample}
     (False Memories)
     Suppose $p_0$ is any ROA-play. We define an extended environment
-    $e$ as follows.
+    $e$ as follows
+    (with similar non-halting caveats as
+    Example \ref{rewardagentforignoringrewardsexample}):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle,\\
         e(T,p\frown a) &= \langle r,0\rangle,
@@ -396,6 +398,9 @@ perfectly simulate you in order to base your pay on your acting like you \emph{r
 would} act if you were their lifelong friend, then you would be incentivized to
 find some way to make yourself remember being their lifelong friend, despite never
 having been.
+
+Henceforth, we will not explicitly mention the non-halting caveats in the following
+examples.
 
 \begin{example}
 \label{backwardexample}
@@ -427,10 +432,7 @@ moving backward through time?
 \begin{example}
 \label{dejavuexample}
     (D\'{e}j\`{a} Vu)
-    We define an environment $e$ as follows
-    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
-    and with similar non-halting caveats
-    as Example \ref{rewardagentforignoringrewardsexample}):
+    We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
         e(T,p\frown a) &= \langle r,0\rangle\\
@@ -453,11 +455,7 @@ which has happened so far were to repeat itself verbatim?''
 \begin{example}
 \label{incentivetoincentivizeexample}
     (Incentive to Incentivize)
-    We define an environment $e$ as follows
-    (where $T$ is a Turing machine and $r_0,o_0,a_0,\ldots,r_n,o_n,a_n$
-    is an ROA-play,
-    with similar non-halting caveats as in
-    Example \ref{rewardagentforignoringrewardsexample}).
+    We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0, 0\rangle\\
         e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle) &= \langle r, 0\rangle,
@@ -467,7 +465,7 @@ which has happened so far were to repeat itself verbatim?''
         r =
         \begin{cases}
             1 & \mbox{if $T(p')=0$},\\
-            0 & \mbox{if $T(p')\not=0$}
+            -1 & \mbox{if $T(p')\not=0$}
         \end{cases}
     \]
     where $p'$ is the ROA-prompt $(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
@@ -476,53 +474,49 @@ which has happened so far were to repeat itself verbatim?''
     $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
 \end{example}
 
-In Example \ref{incentivetoincentivizeexample}, the agent observes
-actions, and the agent must act by
-choosing rewards for those observed actions.
-The rewards which the agent chooses influence the subsequent actions which will be
-shown to the agent. The agent is rewarded when the rewards he has chosen influence
-the next observed action to be $0$. Unknown to the agent---but an intelligent
-self-aware agent should eventually notice the pattern---the way the observed actions
-are determined is by giving the agent's chosen rewards to a simulated copy of said agent.
+In Example \ref{incentivetoincentivizeexample}, the agent is tasked with choosing
+rewards in such a way that if those rewards were fed to a simulated copy of the agent,
+then the simulated copy would take action $0$.
 Thus, the agent is incentivized to choose rewards by self-reflecting:
-``Which reward would do the best job of compelling me to take action $0$ as often
+``Which rewards would do the best job of compelling me to take action $0$ as often
 as possible?'' We might imagine the agent playing a video-game in which he sees himself
 in front of a keyboard. The video-game copy-agent types
-``$100$'', and then a prompt appears on the screen saying, ``Which reward will you give this
+``$100$'', the true agent is punished because $100\not=0$,
+and then a message appears on the screen saying, ``Which reward will you give this
 worker for typing $100$ just now?'' The
 agent responds by choosing some reward, and sees an animation
 of the reward being given to the video-game copy-agent. The video-game copy-agent
 then types ``$0$'', and immediately the true agent is rewarded for getting the video-game
-copy-agent to type $0$. Then the prompt appears, saying, ``Which reward will you give this
+copy-agent to type $0$. Then a message appears, saying, ``Which reward will you give this
 worker for typing $0$ just now?'' And so on
 forever\footnote{Example \ref{incentivetoincentivizeexample}
 is interesting in that the agent, desiring the clone to take action $0$
-as often as possible, is incentivized to choose harsh punishments when the clone takes
-nonzero actions.
-If punishments are limited to $\mathbb Q$, then the agent faces a dilemma
+as often as possible, is incentivized to choose large rewards when the clone takes
+action $0$.
+If rewards are limited to $\mathbb Q$, then the agent faces a dilemma
 similar to one in RL cancer treatment applications.
 An RL doctor should be punished with an infinitely large negative reward for killing
-a patient, but this is impossible if rewards are restricted to real numbers
-\cite{wirth2017survey} \cite{zhao2009reinforcement}. Similarly, the agent in Example
-\ref{incentivetoincentivizeexample} would probably like to choose infinitely large
-rewards, if possible, when its clone takes action $0$. This could be considered
+a patient, but this is impossible if rewards are restricted to rational
+(or even real) numbers
+\cite{wirth2017survey} \cite{zhao2009reinforcement}. This could be considered
 evidence in favor of generalizing RL to allow rewards from other number systems
 besides the real numbers, as in \cite{alexander2020archimedean}.}.
 
 Many other interesting examples could be given. For example, an extended environment
-could reward agents based on how long (or how much memory)
+could reward agents based on how many steps (or how much memory)
 they use to compute each action\footnote{In some sense, by giving the environment
 access to the agent's source-code, we allow the environment to reflect the agent's
 own internal signals. Thus, extended environments seem to generalize the idea of
 agents modified to manually predict their own internal signals, as in
-\cite{sherstan2016introspective}.}. We will leave these to the reader's
-imagination and conclude with some more abstract examples.
+\cite{sherstan2016introspective}.};
+we do not intend the list of examples in this paper to be exhaustive.
+We will now discuss how all the examples in this section can be generalized.
 
 \section{New extended environments from old}
 
 In this section, we will discuss ways of obtaining new environments from old.
 These procedures could be iterated (just like layers of a neural network),
-in order to build up environments incentivizing deeper and deeper nested self-reflection.
+in order to build up environments incentivizing deeper and deeper nested self-awareness.
 First, we will generalize the examples from Section \ref{basicexamplessection}.
 
 \begin{definition}
@@ -534,7 +528,7 @@ First, we will generalize the examples from Section \ref{basicexamplessection}.
         By a \emph{handicap}, we mean an extended environment which always outputs $0$ as
         observation and always outputs either $1$ or $-1$ as reward.
         \item
-        If $e$ is a merciful environment and $h$ is a handicap,
+        If $e$ is a merciful extended environment and $h$ is a handicap,
         we define a new environment $e*h$ as follows:
         \[
             (e*h)(T,p) =
@@ -550,14 +544,14 @@ First, we will generalize the examples from Section \ref{basicexamplessection}.
 Intuitively, $e*h$ is just like $e$ except that $h$ imposes an additional constraint
 on the agent. Any time the agent violates that constraint, the agent is punished,
 and forfeits any reward that would otherwise have been won from $e$. Aside from the
-pain caused by $h$, the agent otherwise perceives $e$ unaltered (that is, the observations
+pain caused by $h$, the agent otherwise observes $e$ unaltered (that is, the observations
 from $e$ are not changed).
 
 \begin{example}
     Each example in Section \ref{basicexamplessection} is a handicap.
     For any merciful extended environment $e$, each example $h$ in
     Section \ref{basicexamplessection} can be applied as a handicap, yielding a
-    version $e'=e*h$ of $e$ modified to incentivize the corresponding type of self-reflection.
+    version $e'=e*h$ of $e$ modified to incentivize the corresponding type of self-awareness.
     \begin{itemize}
         \item
         Modifying $e$ using Example \ref{rewardagentforignoringrewardsexample}
@@ -589,7 +583,7 @@ from $e$ are not changed).
         \item
         Modifying $e$ using Example \ref{dejavuexample} (``D\'{e}j\`{a} Vu'')
         would yield a version of $e$ where the agent is incentivized
-        (at pain of punishment) to act as if
+        to act as if
         everything (including said action) had all happened before.
         The agent can strategically choose to not so act (thus suffering some
         pain) in order to get to a state where it is easier to so act and
@@ -600,8 +594,8 @@ from $e$ are not changed).
         the agent watches a copy of itself interacting with $e$, and has to
         guide that copy by choosing rewards to give to it, in such a
         way as to incentivize the copy to take prescribed actions. When the copy
-        takes the prescribed actions, the true agent enjoys whatever rewards
-        $e$ would give for those actions. The agent can strategically guide the
+        takes the prescribed action, the true agent enjoys whatever rewards
+        $e$ would give for that action. The agent can strategically guide the
         copy to take non-prescribed actions (this will cause the agent to suffer
         pain), so as to get the copy into a position where subsequently taking
         prescribed actions will yield more reward.
@@ -610,7 +604,10 @@ from $e$ are not changed).
 
 So far, in all our examples, observations have either been $0$ or else have been
 imported without modification from an initial environment. In the next example,
-we will finally make some nontrivial usage of observations.
+we will finally make some nontrivial usage of observations. Using carefully chosen
+observations, we will incentivize the agent, who might be thought of as
+controlling a character on a video-game screen,
+to ``suspend disbelief'' and act as if actually being that character.
 
 \begin{example}
 \label{selfinsertionexample}
@@ -622,10 +619,7 @@ we will finally make some nontrivial usage of observations.
     $\hat o = \langle r',o'\rangle$, and every reward-observation pair
     is encoded by some such $o$.
     For any environment $e$, we define
-    a new environment $e'$ as follows
-    (where $T,p,a$ are as in Example \ref{rewardagentforignoringrewardsexample},
-    and with similar non-halting caveats
-    as Example \ref{rewardagentforignoringrewardsexample}):
+    a new environment $e'$ as follows:
     \begin{align*}
         e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
         e'(T,p\frown a) &= \langle r,o\rangle,
