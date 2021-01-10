@@ -1,37 +1,31 @@
+from util import (cantor_pairing_fnc, inverse_cantor_pairing_fnc,
+    natural_to_rational, rational_to_natural
+)
+
 def self_insert(base_env):
     def modified_env(T, play):
         if len(play) == 0:
             return base_env(T, play)
 
-        reward0, obs0 = base_env(T, play)
-        obs = reverse_hat(reward0, obs0)
+        obs = reverse_hat(*base_env(T, play))
         prompt, action = play[:-1], play[-1]
-        inner_prompt = decode_observations(prompt)
+        inner_prompt = decode_rewards(prompt)
         reward = 1 if action == T(inner_prompt) else -1
         return [reward, obs]
 
     return modified_env
 
-def decode_observations(prompt):
+def decode_rewards(prompt):
     if len(prompt) < 3:
         _, obs = prompt
         return hat(obs)
     else:
         _, obs, action = prompt[0:3]
-        return hat(obs) + [action] + decode_observations(prompt[3:])
+        return hat(obs) + [action] + decode_rewards(prompt[3:])
 
-hat_dict = {}
-reverse_hat_dict = {}
-counter = 0
-def reverse_hat(x, y):
-    global counter
-    if (x,y) in reverse_hat_dict:
-        return reverse_hat_dict[(x,y)]
-    else:
-        reverse_hat_dict[(x,y)] = counter
-        hat_dict[counter] = [x,y]
-        counter += 1
-        return reverse_hat_dict[(x,y)]
+def hat(obs):
+    a, b = inverse_cantor_pairing_fnc(obs)
+    return [natural_to_rational(a), b]
 
-def hat(n):
-    return hat_dict[n]
+def reverse_hat(reward, obs):
+    return cantor_pairing_fnc(rational_to_natural(reward), obs)

@@ -41,4 +41,4 @@ def test_self_insert():
     test_environment(self_insert(incentivize_zero), "self_insert(incentivize_zero)")
     test_environment(self_insert(guarded_treasures), "self_insert(guarded_treasures)")
     test_environment(self_insert(deja_vu), "self_insert(deja_vu)")
-    test_environment(self_insert(crying_baby), "self_insert(crying_baby)")
+    #test_environment(self_insert(crying_baby), "self_insert(crying_baby)")
