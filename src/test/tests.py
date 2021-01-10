@@ -7,6 +7,7 @@ from IgnoreRewards import ignore_rewards
 from SelfInsert import self_insert
 from DejaVu import deja_vu
 from CryingBaby import crying_baby
+from FalseMemories import false_memories
 
 def test_environment(env, env_name):
     for agent_name in agents.keys():
@@ -28,6 +29,9 @@ def test_crying_baby():
 
 def test_ignore_rewards():
     test_environment(ignore_rewards, "ignore_rewards")
+
+def test_false_memories():
+    test_environment(false_memories, "false_memories")
 
 def test_self_insert():
     test_environment(self_insert(incentivize_zero), "self_insert(incentivize_zero)")
