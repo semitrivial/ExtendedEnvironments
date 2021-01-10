@@ -695,8 +695,8 @@ argument passed to the extended environment.
 
 Humans seem to consciously perceive a three-dimensional model of their surrounding
 world, even though the raw data which we actually receive consists of two two-dimensional
-image feeds (one for each eye). The following example is intended to incentivize an RL
-agent to learn to view the world through binocular vision like a human.
+image-feeds (one for each eye). The following example is intended to incentivize an RL
+agent to learn to perceive the world through binocular vision like a human.
 
 \begin{example}
 \label{binocularexample}
@@ -720,8 +720,7 @@ agent to learn to view the world through binocular vision like a human.
 
 In Example \ref{binocularexample}, upon being presented a sequence of pairs of snapshots,
 the agent is incentivized to self-reflectively ask, ``Which action would I take if instead
-of observing those pairs of snapshots, I observed the 3-D model into which they
-stereographically fuse?''
+of observing those 2-D snapshot-pairs, I observed equivalent 3-D snapshot-singletons?''
 
 \subsection{Nature and Nurture}
 
@@ -753,7 +752,8 @@ run the same software on some deep level.
         \item
         We define a function $s$, which stands for \emph{satiation}, defined on
         ROA-plays, by $s(p)=100+25f(p)-\mbox{len}(p)$ where $f(p)$ is the number of
-        times that the action ``feed the baby'' is taken in $p$.
+        times that the action ``feed the baby'' is taken in $p$,
+        and $\mbox{len}(p)$ is the length of $p$.
         \item
         Let $e(T,\langle\rangle)=\langle 1,\mbox{``laugh''}\rangle$.
         \item
@@ -765,13 +765,13 @@ run the same software on some deep level.
             \langle r,o\rangle
         \]
         where $r$ and $o$ are defined as follows.
-        For each $i=1,\ldots,n$, define
+        For each $i=0,\ldots,n$, define
         \begin{align*}
             r'_i &=
                 \begin{cases}
                     1 &
                     \mbox{if
-                    $50\leq s(\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)\leq 200$,}\\
+                    $50\leq s(\langle r_0,o_0,a_0,\ldots,r_i,o_i,a_i\rangle)\leq 200$,}\\
                     -1 & \mbox{otherwise,}
                 \end{cases}\\
             o'_i &= a_i\\
@@ -794,13 +794,13 @@ who has inherited the agent's own source-code. Despite having the same
 internal source-code $T$ (``nature''), the agent and the baby behave
 differently because they perceive the environment differently (``nurture'').
 The baby's objective is to maintain satiation within a satisfying range,
-whereas the agent's objective is to avoid hearing the baby cry.
+whereas the agent's objective is to pacify the baby.
 
 Using the same basic idea, one could easily extend Example \ref{cryingbabyexample}
 into an example modelling an entire society of interacting people of different
-types, all sharing the same internal ``nature'' agent ($T$).
+types, all sharing the same internal ``nature'' ($T$).
 If the simulation were sophisticated enough, it would include different people
-receiving different educations, conditioning (``nurturing'') them to have different
+receiving different educations, ``nurturing'' them to have different
 personalities despite their common nature.
 
 \section{Examples involving self-recognition}
