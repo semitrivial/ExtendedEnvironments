@@ -809,9 +809,7 @@ personalities despite their common nature.
 \label{selfrecognitionexample}
     (Incentivizing Self-recognition)
     Let $p_0,p_1,\ldots$ be a canonical computable enumeration of all non-empty ROA-plays.
-    We define an environment $e$ as follows (where $T,p,a$
-    are as in Example \ref{rewardagentforignoringrewardsexample}, and with appropriate
-    non-halting caveats).
+    We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0, p_0\rangle\\
         e(T,p\frown a) &= \langle r, p_{n}\rangle
@@ -850,7 +848,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         (Supervised learning)
         Assume there is a canonical, computable function $f$ which transforms
         each RL agent $A$ into a supervised learning agent $f(A)$. By a \emph{supervised
-        learning trial} we mean quadruple $\langle L,T,I,p\rangle$ where $L$ is a finite set
+        learning trial} we mean a quadruple $\langle L,T,I,p\rangle$ where $L$ is a finite set
         of labels, $T$ is a sequence of images with labels from $L$ (a \emph{training set}),
         $I$ is an unlabeled image, and $p:L\to \mathbb Q\cap [0,1]$ is a function
         assigning to each label $\ell\in L$ a probability that $\ell$ is the correct label
@@ -911,7 +909,7 @@ I would make?'' or ``Does that mechanical knowing agent know the same things I k
 
 \section{A Meta Example}
 
-We will finish by giving an example in which the agent is incentivized to self-reflect
+In this section we will give an example in which the agent is incentivized to self-reflect
 on the subject of its own reinforcement learning performance.
 Recall that ZFC is the axiomatization of set theory which serves as the
 foundation of mathematics for almost all working mathematicians. The consequences of
@@ -945,8 +943,8 @@ there is a Turing machine which systematically enumerates all of them and nothin
     Let $X$ be a Turing machine which enumerates all triples
     $(T,e,R)$ as in Lemma \ref{provablerewardslemma}.
     Write $(T_0,e_0,R_0),(T_1,e_1,R_1),\ldots$ for the outputs of $X$.
-    Suppose $T$ is an agent and $p=\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle$
-    is an ROA-play.
+    Suppose $T$ is an agent and
+    $p$ is an ROA-play.
     Then $e$ will compute $e(T,p)$ as follows.
 
     Let $S=\{n\in\mathbb N\,:\,T_n=T\}$ be the set of indices of
@@ -958,6 +956,13 @@ there is a Turing machine which systematically enumerates all of them and nothin
     by $X$ in which the agent is $T$. Note that $e$ can compute $(T,e_{s_n},R_{s_n})$
     and $(T,e_{s_{n+1}},R_{s_{n+1}})$ by
     simply running $X$ as long as necessary.
+
+    If $p=\langle\rangle$ then let $e(T,p)=\langle 0, e_{s_0}\rangle$.
+    But assume $p\not=\langle\rangle$.
+    Write 
+    \[
+        p=\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle.
+    \]
 
     Considered as an action, let $0$ denote ``play the environment''
     and let each natural $>0$ denote ``do not play the environment''.
@@ -983,7 +988,7 @@ the agent chooses to ``not play the environment'', the agent gets reward $0$.
 The environments which are shown to the agent are exactly those environments such
 that ZFC determines which total reward the agent would receive thereby (this is
 what makes the whole exercise computable, because the consequences of ZFC are
-themselves computable). The agent is incentivized to self-reflect and think:
+themselves computably enumerable). The agent is incentivized to self-reflect and think:
 ``If I were to play the observed environment for all eternity, would I ultimately
 end up with a positive or a negative total reward?''
 
@@ -994,10 +999,10 @@ Example \ref{metaexample} could be made even more interesting if we changed the
 background reinforcement learning model to allow rewards from various non-Archimedean
 number systems. Those details, however, are beyond the scope of this paper.
 
-\section{Measuring self-reflection}
+\section{Measuring Self-awareness}
 
-As an application, self-reflection-incentivizing extended environments could be used
-to try and quantify the extent to which different RL agents are self-aware or capable
+As an application, self-awareness-incentivizing extended environments could be used
+to quantify the extent to which different RL agents are self-aware or capable
 of self-reflection. Measurements could either be concrete and practical and
 approximate, or theoretical and abstract and universal. The former could be useful
 for classifying specific concrete agents (whose source-code is available to us), the
