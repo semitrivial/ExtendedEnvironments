@@ -545,7 +545,12 @@ Intuitively, $e*h$ is just like $e$ except that $h$ imposes an additional constr
 on the agent. Any time the agent violates that constraint, the agent is punished,
 and forfeits any reward that would otherwise have been won from $e$. Aside from the
 pain caused by $h$, the agent otherwise observes $e$ unaltered (that is, the observations
-from $e$ are not changed).
+from $e$ are not changed). We require $e$ to be merciful in order that large negative
+rewards from $e$ do not confuse the intended incentive, for if the agent could avoid
+a reward even smaller than $-1$ by intentionally using the handicap, then it would not
+be much of a handicap in the everyday meaning of that word. The requirement that $e$ be
+merciful could be replaced by various weaker requirements if we revised the RL framework
+to allow infinitary rewards, as in \cite{alexander2020archimedean}.
 
 \begin{example}
     Each example in Section \ref{basicexamplessection} is a handicap.
