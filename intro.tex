@@ -505,7 +505,14 @@ evidence in favor of generalizing RL to allow rewards from other number systems
 besides the real numbers, as in \cite{alexander2020archimedean}.}.
 
 Many other interesting examples could be given. For example, an extended environment
-could reward agents based on how many steps (or how much memory)
+could reward agents based on how many steps\footnote{To quote
+Gavane, discussing problems with measuring intelligence of RL agents in traditional
+RL:
+``The problem is that the response-times-dependent performance of an agent
+is not properly reflected in [Hern{\'a}ndez-Orallo and Dowe's] intelligence test,
+since the simulated environments remain unaware of the response times of agents,
+with the result that the perceptions of an agent are still independent of its
+response times'' \cite{gavane}.} or how much memory
 they use to compute each action\footnote{In some sense, by giving the environment
 access to the agent's source-code, we allow the environment to reflect the agent's
 own internal signals. Thus, extended environments seem to generalize the idea of
