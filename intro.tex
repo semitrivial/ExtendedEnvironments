@@ -35,7 +35,7 @@ in reinforcement learning}
     hope they might serve to guide the development of self-aware reinforcement
     learning agents, as well as to help measure the degree to which existing
     reinforcement learning agents are or are not self-aware. We also speculate
-    about interesting subjective conscious experiences which
+    about subjective conscious experiences which
     might be incentivized in self-aware reinforcement learning agents
     placed within these extended environments.
 \end{abstract}
@@ -50,8 +50,8 @@ in reinforcement learning}
 What would you do if you were being paid \$100 per hour to act as if you were being
 paid \$1000 per hour? What if, in order to receive that \$100 every hour, you were
 required to act \emph{exactly} as you would act if you were really being paid
-\$1000 that hour---and if you did not so act, then instead of being
-paid \$100 that hour, you were penalized \$100 instead?
+\$1000 that hour---and if you did not so act, then you would be paid nothing that hour,
+and would be charged a \$100 penalty instead?
 This thought experiment would be hard to perform, because it would be hard for your
 employer to know how you would act if you really were being paid \$1000 per hour.
 But if your employer could simulate a perfect copy of you, then your employer could
@@ -59,40 +59,42 @@ perform the experiment perfectly. Over a long enough time, would those \$100 rew
 and penalties eventually cause you to believe you were really being paid
 \$1000 per hour?
 
-In this paper, we consider a deterministic variant of the reinforcement
-learning (RL) framework. For sake of simplicity, we restrict our attention
+This is a paper about reinforcement learning (RL).
+In RL, agents interact with environments, where they take actions and
+receive rewards and observations in response to those actions.
+For sake of simplicity, we restrict our attention
 to deterministic environments and deterministic agents, but the basic idea
 would easily adapt
-to non-deterministic RL. RL agents are intended to interact with deterministic RL
-environments, where they take actions and receive rewards and observations in
-response to those actions.
+to non-deterministic RL.
 
-Traditionally, a deterministic RL environment is essentially a function
+Although the details differ between authors, essentially,
+an RL environment is a Turing machine
 $e$ which outputs a reward-observation pair
 $\langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ in response to a
 reward-observation-action sequence $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$.
+An RL agent is a Turing machine $T$ which outputs an action
+$a=T(r_0,o_0,a_0,\ldots,r_0,o_0)$ in response to a
+reward-observation-action-$\cdots$-reward-observation sequence
+$(r_0,o_0,a_0,\ldots,r_0,o_0)$. There is an obvious way in which an
+RL agent can interact with an RL environment.
 However, there is another type of environment in which
-computable RL agents can interact just as well. Essentially, we define an \emph{extended
-environment} to be a function $e$ which outputs a reward-observation pair
+RL agents can interact just as well. We define an \emph{extended
+environment} to be a Turing machine $e$ which outputs a reward-observation pair
 \[
     \langle r,o\rangle=e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n \rangle)
 \]
 in response
 to a reward-observation-action sequence
-along with a Turing machine $T$ which computes the agent.
+along with an RL agent $T$.
 Intuitively, this should be thought of as follows: when the agent enters the environment,
 the environment is made aware of the agent's source-code, and can use that
 source-code to simulate the agent when computing rewards and observations.
 
 For example, imagine a game\footnote{This game bears some similarity to Newcomb's
-Paradox \cite{nozick1969newcomb}.} consisting of a
-labyrinth where the player wanders from
-room to room, each room containing a treasure, and most (but not all) rooms containing
+Paradox \cite{nozick1969newcomb}.} where the player wanders through rooms,
+each room containing a treasure, and most (but not all) rooms containing
 a guard.
 \begin{itemize}
-    \item
-    The player can only see one room at a time, and cannot look ahead into adjacent
-    rooms, nor visit the same room twice.
     \item
     In a room with no guard, the player can take the treasure, yielding a reward.
     \item
@@ -103,7 +105,7 @@ a guard.
     Otherwise, the guard allows the player to take the treasure (and the player is rewarded).
 \end{itemize}
 
-The above game would apparently be impossible (or prohibitively expensive)
+The above game would be impossible (or prohibitively expensive)
 for a human to play, due to the difficulty of simulating a human player.
 But there is no reason why the above game could not be played by an RL agent (the
 agent's source-code being given to the game-engine beforehand). Clearly this kind of
@@ -120,17 +122,17 @@ One might try to imitate an extended environment with a traditional environment 
 backtracking---rewinding the environment itself to a prior state after seeing how the
 agent performs along one path, and then sending the agent along a second path.
 But the agent itself would retain memory of the first path, and the agent's decisions
-along the second path might be altered by said memories, so the result would not be
+along the second path might be altered by said memories. Thus the result would not be
 the same as immediately sending the agent along the second path while secretly simulating
-the agent to determine what the agent would do if sent along the first path.
+the agent to determine what it would do if sent along the first path.
 
 We will give examples of interesting
-extended environments of the above kind, designed to incentivize RL agents to
+extended environments, designed to incentivize RL agents to
 recursively engage in self-awareness in various ways.
 We conjecture that traditional RL agents would perform poorly in these extended
-environments, because traditional RL techniques do not involve any sort of
+environments, because traditional RL techniques do not involve
 self-awareness. We hope these examples will facilitate
-new RL techniques that do involve self-awareness, hopefully as a step toward AGI.
+new self-aware RL techniques, hopefully as a step toward AGI.
 
 \section{Preliminaries}
 
