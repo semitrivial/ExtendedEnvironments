@@ -70,13 +70,18 @@ to non-deterministic RL.
 Although the details differ between authors, essentially,
 an RL environment is a Turing machine
 $e$ which outputs a reward-observation pair
-$\langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ in response to a
+\[
+  \langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)
+\]
+in response to a
 reward-observation-action sequence $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$.
 An RL agent is a Turing machine $T$ which outputs an action
-$a=T(r_0,o_0,a_0,\ldots,r_0,o_0)$ in response to a
-reward-observation-action-$\cdots$-reward-observation sequence
-$(r_0,o_0,a_0,\ldots,r_0,o_0)$. There is an obvious way in which an
-RL agent can interact with an RL environment.
+\[
+  a=T(r_0,o_0,a_0,\ldots,r_0,o_0)
+\]
+in response to a
+reward-observation-action-$\cdots$-reward-observation sequence.
+An RL agent can interact with an RL environment in an obvious way.
 However, there is another type of environment in which
 RL agents can interact just as well. We define an \emph{extended
 environment} to be a Turing machine $e$ which outputs a reward-observation pair
@@ -126,8 +131,8 @@ along the second path might be altered by said memories. Thus the result would n
 the same as immediately sending the agent along the second path while secretly simulating
 the agent to determine what it would do if sent along the first path.
 
-We will give examples of interesting
-extended environments, designed to incentivize RL agents to
+We will give examples of
+extended environments designed to incentivize RL agents to
 recursively engage in self-awareness in various ways.
 We conjecture that traditional RL agents would perform poorly in these extended
 environments, because traditional RL techniques do not involve
