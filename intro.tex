@@ -282,14 +282,14 @@ measures which better capture agents' self-awareness and self-reflection abiliti
 \section{Examples of Self-awareness-incentivizing Environments}
 \label{basicexamplessection}
 
-In this section, we give simple examples of interesting extended environments which seem
-to incentivize various forms of self-awareness. We are inspired by various libraries of
-traditional RL environments \cite{bellemare2013arcade}
+In this section, we give examples of extended environments which seem
+to incentivize various forms of self-awareness. We are inspired by libraries of
+traditional RL environments and other benchmarks \cite{bellemare2013arcade}
 \cite{beyret2019animal} \cite{brockman2016openai} \cite{chollet2019measure}
-\cite{cobbe2020leveraging}. All the environments in this section have a certain special
+\cite{cobbe2020leveraging}. All the environments in this section have a special
 form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
-This is intentional: in the next section, this uniformity will allow all these examples
-to be generalized.
+In Section \ref{newextendedenvironmentsfromoldsecn},
+this uniformity will allow all these examples to be generalized.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
@@ -366,7 +366,7 @@ Imagine you are forced to take the following employment:
     Every hour that you act as if
     I am paying you \$1000 per hour, I will pay you \$100. But every hour that
     you do \emph{not} act as if I am paying you \$1000 per hour,
-    I will deduct \$100 from your paycheck.
+    I will pay you nothing and charge you a \$100 penalty.
 \end{quote}
 This would not work in real life because I do not know you well enough to perfectly
 simulate you in order to determine how you would act if I were really paying you
@@ -381,7 +381,7 @@ some people would really start to believe they were being paid so generously.
 \begin{example}
 \label{falsememoryexample}
     (False Memories)
-    Suppose $p_0$ is any ROA-play. We define an extended environment
+    Suppose $p_0$ is an ROA-play. We define an extended environment
     $e$ as follows
     (with similar non-halting caveats as
     Example \ref{rewardagentforignoringrewardsexample}):
@@ -401,14 +401,14 @@ some people would really start to believe they were being paid so generously.
 
 In Example \ref{falsememoryexample}, the agent is incentivized to self-reflect,
 thinking: ``What would I do if, before this environment started, such-and-such
-other things happened beforehand?'' If a stranger hired you to act like their lifelong
+other things happened beforehand?'' If a stranger hired you to act like their old
 friend, you probably wouldn't be sincere in your acting. But if said stranger could
 perfectly simulate you in order to base your pay on your acting like you \emph{really
-would} act if you were their lifelong friend, then you would be incentivized to
-find some way to make yourself remember being their lifelong friend, despite never
+would} act if you were their old friend, then you would be incentivized to
+find some way to make yourself remember being their old friend, despite never
 having been.
 
-Henceforth, we will not explicitly mention the non-halting caveats in the following
+Henceforth, we will not explicitly mention the non-halting caveats in the remaining
 examples.
 
 \begin{example}
@@ -488,33 +488,32 @@ rewards in such a way that if those rewards were fed to a simulated copy of the 
 then the simulated copy would take action $0$.
 Thus, the agent is incentivized to choose rewards by self-reflecting:
 ``Which rewards would do the best job of compelling me to take action $0$ as often
-as possible?'' We might imagine the agent playing a video-game in which he sees himself
-in front of a keyboard. The video-game copy-agent types
+as possible?'' We might imagine the agent playing a video-game in which he sees
+a cartoon of himself
+in front of a keyboard. The cartoon types
 ``$100$'', the true agent is punished because $100\not=0$,
-and then a message appears on the screen saying, ``Which reward will you give this
+and a message appears on screen saying, ``Which reward will you give this
 worker for typing $100$ just now?'' The
 agent responds by choosing some reward, and sees an animation
-of the reward being given to the video-game copy-agent. The video-game copy-agent
-then types ``$0$'', and immediately the true agent is rewarded for getting the video-game
-copy-agent to type $0$. Then a message appears, saying, ``Which reward will you give this
+of the reward being given to the cartoon. The cartoon
+then types ``$0$'', and immediately the true agent is rewarded for getting the cartoon
+to type $0$. Then a message appears, saying, ``Which reward will you give this
 worker for typing $0$ just now?'' And so on
 forever\footnote{Example \ref{incentivetoincentivizeexample}
-is interesting in that the agent, desiring the clone to take action $0$
-as often as possible, is incentivized to choose large rewards when the clone takes
+is interesting in that the agent, desiring the cartoon to take action $0$
+as often as possible, is incentivized to choose large rewards when the cartoon takes
 action $0$.
 If rewards are limited to $\mathbb Q$, then the agent faces a dilemma
 similar to one in RL cancer treatment applications.
 An RL doctor should be punished with an infinitely large negative reward for killing
-a patient, but this is impossible if rewards are restricted to rational
-(or even real) numbers
+a patient, but this is impossible if rewards are restricted to finite numbers
 \cite{wirth2017survey} \cite{zhao2009reinforcement}. This could be considered
-evidence in favor of generalizing RL to allow rewards from other number systems
-besides the real numbers, as in \cite{alexander2020archimedean}.}.
+evidence in favor of generalizing RL to allow rewards from other number systems,
+as in \cite{alexander2020archimedean}.}.
 
 Many other interesting examples could be given. For example, an extended environment
 could reward agents based on how many steps\footnote{To quote
-Gavane, discussing problems with measuring intelligence of RL agents in traditional
-RL:
+Gavane:
 ``The problem is that the response-times-dependent performance of an agent
 is not properly reflected in [Hern{\'a}ndez-Orallo and Dowe's] intelligence test,
 since the simulated environments remain unaware of the response times of agents,
@@ -522,13 +521,13 @@ with the result that the perceptions of an agent are still independent of its
 response times'' \cite{gavane}.} or how much memory
 they use to compute each action\footnote{In some sense, by giving the environment
 access to the agent's source-code, we allow the environment to reflect the agent's
-own internal signals. Thus, extended environments seem to generalize the idea of
+own internal signals. Thus, extended environments generalize the idea of
 agents modified to manually predict their own internal signals, as in
 \cite{sherstan2016introspective}.};
-we do not intend the list of examples in this paper to be exhaustive.
-We will now discuss how all the examples in this section can be generalized.
+we do not intend the examples in this section to be exhaustive.
 
 \section{New extended environments from old}
+\label{newextendedenvironmentsfromoldsecn}
 
 In this section, we will discuss ways of obtaining new environments from old.
 These procedures could be iterated (just like layers of a neural network),
@@ -589,10 +588,10 @@ to allow infinitary rewards, as in \cite{alexander2020archimedean}.
         whenever it acts inconsistently with a fictitious history. The agent is
         incentivized to strategically choose when to act so inconsistently so that
         a later action, consistent with said false history, happens to win a large
-        reward from $e$. For example, the agent hired to act as a lifelong friend
+        reward from $e$. For example, the agent hired to act as an old friend
         might strategically choose to abandon its employer (an action inconsistent
-        with lifelong friendship) during a time of small need, so as to be able to
-        swoop in and save the day (an action consistent with lifelong friendship)
+        with old friendship) during a time of small need, so as to be able to
+        swoop in and save the day (an action consistent with old friendship)
         during a time of great need.
         \item
         Modifying $e$ using Example \ref{backwardexample}
