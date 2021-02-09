@@ -141,6 +141,9 @@ new self-aware RL techniques, hopefully as a step toward AGI.
 
 \section{Preliminaries}
 
+In the following definition, ROA stands for ``Reward, Observation, Action''.
+Throughout the paper, $\frown$ denotes concatenation.
+
 \begin{definition}
 (Plays and prompts)
     \begin{enumerate}
@@ -152,11 +155,11 @@ new self-aware RL techniques, hopefully as a step toward AGI.
         \]
         where each $r_i\in\mathbb Q$ (thought of as a \emph{reward}),
         each $o_i\in\mathbb N$ (thought of as an \emph{observation}),
-        and each $a_k\in \mathbb N$ (thought of as an \emph{action}).
+        and each $a_i\in \mathbb N$ (thought of as an \emph{action}).
         \item
         By an \emph{ROA-prompt}, we mean a sequence of the form
         $s\frown r\frown o$
-        where $s$ is an ROA-play, $\frown$ denotes concatenation,
+        where $s$ is an ROA-play,
         $r\in\mathbb Q$ (thought of as a \emph{reward}),
         and $o\in\mathbb N$ (thought of as an \emph{observation}).
     \end{enumerate}
@@ -184,6 +187,10 @@ new self-aware RL techniques, hopefully as a step toward AGI.
     \qed
 \end{proof}
 
+In Lemma \ref{roaplaydecompositionlemma}, when
+$s=p\frown a$, the intuition is that an agent, having been prompted to act by
+prompt $p$, responds with action $a$.
+
 \begin{definition}
 \label{agentandenvironment}
 (Agents and environments)
@@ -208,19 +215,12 @@ next action depend on the entire history (including prior actions), or only on p
 rewards and observations? One could argue that
 the agent's next action needn't depend on its own past actions, since its own past actions
 can be inferred from past rewards and observations.
-Normally, it would not matter much whether
-or not the agent's next action depend on its own past actions\footnote{In
-\cite{alexander2019intelligence}, we
-formalize agents whose actions depend only on past rewards and observations.
-Legg and Hutter give a formalization where the agent's next action does explicitly
-depend on its past actions \cite{legg2007universal}.}. In formalizing examples of extended
-environments that incentivize self-reflection, we have found it convenient for the agent's
+In incentivizing self-awareness, it is convenient for the agent's
 next action to formally depend on past actions. Perhaps this reflects that known
 conscious agents (e.g.\ humans)
-evidently do \emph{not} carefully re-compute their own
-past actions from remembered observations and rewards, but instead, a human maintains
-memories of her past actions as well, regardless whether doing so is formally superfluous.
-
+evidently do \emph{not} infer their own
+past actions from remembered observations and rewards, but
+remember the actions themselves, even if said memories are redundant.
 
 \begin{definition}
 \label{interactiondefn}
@@ -243,7 +243,7 @@ memories of her past actions as well, regardless whether doing so is formally su
 \end{definition}
 
 \begin{lemma}
-    For any agent $T$ and extended environment $e$, the result of $T$ interacting
+    For every agent $T$ and extended environment $e$, the result of $T$ interacting
     with $e$ (Definition \ref{interactiondefn}) is defined (all of the computations
     in question halt with the necessary outputs).
 \end{lemma}
