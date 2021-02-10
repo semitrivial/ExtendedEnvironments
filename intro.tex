@@ -840,7 +840,7 @@ all sharing the same internal ``nature'' ($T$).
         \begin{cases}
             1 &\mbox{if $a>0$ and $a'=T(p')$,}\\
             1 &\mbox{if $a=0$ and $a'\not=T(p')$,}\\
-            0 &\mbox{otherwise}
+            -1 &\mbox{otherwise}
         \end{cases}
     \]
     where $p_{n-1}=p'\frown a'$.
@@ -896,7 +896,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         By a \emph{chatbot trial} we mean a sequence of strings of English characters.
         We define an extended environment as follows. The agent $A$ is systematically
         shown all chatbot trials and must take action $>0$ (``Looks like me'') or $0$
-        (``Doesn't look like me''), and is rewarded or punished accordingly depending
+        (``Doesn't look like me''), and is rewarded or punished depending
         whether or not even-numbered strings in the chatbot trial are what $h(A)$ would
         say in response to the user saying the odd-numbered strings.
         \item
@@ -911,7 +911,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         \cite{shapiro}; $i(A)$ is thought of as a mechanical knowing agent
         \cite{carlson}. We define an extended environment as follows. The agent $A$
         is systematically shown all sentences in the language of Epistemic Arithmetic,
-        with repetition, in such a way that each sentence is shown infinitely often.
+        with each sentence being repeated infinitely often.
         Upon being shown sentence $\phi$ for the $n$th time, the agent must take action
         $>0$ (``I know $\phi$ is true'')
         or $0$ (``I'm not sure if $\phi$ is true'')
@@ -921,11 +921,16 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
 \end{example}
 
 The extended environments in Example \ref{otheraspectsexample} incentivize the agent
-to self-reflect, asking itself questions like ``Does that look like how I would
-classify that image, given that training set?'' or ``Does that look like how I would
-cluster that set of points?'' or ``Does that conversation participant say the same things
-I would say?'' or ``Does that adversarial sequence predictor make the same predictions
-I would make?'' or ``Does that mechanical knowing agent know the same things I know?''
+to self-reflect, asking itself questions like:
+\begin{itemize}
+    \item
+    ``Is that how I would
+    classify that image, given that training set?''
+    \item ``Is that how I would cluster that set of points?''
+    \item ``Is that what I would say in response to that conversation?''
+    \item ``Are those the adversarial sequence predictions I would make?''
+    \item ``Does that mechanical knowing agent know the same things I know?''
+\end{itemize}
 That perceptive non-RL agents such as supervised learning agents, unsupervised learning agents,
 etc., nevertheless might have some connection to RL-style reward mechanisms
 is suggested by Aristotle:
