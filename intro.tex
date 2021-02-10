@@ -937,101 +937,101 @@ is suggested by Aristotle:
 ``Whatever has a sense has the capacity for pleasure and pain and therefore has pleasant
 and painful objects present to it...'' \cite{aristotlesoul}.
 
-\section{A Meta Example}
+% \section{A Meta Example}
 
-In this section we will give an example in which the agent is incentivized to self-reflect
-on the subject of its own reinforcement learning performance.
-Recall that ZFC is the axiomatization of set theory which serves as the
-foundation of mathematics for almost all working mathematicians. The consequences of
-ZFC---that is, the theorems which ZFC proves---are computably enumerable, which means
-there is a Turing machine which systematically enumerates all of them and nothing else.
+% In this section we will give an example in which the agent is incentivized to self-reflect
+% on the subject of its own reinforcement learning performance.
+% Recall that ZFC is the axiomatization of set theory which serves as the
+% foundation of mathematics for almost all working mathematicians. The consequences of
+% ZFC---that is, the theorems which ZFC proves---are computably enumerable, which means
+% there is a Turing machine which systematically enumerates all of them and nothing else.
 
-\begin{definition}
-    Suppose $T$ is an agent, $e$ is an extended environment, and $R\in\mathbb Q$ is
-    a rational number. We say that \emph{$T$ gets total reward $R$ from $e$} if
-    $\sum_{i=0}^{\infty} r_i = R$, where $(r_0,o_0,a_0,\ldots)$ is the result of
-    $T$ interacting with $e$ (Definition \ref{interactiondefn}).
-    For each Turing machine $T$ (which may or may not be an agent),
-    for each extended environment $e$,
-    we say that \emph{ZFC proves-with-caveat that $T$ gets total reward $R$ from $e$}
-    if ZFC proves: ``If $T$ is an agent then $T$ gets total reward $R$ from $e$''.
-\end{definition}
+% \begin{definition}
+%     Suppose $T$ is an agent, $e$ is an extended environment, and $R\in\mathbb Q$ is
+%     a rational number. We say that \emph{$T$ gets total reward $R$ from $e$} if
+%     $\sum_{i=0}^{\infty} r_i = R$, where $(r_0,o_0,a_0,\ldots)$ is the result of
+%     $T$ interacting with $e$ (Definition \ref{interactiondefn}).
+%     For each Turing machine $T$ (which may or may not be an agent),
+%     for each extended environment $e$,
+%     we say that \emph{ZFC proves-with-caveat that $T$ gets total reward $R$ from $e$}
+%     if ZFC proves: ``If $T$ is an agent then $T$ gets total reward $R$ from $e$''.
+% \end{definition}
 
-\begin{lemma}
-\label{provablerewardslemma}
-    The set of triples $(T,e,R)$ where $T$ is a Turing machine, $e$ is an extended environment,
-    $R\in\mathbb Q$, and
-    ZFC proves-with-caveat that $T$ gets total reward $R$ from $e$,
-    is computably enumerable.
-\end{lemma}
+% \begin{lemma}
+% \label{provablerewardslemma}
+%     The set of triples $(T,e,R)$ where $T$ is a Turing machine, $e$ is an extended environment,
+%     $R\in\mathbb Q$, and
+%     ZFC proves-with-caveat that $T$ gets total reward $R$ from $e$,
+%     is computably enumerable.
+% \end{lemma}
 
-\begin{proof}
-    Follows from the fact that the consequences of ZFC are computably enumerable.
-    \qed
-\end{proof}
+% \begin{proof}
+%     Follows from the fact that the consequences of ZFC are computably enumerable.
+%     \qed
+% \end{proof}
 
-\begin{example}
-\label{metaexample}
-    (Reinforcement Learning itself, as an environment)
-    We define an extended environment $e$ as follows.
-    Let $X$ be a Turing machine which enumerates all triples
-    $(T,e,R)$ as in Lemma \ref{provablerewardslemma}.
-    Write $(T_0,e_0,R_0),(T_1,e_1,R_1),\ldots$ for the outputs of $X$.
-    Suppose $T$ is a Turing machine and
-    $p$ is an ROA-play.
-    Then $e$ will compute $e(T,p)$ as follows.
+% \begin{example}
+% \label{metaexample}
+%     (Reinforcement Learning itself, as an environment)
+%     We define an extended environment $e$ as follows.
+%     Let $X$ be a Turing machine which enumerates all triples
+%     $(T,e,R)$ as in Lemma \ref{provablerewardslemma}.
+%     Write $(T_0,e_0,R_0),(T_1,e_1,R_1),\ldots$ for the outputs of $X$.
+%     Suppose $T$ is a Turing machine and
+%     $p$ is an ROA-play.
+%     Then $e$ will compute $e(T,p)$ as follows.
 
-    Let $S=\{n\in\mathbb N\,:\,T_n=T\}$ be the set of indices of
-    triples produced by $X$ in which the Turing machine is $T$.
-    Write $S$ as $S=\{s_0,s_1,\ldots\}$ (note that $S$ is infinite because
-    there are infinitely many environments which always give reward $0$ and from which
-    ZFC proves that if $T$ is an agent then $T$ would get total reward $0$).
-    Thus, $(T_{s_n},e_{s_n},R_{s_n})=(T,e_{s_n},R_{s_n})$ is the $n$th triple enumerated
-    by $X$ in which the Turing machine is $T$. Note that $e$ can compute $(T,e_{s_n},R_{s_n})$
-    and $(T,e_{s_{n+1}},R_{s_{n+1}})$ by
-    simply running $X$ as long as necessary.
+%     Let $S=\{n\in\mathbb N\,:\,T_n=T\}$ be the set of indices of
+%     triples produced by $X$ in which the Turing machine is $T$.
+%     Write $S$ as $S=\{s_0,s_1,\ldots\}$ (note that $S$ is infinite because
+%     there are infinitely many environments which always give reward $0$ and from which
+%     ZFC proves that if $T$ is an agent then $T$ would get total reward $0$).
+%     Thus, $(T_{s_n},e_{s_n},R_{s_n})=(T,e_{s_n},R_{s_n})$ is the $n$th triple enumerated
+%     by $X$ in which the Turing machine is $T$. Note that $e$ can compute $(T,e_{s_n},R_{s_n})$
+%     and $(T,e_{s_{n+1}},R_{s_{n+1}})$ by
+%     simply running $X$ as long as necessary.
 
-    If $p=\langle\rangle$ then let $e(T,p)=\langle 0, e_{s_0}\rangle$.
-    But assume $p\not=\langle\rangle$.
-    Write 
-    \[
-        p=\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle.
-    \]
+%     If $p=\langle\rangle$ then let $e(T,p)=\langle 0, e_{s_0}\rangle$.
+%     But assume $p\not=\langle\rangle$.
+%     Write 
+%     \[
+%         p=\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle.
+%     \]
 
-    Considered as an action, let $0$ denote ``play the environment''
-    and let each natural $>0$ denote ``do not play the environment''.
-    Having computed $(T,e_{s_n},R_{s_n})$ and $(T,e_{s_{n+1}},R_{s_{n+1}})$,
-    $e$ shall output $e(T,p)=\langle r,o\rangle$, where:
-    \begin{align*}
-        o &= e_{s_{n+1}},\\
-        r &=
-        \begin{cases}
-            R_{s_n} &\mbox{if $a_n=\mbox{``play the environment''}$,}\\
-            0 &\mbox{otherwise.}
-        \end{cases}
-    \end{align*}
-\end{example}
+%     Considered as an action, let $0$ denote ``play the environment''
+%     and let each natural $>0$ denote ``do not play the environment''.
+%     Having computed $(T,e_{s_n},R_{s_n})$ and $(T,e_{s_{n+1}},R_{s_{n+1}})$,
+%     $e$ shall output $e(T,p)=\langle r,o\rangle$, where:
+%     \begin{align*}
+%         o &= e_{s_{n+1}},\\
+%         r &=
+%         \begin{cases}
+%             R_{s_n} &\mbox{if $a_n=\mbox{``play the environment''}$,}\\
+%             0 &\mbox{otherwise.}
+%         \end{cases}
+%     \end{align*}
+% \end{example}
 
-In Example \ref{metaexample}, the agent is shown source codes of many different
-environments, and for each environment, the agent can choose to either ``play the
-environment'' or ``not play the environment''. If the agent chooses to ``play the
-environment'', then the agent instantly receives, as one single reward,
-the total reward which the agent would
-accumulate if it were to play in that environment for all eternity. Otherwise, if
-the agent chooses to ``not play the environment'', the agent gets reward $0$.
-The environments which are shown to the agent are exactly those environments such
-that ZFC determines which total reward the agent would receive thereby (this is
-what makes the whole exercise computable, because the consequences of ZFC are
-themselves computably enumerable). The agent is incentivized to self-reflect and think:
-``If I were to play the observed environment for all eternity, what total reward would
-I get?''
+% In Example \ref{metaexample}, the agent is shown source codes of many different
+% environments, and for each environment, the agent can choose to either ``play the
+% environment'' or ``not play the environment''. If the agent chooses to ``play the
+% environment'', then the agent instantly receives, as one single reward,
+% the total reward which the agent would
+% accumulate if it were to play in that environment for all eternity. Otherwise, if
+% the agent chooses to ``not play the environment'', the agent gets reward $0$.
+% The environments which are shown to the agent are exactly those environments such
+% that ZFC determines which total reward the agent would receive thereby (this is
+% what makes the whole exercise computable, because the consequences of ZFC are
+% themselves computably enumerable). The agent is incentivized to self-reflect and think:
+% ``If I were to play the observed environment for all eternity, what total reward would
+% I get?''
 
-In \cite{alexander2020archimedean} we argued that the real number system is probably not
-flexible enough to accurately model the rewards of more general environments where
-rewards from other number systems are permitted.
-Example \ref{metaexample} could be made even more interesting if we changed the
-background reinforcement learning model to allow rewards from various non-Archimedean
-number systems. Those details, however, are beyond the scope of this paper.
+% In \cite{alexander2020archimedean} we argued that the real number system is probably not
+% flexible enough to accurately model the rewards of more general environments where
+% rewards from other number systems are permitted.
+% Example \ref{metaexample} could be made even more interesting if we changed the
+% background reinforcement learning model to allow rewards from various non-Archimedean
+% number systems. Those details, however, are beyond the scope of this paper.
 
 \section{Measuring Self-awareness}
 
