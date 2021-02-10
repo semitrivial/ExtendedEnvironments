@@ -676,24 +676,25 @@ to self-identify with the protagonist in the video-game, self-reflexively asking
     even when at some distance from it.''---Charles Darwin \cite{darwin1877biographical}
 \end{quote}
 
-It has been suggested that recognizing oneself in the mirror is linked
-to the development of certain parts of the human psychology
-\cite{lacan}. Using the techniques developed so far, we can attempt to incentivize
+It has been suggested \cite{lacan} that recognizing oneself in the mirror is linked
+to the development of certain parts of the human psychology. Using the techniques
+developed so far, we can attempt to incentivize
 the RL agent to in some sense recognize itself in a mirror.
 
 \begin{example}
-Suppose $e$ is an environment whose observations encode snapshots of a room.
-Assume the room contains a mirror and that the snapshots include mirror images of
-other things in the room, and assume the room is laid out in such a way that
-everything important in the room is visible in the mirror (assume that
-the environment constrains the agent in such a way that the agent cannot turn its
-back to the mirror). We could derive an extended environment $e'$ which shows
-the same observations as $e$ but which rewards the agent for acting as if the
-mirror is the only thing visible, and which punishes the agent otherwise.
+Suppose $e$ is a merciful environment whose observations encode snapshots of a room.
+Assume the room contains a mirror, and assume the room is laid out in such a way that
+everything important in the room is visible in the mirror (assume
+the environment constrains the agent to never look away from
+the mirror). We could derive an extended environment $e'$ which shows
+the same observations as $e$ and gives the same rewards,
+except it punishes the agent for acting differently than the agent
+would act if the agent \emph{only} observes the mirror.
 To make this precise, for any ROA-prompt $p=(r_0,o_0,a_0,\ldots,r_n,o_n)$ produced
-by $e'$, and any action $T(p)=a_n$, we would say that ``$a_n$ is as if the mirror
-is the only thing visible'' if $T(p')=a_n$, where $p'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
-where each $o'_i$ is the restriction of $o_i$ to only the mirror.
+by $e'$, and any action $T(p)=a_n$, we would say that ``$a_n$ is as if the
+agent only observes the mirror''
+if $T(p')=a_n$, where $p'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
+where each $o'_i$ is $o_i$ cropped to only the include the mirror.
 \end{example}
 
 To make this even more elaborate, the $o'_i$ in the above example could be further
@@ -701,7 +702,7 @@ modified by adding an image of the agent's ``body'' into the mirror. For example
 the agent's ``body'' shown in $o'_i$
 might be a visualization systematically derived from the steps which the Turing
 machine $T$ performed in the computation of $T(r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1})$.
-These steps would not be available to a traditional RL environment, but they are
+These computation steps would not be available to a traditional RL environment, but they are
 available to an extended environment because of the inclusion of $T$ itself as an
 argument passed to the extended environment.
 
@@ -739,9 +740,11 @@ agent to learn to perceive the world through binocular vision like a human.
     $m(s^i_1,s^i_2)$, otherwise let $r_{n+1}=-1$.
 \end{example}
 
-In Example \ref{binocularexample}, upon being presented a sequence of pairs of snapshots,
-the agent is incentivized to self-reflectively ask, ``Which action would I take if instead
-of observing those 2-D snapshot-pairs, I observed equivalent 3-D snapshot-singletons?''
+In Example \ref{binocularexample}, upon being presented a sequence of pairs of 2-D snapshots,
+the agent is rewarded for acting as if it had instead been presented with an equivalent
+sequence of 3-D models.
+The agent is incentivized to self-reflectively ask, ``Which action would I take if instead
+of observing those 2-D snapshot-pairs, I observed equivalent 3-D models?''
 
 \subsection{Nature and Nurture}
 
@@ -750,10 +753,6 @@ of observing those 2-D snapshot-pairs, I observed equivalent 3-D snapshot-single
     who can say that he did not sin when Adam sinned?''---Augustine \cite{augustine1993free}
 \end{quote}
 
-How much of our personality is unique to us, and how much is common to all humans?
-Would I perform the same actions as you if I were exposed to the exact same stimuli as
-you all my life? Probably not, because our bodies are different; but in what sense are
-we our bodies, and in what sense are our bodies part of our environment?
 The following example is motivated by contemplating the possibility that maybe we all
 run the same software on some deep level.
 
@@ -817,17 +816,12 @@ differently because they perceive the environment differently (``nurture'').
 The baby's objective is to maintain satiation within a satisfying range,
 whereas the agent's objective is to pacify the baby.
 
-Using the same basic idea, one could easily extend Example \ref{cryingbabyexample}
+Using the same basic idea, one could extend Example \ref{cryingbabyexample}
 into an example modelling an entire society of interacting people of different
-types\footnote{Similar to how Plotinus compares society to an elaborate play,
+types\footnote{Similar to how Plotinus compares society to an elaborate play
 where the actors ``define their own rewards and punishments because
 they themselves assist in the rewards and punishments'' \cite{plotinus}.},
 all sharing the same internal ``nature'' ($T$).
-If the simulation were sophisticated enough, it would include different people
-receiving different educations, ``nurturing'' them to have different
-personalities despite their common nature\footnote{To quote Plato:
-``Education, then, is a matter of correctly disciplined feelings of pleasure
-and pain'' \cite{platolaws}.}.
 
 \section{Examples involving self-recognition}
 
