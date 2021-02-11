@@ -8,9 +8,8 @@ def guarded_treasures(T, play):
         reward = 0
         return [reward, obs]
 
-    current_room_has_guard = play[-1]
-
     action = play[-1]
+    current_room_has_guard = play[-2]
 
     if action == 0:
         # Agent chooses not to take treasure
