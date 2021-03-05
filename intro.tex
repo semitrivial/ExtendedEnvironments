@@ -42,22 +42,42 @@ in reinforcement learning}
 
 \section{Introduction}
 
-\begin{quote}
-    ``It is difficult to get a man to understand something, when his salary depends
-    upon his not understanding it!''---Upton Sinclair
-\end{quote}
+We begin with three thought experiments.
+\begin{itemize}
+    \item (Oracular Obstacle Courses)
+        An ordinary obstacle course might depend on what you \emph{do}:
+        step on a button and spikes appear, for example.
+        But imagine an obstacle course which depends on what you
+        \emph{would hypothetically do}:
+        you walk into a room with no button, but spikes appear if you
+        \emph{would} hypothetically step on the button if there was one.
+    \item (Treasures for the Worthy\footnote{This thought experiment bears some
+        similarity to Newcomb's Paradox \cite{nozick1969newcomb}.})
+        You wander through rooms, each containing a treasure chest.
+        Most of the rooms also contain a guard. In a room with no guard, you
+        may optionally choose to take the treasure, which acts as a free reward.
+        In a guarded room, you may optionally try to take the treasure.
+        If you do so, the guard will determine whether or not you would hypothetically
+        take the treasure if the room were unguarded. If you would take the treasure
+        if the room were unguarded, then the guard blocks the treasure and zaps you.
+        But if you would leave the treasure alone if the room were unguarded, then
+        the guard lets you take the treasure.
+    \item (The Clever Employer)
+        Your boss demands that you act as if you're paid \$1000 per hour.
+        But instead of paying you \$1000 per hour, here's what he does instead.
+        Every hour, if you acted exactly as if you're paid \$1000 per hour,
+        he pays you \$100. But every hour, if you did not act exactly as if you're
+        paid \$1000 per hour, then he pays you nothing, and charges you a \$100
+        penalty instead.
+\end{itemize}
 
-What would you do if you were being paid \$100 per hour to act as if you were being
-paid \$1000 per hour? What if, in order to receive that \$100 every hour, you were
-required to act \emph{exactly} as you would act if you were really being paid
-\$1000 that hour---and if you did not so act, then you would be paid nothing that hour,
-and would be charged a \$100 penalty instead?
-This thought experiment would be hard to perform, because it would be hard for your
-employer to know how you would act if you really were being paid \$1000 per hour.
-But if your employer could simulate a perfect copy of you, then your employer could
-perform the experiment perfectly. Over a long enough time, would those \$100 rewards
-and penalties eventually cause you to believe you were really being paid
-\$1000 per hour?
+These thought experiments would be hard to perform on a human subject, because they
+require knowing what the human subject would hypothetically do in various
+counterfactual circumstances. But if the experiment administrator could simulate
+a perfect copy of you, then the experiments would be doable. In the first two
+experiments, would you eventually figure out the pattern? In the last experiment,
+would you eventually begin to believe you were really being paid \$1000 per hour?
+
 
 This is a paper about reinforcement learning (RL).
 In RL, agents interact with environments, where they take actions and
@@ -95,33 +115,21 @@ Intuitively, this should be thought of as follows: when the agent enters the env
 the environment is made aware of the agent's source-code, and can use that
 source-code to simulate the agent when computing rewards and observations.
 
-For example, imagine a game\footnote{This game bears some similarity to Newcomb's
-Paradox \cite{nozick1969newcomb}.} where the player wanders through rooms,
-each room containing a treasure, and most (but not all) rooms containing
-a guard.
-\begin{itemize}
-    \item
-    In a room with no guard, the player can take the treasure, yielding a reward.
-    \item
-    If the player chooses to take the treasure in a guarded room,
-    then, by simulating the player, the guard determines: ``If
-    this room had been unguarded, would the player have taken the treasure?''
-    If so, the guard blocks the player and zaps them (yielding a negative reward).
-    Otherwise, the guard allows the player to take the treasure (and the player is rewarded).
-\end{itemize}
-
-The above game would be hard or impossible
-for a human to play, due to the difficulty of simulating a human player.
-But there is no reason why the above game could not be played by an RL agent (the
-agent's source-code being given to the game-engine beforehand). Clearly this kind of
-extended environment is not the sort of environment RL agents are traditionally
+For example, the three thought experiments in the beginning of this Introduction could
+be cast as extended environments in which the environment somehow knows the agent's
+source-code and uses that to determine what the agent would do in various
+hypothetical situations.
+Clearly such
+extended environments are not the sort of environment RL agents are traditionally
 intended to interact with\footnote{Such environments might, however,
 accidentally arise if both environment
 and agent are implemented on the same machine and the environment is managed by an AI
 sophisticated enough to exploit unintended informational side channels, as in
 \cite{yampolskiy2012leakproofing}.}. However, such environments could be
 useful on the path to Artificial
-General Intelligence (AGI) because they seem to incentivize self-awareness.
+General Intelligence (AGI) because they seem to incentivize self-awareness:
+in order to figure out the environment, the agent is incentivized to look within
+and ask, ``How would I act in such-and-such alternative scenarios?''
 
 One might try to imitate an extended environment with a traditional environment by
 backtracking---rewinding the environment itself to a prior state after seeing how the
