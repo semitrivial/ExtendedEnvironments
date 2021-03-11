@@ -291,26 +291,25 @@ this uniformity will allow all these examples to be generalized.
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
     (Reward Agent for Ignoring Rewards)
-    For each ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
+    For each $s\in (ROA)^*RO$, let $s^0$ be the sequence equal to $s$ except that
     all rewards are $0$.
     We define an extended environment $e$ as follows
-    (where $T$ is a Turing machine, $p$ is an ROA-prompt, and $a\in \mathbb N$ is thought of as
-    the agent's action in response to $p$):
+    (where $T$ is a Turing machine, $s\in (ROA)^*RO$, and $a$ is an action):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
-        e(T,p\frown a)
+        e(T,s\frown a)
         &= \langle r,0\rangle,
     \end{align*}
     where
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $a=T(p^0)$,}\\
-            -1 & \mbox{if $a\not=T(p^0)$}
+            1 & \mbox{if $a=T(s^0)$,}\\
+            -1 & \mbox{if $a\not=T(s^0)$}
         \end{cases}
     \]
-    (if $T$ does not halt on $p^0$ then $e$ does not halt on
-    $\langle T,p\frown a\rangle$).
+    (if $T$ does not halt on $s^0$ then $e$ does not halt on
+    $\langle T,s\frown a\rangle$).
 \end{example}
 
 In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
@@ -335,21 +334,22 @@ to be rewarded)?
     Let $e$ be as in
     Example \ref{rewardagentforignoringrewardsexample}.
     We must show $e$ is an extended environment (Definition \ref{agentandenvironment}
-    part 2). We must show that for each agent $T$ and ROA-play $s$,
+    part 2). We must show that for each agent $T$ and each $s\in (ROA)^*$,
     $e$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
-    such that $r\in\mathbb Q$ and $o\in\mathbb N$.
+    such that $r$ is a reward and $o$ is an observation.
 
     \textbf{Case 1:} $s=\langle\rangle$. Then $e(T,s)$ halts with output
-    $\langle 0,0\rangle$, so $r=0\in\mathbb Q$ and $o=0\in\mathbb N$.
+    $\langle 0,0\rangle$, so $r=0$ is a reward and $o=0$ is an observation.
 
     \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
-    $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
-    Since $p$ is an ROA-prompt, clearly $p^0$ is also an ROA-prompt, therefore
+    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
+    Since $t\in (ROA)^*RO$, clearly $t^0\in (ROA)^*RO$, therefore
     since $T$ is an agent, Definition \ref{agentandenvironment} (part 1)
-    guarantees $T(p^0)$ is defined and is in $\mathbb N$. It follows that the reward
-    $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is in
-    $\mathbb Q$. And certainly the observation $0$ is in $\mathbb N$.
-    So $e(T,s)$ outputs a pair $\langle r,o\rangle$ meeting the necessary
+    guarantees $T(t^0)$ is defined and is an action. It follows that the output
+    $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is
+    a reward (i.e., a rational number). And certainly the output $o=0$ is an
+    observation (i.e., a natural number).
+    So $e(T,t)$ outputs a pair $\langle r,o\rangle$ meeting the necessary
     requirements.
     \qed
 \end{proof}
@@ -364,7 +364,7 @@ Imagine a film director who knows actors well enough to perfectly simulate them.
 The director asks an actor to act perfectly bored.
 The actor acts bored, and the director praises them for acting so bored.
 The actor is happy to be praised, and ceases acting bored. So the director scolds
-them for not acting bored. If this continued for thousands of years, with the
+them for not acting bored. If this could continue for thousands of years, with the
 director simulating the actor in order to tell how the actor would really act if
 the actor were never praised or scolded, would the actor eventually genuinely
 feel bored (since that would be the simplest way to satisfy the director)?
@@ -372,20 +372,20 @@ feel bored (since that would be the simplest way to satisfy the director)?
 \begin{example}
 \label{falsememoryexample}
     (False Memories)
-    Suppose $p_0$ is an ROA-play. We define an extended environment
+    Suppose $s_0\in (ROA)^*$. We define an extended environment
     $e$ as follows
     (with similar non-halting caveats as
     Example \ref{rewardagentforignoringrewardsexample}):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle,\\
-        e(T,p\frown a) &= \langle r,0\rangle,
+        e(T,s\frown a) &= \langle r,0\rangle,
     \end{align*}
     where
     \[
         r=
         \begin{cases}
-            1 &\mbox{if $a=T(p_0\frown p)$,}\\
-            -1 &\mbox{if $a\not=T(p_0\frown p)$}.
+            1 &\mbox{if $a=T(s_0\frown s)$,}\\
+            -1 &\mbox{if $a\not=T(s_0\frown s)$}.
         \end{cases}
     \]
 \end{example}
@@ -447,14 +447,14 @@ simulated in an extended environment?}?
     We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
-        e(T,p\frown a) &= \langle r,0\rangle\\
+        e(T,s\frown a) &= \langle r,0\rangle\\
     \end{align*}
     where
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $T(p\frown a\frown p)=a$},\\
-            -1 & \mbox{if $T(p\frown a\frown p)\not=a$}.
+            1 & \mbox{if $T(s\frown a\frown s)=a$},\\
+            -1 & \mbox{if $T(s\frown a\frown s)\not=a$}.
         \end{cases}
     \]
 \end{example}
@@ -476,11 +476,11 @@ which has happened so far were to repeat itself verbatim?''
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $T(p')=0$},\\
-            -1 & \mbox{if $T(p')\not=0$}
+            1 & \mbox{if $T(s')=0$},\\
+            -1 & \mbox{if $T(s')\not=0$}
         \end{cases}
     \]
-    where $p'$ is the ROA-prompt $(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
+    where $s'=(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
     where $r'_0=0$, each $r'_{i+1}=a_i$,
     each $o'_i=0$, and each
     $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
