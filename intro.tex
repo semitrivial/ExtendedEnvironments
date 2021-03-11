@@ -833,33 +833,35 @@ all sharing the same internal ``nature'' ($T$).
 \begin{example}
 \label{selfrecognitionexample}
     (Incentivizing Self-recognition)
-    Let $p_0,p_1,\ldots$ be a canonical computable enumeration of all non-empty ROA-plays.
+    Let $s_0,s_1,\ldots$ be a canonical computable enumeration of
+    the nonempty sequences of $(ROA)^*$.
     We define an environment $e$ as follows:
     \begin{align*}
-        e(T,\langle\rangle) &= \langle 0, p_0\rangle\\
-        e(T,p\frown a) &= \langle r, p_{n}\rangle
+        e(T,\langle\rangle) &= \langle 0, s_0\rangle\\
+        e(T,s\frown a) &= \langle r, s_n\rangle
     \end{align*}
-    where $n=\frac{\mbox{len}(p\frown a)}{3}$ is the number of actions in $p\frown a$ and where
+    where $n=\frac{\mbox{len}(s\frown a)}{3}$ is the number
+    of actions in $s\frown a$ and where
     \[
         r =
         \begin{cases}
-            1 &\mbox{if $a>0$ and $a'=T(p')$,}\\
-            1 &\mbox{if $a=0$ and $a'\not=T(p')$,}\\
+            1 &\mbox{if $a>0$ and $a'=T(s')$,}\\
+            1 &\mbox{if $a=0$ and $a'\not=T(s')$,}\\
             -1 &\mbox{otherwise}
         \end{cases}
     \]
-    where $p_{n-1}=p'\frown a'$.
+    where $s_{n-1}=s'\frown a'$.
 \end{example}
 
 In Example \ref{selfrecognitionexample}, the agent is systematically
-shown all non-empty ROA-plays, and for
-each ROA-play, the agent either types ``Looks like me'' (any action $>0$)
-or ``Doesn't look like me'' ($0$). When shown the non-empty ROA-play
-$p'\frown a'$, the agent is rewarded if and only if the agent
+shown all non-empty histories in $(ROA)^*$, and for
+each one, the agent either types ``Looks like me'' (any action $>0$)
+or ``Doesn't look like me'' ($0$). When shown
+$s'\frown a'$, the agent is rewarded if and only if the agent
 correctly determines whether or not $a'$
-is the action the agent itself would take in response to $p'$.
-Thus, the agent is incentivized to self-reflect in order to ask, ``If I experienced the
-observations and rewards in that ROA-prompt, would I act that way?''
+is the action the agent itself would take in response to $s'$.
+Thus, the agent is incentivized to self-reflect in order to ask, ``If I were prompted
+by that history, would I act that way?''
 
 The following example is partly motivated by \cite{yampolskiy2012ai}.
 
@@ -1076,7 +1078,7 @@ and were then placed in identical mazes, then they would perform identically.
 Given such a species, it would be possible to see how members perform in extended
 environments, albeit perhaps at great expense. One would have to carefully raise many
 similar specimens through identical or near-identical lives, diverging only at key
-points in order to compute the underlying $T$ action-function on different ROA-prompts.
+points in order to compute the underlying $T$ action-function on different histories.
 By seeing how the underlying $T$ agent performs on well-chosen extended environments,
 we could get an idea of how self-aware those specimens were.
 
