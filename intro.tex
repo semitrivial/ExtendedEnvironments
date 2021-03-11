@@ -547,13 +547,13 @@ First, we will generalize the examples from Section \ref{basicexamplessection}.
         If $e$ is a merciful extended environment and $h$ is a handicap,
         we define a new environment $e*h$ as follows:
         \[
-            (e*h)(T,p) =
+            (e*h)(T,s) =
             \begin{cases}
                 \langle r_e, o_e\rangle &\mbox{if $r_h=1$},\\
                 \langle -1, o_e\rangle &\mbox{if $r_h=-1$},
             \end{cases}
         \]
-        where $e(T,p)=\langle r_e,o_e\rangle$ and $h(T,p)=\langle r_h,0\rangle$.
+        where $e(T,s)=\langle r_e,o_e\rangle$ and $h(T,s)=\langle r_h,0\rangle$.
     \end{enumerate}
 \end{definition}
 
@@ -641,18 +641,18 @@ to ``suspend disbelief'' and identify with that character.
     a new environment $e'$ as follows:
     \begin{align*}
         e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
-        e'(T,p\frown a) &= \langle r,o\rangle,
+        e'(T,s\frown a) &= \langle r,o\rangle,
     \end{align*}
-    where $o$ is such that $\hat o = e(T,p\frown a)$ and
+    where $o$ is such that $\hat o = e(T,s\frown a)$ and
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $a=T(p')$,}\\
-            -1 & \mbox{if $a\not=T(p')$}
+            1 & \mbox{if $a=T(s')$,}\\
+            -1 & \mbox{if $a\not=T(s')$}
         \end{cases}
     \]
     where
-    $p'$ is the ROA-prompt obtained from $p$
+    $s'\in (ROA)^*RO$ is obtained from $p$
     by replacing each reward-observation pair
     $\ldots,r_i,o_i,\ldots$ by the reward-observation
     pair $\ldots,\widehat{o_i},\ldots$.
