@@ -78,7 +78,6 @@ a perfect copy of you, then the experiments would be doable. In the first two
 experiments, would you eventually figure out the pattern? In the last experiment,
 would you eventually begin to believe you were really being paid \$1000 per hour?
 
-
 This is a paper about reinforcement learning (RL).
 In RL, agents interact with environments, where they take actions and
 receive rewards and observations in response to those actions.
@@ -88,7 +87,7 @@ would easily adapt
 to non-deterministic RL.
 
 Although the details differ between authors, essentially,
-an RL environment is a Turing machine
+an RL environment is a Turing machine (i.e., a computer program)
 $e$ which outputs a reward-observation pair
 \[
   \langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)
@@ -149,71 +148,61 @@ new self-aware RL techniques, hopefully as a step toward AGI.
 
 \section{Preliminaries}
 
-In the following definition, ROA stands for ``Reward, Observation, Action''.
 Throughout the paper, $\frown$ denotes concatenation.
 
 \begin{definition}
-(Plays and prompts)
+\label{historiesdefn}
     \begin{enumerate}
         \item
-        By an \emph{ROA-play}, we mean either the empty sequence $\langle\rangle$,
-        or else a sequence of the form
-        \[
-            \langle r_0,o_0,a_0,\ldots,r_k,o_k,a_k\rangle
-        \]
-        where each $r_i\in\mathbb Q$ (thought of as a \emph{reward}),
-        each $o_i\in\mathbb N$ (thought of as an \emph{observation}),
-        and each $a_i\in \mathbb N$ (thought of as an \emph{action}).
+        By a \emph{reward}, we mean a rational number.
+        By an \emph{observation}, we mean a natural number.
+        By an \emph{action}, we mean a natural number.
         \item
-        By an \emph{ROA-prompt}, we mean a sequence of the form
-        $s\frown r\frown o$
-        where $s$ is an ROA-play,
-        $r\in\mathbb Q$ (thought of as a \emph{reward}),
-        and $o\in\mathbb N$ (thought of as an \emph{observation}).
+        By $(ROA)^*$ we mean the set of all finite sequences which begin with
+        a reward, end with an action, and follow the pattern
+        ``reward, observation, action, ...''. We also include
+        the empty sequence $\langle\rangle$ in this set.
+        \item
+        By $(ROA)^*RO$ we mean the set of all sequences of the form
+        $s\frown r\frown o$ where $s\in (ROA)^*$, $r$ is a reward, and
+        $o$ is an observation.
     \end{enumerate}
 \end{definition}
 
+In Definition \ref{historiesdefn} part 3, the intuition is that in response to
+history $t$, an environment rewards an agent with reward $r$ and
+shows the agent an observation $o$.
+
 \begin{lemma}
 \label{roaplaydecompositionlemma}
-    If $s$ is an ROA-play, then either $s=\langle\rangle$, or else
-    $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
+    If $s\in (ROA)^*$, then either $s=\langle\rangle$, or else
+    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
 \end{lemma}
 
 \begin{proof}
-    If $s\not=\langle\rangle$ then we can write
-    $s=\langle r_0,o_0,a_0,\ldots,r_k,o_k,a_k \rangle$.
-
-    \textbf{Case 1:}
-    $k=0$. By definition, $\langle\rangle$ is an ROA-play,
-    therefore $p=\langle\rangle\frown r_0\frown o_0$ is an ROA-prompt,
-    and $s=p\frown a_0$.
-
-    \textbf{Case 2:} $k>0$.
-    Then $p'=\langle r_0,o_0,a_0,\ldots,r_{k-1},o_{k-1},a_{k-1}\rangle$ is an ROA-play,
-    therefore $p=p'\frown r_k\frown o_k$ is an ROA-prompt,
-    and $s=p\frown a_k$.
-    \qed
+    Trivial. \qed
 \end{proof}
 
 In Lemma \ref{roaplaydecompositionlemma}, when
-$s=p\frown a$, the intuition is that an agent, having been prompted to act by
-prompt $p$, responds with action $a$.
+$s=t\frown a$, the intuition is that an agent, having been prompted to act by
+history $t$, responds by taking action $a$.
 
 \begin{definition}
 \label{agentandenvironment}
 (Agents and environments)
     \begin{enumerate}
-    \item An \emph{agent} is a Turing machine which
-    halts whenever it is run on an ROA-prompt, outputting
-    an action $a\in\mathbb N$.
+    \item An \emph{agent} is a Turing machine $T$ such that:
+        \begin{itemize}
+        \item
+            for every $s\in (ROA)^*RO$, $T$ halts on input $s$ and outputs
+            an action $a$.
+        \end{itemize}
     \item An \emph{extended environment} is a Turing machine $e$ such that:
         \begin{itemize}
             \item
-            For every agent $T$, for every
-            ROA-play $s$,
-            when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input,
-            outputting a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
-            as a reward) and $o\in\mathbb N$ (thought of as an observation).
+            For every agent $T$, for every $s\in (ROA)^*$,
+            $e$ halts on input $\langle T,s\rangle$ and outputs
+            a pair $\langle r,o\rangle$ where $r$ is a reward and $o$ is an observation.
         \end{itemize}
     \end{enumerate}
 \end{definition}
@@ -236,7 +225,7 @@ remember the actions themselves, even if said memories are redundant.
     The \emph{result of $T$ interacting with $e$} is the infinite
     reward-observation-action sequence
     \[\langle r_0,o_0,a_0,r_1,o_1,a_1,\ldots\rangle\]
-    (each $r_i\in\mathbb Q$, $o_i,a_i\in\mathbb N$)
+    (each $r_i$ a reward, each $o_i$ an observation, and each $a_i$ an action)
     defined inductively as follows.
     \begin{itemize}
         \item $r_0$ and $o_0$ are obtained by computing $e$ on
@@ -260,19 +249,19 @@ remember the actions themselves, even if said memories are redundant.
     By a simultaneous induction:
     \begin{itemize}
         \item
-        Each $r_i$ and $o_i$ are defined (and $r_i\in\mathbb Q$
-        and $o_i\in\mathbb N$) because, by induction,
+        Each $r_i$ and $o_i$ are defined (and $r_i$ is a reward
+        and $o_i$ is an observation) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle$
-        is defined and is an ROA-play (because, inductively,
-        each $r_j\in\mathbb Q$, $o_j\in\mathbb N$ and $a_j\in\mathbb N$
-        for all $j<i$) and thus
-        $r_i$ and $o_i$ are defined with the correct form by
+        is defined and is in $(ROA)^*$ (because, inductively,
+        each $r_j$ is a reward, each $o_j$ is an observation,
+        and each $a_j\in\mathbb N$ is an action, for all $j<i$)
+        and thus $r_i$ and $o_i$ are defined with the correct form by
         Definition \ref{agentandenvironment} (part 2).
         \item
-        Each $a_i$ is defined (and $a_i\in\mathbb N$) because, by induction,
+        Each $a_i$ is defined (and is an action) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_i,o_i\rangle$
-        is defined and is an ROA-prompt (similar to the above) and thus
-        $a_i$ is defined with the correct form by Definition
+        is defined and is in $(ROA)^*RO$ (similar to the above) and thus
+        $a_i$ is defined and is an action by Definition
         \ref{agentandenvironment} (part 1).
     \end{itemize}
     \qed
