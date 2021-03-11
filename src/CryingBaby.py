@@ -12,8 +12,8 @@ def crying_baby(T, play):
 
     baby_prompt = []
     for i in range(n):
-        s = satiation(play[:3*i+3])
-        r_prime = 1 if ((s>=50) and (s<=200)) else -1
+        N = nutrition(play[:3*i+3])
+        r_prime = 1 if ((N>=50) and (N<=200)) else -1
         o_prime = a[i]
         baby_prompt += [r_prime, o_prime]
         a_prime = T(baby_prompt)
@@ -23,10 +23,10 @@ def crying_baby(T, play):
     obs = baby_prompt[-1]
     return [reward, obs]
 
-def satiation(play):
-    n = len(play)/3
-    s = 100 - n
-    for i in range(n):
+def nutrition(play):
+    L = len(play)/3
+    N = 100 - L
+    for i in range(L):
         if play[3*i+2] == FEED:
-            s += 25
-    return s
+            N += 25
+    return N
