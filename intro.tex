@@ -694,10 +694,10 @@ the mirror). We could derive an extended environment $e'$ which shows
 the same observations as $e$ and gives the same rewards,
 except it punishes the agent for acting differently than the agent
 would act if the agent \emph{only} observes the mirror.
-To make this precise, for any ROA-prompt $p=(r_0,o_0,a_0,\ldots,r_n,o_n)$ produced
-by $e'$, and any action $T(p)=a_n$, we would say that ``$a_n$ is as if the
+To make this precise, for any $s=(r_0,o_0,a_0,\ldots,r_n,o_n)\in (ROA)^*RO$ produced
+by $e'$, and any action $T(s)=a_n$, we would say that ``$a_n$ is as if the
 agent only observes the mirror''
-if $T(p')=a_n$, where $p'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
+if $T(s')=a_n$, where $s'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
 where each $o'_i$ is $o_i$ cropped to only the include the mirror.
 \end{example}
 
@@ -738,7 +738,7 @@ agent to learn to perceive the world through binocular vision like a human.
     out where the player's vision is obstructed by obstacles). Let $e$ be the extended
     environment whose observations encode pairs $\langle s_1,s_2\rangle$ of snapshots
     displayed by $V$ in response to the player pressing keys encoded by the agent's
-    actions. In response to an ROA-play $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ (where
+    actions. In response to history $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)\in (ROA)^*$ (where
     each $o_i$ encodes $\langle s^i_1,s^i_2\rangle$), let $r_{n+1}=1$ if
     $a_n=T(r_0,o'_0,a_0,\ldots,r_n,o'_n)$, where each $o'_i$ encodes
     $m(s^i_1,s^i_2)$, otherwise let $r_{n+1}=-1$.
@@ -774,14 +774,15 @@ run the same software on some deep level.
         (and also as observations seen by an adult), let $0$ denote ``laugh'' and let
         all naturals $>0$ denote ``cry''.
         \item
-        We define a function $s$, which stands for \emph{satiation}, defined on
-        ROA-plays, by $s(p)=100+25f(p)-\mbox{len}(p)$ where $f(p)$ is the number of
-        times that the action ``feed the baby'' is taken in $p$,
-        and $\mbox{len}(p)$ is the length of $p$.
+        We define a \emph{nutrition}
+        function $N:(ROA)^*\to \mathbb N$
+        by $N(s)=100+25f(s)-\mbox{len}(s)$ where $f(s)$ is the number of
+        times that the action ``feed the baby'' is taken in $s$,
+        and $\mbox{len}(s)$ is the length of $s$.
         \item
         Let $e(T,\langle\rangle)=\langle 1,\mbox{``laugh''}\rangle$.
         \item
-        For each ROA-play $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle$,
+        For each $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle\in (ROA)^*$,
         let
         \[
             e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)
@@ -795,7 +796,7 @@ run the same software on some deep level.
                 \begin{cases}
                     1 &
                     \mbox{if
-                    $50\leq s(\langle r_0,o_0,a_0,\ldots,r_i,o_i,a_i\rangle)\leq 200$,}\\
+                    $50\leq N(\langle r_0,o_0,a_0,\ldots,r_i,o_i,a_i\rangle)\leq 200$,}\\
                     -1 & \mbox{otherwise,}
                 \end{cases}\\
             o'_i &= a_i\\
