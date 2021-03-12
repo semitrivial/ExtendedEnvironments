@@ -1,4 +1,7 @@
 from test.tests import *
+from test.ad_hoc_tests import run_ad_hoc_tests
+
+run_ad_hoc_tests()
 
 test_incentivize_zero()
 test_guarded_treasures()
