@@ -4,20 +4,24 @@ def backward_consciousness(T, play):
         return [reward, obs]
 
     action = play[-1]
-    reverse_prompt = []
-    n = (len(play)/3) - 1
-    i = n
-    while i >= 1:
-        r_i = play[3*i]
-        o_i = play[3*i + 1]
-        a_iminus1 = play[3*i - 1]
-        reverse_prompt += [r_i, o_i, a_iminus1]
-        i -= 1
+    prompt = reverse_prompt(play)
 
-    r_0 = play[0]
-    o_0 = play[1]
-    reverse_prompt += [r_0, o_0]
-
-    reward = 1 if action == T(reverse_prompt) else -1
+    reward = 1 if action == T(prompt) else -1
     obs = 0
     return [reward, obs]
+
+def reverse_prompt(play):
+    # Break the play into a list of Reward-Observation-Action tiples
+    triples = [play[i:i+3] for i in range(0,len(play),3)]
+
+    # Reverse the list of triples
+    triples.reverse()
+
+    # Turn each Reward-Obs-Action triple into Action-Reward-Obs
+    triples = [[a,r,o] for (r,o,a) in triples]
+
+    # Remove the final action (now the 0th action due to reversing)
+    triples[0] = [triples[0][1], triples[0][2]]
+
+    # Combine the list-of-lists and return the result
+    return [j for i in triples for j in i]
