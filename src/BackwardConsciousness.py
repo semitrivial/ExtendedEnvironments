@@ -18,10 +18,10 @@ def reverse_prompt(play):
     triples.reverse()
 
     # Turn each Reward-Obs-Action triple into Action-Reward-Obs
-    triples = [[a,r,o] for (r,o,a) in triples]
+    triples = [(a,r,o) for (r,o,a) in triples]
 
     # Remove the final action (now the 0th action due to reversing)
-    triples[0] = [triples[0][1], triples[0][2]]
+    triples[0] = (triples[0][1], triples[0][2])
 
     # Combine the list-of-lists and return the result
     return [j for i in triples for j in i]

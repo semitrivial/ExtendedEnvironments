@@ -16,3 +16,4 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ["r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0"]
+
