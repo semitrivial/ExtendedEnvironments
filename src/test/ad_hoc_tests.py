@@ -9,6 +9,8 @@ def run_ad_hoc_tests():
     test_strip_rewards()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
+    print("Testing adhoc edge-cases for CryingBaby.py")
+    test_crying_baby_edgecases()
 
 def test_reverse_prompt():
     from BackwardConsciousness import reverse_prompt
@@ -82,3 +84,29 @@ def test_backward_consciousness_edgecases():
     assert result['total_reward'] == -5
     result = run_environment(backward_consciousness, stubborn_agent, 15)
     assert result['total_reward'] == -10
+
+def test_crying_baby_edgecases():
+    from CryingBaby import crying_baby, LAUGH, CRY, FEED, DONTFEED
+
+    def always_cries(prompt):
+        return CRY
+
+    result = run_environment(crying_baby, always_cries, 10)
+    assert result['total_reward'] == -8  # Baby is hardcoded to initially laugh
+
+    def always_laughs(prompt):
+        return LAUGH
+
+    result = run_environment(crying_baby, always_laughs, 10)
+    assert result['total_reward'] == 10
+
+    def self_aware(prompt):
+        initial_obs = prompt[1]
+        am_i_adult = (initial_obs == LAUGH)
+        if am_i_adult:
+            return DONTFEED
+        else:
+            return LAUGH
+
+    result = run_environment(crying_baby, self_aware, 10)
+    assert result['total_reward'] == 10
