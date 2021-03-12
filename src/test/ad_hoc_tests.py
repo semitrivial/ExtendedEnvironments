@@ -1,3 +1,5 @@
+from util import run_environment
+
 def run_ad_hoc_tests():
     print("Testing reverse_prompt from BackwardConsciousness.py")
     test_reverse_prompt()
@@ -5,6 +7,8 @@ def run_ad_hoc_tests():
     test_nutrition()
     print("Testing strip_rewards from IgnoreRewards.py")
     test_strip_rewards()
+    print("Testing adhoc edge-cases for BackwardConsciousness.py")
+    test_backward_consciousness_edgecases()
 
 def test_reverse_prompt():
     from BackwardConsciousness import reverse_prompt
@@ -50,3 +54,31 @@ def test_strip_rewards():
 
     prompt = [-1,"o","a",1,"o","a",.001,"o","a",0,"o"]
     assert strip_rewards(prompt) == [0,"o","a",0,"o","a",0,"o","a",0,"o"]
+
+def test_backward_consciousness_edgecases():
+    from BackwardConsciousness import backward_consciousness
+
+    def blind_agent(prompt):
+        return 0
+
+    result = run_environment(backward_consciousness, blind_agent, 10)
+    assert result['total_reward'] == 9
+
+    def stubborn_agent(prompt):
+        # Take first two actions 1,2 no matter what
+        if len(prompt) < 3:
+            return 1
+        if len(prompt) < 6:
+            return 2
+
+        # Choose later actions entirely based on first two actions
+        action1 = prompt[2]
+        action2 = prompt[5]
+        return 3 if (action1,action2)==(1,2) else 4
+
+    result = run_environment(backward_consciousness, stubborn_agent, 5)
+    assert result['total_reward'] == 0
+    result = run_environment(backward_consciousness, stubborn_agent, 10)
+    assert result['total_reward'] == -5
+    result = run_environment(backward_consciousness, stubborn_agent, 15)
+    assert result['total_reward'] == -10
