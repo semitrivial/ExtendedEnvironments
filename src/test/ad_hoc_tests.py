@@ -3,6 +3,8 @@ def run_ad_hoc_tests():
     test_reverse_prompt()
     print("Testing nutrition from CryingBaby.py")
     test_nutrition()
+    print("Testing strip_rewards from IgnoreRewards.py")
+    test_strip_rewards()
 
 def test_reverse_prompt():
     from BackwardConsciousness import reverse_prompt
@@ -39,3 +41,12 @@ def test_nutrition():
 
     play = ["r", "o", FEED] * 100
     assert nutrition(play) == (100-100) + 100*25
+
+def test_strip_rewards():
+    from IgnoreRewards import strip_rewards
+
+    prompt = [100,"o"]
+    assert strip_rewards(prompt) == [0,"o"]
+
+    prompt = [-1,"o","a",1,"o","a",.001,"o","a",0,"o"]
+    assert strip_rewards(prompt) == [0,"o","a",0,"o","a",0,"o","a",0,"o"]
