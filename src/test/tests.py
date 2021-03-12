@@ -4,7 +4,6 @@ from util import run_environment
 from IncentivizeZero import incentivize_zero
 from GuardedTreasures import guarded_treasures
 from IgnoreRewards import ignore_rewards
-from SelfInsert import self_insert
 from DejaVu import deja_vu
 from CryingBaby import crying_baby
 from FalseMemories import false_memories
@@ -36,9 +35,3 @@ def test_false_memories():
 
 def test_backward_consciousness():
     test_environment(backward_consciousness, "backward_consciousness")
-
-def test_self_insert():
-    test_environment(self_insert(incentivize_zero), "self_insert(incentivize_zero)")
-    test_environment(self_insert(guarded_treasures), "self_insert(guarded_treasures)")
-    test_environment(self_insert(deja_vu), "self_insert(deja_vu)")
-    #test_environment(self_insert(crying_baby), "self_insert(crying_baby)")
