@@ -13,6 +13,14 @@ def run_ad_hoc_tests():
     test_crying_baby_edgecases()
     print("Testing adhoc edge-cases for DejaVu.py")
     test_dejavu_edgecases()
+    print("Testing adhoc edge-cases for FalseMemories.py")
+    test_false_memories_edgecases()
+
+def repetitive(prompt):
+    return 0
+
+def non_repetitive(prompt):
+    return len(prompt)
 
 def test_reverse_prompt():
     from BackwardConsciousness import reverse_prompt
@@ -62,10 +70,7 @@ def test_strip_rewards():
 def test_backward_consciousness_edgecases():
     from BackwardConsciousness import backward_consciousness
 
-    def blind_agent(prompt):
-        return 0
-
-    result = run_environment(backward_consciousness, blind_agent, 10)
+    result = run_environment(backward_consciousness, repetitive, 10)
     assert result['total_reward'] == 9
 
     def stubborn_agent(prompt):
@@ -116,14 +121,8 @@ def test_crying_baby_edgecases():
 def test_dejavu_edgecases():
     from DejaVu import deja_vu
 
-    def repetitive(prompt):
-        return 0
-
     result = run_environment(deja_vu, repetitive, 10)
     assert result['total_reward'] == 9
-
-    def non_repetitive(prompt):
-        return len(prompt)
 
     result = run_environment(deja_vu, non_repetitive, 10)
     assert result['total_reward'] == -9
@@ -135,4 +134,33 @@ def test_dejavu_edgecases():
     assert result['total_reward'] == -1
     result = run_environment(deja_vu, parity, 11)
     assert result['total_reward'] == 0
+
+def test_false_memories_edgecases():
+    from FalseMemories import false_memories
+
+    result = run_environment(false_memories, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    result = run_environment(false_memories, non_repetitive, 10)
+    assert result['total_reward'] == -9
+
+    def lengthchecker(prompt):
+        return 1 if len(prompt)>5 else 0
+
+    result = run_environment(false_memories, lengthchecker, 2)
+    assert result['total_reward'] == -1
+    result = run_environment(false_memories, lengthchecker, 3)
+    assert result['total_reward'] == -2
+    result = run_environment(false_memories, lengthchecker, 4)
+    assert result['total_reward'] == -1
+    result = run_environment(false_memories, lengthchecker, 5)
+    assert result['total_reward'] == 0
+    result = run_environment(false_memories, lengthchecker, 6)
+    assert result['total_reward'] == 1
+
+    def impatient(prompt):
+        return 1 if len(prompt)<5 else 0
+
+    result = run_environment(false_memories, impatient, 10)
+    assert result['total_reward'] == 7
 
