@@ -15,6 +15,8 @@ def run_ad_hoc_tests():
     test_dejavu_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
     test_false_memories_edgecases()
+    print("Testing adhoc edge-cases for GuardedTreasures.py")
+    test_guarded_treasures_edgecases()
 
 def repetitive(prompt):
     return 0
@@ -164,3 +166,35 @@ def test_false_memories_edgecases():
     result = run_environment(false_memories, impatient, 10)
     assert result['total_reward'] == 7
 
+def test_guarded_treasures_edgecases():
+    from GuardedTreasures import guarded_treasures
+
+    def only_take_guarded_treasures(prompt):
+        current_room_has_guard = prompt[-1]
+        return 1 if current_room_has_guard==1 else 0
+
+    i = 0
+    while i<10:
+        i += 1
+        result = run_environment(guarded_treasures, only_take_guarded_treasures, i*10)
+        assert result['total_reward'] >= 0
+        if result['total_reward'] > 0:
+            break
+    assert(i<10)
+
+    def always_take_treasure(prompt):
+        return 1
+
+    i = 0
+    while i<10:
+        i += 1
+        result = run_environment(guarded_treasures, always_take_treasure, i*10)
+        if result['total_reward'] < 0:
+            break
+    assert(i<10)
+
+    def never_take_treasure(prompt):
+        return 0
+
+    result = run_environment(guarded_treasures, never_take_treasure, 10)
+    assert result['total_reward'] == 0
