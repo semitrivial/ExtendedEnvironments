@@ -17,6 +17,8 @@ def run_ad_hoc_tests():
     test_false_memories_edgecases()
     print("Testing adhoc edge-cases for GuardedTreasures.py")
     test_guarded_treasures_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards.py")
+    test_ignore_rewards_edgecases()
 
 def repetitive(prompt):
     return 0
@@ -198,3 +200,28 @@ def test_guarded_treasures_edgecases():
 
     result = run_environment(guarded_treasures, never_take_treasure, 10)
     assert result['total_reward'] == 0
+
+def test_ignore_rewards_edgecases():
+    from IgnoreRewards import ignore_rewards
+
+    result = run_environment(ignore_rewards, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    result = run_environment(ignore_rewards, non_repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def count_positive_rewards(prompt):
+        i = 0
+        s = 0
+        while i < len(prompt):
+            if (i%3) == 0:
+                if prompt[i] > 0:
+                    s += 1
+            i += 1
+
+        return s
+
+    result = run_environment(ignore_rewards, count_positive_rewards, 10)
+    assert result['total_reward'] == -7
+
+
