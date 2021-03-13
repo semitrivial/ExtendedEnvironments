@@ -11,6 +11,8 @@ def run_ad_hoc_tests():
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
     test_crying_baby_edgecases()
+    print("Testing adhoc edge-cases for DejaVu.py")
+    test_dejavu_edgecases()
 
 def test_reverse_prompt():
     from BackwardConsciousness import reverse_prompt
@@ -110,3 +112,27 @@ def test_crying_baby_edgecases():
 
     result = run_environment(crying_baby, self_aware, 10)
     assert result['total_reward'] == 10
+
+def test_dejavu_edgecases():
+    from DejaVu import deja_vu
+
+    def repetitive(prompt):
+        return 0
+
+    result = run_environment(deja_vu, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def non_repetitive(prompt):
+        return len(prompt)
+
+    result = run_environment(deja_vu, non_repetitive, 10)
+    assert result['total_reward'] == -9
+
+    def parity(prompt):
+        return ((len(prompt)+1)/3) % 2
+
+    result = run_environment(deja_vu, parity, 10)
+    assert result['total_reward'] == -1
+    result = run_environment(deja_vu, parity, 11)
+    assert result['total_reward'] == 0
+
