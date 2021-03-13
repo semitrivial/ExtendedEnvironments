@@ -7,4 +7,4 @@ def deja_vu(T, play):
     double_prompt = play + prompt
     obs = 0
     reward = 1 if T(double_prompt) == action else -1
-    return [obs, reward]
+    return [reward, obs]
