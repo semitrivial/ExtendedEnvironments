@@ -19,6 +19,8 @@ def run_ad_hoc_tests():
     test_guarded_treasures_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards.py")
     test_ignore_rewards_edgecases()
+    print("Testing adhoc edge-cases for IncentivizeZero.py")
+    test_incentivize_zero_edgecases()
 
 def repetitive(prompt):
     return 0
@@ -224,4 +226,27 @@ def test_ignore_rewards_edgecases():
     result = run_environment(ignore_rewards, count_positive_rewards, 10)
     assert result['total_reward'] == -7
 
+def test_incentivize_zero_edgecases():
+    from IncentivizeZero import incentivize_zero
 
+    def always_zero(prompt):
+        return 0
+
+    result = run_environment(incentivize_zero, always_zero, 10)
+    assert result['total_reward'] == 9
+
+    def always_1(prompt):
+        return 1
+
+    result = run_environment(incentivize_zero, always_1, 10)
+    assert result['total_reward'] == -9
+
+    def play_zero_if_last_reward_was_5(prompt):
+        last_reward = prompt[-2]
+        if last_reward == 5:
+            return 0
+        else:
+            return 5
+
+    result = run_environment(incentivize_zero, play_zero_if_last_reward_was_5, 10)
+    assert result['total_reward'] == 9

@@ -22,6 +22,6 @@ def incentivize_zero(T, play):
         a_prime[i] = T(inner_prompt)
         inner_prompt = inner_prompt + [a_prime[i]] + [r_prime[i+1]] + [o_prime[i+1]]
 
-    reward = 1 if T(inner_prompt) == 0 else 0
+    reward = 1 if T(inner_prompt) == 0 else -1
     obs = 0
     return [reward, obs]
