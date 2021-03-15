@@ -21,6 +21,8 @@ def run_ad_hoc_tests():
     test_ignore_rewards_edgecases()
     print("Testing adhoc edge-cases for IncentivizeZero.py")
     test_incentivize_zero_edgecases()
+    print("Testing adhoc edge-cases for BinocularVision.py")
+    test_binocular_vision_edgecases()
 
 def repetitive(prompt):
     return 0
@@ -250,3 +252,32 @@ def test_incentivize_zero_edgecases():
 
     result = run_environment(incentivize_zero, play_zero_if_last_reward_was_5, 10)
     assert result['total_reward'] == 9
+
+def test_binocular_vision_edgecases():
+    from abstract.BinocularVision import BinocularVision
+    from util import cantor_pairing_fnc
+
+    def Game3D(action_sequence):
+        return 0
+    def LeftCamera(matrix3D):
+        return 1
+    def RightCamera(matrix3D):
+        return 2
+
+    expected_obs = cantor_pairing_fnc(LeftCamera(0), RightCamera(0))
+
+    env = BinocularVision(Game3D, LeftCamera, RightCamera)
+
+    result = run_environment(env, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def zero_checker(prompt):
+        obs = prompt[-1]
+        if obs == 0:
+            return 1
+        if obs == expected_obs:
+            return 2
+        raise ValueError("Zero_checker saw an unexpected observation")
+
+    result = run_environment(env, zero_checker, 10)
+    assert result['total_reward'] == -9
