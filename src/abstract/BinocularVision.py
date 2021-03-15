@@ -50,7 +50,7 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
     updated_3d_world = Game3D(action_sequence)
     obs_left = LeftCamera(updated_3d_world)
     obs_right = RightCamera(updated_3d_world)
-    obs = cantor_pairing_fnc(left_image, right_image)
+    obs = cantor_pairing_fnc(obs_left, obs_right)
 
     return [reward, obs]
 
