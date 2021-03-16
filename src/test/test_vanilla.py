@@ -38,6 +38,9 @@ def test_mazes():
     from vanilla.Maze import Maze1, Maze2, Maze3, Maze4, Maze5
 
     def learns_about_bad_moves(prompt):
+        if prompt[-2] > 0:
+            assert prompt[-1] == 1  # Rewards are always accompanied by reset
+
         bad_moves = {x:[] for x in range(10)}
         for i in range(len(prompt)):
             is_obs = (i%2)==1
