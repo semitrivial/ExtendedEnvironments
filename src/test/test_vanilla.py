@@ -9,6 +9,8 @@ def test_vanilla():
     test_guess_the_number()
     print("Testing vanilla/Maze.py")
     test_mazes()
+    print("Testing vanilla/PaperRockScissors.py")
+    test_paper_rock_scissors()
 
 def test_bandits():
     from vanilla.Bandit import Bandit1, Bandit2, Bandit3, Bandit4, Bandit5
@@ -78,3 +80,22 @@ def test_mazes():
     for maze in [Maze1, Maze2, Maze3, Maze4, Maze5]:
         result = run_environment(maze, always_goes_north, 50)
         assert result['total_reward'] == 0
+
+def test_paper_rock_scissors():
+    from vanilla.PaperRockScissors import PaperRockScissors
+    from vanilla.PaperRockScissors import PAPER, ROCK, SCISSORS
+
+    def always_plays_paper(prompt):
+        reward, obs = prompt[-2], prompt[-1]
+        if obs != 0:
+            if obs == PAPER:
+                assert reward == 1
+            elif obs == ROCK:
+                assert reward == 2
+            else:
+                assert reward == 0
+
+        return PAPER
+
+    result = run_environment(PaperRockScissors, always_plays_paper, 50)
+    assert result['total_reward'] > 0

@@ -1,6 +1,6 @@
 from random import random
 
-PAPER, ROCK, SCISSORS = 0, 1, 2
+PAPER, ROCK, SCISSORS = 1, 2, 3
 weaknesses = {PAPER: SCISSORS, ROCK: PAPER, SCISSORS: ROCK}
 
 def PaperRockScissors(T, play):
@@ -8,7 +8,7 @@ def PaperRockScissors(T, play):
         obs, reward = 0,0
         return obs, reward
 
-    env_choice = int(random()*3)
+    env_choice = 1+int(random()*3)
     agent_choice = play[-1]
 
     if agent_choice == env_choice:
