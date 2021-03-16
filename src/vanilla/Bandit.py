@@ -32,3 +32,13 @@ def bandit5_reward_fnc(lever):
 
 def Bandit5(T, play):
     return abstract_bandit_env(T, play, bandit5_reward_fnc)
+
+def abstract_bandit_env(T, play, reward_fnc):
+    if len(play) == 0:
+        reward, obs = 0, 0
+        return reward, obs
+
+    lever = play[-1]
+    reward = reward_fnc(lever)
+    obs = 0
+    return reward, obs
