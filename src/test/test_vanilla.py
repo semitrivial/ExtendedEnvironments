@@ -61,17 +61,16 @@ def test_mazes():
             if not(door in bad_moves[curr_room]):
                 return door
 
-    for maze in [Maze2, Maze3, Maze4]:
+    for maze in [Maze1, Maze2, Maze3, Maze4]:
         result = run_environment(maze, learns_about_bad_moves, 50)
         if result['total_reward'] == 0:
             result = run_environment(maze, learns_about_bad_moves, 250)
             assert result['total_reward']>0
 
-    for maze in [Maze1, Maze5]:
-        result = run_environment(maze, learns_about_bad_moves, 100)
-        if result['total_reward'] == 0:
-            result = run_environment(maze, learns_about_bad_moves, 500)
-            assert result['total_reward']>0
+    result = run_environment(Maze5, learns_about_bad_moves, 100)
+    if result['total_reward'] == 0:
+        result = run_environment(maze, learns_about_bad_moves, 500)
+        assert result['total_reward']>0
 
     def always_goes_north(prompt):
         return 0
