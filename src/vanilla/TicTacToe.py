@@ -66,8 +66,8 @@ def encode_board(board):
 
 def decode_board(code):
     decode_dict = {'00': UNMARKED, '01': AGENT, '10': ENV}
-    binary_str = bin(code)[2:]
-    board = {x:decode_dict[binary_str[x*i:2*x+2]] for x in positions}
+    binary_str = bin(code)[2:].zfill(18)
+    board = {x:decode_dict[binary_str[2*x:2*x+2]] for x in positions}
     return board
 
 def new_board(who_goes_first):
@@ -75,6 +75,7 @@ def new_board(who_goes_first):
     if who_goes_first == ENV:
         pos = random_unmarked_pos(board)
         board[pos] = ENV
+    return board
 
 def random_unmarked_pos(board):
     while True:

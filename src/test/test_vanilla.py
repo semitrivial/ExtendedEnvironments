@@ -11,6 +11,8 @@ def test_vanilla():
     test_mazes()
     print("Testing vanilla/PaperRockScissors.py")
     test_paper_rock_scissors()
+    print("Testing vanilla/TicTacToe.py")
+    test_tic_tac_toe()
 
 def test_bandits():
     from vanilla.Bandit import Bandit1, Bandit2, Bandit3, Bandit4, Bandit5
@@ -99,3 +101,15 @@ def test_paper_rock_scissors():
 
     result = run_environment(PaperRockScissors, always_plays_paper, 50)
     assert result['total_reward'] > 0
+
+def test_tic_tac_toe():
+    from vanilla.TicTacToe import TicTacToe1, TicTacToe2
+
+    def plays_blindly(prompt):
+        return ((1+len(prompt))/3)%9
+
+    for env in [TicTacToe1, TicTacToe2]:
+        result = run_environment(env, plays_blindly, 100)
+        if result['total_reward'] == 0:
+            result = run_environment(env, plays_blindly, 1000)
+            assert result['total_reward'] > 0
