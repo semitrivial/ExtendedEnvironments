@@ -27,5 +27,6 @@ def test_guess_the_number():
 
         return (((1+len(prompt))/3)%10)+1
 
-    result = run_environment(GuessTheNumber, blank_observation_observer, 30)
+    result = run_environment(GuessTheNumber, blank_observation_observer, 100)
     assert result['total_reward'] == len(blank_observations)-1
+
