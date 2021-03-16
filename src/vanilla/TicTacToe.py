@@ -1,5 +1,7 @@
 from random import random
 
+UNMARKED,AGENT,ENV = 0,1,2
+
 def TicTacToe1(T, play):
     return abstract_tictactoe_env(T, play, who_goes_first=AGENT)
 
@@ -10,8 +12,6 @@ TL,TM,TR = 0,1,2
 ML,MM,MR = 3,4,5
 BL,BM,BR = 6,7,8
 positions = [TL,TM,TR,ML,MM,MR,BL,BM,BR]
-
-UNMARKED,AGENT,ENV = 0,1,2
 
 winning_rows = [
     [TL,TM,TR], [ML,MM,MR], [BL,BM,BR],
