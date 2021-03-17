@@ -88,7 +88,9 @@ def test_mazes():
         assert result['total_reward'] == 0
 
 def test_paper_rock_scissors():
-    from vanilla.PaperRockScissors import PaperRockScissors
+    from vanilla.PaperRockScissors import PaperRockScissors1
+    from vanilla.PaperRockScissors import PaperRockScissors2
+    from vanilla.PaperRockScissors import PaperRockScissors3
     from vanilla.PaperRockScissors import PAPER, ROCK, SCISSORS
 
     def always_plays_paper(prompt):
@@ -103,8 +105,9 @@ def test_paper_rock_scissors():
 
         return PAPER
 
-    result = run_environment(PaperRockScissors, always_plays_paper, 50)
-    assert result['total_reward'] > 0
+    for env in [PaperRockScissors1, PaperRockScissors2, PaperRockScissors3]:
+        result = run_environment(env, always_plays_paper, 50)
+        assert result['total_reward'] > 0
 
 def test_tic_tac_toe():
     from vanilla.TicTacToe import TicTacToe1, TicTacToe2, TicTacToe3
