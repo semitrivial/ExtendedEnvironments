@@ -151,6 +151,12 @@ environments, because traditional RL techniques do not involve
 self-awareness. We hope these examples will facilitate
 new self-aware RL techniques, hopefully as a step toward AGI.
 
+Alongside this paper, we are also releasing an open-source library
+\cite{library} of extended environments
+implemented in python. The library also includes some machinery for running an
+agent against a battery of extended environments in order to empirically
+probe the agent's self-awareness (or lack thereof).
+
 \section{Preliminaries}
 
 Throughout the paper, $\frown$ denotes concatenation.
@@ -292,6 +298,8 @@ traditional RL environments and other benchmarks \cite{bellemare2013arcade}
 form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
 In Section \ref{newextendedenvironmentsfromoldsecn},
 this uniformity will allow all these examples to be generalized.
+Most of the examples in this section are implemented in our open-source
+library of extended environments \cite{library}.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
@@ -316,6 +324,9 @@ this uniformity will allow all these examples to be generalized.
     (if $T$ does not halt on $s^0$ then $e$ does not halt on
     $\langle T,s\frown a\rangle$).
 \end{example}
+
+Example \ref{rewardagentforignoringrewardsexample} is implemented in
+IgnoreRewards.py at \cite{library}.
 
 In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
 agent acts the same way the agent would act if all rewards so far had been $0$.
@@ -395,6 +406,8 @@ feel bored (since that would be the simplest way to satisfy the director)?
     \]
 \end{example}
 
+Example \ref{falsememoryexample} is implemented in FalseMemories.py at \cite{library}.
+
 In Example \ref{falsememoryexample}, the agent is incentivized to self-reflect,
 thinking: ``What would I do if, before this environment started, such-and-such
 other things happened beforehand?'' If a stranger hired you to act as an old
@@ -431,6 +444,8 @@ examples.
     \]
 \end{example}
 
+Example \ref{backwardexample} is implemented in BackwardConsciousness.py at \cite{library}.
+
 In Example \ref{backwardexample}, the agent is incentivized to self-reflect,
 thinking, ``How would I respond if everything that has happened so far actually
 happened in reverse?'' It is interesting to imagine what sort of subjective
@@ -464,6 +479,8 @@ simulated in an extended environment?}?
     \]
 \end{example}
 
+Example \ref{dejavuexample} is implemented in DejaVu.py at \cite{library}.
+
 In Example \ref{dejavuexample},
 the agent is incentivized to self-reflect and ask: ``Which action
 would I take in order to ensure that I would take that same action if everything
@@ -490,6 +507,10 @@ which has happened so far were to repeat itself verbatim?''
     each $o'_i=0$, and each
     $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
 \end{example}
+
+Example \ref{incentivetoincentivizeexample} is implemented in
+IncentivizeZero.py at \cite{library}.
+
 
 In Example \ref{incentivetoincentivizeexample}, the agent is tasked with choosing
 rewards in such a way that if those rewards were fed to a simulated copy of the agent,
