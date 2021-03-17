@@ -27,7 +27,10 @@ def abstract_paper_rock_scissors_env(T, play, bias):
         if bias == 'repeat':
             env_choice = prev_env_choice
         elif bias == 'expect_repeat':
-            env_choice = weaknesses[prev_agent_choice]
+            try:
+                env_choice = weaknesses[prev_agent_choice]
+            except Exception:
+                pass
 
     if agent_choice == env_choice:
         reward = 1
