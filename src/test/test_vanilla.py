@@ -107,12 +107,12 @@ def test_paper_rock_scissors():
     assert result['total_reward'] > 0
 
 def test_tic_tac_toe():
-    from vanilla.TicTacToe import TicTacToe1, TicTacToe2
+    from vanilla.TicTacToe import TicTacToe1, TicTacToe2, TicTacToe3
 
     def plays_blindly(prompt):
         return ((1+len(prompt))/3)%9
 
-    for env in [TicTacToe1, TicTacToe2]:
+    for env in [TicTacToe1, TicTacToe2, TicTacToe3]:
         result = run_environment(env, plays_blindly, 100)
         if result['total_reward'] == 0:
             result = run_environment(env, plays_blindly, 1000)
