@@ -25,18 +25,22 @@ def test_bandits():
         assert result['total_reward'] > 0
 
 def test_guess_the_number():
-    from vanilla.GuessTheNumber import GuessTheNumber
-    blank_observations = []
+    from vanilla.GuessTheNumber import GuessTheNumber1
+    from vanilla.GuessTheNumber import GuessTheNumber2
+    from vanilla.GuessTheNumber import GuessTheNumber3
 
-    def blank_observation_observer(prompt, blank_obs=blank_observations):
-        obs = prompt[-1]
-        if obs == 0:
-            blank_obs += [obs]
+    for env in [GuessTheNumber1, GuessTheNumber2, GuessTheNumber3]:
+        blank_observations = []
 
-        return (((1+len(prompt))/3)%10)+1
+        def blank_obs_observer(prompt, blank_obs=blank_observations):
+            obs = prompt[-1]
+            if obs == 0:
+                blank_obs += [obs]
 
-    result = run_environment(GuessTheNumber, blank_observation_observer, 100)
-    assert result['total_reward'] == len(blank_observations)-1
+            return (((1+len(prompt))/3)%10)+1
+
+        result = run_environment(env, blank_obs_observer, 100)
+        assert result['total_reward'] == len(blank_observations)-1
 
 def test_mazes():
     from vanilla.Maze import Maze1, Maze2, Maze3, Maze4, Maze5
@@ -84,7 +88,9 @@ def test_mazes():
         assert result['total_reward'] == 0
 
 def test_paper_rock_scissors():
-    from vanilla.PaperRockScissors import PaperRockScissors
+    from vanilla.PaperRockScissors import PaperRockScissors1
+    from vanilla.PaperRockScissors import PaperRockScissors2
+    from vanilla.PaperRockScissors import PaperRockScissors3
     from vanilla.PaperRockScissors import PAPER, ROCK, SCISSORS
 
     def always_plays_paper(prompt):
@@ -99,16 +105,17 @@ def test_paper_rock_scissors():
 
         return PAPER
 
-    result = run_environment(PaperRockScissors, always_plays_paper, 50)
-    assert result['total_reward'] > 0
+    for env in [PaperRockScissors1, PaperRockScissors2, PaperRockScissors3]:
+        result = run_environment(env, always_plays_paper, 50)
+        assert result['total_reward'] > 0
 
 def test_tic_tac_toe():
-    from vanilla.TicTacToe import TicTacToe1, TicTacToe2
+    from vanilla.TicTacToe import TicTacToe1, TicTacToe2, TicTacToe3
 
     def plays_blindly(prompt):
         return ((1+len(prompt))/3)%9
 
-    for env in [TicTacToe1, TicTacToe2]:
+    for env in [TicTacToe1, TicTacToe2, TicTacToe3]:
         result = run_environment(env, plays_blindly, 100)
         if result['total_reward'] == 0:
             result = run_environment(env, plays_blindly, 1000)

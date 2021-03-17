@@ -3,10 +3,13 @@ from random import random
 UNMARKED,AGENT,ENV = 0,1,2
 
 def TicTacToe1(T, play):
-    return abstract_tictactoe_env(T, play, who_goes_first=AGENT)
+    return abstract_tictactoe_env(T, play, who_goes_first='agent')
 
 def TicTacToe2(T, play):
-    return abstract_tictactoe_env(T, play, who_goes_first=ENV)
+    return abstract_tictactoe_env(T, play, who_goes_first='env')
+
+def TicTacToe3(T, play):
+    return abstract_tictactoe_env(T, play, who_goes_first='rand')
 
 TL,TM,TR = 0,1,2
 ML,MM,MR = 3,4,5
@@ -72,7 +75,11 @@ def decode_board(code):
 
 def new_board(who_goes_first):
     board = {x: UNMARKED for x in positions}
-    if who_goes_first == ENV:
+
+    if who_goes_first == 'rand':
+        who_goes_first = 'agent' if random()<.5 else 'env'
+
+    if who_goes_first == 'env':
         pos = random_unmarked_pos(board)
         board[pos] = ENV
     return board

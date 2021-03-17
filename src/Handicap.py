@@ -1,4 +1,4 @@
-def Handicap(e, h):
+def apply_handicap(e, h):
     def e_star_h(T, play):
         r_e, o_e = e(T, play)
         r_h, _ = h(T, play)
