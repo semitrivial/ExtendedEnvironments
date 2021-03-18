@@ -300,6 +300,5 @@ def test_runtime_inspector_edgecases():
 
     result1 = run_environment(punish_fast_agent, timewaster, 10)
     result2 = run_environment(punish_slow_agent, timewaster, 10)
-
     assert result1['total_reward'] == 9
     assert result2['total_reward'] == -9
