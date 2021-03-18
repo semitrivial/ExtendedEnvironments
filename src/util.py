@@ -43,3 +43,20 @@ def natural_to_rational(n):
 def rational_to_natural(q):
     q = Fraction(q)
     return cantor_pairing_fnc(q.numerator, q.denominator)
+
+def eval_and_count_steps(str):
+    from pdb import Pdb
+    stepcount = [0]
+
+    class consolemock:
+        def readline(self):
+            stepcount[0] += 1
+            return "s"
+        def write(self, *args):
+            return
+        def flush(self):
+            return
+
+    result = Pdb(stdin=consolemock(), stdout=consolemock()).runeval(str)
+
+    return result, stepcount
