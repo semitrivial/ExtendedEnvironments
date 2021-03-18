@@ -45,7 +45,7 @@ def rational_to_natural(q):
     q = Fraction(q)
     return cantor_pairing_fnc(q.numerator, q.denominator)
 
-def eval_and_count_steps(str):
+def eval_and_count_steps(str, local_vars):
     stepcount = [0]
 
     class consolemock:
@@ -57,6 +57,7 @@ def eval_and_count_steps(str):
         def flush(self):
             return
 
-    result = Pdb(stdin=consolemock(), stdout=consolemock()).runeval(str)
+    runner = Pdb(stdin=consolemock(), stdout=consolemock())
+    result = runner.runeval(str, locals = local_vars)
 
     return result, stepcount
