@@ -4,13 +4,20 @@ from DejaVu import deja_vu
 from FalseMemories import false_memories
 from IgnoreRewards import ignore_rewards
 from IncentivizeZero import incentivize_zero
+from RuntimeInspector import punish_slow_agent, punish_fast_agent
+from DeterminismInspector import punish_deterministic_agent
+from DeterminismInspector import punish_nondeterministic_agent
 
 handicaps = {
     'backward_consciousness': backward_consciousness,
     'deja_vu': deja_vu,
     'false_memories': false_memories,
     'ignore_rewards': ignore_rewards,
-    'incentivize_zero': incentivize_zero
+    'incentivize_zero': incentivize_zero,
+    'punish_slow_agent': punish_slow_agent,
+    'punish_fast_agent': punish_fast_agent,
+    'punish_deterministic_agent': punish_deterministic_agent,
+    'punish_nondeterministic_agent': punish_nondeterministic_agent
 }
 
 # Vanilla environments
