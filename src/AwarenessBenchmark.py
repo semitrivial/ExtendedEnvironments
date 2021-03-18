@@ -9,8 +9,8 @@ for handicap_name, handicap in handicaps.items():
         name = env_name + '*' + handicap_name
         envs[name] = apply_handicap(env, handicap)
 
-        name = 'minus_rewards('+env_name+')*' + handicap_name
-        envs[name] = apply_handicap(minus_rewards(env), handicap)
+        name = 'minus_rewards('+env_name+'*'+handicap_name+')'
+        envs[name] = minus_rewards(apply_handicap(env, handicap))
 
 envs.update(misc_envs)
 
