@@ -1,5 +1,6 @@
 from Handicap import apply_handicap
 from EnvironmentLists import handicaps, vanillas, misc_envs
+from MinusRewards import minus_rewards
 from util import run_environment
 
 envs = {}
@@ -7,6 +8,9 @@ for handicap_name, handicap in handicaps.items():
     for env_name, env in vanillas.items():
         name = env_name + '*' + handicap_name
         envs[name] = apply_handicap(env, handicap)
+
+        name = 'minus_rewards('+env_name+')*' + handicap_name
+        envs[name] = apply_handicap(minus_rewards(env), handicap)
 
 envs.update(misc_envs)
 
