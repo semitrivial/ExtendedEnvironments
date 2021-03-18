@@ -52,7 +52,7 @@ def eval_and_count_steps(str, local_vars):
     class consolemock:
         def readline(self):
             stepcount[0] += 1
-            return "s"
+            return "s"  # "take 1 Step"
         def write(self, *args):
             return
         def flush(self):
