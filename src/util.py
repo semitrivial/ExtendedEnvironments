@@ -46,6 +46,7 @@ def rational_to_natural(q):
     return cantor_pairing_fnc(q.numerator, q.denominator)
 
 def eval_and_count_steps(str, local_vars):
+    # This function works by hijacking the python debugger, pdb.
     stepcount = [0]
 
     class consolemock:
