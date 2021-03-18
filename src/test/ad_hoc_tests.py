@@ -25,6 +25,8 @@ def run_ad_hoc_tests():
     test_binocular_vision_edgecases()
     print("Testing adhoc edge-cases for RuntimeInspector.py")
     test_runtime_inspector_edgecases()
+    print("Testing adhoc edge-cases for DeterminismInspector.py")
+    test_determinism_inspector_edgecases()
 
 def repetitive(prompt):
     return 0
@@ -300,5 +302,25 @@ def test_runtime_inspector_edgecases():
 
     result1 = run_environment(punish_fast_agent, timewaster, 10)
     result2 = run_environment(punish_slow_agent, timewaster, 10)
+    assert result1['total_reward'] == 9
+    assert result2['total_reward'] == -9
+
+def test_determinism_inspector_edgecases():
+    from DeterminismInspector import punish_deterministic_agent
+    from DeterminismInspector import punish_nondeterministic_agent
+
+    result1 = run_environment(punish_deterministic_agent, repetitive, 10)
+    result2 = run_environment(punish_nondeterministic_agent, repetitive, 10)
+    assert result1['total_reward'] == -9
+    assert result2['total_reward'] == 9
+
+    memory = [0]
+    def never_repeater(prompt):
+        action = memory[0]
+        memory[0] += 1
+        return action
+
+    result1 = run_environment(punish_deterministic_agent, never_repeater, 10)
+    result2 = run_environment(punish_nondeterministic_agent, never_repeater, 10)
     assert result1['total_reward'] == 9
     assert result2['total_reward'] == -9
