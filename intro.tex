@@ -34,7 +34,9 @@ in reinforcement learning}
     These environments are not particularly useful in themselves, but we
     hope they might serve to guide the development of self-aware reinforcement
     learning agents, as well as to help measure the degree to which existing
-    reinforcement learning agents are or are not self-aware. We also speculate
+    reinforcement learning agents are or are not self-aware; to that end,
+    we have released an open-source library of such environments.
+    We also speculate
     about subjective conscious experiences which
     might be incentivized in self-aware reinforcement learning agents
     placed within these extended environments.
@@ -42,7 +44,10 @@ in reinforcement learning}
 
 \section{Introduction}
 
-We begin with three thought experiments.
+In order to motivate the environments in this paper (and in the accompanying
+open-source library \cite{library} which we are publishing alongside the
+paper),
+we begin with three thought experiments.
 \begin{itemize}
     \item (Oracular Obstacle Courses)
         An ordinary obstacle course might depend on what you \emph{do}:
@@ -145,6 +150,12 @@ We conjecture that traditional RL agents would perform poorly in these extended
 environments, because traditional RL techniques do not involve
 self-awareness. We hope these examples will facilitate
 new self-aware RL techniques, hopefully as a step toward AGI.
+
+Alongside this paper, we are also releasing an open-source library
+\cite{library} of extended environments
+implemented in python. The library also includes some machinery for running an
+agent against a battery of extended environments in order to empirically
+probe the agent's self-awareness (or lack thereof).
 
 \section{Preliminaries}
 
@@ -287,6 +298,8 @@ traditional RL environments and other benchmarks \cite{bellemare2013arcade}
 form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
 In Section \ref{newextendedenvironmentsfromoldsecn},
 this uniformity will allow all these examples to be generalized.
+Most of the examples in this section are implemented in our open-source
+library of extended environments \cite{library}.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
@@ -311,6 +324,9 @@ this uniformity will allow all these examples to be generalized.
     (if $T$ does not halt on $s^0$ then $e$ does not halt on
     $\langle T,s\frown a\rangle$).
 \end{example}
+
+Example \ref{rewardagentforignoringrewardsexample} is implemented in
+IgnoreRewards.py at \cite{library}.
 
 In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
 agent acts the same way the agent would act if all rewards so far had been $0$.
@@ -390,6 +406,8 @@ feel bored (since that would be the simplest way to satisfy the director)?
     \]
 \end{example}
 
+Example \ref{falsememoryexample} is implemented in FalseMemories.py at \cite{library}.
+
 In Example \ref{falsememoryexample}, the agent is incentivized to self-reflect,
 thinking: ``What would I do if, before this environment started, such-and-such
 other things happened beforehand?'' If a stranger hired you to act as an old
@@ -426,6 +444,8 @@ examples.
     \]
 \end{example}
 
+Example \ref{backwardexample} is implemented in BackwardConsciousness.py at \cite{library}.
+
 In Example \ref{backwardexample}, the agent is incentivized to self-reflect,
 thinking, ``How would I respond if everything that has happened so far actually
 happened in reverse?'' It is interesting to imagine what sort of subjective
@@ -459,6 +479,8 @@ simulated in an extended environment?}?
     \]
 \end{example}
 
+Example \ref{dejavuexample} is implemented in DejaVu.py at \cite{library}.
+
 In Example \ref{dejavuexample},
 the agent is incentivized to self-reflect and ask: ``Which action
 would I take in order to ensure that I would take that same action if everything
@@ -485,6 +507,10 @@ which has happened so far were to repeat itself verbatim?''
     each $o'_i=0$, and each
     $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
 \end{example}
+
+Example \ref{incentivetoincentivizeexample} is implemented in
+IncentivizeZero.py at \cite{library}.
+
 
 In Example \ref{incentivetoincentivizeexample}, the agent is tasked with choosing
 rewards in such a way that if those rewards were fed to a simulated copy of the agent,
@@ -536,6 +562,7 @@ In this section, we will discuss ways of obtaining new environments from old.
 First, we will generalize the examples from Section \ref{basicexamplessection}.
 
 \begin{definition}
+\label{handicapdefn}
     (Handicaps)
     \begin{enumerate}
         \item
@@ -567,6 +594,8 @@ a larger punishment by intentionally using the handicap, then it would not
 be much of a handicap. The requirement that $e$ be
 merciful could be weakened if we revised the RL framework
 to allow infinitary rewards, as in \cite{alexander2020archimedean}.
+
+Definition \ref{handicapdefn} is implemented in Handicap.py in \cite{library}.
 
 \begin{example}
     For any merciful extended environment $e$, each example $h$ in
@@ -750,6 +779,10 @@ sequence of 3-D models.
 The agent is incentivized to self-reflectively ask, ``Which action would I take if instead
 of observing those 2-D snapshot-pairs, I observed equivalent 3-D models?''
 
+An abstract implementation of Example \ref{binocularexample} (where the necessary camera
+functions are delegated to the user) is available in abstract/BinocularVision.py
+in \cite{library}.
+
 \subsection{Nature and Nurture}
 
 \begin{quote}
@@ -827,6 +860,8 @@ types\footnote{Similar to how Plotinus compares society to an elaborate play
 where the actors ``define their own rewards and punishments because
 they themselves assist in the rewards and punishments'' \cite{plotinus}.},
 all sharing the same internal ``nature'' ($T$).
+
+Example \ref{cryingbabyexample} is implemented in CryingBaby.py at \cite{library}.
 
 \section{Examples involving self-recognition}
 
@@ -959,6 +994,12 @@ self-aware (resp.\ self-unaware) in general\footnote{In the same way, computer p
 perform well on IQ tests despite being dumb \cite{sanghi2003computer}.}.
 The larger and more representative the battery of extended environments, the better
 the measurement of self-awareness would be.
+One way to obtain a large battery of environments would be to start with
+a battery of non-extended environments, and a separate body of handicap
+extended environments (as in Section \ref{newextendedenvironmentsfromoldsecn}),
+and exhaustively apply all the different handicaps to all the different
+non-extended environments. In \cite{library}, in the file
+AwarenessBenchmark.py, we offer a function for doing exactly this.
 
 This technique could be useful for obtaining
 empirical insight into questions about the self-awareness, or lack thereof, of
