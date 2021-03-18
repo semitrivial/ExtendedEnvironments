@@ -61,4 +61,4 @@ def eval_and_count_steps(str, local_vars):
     runner = Pdb(stdin=consolemock(), stdout=consolemock())
     result = runner.runeval(str, locals = local_vars)
 
-    return result, stepcount
+    return result, stepcount[0]
