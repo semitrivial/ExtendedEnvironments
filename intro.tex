@@ -146,9 +146,24 @@ the agent to determine what it would do if sent along the first path.
 We will give examples of
 extended environments designed to incentivize RL agents to
 recursively engage in self-awareness in various ways.
-We conjecture that traditional RL agents would perform poorly in these extended
-environments, because traditional RL techniques do not involve
-self-awareness. We hope these examples will facilitate
+It is an interesting question how traditional RL agents would perform
+in these extended environments. We ran a DQN agent on some of these
+extended environments and found that it performs
+better than we initially expected on some environments; more on this below.
+We tentatively conjecture that the ability of traditional RL agents to cope with these
+extended environments is related to how far the actual history differs from
+the hypothetical histories which the environment examines. For example,
+in the above thought experiment of ``Treasures for the Worthy'',
+the guards base their decisions on a hypothetical history which is identical
+with the true history except for just their own room, and so, since the
+two histories are so similar, the agent might be able to determine that
+uniformly refusing to take unguarded treasures is better than uniformly
+always taking unguarded treasures, even without understanding why that is so.
+If the hypothetical history is more drastically different than the true
+history, more self-awareness might be needed in order for the agent to
+choose decent actions.
+
+We hope these examples will facilitate
 new self-aware RL techniques, hopefully as a step toward AGI.
 
 Alongside this paper, we are also releasing an open-source library
