@@ -667,6 +667,13 @@ Definition \ref{handicapdefn} is implemented in Handicap.py in \cite{library}.
     \end{itemize}
 \end{example}
 
+
+\section{Abstract examples}
+
+In this section, we give some examples of a more abstract nature.
+
+\subsection{Identifying with a character}
+
 In the next example,
 we will finally make some nontrivial usage of observations. Using carefully chosen
 observations, we will incentivize the agent, who might be thought of as
@@ -714,8 +721,11 @@ In this way, the agent is incentivized
 to self-identify with the protagonist in the video-game, self-reflexively asking,
 ``Which action would I take if those displayed rewards were real?''
 
-
-\section{Some more ambitious examples}
+An abstract implementation of Example \ref{selfinsertionexample} is available in
+abstract/SelfInsert.py
+in \cite{library}, except that there, in order to avoid getting lost in the details
+of the encoding, we give an implementation in which observations are allowed to
+literally be pairs.
 
 \subsection{Playing in the mirror}
 
