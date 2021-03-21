@@ -1,3 +1,9 @@
+# Given an environment e, return an environment self_insert(e) in which
+# the agent acts as an external controller of a sub-agent in e, and is
+# incentivized to act as if actually being said sub-agent. In order to
+# avoid technical details, this implementation assumes a reinforcement
+# learning framework where observations are allowed to be pairs (unlike
+# in our paper, where observations are required to be natural numbers.)
 def self_insert(e):
     def env(T, play):
         if len(play) == 0:
