@@ -349,7 +349,6 @@ def test_determinism_inspector_edgecases():
 
 def test_self_insert_edgecases():
     from abstract.SelfInsert import self_insert
-    from EnvironmentLists import vanillas
 
     def dummy_env(T, play):
         return 0,0
