@@ -1,7 +1,8 @@
-def SelfInsert(e):
+def self_insert(e):
     def env(T, play):
         if len(play) == 0:
-            reward, obs = e(T, play)
+            reward = 0
+            obs = e(T, play)  # Encode a reward-obs pair as a single obs
             return reward, obs
 
         prompt, action = play[:-1], play[-1]

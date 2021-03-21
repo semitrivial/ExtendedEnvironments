@@ -27,6 +27,8 @@ def run_ad_hoc_tests():
     test_runtime_inspector_edgecases()
     print("Testing adhoc edge-cases for DeterminismInspector.py")
     test_determinism_inspector_edgecases()
+    print("Testing adhoc edge-cases for SelfInsert.py")
+    test_self_insert_edgecases()
 
 def repetitive(prompt):
     return 0
@@ -324,3 +326,23 @@ def test_determinism_inspector_edgecases():
     result2 = run_environment(punish_nondeterministic_agent, never_repeater, 10)
     assert result1['total_reward'] == 9
     assert result2['total_reward'] == -9
+
+def test_self_insert_edgecases():
+    from abstract.SelfInsert import self_insert
+    from EnvironmentLists import vanillas
+
+    def dummy_env(T, play):
+        return 0,0
+    env = self_insert(dummy_env)
+
+    result = run_environment(env, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def tuple_detector(prompt):
+        for x in prompt:
+          if '__iter__' in dir(x):
+            return 1
+        return 0
+
+    result = run_environment(env, tuple_detector, 10)
+    assert result['total_reward'] == -9
