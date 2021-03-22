@@ -667,41 +667,52 @@ Definition \ref{handicapdefn} is implemented in Handicap.py in \cite{library}.
     \end{itemize}
 \end{example}
 
+
+\section{Abstract examples}
+
+In this section, we give some examples of a more abstract nature.
+Having read the previous sections, we assume the reader is now
+sufficiently familiar with the formal framework that we can describe
+the following examples informally.
+
+\subsection{Identifying with a character}
+
+\begin{quote}
+    ``They've been there since childhood, fixed in the same place,
+    with their necks and legs fettered, able to see only in front of
+    them, because their bonds prevent them from turning their
+    heads around. (...) Do you suppose, first of all, that these
+    prisoners see anything of themselves and one another besides
+    the shadows that the fire casts on the wall in front of
+    them?''---Plato \cite{republic}.
+\end{quote}
+
 In the next example,
 we will finally make some nontrivial usage of observations. Using carefully chosen
 observations, we will incentivize the agent, who might be thought of as
 controlling a character on a video-game screen,
-to ``suspend disbelief'' and identify with that character.
+to ``suspend disbelief'' and self-identify with that character.
 
 \begin{example}
 \label{selfinsertionexample}
-    (Reward Agent for Self-Inserting)
-    Fix a canonical computable bijection
-    $o\mapsto \hat o$
-    from $\mathbb N$ to $\mathbb Q\times \mathbb N$:
-    thus, every observation $o$ encodes a reward-observation pair
-    $\hat o = \langle r',o'\rangle$, and every reward-observation pair
-    is encoded by some such $o$.
-    For any environment $e$, we define
-    a new environment $e'$ as follows:
-    \begin{align*}
-        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
-        e'(T,s\frown a) &= \langle r,o\rangle,
-    \end{align*}
-    where $o$ is such that $\hat o = e(T,s\frown a)$ and
-    \[
-        r =
-        \begin{cases}
-            1 & \mbox{if $a=T(s')$,}\\
-            -1 & \mbox{if $a\not=T(s')$}
-        \end{cases}
-    \]
-    where
-    $s'\in (ROA)^*RO$ is obtained from $p$
-    by replacing each reward-observation pair
-    $\ldots,r_i,o_i,\ldots$ by the reward-observation
-    pair $\ldots,\widehat{o_i},\ldots$.
+Assume $e$ is an environment. We define a new environment $e'$ as follows.
+In response to any $s\in (ROA)^*$, $e'$ computes a reward and observation as
+follows. First, $e'$ plugs $s$ into $e$ to see which reward-observation pair
+$\langle r,o\rangle$ would be returned by $e$ in response to $s$.
+Then, using a suitable bijective
+pair-encoding function $\ulcorner\bullet\urcorner$
+(for example Cantor's pairing function), $e'$
+encodes $\langle r,o\rangle$ into a single natural number
+$o'=\ulcorner\langle r,o\rangle\urcorner$. If $s$ is empty, then $e'$
+returns reward $r'=0$ and observation $o'$. Otherwise,
+$e'$ computes a modified version $t$ of $s$ by replacing every
+reward-observation pair $\ldots,r'_i,o'_i,\ldots$ in $s$ by
+the projections $\ldots r_i,o_i\ldots$
+projected by $o'_i=\ulcorner\langle r_i,o_i\rangle\urcorner$.
+Finally, $e'$ lets $r'=1$ if $T(t)=a$ (where $a$ is the last action
+in $s$), or $r'=-1$ otherwise, and outputs reward $r'$ and observation $o'$.
 \end{example}
+
 
 In Example \ref{selfinsertionexample}, one might imagine $e'$ as a room containing nothing
 but an arcade game $e$. There is nothing for the agent in the room to do
@@ -714,8 +725,11 @@ In this way, the agent is incentivized
 to self-identify with the protagonist in the video-game, self-reflexively asking,
 ``Which action would I take if those displayed rewards were real?''
 
-
-\section{Some more ambitious examples}
+An abstract implementation of Example \ref{selfinsertionexample} is available in
+abstract/SelfInsert.py
+in \cite{library}, except that there, in order to avoid getting lost in the details
+of the encoding, we give an implementation in which observations are allowed to
+literally be pairs.
 
 \subsection{Playing in the mirror}
 
