@@ -677,6 +677,16 @@ the following examples informally.
 
 \subsection{Identifying with a character}
 
+\begin{quote}
+    ``They've been there since childhood, fixed in the same place,
+    with their necks and legs fettered, able to see only in front of
+    them, because their bonds prevent them from turning their
+    heads around. (...) Do you suppose, first of all, that these
+    prisoners see anything of themselves and one another besides
+    the shadows that the fire casts on the wall in front of
+    them?''---Plato \cite{republic}.
+\end{quote}
+
 In the next example,
 we will finally make some nontrivial usage of observations. Using carefully chosen
 observations, we will incentivize the agent, who might be thought of as
@@ -695,10 +705,10 @@ pair-encoding function $\ulcorner\bullet\urcorner$
 encodes $\langle r,o\rangle$ into a single natural number
 $o'=\ulcorner\langle r,o\rangle\urcorner$. If $s$ is empty, then $e'$
 returns reward $r'=0$ and observation $o'$. Otherwise,
-$e'$ computes a modified version $t$ of $s$ by transforming every
-reward-observation pair $\ldots,r'_i,o'_i,\ldots$ in $s$ into
-the different reward-observation pair $\ldots r_i,o_i\ldots$
-where $o'_i=\ulcorner \langle r_i,o_i\rangle\urcorner$.
+$e'$ computes a modified version $t$ of $s$ by replacing every
+reward-observation pair $\ldots,r'_i,o'_i,\ldots$ in $s$ by
+the projections $\ldots r_i,o_i\ldots$
+projected by $o'_i=\ulcorner\langle r_i,o_i\rangle\urcorner$.
 Finally, $e'$ lets $r'=1$ if $T(t)=a$ (where $a$ is the last action
 in $s$), or $r'=-1$ otherwise, and outputs reward $r'$ and observation $o'$.
 \end{example}
