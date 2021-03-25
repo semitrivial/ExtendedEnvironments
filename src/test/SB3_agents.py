@@ -45,12 +45,14 @@ def get_SB3_agents():
             model = unwrapped_agents[unwrapped_name]('MlpPolicy', E())
 
             if len(prompt) == 2:
-                action, _ = model.predict()
+                reward, obs = prompt[0], prompt[1]
+                action, _ = model.predict(obs)
                 return action
 
             n_steps = (len(prompt)//3)-1
             model = model.learn(n_steps)
-            action, _ = model.predict()
+            obs = prompt[-1]
+            action, _ = model.predict(obs)
             return action
 
         return agent
