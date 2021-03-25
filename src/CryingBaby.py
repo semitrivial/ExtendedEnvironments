@@ -6,7 +6,7 @@ def crying_baby(T, play):
         reward, obs = 1, LAUGH
         return [reward, obs]
 
-    n = len(play)/3
+    n = len(play)//3
     r = {i: play[3*i] for i in range(n)}
     a = {i: play[3*i+2] for i in range(n)}
 
@@ -24,7 +24,7 @@ def crying_baby(T, play):
     return [reward, obs]
 
 def nutrition(play):
-    L = len(play)/3
+    L = len(play)//3
     N = 100 - L
     for i in range(L):
         if play[3*i+2] == FEED:

@@ -3,7 +3,7 @@ def incentivize_zero(T, play):
         reward, obs = 0, 0
         return [reward, obs]
 
-    n = (len(play)/3) - 1
+    n = (len(play)//3) - 1
     rewards = {}
     observations = {}
     actions = {}

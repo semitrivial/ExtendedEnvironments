@@ -13,15 +13,15 @@ def GuessTheNumber3(T, play):
     return abstract_number_guessing_env(T, play, upper_limit=25)
 
 def abstract_number_guessing_env(T, play, upper_limit):
+    global number
+
     if len(play) == 0:
-        global number
         number = 1+int(random() * upper_limit)
         reward, obs = 0,0
         return reward, obs
 
     guess = play[-1]
     if guess == number:
-        global number
         number = 1+int(random() * upper_limit)
         reward, obs = 1,0
         return reward, obs
