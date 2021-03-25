@@ -34,7 +34,9 @@ in reinforcement learning}
     These environments are not particularly useful in themselves, but we
     hope they might serve to guide the development of self-aware reinforcement
     learning agents, as well as to help measure the degree to which existing
-    reinforcement learning agents are or are not self-aware. We also speculate
+    reinforcement learning agents are or are not self-aware; to that end,
+    we have released an open-source library of such environments.
+    We also speculate
     about subjective conscious experiences which
     might be incentivized in self-aware reinforcement learning agents
     placed within these extended environments.
@@ -42,22 +44,44 @@ in reinforcement learning}
 
 \section{Introduction}
 
-\begin{quote}
-    ``It is difficult to get a man to understand something, when his salary depends
-    upon his not understanding it!''---Upton Sinclair
-\end{quote}
+In order to motivate the environments in this paper (and in the accompanying
+open-source library \cite{library} which we are publishing alongside the
+paper),
+we begin with three thought experiments.
+\begin{itemize}
+    \item (Oracular Obstacle Courses)
+        An ordinary obstacle course might depend on what you \emph{do}:
+        step on a button and spikes appear, for example.
+        But imagine an obstacle course which depends on what you
+        \emph{would hypothetically do}:
+        you walk into a room with no button, but spikes appear if you
+        \emph{would} hypothetically step on the button if there was one.
+    \item (Treasures for the Worthy\footnote{This thought experiment bears some
+        similarity to Newcomb's Paradox \cite{nozick1969newcomb}.})
+        You wander through rooms, each containing a treasure chest.
+        Most of the rooms also contain a guard. In a room with no guard, you
+        may optionally choose to take the treasure, which acts as a free reward.
+        In a guarded room, you may optionally try to take the treasure.
+        If you do so, the guard will determine whether or not you would hypothetically
+        take the treasure if the room were unguarded. If you would take the treasure
+        if the room were unguarded, then the guard blocks the treasure and zaps you.
+        But if you would leave the treasure alone if the room were unguarded, then
+        the guard lets you take the treasure.
+    \item (The Clever Employer)
+        Your boss demands that you act as if you're paid \$1000 per hour.
+        But instead of paying you \$1000 per hour, here's what he does instead.
+        Every hour, if you acted exactly as if you're paid \$1000 per hour,
+        he pays you \$100. But every hour, if you did not act exactly as if you're
+        paid \$1000 per hour, then he pays you nothing, and charges you a \$100
+        penalty instead.
+\end{itemize}
 
-What would you do if you were being paid \$100 per hour to act as if you were being
-paid \$1000 per hour? What if, in order to receive that \$100 every hour, you were
-required to act \emph{exactly} as you would act if you were really being paid
-\$1000 that hour---and if you did not so act, then you would be paid nothing that hour,
-and would be charged a \$100 penalty instead?
-This thought experiment would be hard to perform, because it would be hard for your
-employer to know how you would act if you really were being paid \$1000 per hour.
-But if your employer could simulate a perfect copy of you, then your employer could
-perform the experiment perfectly. Over a long enough time, would those \$100 rewards
-and penalties eventually cause you to believe you were really being paid
-\$1000 per hour?
+These thought experiments would be hard to perform on a human subject, because they
+require knowing what the human subject would hypothetically do in various
+counterfactual circumstances. But if the experiment administrator could simulate
+a perfect copy of you, then the experiments would be doable. In the first two
+experiments, would you eventually figure out the pattern? In the last experiment,
+would you eventually begin to believe you were really being paid \$1000 per hour?
 
 This is a paper about reinforcement learning (RL).
 In RL, agents interact with environments, where they take actions and
@@ -68,7 +92,7 @@ would easily adapt
 to non-deterministic RL.
 
 Although the details differ between authors, essentially,
-an RL environment is a Turing machine
+an RL environment is a Turing machine (i.e., a computer program)
 $e$ which outputs a reward-observation pair
 \[
   \langle r,o\rangle=e(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)
@@ -95,33 +119,25 @@ Intuitively, this should be thought of as follows: when the agent enters the env
 the environment is made aware of the agent's source-code, and can use that
 source-code to simulate the agent when computing rewards and observations.
 
-For example, imagine a game\footnote{This game bears some similarity to Newcomb's
-Paradox \cite{nozick1969newcomb}.} where the player wanders through rooms,
-each room containing a treasure, and most (but not all) rooms containing
-a guard.
-\begin{itemize}
-    \item
-    In a room with no guard, the player can take the treasure, yielding a reward.
-    \item
-    If the player chooses to take the treasure in a guarded room,
-    then, by simulating the player, the guard determines: ``If
-    this room had been unguarded, would the player have taken the treasure?''
-    If so, the guard blocks the player and zaps them (yielding a negative reward).
-    Otherwise, the guard allows the player to take the treasure (and the player is rewarded).
-\end{itemize}
-
-The above game would be hard or impossible
-for a human to play, due to the difficulty of simulating a human player.
-But there is no reason why the above game could not be played by an RL agent (the
-agent's source-code being given to the game-engine beforehand). Clearly this kind of
-extended environment is not the sort of environment RL agents are traditionally
+For example, the three thought experiments in the beginning of this Introduction could
+be cast as extended environments in which the environment somehow knows the agent's
+source-code and uses that to determine what the agent would do in various
+hypothetical situations.
+Clearly such
+extended environments are not the sort of environment RL agents are traditionally
 intended to interact with\footnote{Such environments might, however,
 accidentally arise if both environment
 and agent are implemented on the same machine and the environment is managed by an AI
 sophisticated enough to exploit unintended informational side channels, as in
 \cite{yampolskiy2012leakproofing}.}. However, such environments could be
 useful on the path to Artificial
-General Intelligence (AGI) because they seem to incentivize self-awareness.
+General Intelligence (AGI) because they seem to incentivize self-awareness:
+in order to figure out the environment, the agent is incentivized to look
+within\footnote{To quote Goertzel: ``This lets us conceive an intelligent system
+as a dynamical system that recognizes patterns in its environment \emph{and itself},
+as part of its quest to achieve complex goals'' \cite{goertzel2006patterns}
+(emph.\ in the original).}
+and ask, ``How would I act in such-and-such alternative scenarios?''
 
 One might try to imitate an extended environment with a traditional environment by
 backtracking---rewinding the environment itself to a prior state after seeing how the
@@ -139,73 +155,69 @@ environments, because traditional RL techniques do not involve
 self-awareness. We hope these examples will facilitate
 new self-aware RL techniques, hopefully as a step toward AGI.
 
+Alongside this paper, we are also releasing an open-source library
+\cite{library} of extended environments
+implemented in python. The library also includes some machinery for running an
+agent against a battery of extended environments in order to empirically
+probe the agent's self-awareness (or lack thereof).
+
 \section{Preliminaries}
 
-In the following definition, ROA stands for ``Reward, Observation, Action''.
 Throughout the paper, $\frown$ denotes concatenation.
 
 \begin{definition}
-(Plays and prompts)
+\label{historiesdefn}
     \begin{enumerate}
         \item
-        By an \emph{ROA-play}, we mean either the empty sequence $\langle\rangle$,
-        or else a sequence of the form
-        \[
-            \langle r_0,o_0,a_0,\ldots,r_k,o_k,a_k\rangle
-        \]
-        where each $r_i\in\mathbb Q$ (thought of as a \emph{reward}),
-        each $o_i\in\mathbb N$ (thought of as an \emph{observation}),
-        and each $a_i\in \mathbb N$ (thought of as an \emph{action}).
+        By a \emph{reward}, we mean a rational number.
+        By an \emph{observation}, we mean a natural number.
+        By an \emph{action}, we mean a natural number.
         \item
-        By an \emph{ROA-prompt}, we mean a sequence of the form
-        $s\frown r\frown o$
-        where $s$ is an ROA-play,
-        $r\in\mathbb Q$ (thought of as a \emph{reward}),
-        and $o\in\mathbb N$ (thought of as an \emph{observation}).
+        By $(ROA)^*$ we mean the set of all finite sequences which begin with
+        a reward, end with an action, and follow the pattern
+        ``reward, observation, action, ...''. We also include
+        the empty sequence $\langle\rangle$ in this set.
+        \item
+        By $(ROA)^*RO$ we mean the set of all sequences of the form
+        $s\frown r\frown o$ where $s\in (ROA)^*$, $r$ is a reward, and
+        $o$ is an observation.
     \end{enumerate}
 \end{definition}
 
+In Definition \ref{historiesdefn} part 3, the intuition is that in response to
+history $t$, an environment rewards an agent with reward $r$ and
+shows the agent an observation $o$.
+
 \begin{lemma}
 \label{roaplaydecompositionlemma}
-    If $s$ is an ROA-play, then either $s=\langle\rangle$, or else
-    $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
+    If $s\in (ROA)^*$, then either $s=\langle\rangle$, or else
+    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
 \end{lemma}
 
 \begin{proof}
-    If $s\not=\langle\rangle$ then we can write
-    $s=\langle r_0,o_0,a_0,\ldots,r_k,o_k,a_k \rangle$.
-
-    \textbf{Case 1:}
-    $k=0$. By definition, $\langle\rangle$ is an ROA-play,
-    therefore $p=\langle\rangle\frown r_0\frown o_0$ is an ROA-prompt,
-    and $s=p\frown a_0$.
-
-    \textbf{Case 2:} $k>0$.
-    Then $p'=\langle r_0,o_0,a_0,\ldots,r_{k-1},o_{k-1},a_{k-1}\rangle$ is an ROA-play,
-    therefore $p=p'\frown r_k\frown o_k$ is an ROA-prompt,
-    and $s=p\frown a_k$.
-    \qed
+    Trivial. \qed
 \end{proof}
 
 In Lemma \ref{roaplaydecompositionlemma}, when
-$s=p\frown a$, the intuition is that an agent, having been prompted to act by
-prompt $p$, responds with action $a$.
+$s=t\frown a$, the intuition is that an agent, having been prompted to act by
+history $t$, responds by taking action $a$.
 
 \begin{definition}
 \label{agentandenvironment}
 (Agents and environments)
     \begin{enumerate}
-    \item An \emph{agent} is a Turing machine which
-    halts whenever it is run on an ROA-prompt, outputting
-    an action $a\in\mathbb N$.
+    \item An \emph{agent} is a Turing machine $T$ such that:
+        \begin{itemize}
+        \item
+            for every $s\in (ROA)^*RO$, $T$ halts on input $s$ and outputs
+            an action $a$.
+        \end{itemize}
     \item An \emph{extended environment} is a Turing machine $e$ such that:
         \begin{itemize}
             \item
-            For every agent $T$, for every
-            ROA-play $s$,
-            when $e$ is run on input $\langle T,s\rangle$, $e$ halts on that input,
-            outputting a pair $\langle r,o\rangle$ where $r\in\mathbb Q$ (thought of
-            as a reward) and $o\in\mathbb N$ (thought of as an observation).
+            For every agent $T$, for every $s\in (ROA)^*$,
+            $e$ halts on input $\langle T,s\rangle$ and outputs
+            a pair $\langle r,o\rangle$ where $r$ is a reward and $o$ is an observation.
         \end{itemize}
     \end{enumerate}
 \end{definition}
@@ -228,7 +240,7 @@ remember the actions themselves, even if said memories are redundant.
     The \emph{result of $T$ interacting with $e$} is the infinite
     reward-observation-action sequence
     \[\langle r_0,o_0,a_0,r_1,o_1,a_1,\ldots\rangle\]
-    (each $r_i\in\mathbb Q$, $o_i,a_i\in\mathbb N$)
+    (each $r_i$ a reward, each $o_i$ an observation, and each $a_i$ an action)
     defined inductively as follows.
     \begin{itemize}
         \item $r_0$ and $o_0$ are obtained by computing $e$ on
@@ -252,19 +264,19 @@ remember the actions themselves, even if said memories are redundant.
     By a simultaneous induction:
     \begin{itemize}
         \item
-        Each $r_i$ and $o_i$ are defined (and $r_i\in\mathbb Q$
-        and $o_i\in\mathbb N$) because, by induction,
+        Each $r_i$ and $o_i$ are defined (and $r_i$ is a reward
+        and $o_i$ is an observation) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle$
-        is defined and is an ROA-play (because, inductively,
-        each $r_j\in\mathbb Q$, $o_j\in\mathbb N$ and $a_j\in\mathbb N$
-        for all $j<i$) and thus
-        $r_i$ and $o_i$ are defined with the correct form by
+        is defined and is in $(ROA)^*$ (because, inductively,
+        each $r_j$ is a reward, each $o_j$ is an observation,
+        and each $a_j\in\mathbb N$ is an action, for all $j<i$)
+        and thus $r_i$ and $o_i$ are defined with the correct form by
         Definition \ref{agentandenvironment} (part 2).
         \item
-        Each $a_i$ is defined (and $a_i\in\mathbb N$) because, by induction,
+        Each $a_i$ is defined (and is an action) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_i,o_i\rangle$
-        is defined and is an ROA-prompt (similar to the above) and thus
-        $a_i$ is defined with the correct form by Definition
+        is defined and is in $(ROA)^*RO$ (similar to the above) and thus
+        $a_i$ is defined and is an action by Definition
         \ref{agentandenvironment} (part 1).
     \end{itemize}
     \qed
@@ -290,31 +302,35 @@ traditional RL environments and other benchmarks \cite{bellemare2013arcade}
 form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
 In Section \ref{newextendedenvironmentsfromoldsecn},
 this uniformity will allow all these examples to be generalized.
+Most of the examples in this section are implemented in our open-source
+library of extended environments \cite{library}.
 
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
     (Reward Agent for Ignoring Rewards)
-    For each ROA-prompt $p$, let $p^0$ be the ROA-prompt equal to $p$ except that
+    For each $s\in (ROA)^*RO$, let $s^0$ be the sequence equal to $s$ except that
     all rewards are $0$.
     We define an extended environment $e$ as follows
-    (where $T$ is a Turing machine, $p$ is an ROA-prompt, and $a\in \mathbb N$ is thought of as
-    the agent's action in response to $p$):
+    (where $T$ is a Turing machine, $s\in (ROA)^*RO$, and $a$ is an action):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
-        e(T,p\frown a)
+        e(T,s\frown a)
         &= \langle r,0\rangle,
     \end{align*}
     where
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $a=T(p^0)$,}\\
-            -1 & \mbox{if $a\not=T(p^0)$}
+            1 & \mbox{if $a=T(s^0)$,}\\
+            -1 & \mbox{if $a\not=T(s^0)$}
         \end{cases}
     \]
-    (if $T$ does not halt on $p^0$ then $e$ does not halt on
-    $\langle T,p\frown a\rangle$).
+    (if $T$ does not halt on $s^0$ then $e$ does not halt on
+    $\langle T,s\frown a\rangle$).
 \end{example}
+
+Example \ref{rewardagentforignoringrewardsexample} is implemented in
+IgnoreRewards.py at \cite{library}.
 
 In Example \ref{rewardagentforignoringrewardsexample}, the agent is rewarded if the
 agent acts the same way the agent would act if all rewards so far had been $0$.
@@ -338,21 +354,22 @@ to be rewarded)?
     Let $e$ be as in
     Example \ref{rewardagentforignoringrewardsexample}.
     We must show $e$ is an extended environment (Definition \ref{agentandenvironment}
-    part 2). We must show that for each agent $T$ and ROA-play $s$,
+    part 2). We must show that for each agent $T$ and each $s\in (ROA)^*$,
     $e$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
-    such that $r\in\mathbb Q$ and $o\in\mathbb N$.
+    such that $r$ is a reward and $o$ is an observation.
 
     \textbf{Case 1:} $s=\langle\rangle$. Then $e(T,s)$ halts with output
-    $\langle 0,0\rangle$, so $r=0\in\mathbb Q$ and $o=0\in\mathbb N$.
+    $\langle 0,0\rangle$, so $r=0$ is a reward and $o=0$ is an observation.
 
     \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
-    $s=p\frown a$ for some ROA-prompt $p$ and action $a\in\mathbb N$.
-    Since $p$ is an ROA-prompt, clearly $p^0$ is also an ROA-prompt, therefore
+    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
+    Since $t\in (ROA)^*RO$, clearly $t^0\in (ROA)^*RO$, therefore
     since $T$ is an agent, Definition \ref{agentandenvironment} (part 1)
-    guarantees $T(p^0)$ is defined and is in $\mathbb N$. It follows that the reward
-    $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is in
-    $\mathbb Q$. And certainly the observation $0$ is in $\mathbb N$.
-    So $e(T,s)$ outputs a pair $\langle r,o\rangle$ meeting the necessary
+    guarantees $T(t^0)$ is defined and is an action. It follows that the output
+    $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is
+    a reward (i.e., a rational number). And certainly the output $o=0$ is an
+    observation (i.e., a natural number).
+    So $e(T,t)$ outputs a pair $\langle r,o\rangle$ meeting the necessary
     requirements.
     \qed
 \end{proof}
@@ -363,44 +380,37 @@ Lemma \ref{example1workslemma} which say that those examples really work.
 Example \ref{rewardagentforignoringrewardsexample} is profound because it illustrates how,
 in an extended environment, it is possible to give one sequence of rewards
 in order to incentivize the agent to act as if a different sequence of rewards was given.
-Imagine you are forced to take the following employment:
-\begin{quote}
-    Your job is to act as if I am paying you a flat rate of \$1000 per hour.
-    Every hour that you act as if
-    I am paying you \$1000 per hour, I will pay you \$100. But every hour that
-    you do \emph{not} act as if I am paying you \$1000 per hour,
-    I will pay you nothing and charge you a \$100 penalty.
-\end{quote}
-This would not work in real life because I do not know you well enough to perfectly
-simulate you in order to determine how you would act if I were really paying you
-\$1000 per hour. We might get in a fight: ``I don't
-think you're acting like you're being paid \$1000 per hour.''
-``You're wrong, I \emph{am} being paid \$1000 per
-hour.'' But if I could simulate you perfectly, I could indeed hire you in this way.
-Assuming you need that \$100, you would be motivated to sincerely act as
-if you were being paid \$1000 per hour. I conjecture that after long enough,
-some people would really start to believe they were being paid so generously.
+Imagine a film director who knows actors well enough to perfectly simulate them.
+The director asks an actor to act perfectly bored.
+The actor acts bored, and the director praises them for acting so bored.
+The actor is happy to be praised, and ceases acting bored. So the director scolds
+them for not acting bored. If this could continue for thousands of years, with the
+director simulating the actor in order to tell how the actor would really act if
+the actor were never praised or scolded, would the actor eventually genuinely
+feel bored (since that would be the simplest way to satisfy the director)?
 
 \begin{example}
 \label{falsememoryexample}
     (False Memories)
-    Suppose $p_0$ is an ROA-play. We define an extended environment
+    Suppose $s_0\in (ROA)^*$. We define an extended environment
     $e$ as follows
     (with similar non-halting caveats as
     Example \ref{rewardagentforignoringrewardsexample}):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle,\\
-        e(T,p\frown a) &= \langle r,0\rangle,
+        e(T,s\frown a) &= \langle r,0\rangle,
     \end{align*}
     where
     \[
         r=
         \begin{cases}
-            1 &\mbox{if $a=T(p_0\frown p)$,}\\
-            -1 &\mbox{if $a\not=T(p_0\frown p)$}.
+            1 &\mbox{if $a=T(s_0\frown s)$,}\\
+            -1 &\mbox{if $a\not=T(s_0\frown s)$}.
         \end{cases}
     \]
 \end{example}
+
+Example \ref{falsememoryexample} is implemented in FalseMemories.py at \cite{library}.
 
 In Example \ref{falsememoryexample}, the agent is incentivized to self-reflect,
 thinking: ``What would I do if, before this environment started, such-and-such
@@ -409,6 +419,12 @@ friend, you probably wouldn't be sincere in your acting. But if said stranger co
 perfectly simulate you in order to base your pay on your acting like you \emph{really
 would} act if you were an old friend, then you would be incentivized to
 find some way to \emph{make} yourself remember being an old friend.
+
+You can imagine interacting with the agent in Example \ref{falsememoryexample} and
+trying to convince them of the falsity of the false history. The agent would have
+an incentive to resist your arguments. To quote Upton Sinclair,
+``It is difficult to get a man to understand something, when his salary depends upon
+his not understanding it!''
 
 Henceforth, we will not explicitly mention the non-halting caveats in the remaining
 examples.
@@ -432,6 +448,8 @@ examples.
     \]
 \end{example}
 
+Example \ref{backwardexample} is implemented in BackwardConsciousness.py at \cite{library}.
+
 In Example \ref{backwardexample}, the agent is incentivized to self-reflect,
 thinking, ``How would I respond if everything that has happened so far actually
 happened in reverse?'' It is interesting to imagine what sort of subjective
@@ -445,7 +463,7 @@ idea of the experimenter's objective, would it be able to ``behave as if
 their objective were the same as the experimenter objective'' while maintaining its own 
 objective or would it necessarily brainwash the agent into converging to the 
 experimenter's objective? Is deception possible if the agent can be perfectly
-simulated in an extended environment}?
+simulated in an extended environment?}?
 
 \begin{example}
 \label{dejavuexample}
@@ -453,17 +471,19 @@ simulated in an extended environment}?
     We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
-        e(T,p\frown a) &= \langle r,0\rangle\\
+        e(T,s\frown a) &= \langle r,0\rangle\\
     \end{align*}
     where
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $T(p\frown a\frown p)=a$},\\
-            -1 & \mbox{if $T(p\frown a\frown p)\not=a$}.
+            1 & \mbox{if $T(s\frown a\frown s)=a$},\\
+            -1 & \mbox{if $T(s\frown a\frown s)\not=a$}.
         \end{cases}
     \]
 \end{example}
+
+Example \ref{dejavuexample} is implemented in DejaVu.py at \cite{library}.
 
 In Example \ref{dejavuexample},
 the agent is incentivized to self-reflect and ask: ``Which action
@@ -482,15 +502,19 @@ which has happened so far were to repeat itself verbatim?''
     \[
         r =
         \begin{cases}
-            1 & \mbox{if $T(p')=0$},\\
-            -1 & \mbox{if $T(p')\not=0$}
+            1 & \mbox{if $T(s')=0$},\\
+            -1 & \mbox{if $T(s')\not=0$}
         \end{cases}
     \]
-    where $p'$ is the ROA-prompt $(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
+    where $s'=(r'_0,o'_0,a'_0,\ldots,r'_{n+1},o'_{n+1})$
     where $r'_0=0$, each $r'_{i+1}=a_i$,
     each $o'_i=0$, and each
     $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
 \end{example}
+
+Example \ref{incentivetoincentivizeexample} is implemented in
+IncentivizeZero.py at \cite{library}.
+
 
 In Example \ref{incentivetoincentivizeexample}, the agent is tasked with choosing
 rewards in such a way that if those rewards were fed to a simulated copy of the agent,
@@ -520,20 +544,32 @@ a patient, but this is impossible if rewards are restricted to finite numbers
 evidence in favor of generalizing RL to allow rewards from other number systems,
 as in \cite{alexander2020archimedean}.}.
 
-Many other interesting examples could be given. For example, an extended environment
-could reward agents based on how many steps\footnote{To quote
-Gavane:
-``The problem is that the response-times-dependent performance of an agent
-is not properly reflected in [Hern{\'a}ndez-Orallo and Dowe's] intelligence test,
-since the simulated environments remain unaware of the response times of agents,
-with the result that the perceptions of an agent are still independent of its
-response times'' \cite{gavane}.} or how much memory
-they use to compute each action\footnote{In some sense, by giving the environment
-access to the agent's source-code, we allow the environment to reflect the agent's
-own internal signals. Thus, extended environments generalize the idea of
-agents modified to manually predict their own internal signals, as in
-\cite{sherstan2016introspective}.};
-we do not intend the examples in this section to be exhaustive.
+Many other simple and interesting examples could be given. For example:
+\begin{itemize}
+    \item
+    An extended environment could reward agents based on how many steps\footnote{To quote
+    Gavane: ``The problem is that the response-times-dependent performance of an agent
+    is not properly reflected in [Hern{\'a}ndez-Orallo and Dowe's] intelligence test,
+    since the simulated environments remain unaware of the response times of agents,
+    with the result that the perceptions of an agent are still independent of its
+    response times'' \cite{gavane}.} the agent takes. For example, in
+    RuntimeInspector.py at \cite{library}, we implement environments that punish
+    agents for running too fast or too slow.
+    \item
+    An extended environment could reward agents based on how much memory
+    they use to compute each action\footnote{In some sense, by giving the environment
+    access to the agent's source-code, we allow the environment to reflect the agent's
+    own internal signals. Thus, extended environments generalize the idea of
+    agents modified to manually predict their own internal signals, as in
+    \cite{sherstan2016introspective}.}.
+    \item
+    If agents are allowed to be non-deterministic, then an extended environment
+    could estimate how deterministic an agent is (e.g., by repeatedly simulating
+    the agent on the same history and seeing whether or not the agent outputs the same
+    action every time). We implement such environments in
+    DeterminismInspector.py at \cite{library}.
+\end{itemize}
+We do not intend the examples in this section to be exhaustive.
 
 \section{New extended environments from old}
 \label{newextendedenvironmentsfromoldsecn}
@@ -542,6 +578,7 @@ In this section, we will discuss ways of obtaining new environments from old.
 First, we will generalize the examples from Section \ref{basicexamplessection}.
 
 \begin{definition}
+\label{handicapdefn}
     (Handicaps)
     \begin{enumerate}
         \item
@@ -553,13 +590,13 @@ First, we will generalize the examples from Section \ref{basicexamplessection}.
         If $e$ is a merciful extended environment and $h$ is a handicap,
         we define a new environment $e*h$ as follows:
         \[
-            (e*h)(T,p) =
+            (e*h)(T,s) =
             \begin{cases}
                 \langle r_e, o_e\rangle &\mbox{if $r_h=1$},\\
                 \langle -1, o_e\rangle &\mbox{if $r_h=-1$},
             \end{cases}
         \]
-        where $e(T,p)=\langle r_e,o_e\rangle$ and $h(T,p)=\langle r_h,0\rangle$.
+        where $e(T,s)=\langle r_e,o_e\rangle$ and $h(T,s)=\langle r_h,0\rangle$.
     \end{enumerate}
 \end{definition}
 
@@ -573,6 +610,8 @@ a larger punishment by intentionally using the handicap, then it would not
 be much of a handicap. The requirement that $e$ be
 merciful could be weakened if we revised the RL framework
 to allow infinitary rewards, as in \cite{alexander2020archimedean}.
+
+Definition \ref{handicapdefn} is implemented in Handicap.py in \cite{library}.
 
 \begin{example}
     For any merciful extended environment $e$, each example $h$ in
@@ -628,41 +667,52 @@ to allow infinitary rewards, as in \cite{alexander2020archimedean}.
     \end{itemize}
 \end{example}
 
+
+\section{Abstract examples}
+
+In this section, we give some examples of a more abstract nature.
+Having read the previous sections, we assume the reader is now
+sufficiently familiar with the formal framework that we can describe
+the following examples informally.
+
+\subsection{Identifying with a character}
+
+\begin{quote}
+    ``They've been there since childhood, fixed in the same place,
+    with their necks and legs fettered, able to see only in front of
+    them, because their bonds prevent them from turning their
+    heads around. (...) Do you suppose, first of all, that these
+    prisoners see anything of themselves and one another besides
+    the shadows that the fire casts on the wall in front of
+    them?''---Plato \cite{republic}.
+\end{quote}
+
 In the next example,
 we will finally make some nontrivial usage of observations. Using carefully chosen
 observations, we will incentivize the agent, who might be thought of as
 controlling a character on a video-game screen,
-to ``suspend disbelief'' and identify with that character.
+to ``suspend disbelief'' and self-identify with that character.
 
 \begin{example}
 \label{selfinsertionexample}
-    (Reward Agent for Self-Inserting)
-    Fix a canonical computable bijection
-    $o\mapsto \hat o$
-    from $\mathbb N$ to $\mathbb Q\times \mathbb N$:
-    thus, every observation $o$ encodes a reward-observation pair
-    $\hat o = \langle r',o'\rangle$, and every reward-observation pair
-    is encoded by some such $o$.
-    For any environment $e$, we define
-    a new environment $e'$ as follows:
-    \begin{align*}
-        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
-        e'(T,p\frown a) &= \langle r,o\rangle,
-    \end{align*}
-    where $o$ is such that $\hat o = e(T,p\frown a)$ and
-    \[
-        r =
-        \begin{cases}
-            1 & \mbox{if $a=T(p')$,}\\
-            -1 & \mbox{if $a\not=T(p')$}
-        \end{cases}
-    \]
-    where
-    $p'$ is the ROA-prompt obtained from $p$
-    by replacing each reward-observation pair
-    $\ldots,r_i,o_i,\ldots$ by the reward-observation
-    pair $\ldots,\widehat{o_i},\ldots$.
+Assume $e$ is an environment. We define a new environment $e'$ as follows.
+In response to any $s\in (ROA)^*$, $e'$ computes a reward and observation as
+follows. First, $e'$ plugs $s$ into $e$ to see which reward-observation pair
+$\langle r,o\rangle$ would be returned by $e$ in response to $s$.
+Then, using a suitable bijective
+pair-encoding function $\ulcorner\bullet\urcorner$
+(for example Cantor's pairing function), $e'$
+encodes $\langle r,o\rangle$ into a single natural number
+$o'=\ulcorner\langle r,o\rangle\urcorner$. If $s$ is empty, then $e'$
+returns reward $r'=0$ and observation $o'$. Otherwise,
+$e'$ computes a modified version $t$ of $s$ by replacing every
+reward-observation pair $\ldots,r'_i,o'_i,\ldots$ in $s$ by
+the projections $\ldots r_i,o_i\ldots$
+projected by $o'_i=\ulcorner\langle r_i,o_i\rangle\urcorner$.
+Finally, $e'$ lets $r'=1$ if $T(t)=a$ (where $a$ is the last action
+in $s$), or $r'=-1$ otherwise, and outputs reward $r'$ and observation $o'$.
 \end{example}
+
 
 In Example \ref{selfinsertionexample}, one might imagine $e'$ as a room containing nothing
 but an arcade game $e$. There is nothing for the agent in the room to do
@@ -675,8 +725,11 @@ In this way, the agent is incentivized
 to self-identify with the protagonist in the video-game, self-reflexively asking,
 ``Which action would I take if those displayed rewards were real?''
 
-
-\section{Some more ambitious examples}
+An abstract implementation of Example \ref{selfinsertionexample} is available in
+abstract/SelfInsert.py
+in \cite{library}, except that there, in order to avoid getting lost in the details
+of the encoding, we give an implementation in which observations are allowed to
+literally be pairs.
 
 \subsection{Playing in the mirror}
 
@@ -700,10 +753,10 @@ the mirror). We could derive an extended environment $e'$ which shows
 the same observations as $e$ and gives the same rewards,
 except it punishes the agent for acting differently than the agent
 would act if the agent \emph{only} observes the mirror.
-To make this precise, for any ROA-prompt $p=(r_0,o_0,a_0,\ldots,r_n,o_n)$ produced
-by $e'$, and any action $T(p)=a_n$, we would say that ``$a_n$ is as if the
+To make this precise, for any $s=(r_0,o_0,a_0,\ldots,r_n,o_n)\in (ROA)^*RO$ produced
+by $e'$, and any action $T(s)=a_n$, we would say that ``$a_n$ is as if the
 agent only observes the mirror''
-if $T(p')=a_n$, where $p'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
+if $T(s')=a_n$, where $s'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
 where each $o'_i$ is $o_i$ cropped to only the include the mirror.
 \end{example}
 
@@ -744,7 +797,7 @@ agent to learn to perceive the world through binocular vision like a human.
     out where the player's vision is obstructed by obstacles). Let $e$ be the extended
     environment whose observations encode pairs $\langle s_1,s_2\rangle$ of snapshots
     displayed by $V$ in response to the player pressing keys encoded by the agent's
-    actions. In response to an ROA-play $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)$ (where
+    actions. In response to history $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)\in (ROA)^*$ (where
     each $o_i$ encodes $\langle s^i_1,s^i_2\rangle$), let $r_{n+1}=1$ if
     $a_n=T(r_0,o'_0,a_0,\ldots,r_n,o'_n)$, where each $o'_i$ encodes
     $m(s^i_1,s^i_2)$, otherwise let $r_{n+1}=-1$.
@@ -755,6 +808,10 @@ the agent is rewarded for acting as if it had instead been presented with an equ
 sequence of 3-D models.
 The agent is incentivized to self-reflectively ask, ``Which action would I take if instead
 of observing those 2-D snapshot-pairs, I observed equivalent 3-D models?''
+
+An abstract implementation of Example \ref{binocularexample} (where the necessary camera
+functions are delegated to the user) is available in abstract/BinocularVision.py
+in \cite{library}.
 
 \subsection{Nature and Nurture}
 
@@ -780,14 +837,15 @@ run the same software on some deep level.
         (and also as observations seen by an adult), let $0$ denote ``laugh'' and let
         all naturals $>0$ denote ``cry''.
         \item
-        We define a function $s$, which stands for \emph{satiation}, defined on
-        ROA-plays, by $s(p)=100+25f(p)-\mbox{len}(p)$ where $f(p)$ is the number of
-        times that the action ``feed the baby'' is taken in $p$,
-        and $\mbox{len}(p)$ is the length of $p$.
+        We define a \emph{nutrition}
+        function $N:(ROA)^*\to \mathbb N$
+        by $N(s)=100+25f(s)-\mbox{len}(s)$ where $f(s)$ is the number of
+        times that the action ``feed the baby'' is taken in $s$,
+        and $\mbox{len}(s)$ is the length of $s$.
         \item
         Let $e(T,\langle\rangle)=\langle 1,\mbox{``laugh''}\rangle$.
         \item
-        For each ROA-play $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle$,
+        For each $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle\in (ROA)^*$,
         let
         \[
             e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)
@@ -801,7 +859,7 @@ run the same software on some deep level.
                 \begin{cases}
                     1 &
                     \mbox{if
-                    $50\leq s(\langle r_0,o_0,a_0,\ldots,r_i,o_i,a_i\rangle)\leq 200$,}\\
+                    $50\leq N(\langle r_0,o_0,a_0,\ldots,r_i,o_i,a_i\rangle)\leq 200$,}\\
                     -1 & \mbox{otherwise,}
                 \end{cases}\\
             o'_i &= a_i\\
@@ -833,38 +891,42 @@ where the actors ``define their own rewards and punishments because
 they themselves assist in the rewards and punishments'' \cite{plotinus}.},
 all sharing the same internal ``nature'' ($T$).
 
+Example \ref{cryingbabyexample} is implemented in CryingBaby.py at \cite{library}.
+
 \section{Examples involving self-recognition}
 
 \begin{example}
 \label{selfrecognitionexample}
     (Incentivizing Self-recognition)
-    Let $p_0,p_1,\ldots$ be a canonical computable enumeration of all non-empty ROA-plays.
+    Let $s_0,s_1,\ldots$ be a canonical computable enumeration of
+    the nonempty sequences of $(ROA)^*$.
     We define an environment $e$ as follows:
     \begin{align*}
-        e(T,\langle\rangle) &= \langle 0, p_0\rangle\\
-        e(T,p\frown a) &= \langle r, p_{n}\rangle
+        e(T,\langle\rangle) &= \langle 0, s_0\rangle\\
+        e(T,s\frown a) &= \langle r, s_n\rangle
     \end{align*}
-    where $n=\frac{\mbox{len}(p\frown a)}{3}$ is the number of actions in $p\frown a$ and where
+    where $n=\frac{\mbox{len}(s\frown a)}{3}$ is the number
+    of actions in $s\frown a$ and where
     \[
         r =
         \begin{cases}
-            1 &\mbox{if $a>0$ and $a'=T(p')$,}\\
-            1 &\mbox{if $a=0$ and $a'\not=T(p')$,}\\
+            1 &\mbox{if $a>0$ and $a'=T(s')$,}\\
+            1 &\mbox{if $a=0$ and $a'\not=T(s')$,}\\
             -1 &\mbox{otherwise}
         \end{cases}
     \]
-    where $p_{n-1}=p'\frown a'$.
+    where $s_{n-1}=s'\frown a'$.
 \end{example}
 
 In Example \ref{selfrecognitionexample}, the agent is systematically
-shown all non-empty ROA-plays, and for
-each ROA-play, the agent either types ``Looks like me'' (any action $>0$)
-or ``Doesn't look like me'' ($0$). When shown the non-empty ROA-play
-$p'\frown a'$, the agent is rewarded if and only if the agent
+shown all non-empty histories in $(ROA)^*$, and for
+each one, the agent either types ``Looks like me'' (any action $>0$)
+or ``Doesn't look like me'' ($0$). When shown
+$s'\frown a'$, the agent is rewarded if and only if the agent
 correctly determines whether or not $a'$
-is the action the agent itself would take in response to $p'$.
-Thus, the agent is incentivized to self-reflect in order to ask, ``If I experienced the
-observations and rewards in that ROA-prompt, would I act that way?''
+is the action the agent itself would take in response to $s'$.
+Thus, the agent is incentivized to self-reflect in order to ask, ``If I were prompted
+by that history, would I act that way?''
 
 The following example is partly motivated by \cite{yampolskiy2012ai}.
 
@@ -947,102 +1009,6 @@ is suggested by Aristotle:
 ``Whatever has a sense has the capacity for pleasure and pain and therefore has pleasant
 and painful objects present to it...'' \cite{aristotlesoul}.
 
-% \section{A Meta Example}
-
-% In this section we will give an example in which the agent is incentivized to self-reflect
-% on the subject of its own reinforcement learning performance.
-% Recall that ZFC is the axiomatization of set theory which serves as the
-% foundation of mathematics for almost all working mathematicians. The consequences of
-% ZFC---that is, the theorems which ZFC proves---are computably enumerable, which means
-% there is a Turing machine which systematically enumerates all of them and nothing else.
-
-% \begin{definition}
-%     Suppose $T$ is an agent, $e$ is an extended environment, and $R\in\mathbb Q$ is
-%     a rational number. We say that \emph{$T$ gets total reward $R$ from $e$} if
-%     $\sum_{i=0}^{\infty} r_i = R$, where $(r_0,o_0,a_0,\ldots)$ is the result of
-%     $T$ interacting with $e$ (Definition \ref{interactiondefn}).
-%     For each Turing machine $T$ (which may or may not be an agent),
-%     for each extended environment $e$,
-%     we say that \emph{ZFC proves-with-caveat that $T$ gets total reward $R$ from $e$}
-%     if ZFC proves: ``If $T$ is an agent then $T$ gets total reward $R$ from $e$''.
-% \end{definition}
-
-% \begin{lemma}
-% \label{provablerewardslemma}
-%     The set of triples $(T,e,R)$ where $T$ is a Turing machine, $e$ is an extended environment,
-%     $R\in\mathbb Q$, and
-%     ZFC proves-with-caveat that $T$ gets total reward $R$ from $e$,
-%     is computably enumerable.
-% \end{lemma}
-
-% \begin{proof}
-%     Follows from the fact that the consequences of ZFC are computably enumerable.
-%     \qed
-% \end{proof}
-
-% \begin{example}
-% \label{metaexample}
-%     (Reinforcement Learning itself, as an environment)
-%     We define an extended environment $e$ as follows.
-%     Let $X$ be a Turing machine which enumerates all triples
-%     $(T,e,R)$ as in Lemma \ref{provablerewardslemma}.
-%     Write $(T_0,e_0,R_0),(T_1,e_1,R_1),\ldots$ for the outputs of $X$.
-%     Suppose $T$ is a Turing machine and
-%     $p$ is an ROA-play.
-%     Then $e$ will compute $e(T,p)$ as follows.
-
-%     Let $S=\{n\in\mathbb N\,:\,T_n=T\}$ be the set of indices of
-%     triples produced by $X$ in which the Turing machine is $T$.
-%     Write $S$ as $S=\{s_0,s_1,\ldots\}$ (note that $S$ is infinite because
-%     there are infinitely many environments which always give reward $0$ and from which
-%     ZFC proves that if $T$ is an agent then $T$ would get total reward $0$).
-%     Thus, $(T_{s_n},e_{s_n},R_{s_n})=(T,e_{s_n},R_{s_n})$ is the $n$th triple enumerated
-%     by $X$ in which the Turing machine is $T$. Note that $e$ can compute $(T,e_{s_n},R_{s_n})$
-%     and $(T,e_{s_{n+1}},R_{s_{n+1}})$ by
-%     simply running $X$ as long as necessary.
-
-%     If $p=\langle\rangle$ then let $e(T,p)=\langle 0, e_{s_0}\rangle$.
-%     But assume $p\not=\langle\rangle$.
-%     Write 
-%     \[
-%         p=\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle.
-%     \]
-
-%     Considered as an action, let $0$ denote ``play the environment''
-%     and let each natural $>0$ denote ``do not play the environment''.
-%     Having computed $(T,e_{s_n},R_{s_n})$ and $(T,e_{s_{n+1}},R_{s_{n+1}})$,
-%     $e$ shall output $e(T,p)=\langle r,o\rangle$, where:
-%     \begin{align*}
-%         o &= e_{s_{n+1}},\\
-%         r &=
-%         \begin{cases}
-%             R_{s_n} &\mbox{if $a_n=\mbox{``play the environment''}$,}\\
-%             0 &\mbox{otherwise.}
-%         \end{cases}
-%     \end{align*}
-% \end{example}
-
-% In Example \ref{metaexample}, the agent is shown source codes of many different
-% environments, and for each environment, the agent can choose to either ``play the
-% environment'' or ``not play the environment''. If the agent chooses to ``play the
-% environment'', then the agent instantly receives, as one single reward,
-% the total reward which the agent would
-% accumulate if it were to play in that environment for all eternity. Otherwise, if
-% the agent chooses to ``not play the environment'', the agent gets reward $0$.
-% The environments which are shown to the agent are exactly those environments such
-% that ZFC determines which total reward the agent would receive thereby (this is
-% what makes the whole exercise computable, because the consequences of ZFC are
-% themselves computably enumerable). The agent is incentivized to self-reflect and think:
-% ``If I were to play the observed environment for all eternity, what total reward would
-% I get?''
-
-% In \cite{alexander2020archimedean} we argued that the real number system is probably not
-% flexible enough to accurately model the rewards of more general environments where
-% rewards from other number systems are permitted.
-% Example \ref{metaexample} could be made even more interesting if we changed the
-% background reinforcement learning model to allow rewards from various non-Archimedean
-% number systems. Those details, however, are beyond the scope of this paper.
-
 \section{Measuring Self-awareness}
 
 As an application, self-awareness-incentivizing extended environments could be used
@@ -1058,6 +1024,12 @@ self-aware (resp.\ self-unaware) in general\footnote{In the same way, computer p
 perform well on IQ tests despite being dumb \cite{sanghi2003computer}.}.
 The larger and more representative the battery of extended environments, the better
 the measurement of self-awareness would be.
+One way to obtain a large battery of environments would be to start with
+a battery of non-extended environments, and a separate body of handicap
+extended environments (as in Section \ref{newextendedenvironmentsfromoldsecn}),
+and exhaustively apply all the different handicaps to all the different
+non-extended environments. In \cite{library}, in the file
+AwarenessBenchmark.py, we offer a function for doing exactly this.
 
 This technique could be useful for obtaining
 empirical insight into questions about the self-awareness, or lack thereof, of
@@ -1081,7 +1053,7 @@ and were then placed in identical mazes, then they would perform identically.
 Given such a species, it would be possible to see how members perform in extended
 environments, albeit perhaps at great expense. One would have to carefully raise many
 similar specimens through identical or near-identical lives, diverging only at key
-points in order to compute the underlying $T$ action-function on different ROA-prompts.
+points in order to compute the underlying $T$ action-function on different histories.
 By seeing how the underlying $T$ agent performs on well-chosen extended environments,
 we could get an idea of how self-aware those specimens were.
 

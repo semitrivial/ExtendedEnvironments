@@ -1,5 +1,6 @@
 from math import sqrt
 from fractions import Fraction
+from pdb import Pdb
 
 def run_environment(env, T, num_steps):
     step = 0
@@ -43,3 +44,21 @@ def natural_to_rational(n):
 def rational_to_natural(q):
     q = Fraction(q)
     return cantor_pairing_fnc(q.numerator, q.denominator)
+
+def eval_and_count_steps(str, local_vars):
+    # This function works by hijacking the python debugger, pdb.
+    stepcount = [0]
+
+    class consolemock:
+        def readline(self):
+            stepcount[0] += 1
+            return "s"  # "take 1 Step"
+        def write(self, *args):
+            return
+        def flush(self):
+            return
+
+    runner = Pdb(stdin=consolemock(), stdout=consolemock())
+    result = runner.runeval(str, locals = local_vars)
+
+    return result, stepcount[0]
