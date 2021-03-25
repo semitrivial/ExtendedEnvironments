@@ -1,4 +1,4 @@
-from test_agents import agents
+from test.test_agents import agents
 from util import run_environment
 
 from IncentivizeZero import incentivize_zero
