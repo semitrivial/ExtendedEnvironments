@@ -53,6 +53,15 @@ agents = OrderedDict([
     ['naive_learner', naive_learner]
 ])
 
+from test.SB3_agents import get_SB3_agents
+try:
+    SB3_agents = get_SB3_agents()
+    agents.update(SB3_agents)
+except ImportError:
+    print("-------------")
+    print("Skipping SB3 agents because could not import dependencies")
+    print("-------------")
+
 for name, agent in agents.items():
     print("Testing "+name+"...")
     result = awareness_benchmark(agent, 100)
