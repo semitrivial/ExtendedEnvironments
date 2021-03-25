@@ -24,6 +24,14 @@ def get_SB3_agents():
 
                 def step(self, action):
                     i = self.stepcount
+
+                    if 3*i+1 >= len(prompt):
+                        # For some reason, baselines sometimes
+                        # calls 'step' more often than we tell
+                        # it to. So in that case, loop around.
+                        i = 0
+                        self.stepcount = 0
+
                     reward, obs = prompt[3*i+0], prompt[3*i+1]
                     done, info = False, {}
                     self.stepcount += 1
