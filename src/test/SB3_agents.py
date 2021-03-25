@@ -13,7 +13,7 @@ def get_SB3_agents():
         def agent(prompt, num_actions=10, num_obs=10):
             class E(Env):
                 def __init__(self):
-                    super(CustomEnv, self).__init__()
+                    super(E, self).__init__()
                     self.action_space = spaces.Discrete(num_actions)
                     self.observation_space = spaces.Discrete(num_obs)
                     self.stepcount = 1
