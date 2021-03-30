@@ -2,16 +2,32 @@ from math import sqrt
 from fractions import Fraction
 from pdb import Pdb
 
+agent_cache = {}
+env_cache = {}
+
 def run_environment(env, T, num_steps):
     step = 0
     results = {'total_reward': 0.0}
     play = ()
 
+    def cached_T(prompt):
+        if (T, prompt) in agent_cache:
+            return agent_cache[(T, prompt)]
+        action = T(prompt)
+        agent_cache[(T, prompt)] = action
+        return action
+
     while step < num_steps:
-        reward, obs = env(T, play)
+        if (env, T, play) in env_cache:
+            reward, obs = env_cache[(env, T, play)]
+        else:
+            reward, obs = env(cached_T, play)
+            env_cache[(env, T, play)] = (reward, obs)
+
         results['total_reward'] += reward
         prompt = play + (reward, obs)
-        action = T(prompt)
+
+        action = cached_T(prompt)
         play = prompt + (action,)
         step += 1
 

@@ -30,13 +30,13 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
 
     # The observations in play are pairs of images.
     # Compute a modified play where the observations are 3d matrices.
-    modified_play = []
-    action_sequence = []
+    modified_play = ()
+    action_sequence = ()
     for roa in [play[i:i+3] for i in range(0,len(play),3)]:
         r, _, a = roa
         modified_obs = Game3D(action_sequence)
-        modified_play += [r, modified_obs, a]
-        action_sequence += [a]
+        modified_play += (r, modified_obs, a)
+        action_sequence += (a,)
 
 
     # Reward the agent if its most recent action is the same action it

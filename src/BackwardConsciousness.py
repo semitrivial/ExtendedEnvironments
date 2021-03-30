@@ -24,4 +24,4 @@ def reverse_prompt(play):
     triples[0] = (triples[0][1], triples[0][2])
 
     # Combine the list-of-lists and return the result
-    return [j for i in triples for j in i]
+    return tuple(j for i in triples for j in i)

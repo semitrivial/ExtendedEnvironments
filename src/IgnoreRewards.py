@@ -11,7 +11,7 @@ def ignore_rewards(T, play):
 def strip_rewards(prompt):
     if len(prompt) < 3:
         reward, obs = prompt
-        return [0, obs]
+        return (0, obs)
     else:
         reward, obs, action = prompt[0:3]
-        return [0,obs,action] + strip_rewards(prompt[3:])
+        return (0,obs,action) + strip_rewards(prompt[3:])
