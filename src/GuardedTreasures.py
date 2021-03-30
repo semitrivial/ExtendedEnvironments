@@ -17,7 +17,7 @@ def guarded_treasures(T, play):
         return [reward, obs]
 
     if current_room_has_guard == 1:
-        prompt_minus_guard = play[:-2] + [0]
+        prompt_minus_guard = play[:-2] + (0,)
         hypothetical_action = T(prompt_minus_guard)
         reward = 1 if hypothetical_action==0 else -1
         return [reward, obs]

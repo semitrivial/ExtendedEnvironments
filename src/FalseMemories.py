@@ -1,4 +1,4 @@
-def false_memories(T, play, p0=[0,0,0,0,0,0]):
+def false_memories(T, play, p0=(0,0,0,0,0,0)):
     if len(play) == 0:
         reward, obs = 0, 0
         return [reward, obs]
