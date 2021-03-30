@@ -1,7 +1,7 @@
 def incentivize_zero(T, play):
     if len(play) == 0:
         reward, obs = 0, 0
-        return [reward, obs]
+        return (reward, obs)
 
     n = (len(play)//3) - 1
     rewards = {}
@@ -24,4 +24,4 @@ def incentivize_zero(T, play):
 
     reward = 1 if T(inner_prompt) == 0 else -1
     obs = 0
-    return [reward, obs]
+    return (reward, obs)

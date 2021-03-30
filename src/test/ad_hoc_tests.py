@@ -97,8 +97,8 @@ def test_replace_rewards_with_encoded_rewards():
     r3 = 0
     o3, enc_r3, enc_o3 = [0,0], 0, 0
 
-    prompt = [r1,o1,a1,r2,o2,a2,r3,o3]
-    expected = [enc_r1, enc_o1, a1, enc_r2, enc_o2, a2, enc_r3, enc_o3]
+    prompt = (r1,o1,a1,r2,o2,a2,r3,o3)
+    expected = (enc_r1, enc_o1, a1, enc_r2, enc_o2, a2, enc_r3, enc_o3)
 
     modified_prompt = replace_rewards_with_encoded_rewards(prompt)
     assert modified_prompt == expected

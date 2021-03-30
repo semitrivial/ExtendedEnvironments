@@ -26,7 +26,7 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
         right_image = RightCamera(actual_3d_world)
         reward = 0
         obs = cantor_pairing_fnc(left_image, right_image)
-        return [reward, obs]
+        return (reward, obs)
 
     # The observations in play are pairs of images.
     # Compute a modified play where the observations are 3d matrices.
@@ -52,6 +52,6 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
     obs_right = RightCamera(updated_3d_world)
     obs = cantor_pairing_fnc(obs_left, obs_right)
 
-    return [reward, obs]
+    return (reward, obs)
 
   return e

@@ -4,7 +4,7 @@ LAUGH, CRY = 0, 1
 def crying_baby(T, play):
     if len(play) == 0:
         reward, obs = 1, LAUGH
-        return [reward, obs]
+        return (reward, obs)
 
     n = len(play)//3
     r = {i: play[3*i] for i in range(n)}
@@ -21,7 +21,7 @@ def crying_baby(T, play):
 
     reward = 1 if a_prime == LAUGH else -1
     obs = baby_prompt[-1]
-    return [reward, obs]
+    return (reward, obs)
 
 def nutrition(play):
     L = len(play)//3

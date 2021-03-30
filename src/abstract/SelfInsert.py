@@ -39,4 +39,4 @@ def replace_rewards_with_encoded_rewards(prompt):
         prompt[i*3+0] = enc_reward  # replace true reward with encoded reward
         prompt[i*3+1] = enc_obs  # strip reward component from observation
 
-    return prompt
+    return tuple(prompt)

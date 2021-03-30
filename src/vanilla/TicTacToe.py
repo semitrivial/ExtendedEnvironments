@@ -27,38 +27,38 @@ def abstract_tictactoe_env(T, play, who_goes_first):
         board = new_board(who_goes_first)
         reward = 0
         obs = encode_board(board)
-        return [reward, obs]
+        return (reward, obs)
 
     obs, action = play[-2], play[-1]
     board = decode_board(obs)
 
     if not(action in positions) or (board[action] != UNMARKED):
         reward = 0
-        return [reward, obs]
+        return (reward, obs)
 
     board[action] = AGENT
     if detect_win(board, AGENT):
         board = new_board(who_goes_first)
         reward = 1
         obs = encode_board(board)
-        return [reward, obs]
+        return (reward, obs)
 
     if detect_draw(board):
         board = new_board(who_goes_first)
         reward = 0
         obs = encode_board(board)
-        return [reward, obs]
+        return (reward, obs)
 
     board[random_unmarked_pos(board)] = ENV
     if detect_win(board, ENV) or detect_draw(board):
         board = new_board(who_goes_first)
         reward = 0
         obs = encode_board(board)
-        return [reward, obs]
+        return (reward, obs)
 
     reward = 0
     obs = encode_board(board)
-    return [reward, obs]
+    return (reward, obs)
 
 def encode_board(board):
     encode_dict = {UNMARKED: '00', AGENT: '01', ENV: '10'}
