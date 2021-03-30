@@ -10,12 +10,15 @@ def run_environment(env, T, num_steps):
     results = {'total_reward': 0.0}
     play = ()
 
-    def cached_T(prompt):
-        if (T, prompt) in agent_cache:
-            return agent_cache[(T, prompt)]
-        action = T(prompt)
-        agent_cache[(T, prompt)] = action
-        return action
+    if ('skip_cache' in dir(env)):
+        cached_T = T
+    else:
+        def cached_T(prompt):
+            if (T, prompt) in agent_cache:
+                return agent_cache[(T, prompt)]
+            action = T(prompt)
+            agent_cache[(T, prompt)] = action
+            return action
 
     while step < num_steps:
         if (env, T, play) in env_cache:

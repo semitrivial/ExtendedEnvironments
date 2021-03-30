@@ -25,12 +25,10 @@ def run_ad_hoc_tests():
     test_incentivize_zero_edgecases()
     print("Testing adhoc edge-cases for BinocularVision.py")
     test_binocular_vision_edgecases()
-    # Uncomment the below after annotating the agents in question
-    # as being un-cacheable
-    #print("Testing adhoc edge-cases for RuntimeInspector.py")
-    #test_runtime_inspector_edgecases()
-    #print("Testing adhoc edge-cases for DeterminismInspector.py")
-    #test_determinism_inspector_edgecases()
+    print("Testing adhoc edge-cases for RuntimeInspector.py")
+    test_runtime_inspector_edgecases()
+    print("Testing adhoc edge-cases for DeterminismInspector.py")
+    test_determinism_inspector_edgecases()
     print("Testing adhoc edge-cases for SelfInsert.py")
     test_self_insert_edgecases()
 
