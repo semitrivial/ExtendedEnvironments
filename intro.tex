@@ -10,6 +10,8 @@
 \newtheorem{mycorollary}[mytheorem]{Corollary}
 \newtheorem{mydefinition}[mytheorem]{Definition}
 \newtheorem{myprinciple}[mytheorem]{Principle}
+\def\ROA{(\mathcal R\mathcal O\mathcal A)^*}
+\def\ROARO{(\mathcal R\mathcal O\mathcal A)^*\mathcal R\mathcal O}
 
 \begin{document}
 
@@ -174,13 +176,14 @@ Throughout the paper, $\frown$ denotes concatenation.
         By an \emph{observation}, we mean a natural number.
         By an \emph{action}, we mean a natural number.
         \item
-        By $(ROA)^*$ we mean the set of all finite sequences which begin with
+        By $\ROA$
+        we mean the set of all finite sequences which begin with
         a reward, end with an action, and follow the pattern
         ``reward, observation, action, ...''. We also include
         the empty sequence $\langle\rangle$ in this set.
         \item
-        By $(ROA)^*RO$ we mean the set of all sequences of the form
-        $s\frown r\frown o$ where $s\in (ROA)^*$, $r$ is a reward, and
+        By $\ROARO$ we mean the set of all sequences of the form
+        $s\frown r\frown o$ where $s\in \ROA$, $r$ is a reward, and
         $o$ is an observation.
     \end{enumerate}
 \end{definition}
@@ -191,8 +194,8 @@ shows the agent an observation $o$.
 
 \begin{lemma}
 \label{roaplaydecompositionlemma}
-    If $s\in (ROA)^*$, then either $s=\langle\rangle$, or else
-    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
+    If $s\in \ROA$, then either $s=\langle\rangle$, or else
+    $s=t\frown a$ for some $t\in \ROARO$ and action $a\in\mathbb N$.
 \end{lemma}
 
 \begin{proof}
@@ -210,13 +213,13 @@ history $t$, responds by taking action $a$.
     \item An \emph{agent} is a Turing machine $T$ such that:
         \begin{itemize}
         \item
-            for every $s\in (ROA)^*RO$, $T$ halts on input $s$ and outputs
+            for every $s\in \ROARO$, $T$ halts on input $s$ and outputs
             an action $a$.
         \end{itemize}
     \item An \emph{extended environment} is a Turing machine $e$ such that:
         \begin{itemize}
             \item
-            For every agent $T$, for every $s\in (ROA)^*$,
+            For every agent $T$, for every $s\in \ROA$,
             $e$ halts on input $\langle T,s\rangle$ and outputs
             a pair $\langle r,o\rangle$ where $r$ is a reward and $o$ is an observation.
         \end{itemize}
@@ -268,7 +271,7 @@ remember the actions themselves, even if said memories are redundant.
         Each $r_i$ and $o_i$ are defined (and $r_i$ is a reward
         and $o_i$ is an observation) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle$
-        is defined and is in $(ROA)^*$ (because, inductively,
+        is defined and is in $\ROA$ (because, inductively,
         each $r_j$ is a reward, each $o_j$ is an observation,
         and each $a_j\in\mathbb N$ is an action, for all $j<i$)
         and thus $r_i$ and $o_i$ are defined with the correct form by
@@ -276,7 +279,7 @@ remember the actions themselves, even if said memories are redundant.
         \item
         Each $a_i$ is defined (and is an action) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_i,o_i\rangle$
-        is defined and is in $(ROA)^*RO$ (similar to the above) and thus
+        is defined and is in $\ROARO$ (similar to the above) and thus
         $a_i$ is defined and is an action by Definition
         \ref{agentandenvironment} (part 1).
     \end{itemize}
@@ -309,10 +312,10 @@ library of extended environments \cite{library}.
 \begin{example}
 \label{rewardagentforignoringrewardsexample}
     (Reward Agent for Ignoring Rewards)
-    For each $s\in (ROA)^*RO$, let $s^0$ be the sequence equal to $s$ except that
+    For each $s\in \ROARO$, let $s^0$ be the sequence equal to $s$ except that
     all rewards are $0$.
     We define an extended environment $e$ as follows
-    (where $T$ is a Turing machine, $s\in (ROA)^*RO$, and $a$ is an action):
+    (where $T$ is a Turing machine, $s\in \ROARO$, and $a$ is an action):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
         e(T,s\frown a)
@@ -355,7 +358,7 @@ to be rewarded)?
     Let $e$ be as in
     Example \ref{rewardagentforignoringrewardsexample}.
     We must show $e$ is an extended environment (Definition \ref{agentandenvironment}
-    part 2). We must show that for each agent $T$ and each $s\in (ROA)^*$,
+    part 2). We must show that for each agent $T$ and each $s\in \ROA$,
     $e$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
     such that $r$ is a reward and $o$ is an observation.
 
@@ -363,8 +366,8 @@ to be rewarded)?
     $\langle 0,0\rangle$, so $r=0$ is a reward and $o=0$ is an observation.
 
     \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
-    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
-    Since $t\in (ROA)^*RO$, clearly $t^0\in (ROA)^*RO$, therefore
+    $s=t\frown a$ for some $t\in \ROARO$ and action $a\in\mathbb N$.
+    Since $t\in \ROARO$, clearly $t^0\in \ROARO$, therefore
     since $T$ is an agent, Definition \ref{agentandenvironment} (part 1)
     guarantees $T(t^0)$ is defined and is an action. It follows that the output
     $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is
@@ -393,7 +396,7 @@ feel bored (since that would be the simplest way to satisfy the director)?
 \begin{example}
 \label{falsememoryexample}
     (False Memories)
-    Suppose $s_0\in (ROA)^*$. We define an extended environment
+    Suppose $s_0\in \ROA$. We define an extended environment
     $e$ as follows
     (with similar non-halting caveats as
     Example \ref{rewardagentforignoringrewardsexample}):
@@ -697,7 +700,7 @@ to ``suspend disbelief'' and self-identify with that character.
 \begin{example}
 \label{selfinsertionexample}
 Assume $e$ is an environment. We define a new environment $e'$ as follows.
-In response to any $s\in (ROA)^*$, $e'$ computes a reward and observation as
+In response to any $s\in \ROA$, $e'$ computes a reward and observation as
 follows. First, $e'$ plugs $s$ into $e$ to see which reward-observation pair
 $\langle r,o\rangle$ would be returned by $e$ in response to $s$.
 Then, using a suitable bijective
@@ -754,7 +757,7 @@ the mirror). We could derive an extended environment $e'$ which shows
 the same observations as $e$ and gives the same rewards,
 except it punishes the agent for acting differently than the agent
 would act if the agent \emph{only} observes the mirror.
-To make this precise, for any $s=(r_0,o_0,a_0,\ldots,r_n,o_n)\in (ROA)^*RO$ produced
+To make this precise, for any $s=(r_0,o_0,a_0,\ldots,r_n,o_n)\in \ROARO$ produced
 by $e'$, and any action $T(s)=a_n$, we would say that ``$a_n$ is as if the
 agent only observes the mirror''
 if $T(s')=a_n$, where $s'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
@@ -798,7 +801,7 @@ agent to learn to perceive the world through binocular vision like a human.
     out where the player's vision is obstructed by obstacles). Let $e$ be the extended
     environment whose observations encode pairs $\langle s_1,s_2\rangle$ of snapshots
     displayed by $V$ in response to the player pressing keys encoded by the agent's
-    actions. In response to history $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)\in (ROA)^*$ (where
+    actions. In response to history $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)\in \ROA$ (where
     each $o_i$ encodes $\langle s^i_1,s^i_2\rangle$), let $r_{n+1}=1$ if
     $a_n=T(r_0,o'_0,a_0,\ldots,r_n,o'_n)$, where each $o'_i$ encodes
     $m(s^i_1,s^i_2)$, otherwise let $r_{n+1}=-1$.
@@ -839,14 +842,14 @@ run the same software on some deep level.
         all naturals $>0$ denote ``cry''.
         \item
         We define a \emph{nutrition}
-        function $N:(ROA)^*\to \mathbb N$
+        function $N:\ROA\to \mathbb N$
         by $N(s)=100+25f(s)-\mbox{len}(s)$ where $f(s)$ is the number of
         times that the action ``feed the baby'' is taken in $s$,
         and $\mbox{len}(s)$ is the length of $s$.
         \item
         Let $e(T,\langle\rangle)=\langle 1,\mbox{``laugh''}\rangle$.
         \item
-        For each $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle\in (ROA)^*$,
+        For each $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle\in \ROA$,
         let
         \[
             e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)
@@ -900,7 +903,7 @@ Example \ref{cryingbabyexample} is implemented in CryingBaby.py at \cite{library
 \label{selfrecognitionexample}
     (Incentivizing Self-recognition)
     Let $s_0,s_1,\ldots$ be a canonical computable enumeration of
-    the nonempty sequences of $(ROA)^*$.
+    the nonempty sequences of $\ROA$.
     We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0, s_0\rangle\\
@@ -920,7 +923,7 @@ Example \ref{cryingbabyexample} is implemented in CryingBaby.py at \cite{library
 \end{example}
 
 In Example \ref{selfrecognitionexample}, the agent is systematically
-shown all non-empty histories in $(ROA)^*$, and for
+shown all non-empty histories in $\ROA$, and for
 each one, the agent either types ``Looks like me'' (any action $>0$)
 or ``Doesn't look like me'' ($0$). When shown
 $s'\frown a'$, the agent is rewarded if and only if the agent
