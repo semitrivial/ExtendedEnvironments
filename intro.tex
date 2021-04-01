@@ -289,7 +289,8 @@ remember the actions themselves, even if said memories are redundant.
 One important implication of extended environments is that they further divide
 the (already divided) ways of measuring intelligence of RL agents. Intelligence
 measures
-\cite{alexander2019intelligence} \cite{hernandez} \cite{legg2007universal}
+\cite{alexander2019intelligence}
+\cite{goertzel2006patterns} \cite{hernandez} \cite{legg2007universal}
 which aggregate performance over traditional environments only measure
 an agent's intelligence over those environments. The same measures could easily
 be extended to also take extended environments into account, perhaps providing
@@ -306,7 +307,7 @@ traditional RL environments and other benchmarks \cite{bellemare2013arcade}
 form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
 In Section \ref{newextendedenvironmentsfromoldsecn},
 this uniformity will allow all these examples to be generalized.
-Most of the examples in this section are implemented in our open-source
+The examples in this section are implemented in our open-source
 library of extended environments \cite{library}.
 
 \begin{myexample}
@@ -389,8 +390,8 @@ The actor acts bored, and the director praises them for acting so bored.
 The actor is happy to be praised, and ceases acting bored. So the director scolds
 them for not acting bored. If this could continue for thousands of years, with the
 director simulating the actor in order to tell how the actor would really act if
-the actor were never praised or scolded, would the actor eventually genuinely
-feel bored (since that would be the simplest way to satisfy the director)?
+the actor were never praised or scolded, would the actor genuinely
+become bored (since that would be the simplest way to satisfy the director)?
 
 \begin{myexample}
 \label{falsememoryexample}
@@ -577,8 +578,7 @@ We do not intend the examples in this section to be exhaustive.
 \section{New extended environments from old}
 \label{newextendedenvironmentsfromoldsecn}
 
-In this section, we will discuss ways of obtaining new environments from old.
-First, we will generalize the examples from Section \ref{basicexamplessection}.
+In this section, we will generalize the examples from Section \ref{basicexamplessection}.
 
 \begin{definition}
 \label{handicapdefn}
