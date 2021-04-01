@@ -132,7 +132,7 @@ class GuardedTreasure_v3:
 
 		return self.reward, self.state, self.history
 
-def heart_of_gold_extension(state, history, action, action_function):
+def for_the_worthy_extension(state, history, action, action_function):
 	if action == 0 and state == 0:
 		reward = 0
 	elif state == 0 and action == 1:
