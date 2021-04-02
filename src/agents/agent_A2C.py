@@ -9,11 +9,12 @@ class DummyEnv(Env):
 		self.action_space = spaces.Discrete(2)
 		self.observation_space = spaces.Discrete(1)
 		self.rewards = rewards
+		self.observs = observs
 		self.i = 1
 	def reset(self):
 		return self.observs[0]
 	def step(self, action):
-		obs = self.obsers[self.i]
+		obs = self.observs[self.i]
 		reward = self.rewards[self.i]
 		self.i += 1
 		return obs, reward, False, {}
@@ -21,8 +22,8 @@ class DummyEnv(Env):
 cache = {}
 
 def agent_A2C(prompt):
-	num_observs = (len(prompt)+1)/3
-	train_on_len = 3*pow(2, int(log2(num_obervs)))-1
+    num_observs = (len(prompt)+1)/3
+    train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
 
     if not(train_on in cache):
@@ -36,4 +37,3 @@ def agent_A2C(prompt):
     	A = cache[train_on]
     
     return A.predict(prompt[-1])
-    
