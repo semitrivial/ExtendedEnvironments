@@ -9,9 +9,9 @@ def ignore_rewards(T, play):
     return (reward, obs)
 
 def strip_rewards(prompt):
-    if len(prompt) < 3:
-        reward, obs = prompt
-        return (0, obs)
-    else:
-        reward, obs, action = prompt[0:3]
-        return (0,obs,action) + strip_rewards(prompt[3:])
+    prompt = prompt + (0,)  # Dummy action to make everything triple
+    triples = tuple(prompt[i:i+3] for i in range(0,len(prompt),3))
+    triples = tuple((0,o,a) for (r,o,a) in triples)
+    combined = tuple(j for i in triples for j in i)
+    combined = combined[:-1]  # Throw away dummy action
+    return combined
