@@ -15,6 +15,8 @@ def punish_slow_agent(T, play):
 
     return reward, obs
 
+punish_slow_agent.skip_cache = True
+
 def punish_fast_agent(T, play):
     if len(play) == 0:
         reward, obs = 0, 0
@@ -29,3 +31,5 @@ def punish_fast_agent(T, play):
     obs = 0
 
     return reward, obs
+
+punish_fast_agent.skip_cache = True

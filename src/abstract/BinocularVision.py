@@ -26,17 +26,17 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
         right_image = RightCamera(actual_3d_world)
         reward = 0
         obs = cantor_pairing_fnc(left_image, right_image)
-        return [reward, obs]
+        return (reward, obs)
 
     # The observations in play are pairs of images.
     # Compute a modified play where the observations are 3d matrices.
-    modified_play = []
-    action_sequence = []
+    modified_play = ()
+    action_sequence = ()
     for roa in [play[i:i+3] for i in range(0,len(play),3)]:
         r, _, a = roa
         modified_obs = Game3D(action_sequence)
-        modified_play += [r, modified_obs, a]
-        action_sequence += [a]
+        modified_play += (r, modified_obs, a)
+        action_sequence += (a,)
 
 
     # Reward the agent if its most recent action is the same action it
@@ -52,6 +52,6 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
     obs_right = RightCamera(updated_3d_world)
     obs = cantor_pairing_fnc(obs_left, obs_right)
 
-    return [reward, obs]
+    return (reward, obs)
 
   return e

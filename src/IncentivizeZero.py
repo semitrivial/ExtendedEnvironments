@@ -1,9 +1,9 @@
 def incentivize_zero(T, play):
     if len(play) == 0:
         reward, obs = 0, 0
-        return [reward, obs]
+        return (reward, obs)
 
-    n = (len(play)/3) - 1
+    n = (len(play)//3) - 1
     rewards = {}
     observations = {}
     actions = {}
@@ -16,12 +16,12 @@ def incentivize_zero(T, play):
     r_prime = {0: 0}
     o_prime = {i:0 for i in range(n+2)}
     a_prime = {}
-    inner_prompt = [r_prime[0], o_prime[0]]
+    inner_prompt = (r_prime[0], o_prime[0])
     for i in range(n+1):
         r_prime[i+1] = actions[i]
         a_prime[i] = T(inner_prompt)
-        inner_prompt = inner_prompt + [a_prime[i]] + [r_prime[i+1]] + [o_prime[i+1]]
+        inner_prompt += (a_prime[i], r_prime[i+1], o_prime[i+1])
 
     reward = 1 if T(inner_prompt) == 0 else -1
     obs = 0
-    return [reward, obs]
+    return (reward, obs)

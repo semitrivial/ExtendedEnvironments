@@ -21,6 +21,7 @@ def self_insert(e):
     return env
 
 def replace_rewards_with_encoded_rewards(prompt):
+    prompt = list(prompt)
     num_obs = 1+(len(prompt)//3)
     for i in range(num_obs):
         obs = prompt[i*3+1]
@@ -38,4 +39,4 @@ def replace_rewards_with_encoded_rewards(prompt):
         prompt[i*3+0] = enc_reward  # replace true reward with encoded reward
         prompt[i*3+1] = enc_obs  # strip reward component from observation
 
-    return prompt
+    return tuple(prompt)

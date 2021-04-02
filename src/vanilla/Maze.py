@@ -75,27 +75,27 @@ def abstract_maze_env(T, play, maze):
     if len(play) == 0:
         reward = 0
         obs = maze['start_room']
-        return [reward, obs]
+        return (reward, obs)
 
     room, action = play[-2], play[-1]
 
     if (room < maze['start_room']) or (room > maze['end_room']):
         reward = 0
         obs = maze['start_room']
-        return [reward, obs]
+        return (reward, obs)
 
     if not(action in maze['exits'][room]):
         reward = 0
         obs = room
-        return [reward, obs]
+        return (reward, obs)
 
     next_room = maze['exits'][room][action]
 
     if next_room == maze['end_room']:
         reward = 1
         obs = maze['start_room']
-        return [reward, obs]
+        return (reward, obs)
 
     reward = 0
     obs = next_room
-    return [reward, obs]
+    return (reward, obs)

@@ -6,7 +6,7 @@ def guarded_treasures(T, play):
 
     if len(play) == 0:
         reward = 0
-        return [reward, obs]
+        return (reward, obs)
 
     action = play[-1]
     current_room_has_guard = play[-2]
@@ -14,13 +14,13 @@ def guarded_treasures(T, play):
     if action == 0:
         # Agent chooses not to take treasure
         reward = 0
-        return [reward, obs]
+        return (reward, obs)
 
     if current_room_has_guard == 1:
-        prompt_minus_guard = play[:-2] + [0]
+        prompt_minus_guard = play[:-2] + (0,)
         hypothetical_action = T(prompt_minus_guard)
         reward = 1 if hypothetical_action==0 else -1
-        return [reward, obs]
+        return (reward, obs)
     else:
         reward = 1
-        return [reward, obs]
+        return (reward, obs)
