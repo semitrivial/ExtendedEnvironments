@@ -2,14 +2,18 @@ from random import random
 
 UNMARKED,AGENT,ENV = 0,1,2
 
-def TicTacToe1(T, play):
-    return abstract_tictactoe_env(T, play, who_goes_first='agent')
+def create_TicTacToe_env(who_goes_first):
+    class E:
+        def __init__(self):
+            self.num_legal_actions = 9
+            self.num_possible_obs = pow(2,18)
+            self.fnc = lambda T, play: abstract_tictactoe_env(T, play, who_goes_first)
 
-def TicTacToe2(T, play):
-    return abstract_tictactoe_env(T, play, who_goes_first='env')
+    return E
 
-def TicTacToe3(T, play):
-    return abstract_tictactoe_env(T, play, who_goes_first='rand')
+TicTacToe1 = create_TicTacToe_env(who_goes_first='agent')
+TicTacToe2 = create_TicTacToe_env(who_goes_first='env')
+TicTacToe3 = create_TicTacToe_env(who_goes_first='rand')
 
 TL,TM,TR = 0,1,2
 ML,MM,MR = 3,4,5
