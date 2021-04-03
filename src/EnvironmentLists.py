@@ -64,6 +64,6 @@ slow_envs = [
     'punish_fast_agent',
     'punish_slow_agent',
     'punish_deterministic_agent',
-    'punish_nondeterministic_agent'
+    'punish_nondeterministic_agent',
     'TicTacToe'
 ]
