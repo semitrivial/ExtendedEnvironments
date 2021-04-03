@@ -61,7 +61,8 @@ def SBL_agent(learner):
         else:
             A = cache[(train_on, meta)]
 
-        return A.predict(prompt[-1])
+        action, _ = A.predict(prompt[-1])
+        return action
 
     return agent
 
