@@ -15,8 +15,14 @@ def run_environment(env, T, num_steps):
     num_legal_actions = env.num_legal_actions
     num_possible_obs = env.num_possible_obs
 
-    def T_with_meta(prompt):
-        return T(prompt, num_legal_actions, num_possible_obs)
+    if 'requires_numpy_transl' in dir(T):
+        def T_with_meta(prompt):
+            import numpy as np
+            prompt = tuple(np.int64(x) for x in prompt)
+            return int(T(prompt, num_legal_actions, num_possible_obs))
+    else:
+        def T_with_meta(prompt):
+            return T(prompt, num_legal_actions, num_possible_obs)
 
     while step < num_steps:
         reward, obs = env_fnc(T_with_meta, play)
