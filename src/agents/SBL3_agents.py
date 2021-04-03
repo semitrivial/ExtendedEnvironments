@@ -48,7 +48,7 @@ def SBL_agent(learner):
                 if n_steps < 2:
                     return 0
 
-                A = learner('MlpPolicy', dummy_env, n_steps=n_steps)
+                A = learner('MlpPolicy', dummy_env, n_steps=n_steps, batch_size=n_steps)
             elif learner == SBL3.A2C:
                 A = learner('MlpPolicy', dummy_env, n_steps=len(rewards)-1)
             else:
