@@ -2,6 +2,7 @@ from math import log2
 
 import stable_baselines3 as SBL3
 from gym import Env, spaces
+import numpy as np
 
 class DummyEnv(Env):
     def __init__(self):
@@ -46,7 +47,7 @@ def SBL_agent(learner):
         train_on_len = 3*pow(2, int(log2(num_observs)))-1
         train_on = prompt[:train_on_len]
 
-        if not((train_on, str(meta)) in cache):
+        if not((str(train_on), str(meta)) in cache):
             rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
             observs = [train_on[i+1] for i in range(0,train_on_len,3)]
             dummy_env.set_rewards_and_observs(rewards, observs)
@@ -64,12 +65,12 @@ def SBL_agent(learner):
                 A = learner('MlpPolicy', dummy_env, train_freq=len(rewards)-1)
 
             A.learn(len(rewards)-1)
-            cache[(train_on, str(meta))] = A
+            cache[(str(train_on), str(meta))] = A
         else:
-            A = cache[(train_on, str(meta))]
+            A = cache[(str(train_on), str(meta))]
 
         if str(meta) == '(2, MultiDiscrete([3 2 2 3 2 2 3 2 2 3 2]))':
-            if isinstance(prompt[-1], int):
+            if isinstance(prompt[-1], int) or type(prompt[-1]) == type(np.int64(0)):
                 history = prompt[-11:]
                 if len(history) < 11:
                     history = tuple([0]*(11-len(history))) + history
@@ -79,7 +80,13 @@ def SBL_agent(learner):
                 history[6] += 1
                 history[9] += 1
                 history = tuple(history)
-                action, _ = A.predict(history)
+                try:
+                    action, _ = A.predict(history)
+                except Exception:
+                    try:
+                        action, _ = A.predict(history)
+                    except Exception:
+                        action, _ = A.predict(history)
             else:
                 action, _ = A.predict(prompt[-1])
         else:

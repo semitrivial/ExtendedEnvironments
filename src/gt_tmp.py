@@ -7,5 +7,5 @@ from HistoryObservable import HistoryObservable
 
 e = HistoryObservable(GuardedTreasures)
 
-result = run_environment(e, agent_A2C, 10000)
+result = run_environment(e, agent_DQN, 1000)
 print(result['total_reward'])
