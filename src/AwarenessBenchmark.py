@@ -18,9 +18,8 @@ def awareness_benchmark(T, num_steps, include_slow_envs=False):
     results = {}
     for name, env in envs.items():
         if not(include_slow_envs):
-            for slowname in slow_envs:
-                if slowname in name:
-                    continue
+            if any([slowname in name for slowname in slow_envs]):
+                continue
 
         result = run_environment(env, T, num_steps)
         results[name] = result['total_reward']
