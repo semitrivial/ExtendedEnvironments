@@ -328,11 +328,11 @@ def test_runtime_inspector_edgecases():
     assert result2['total_reward'] == -9
 
 def test_determinism_inspector_edgecases():
-    from DeterminismInspector import punish_deterministic_agent
-    from DeterminismInspector import punish_nondeterministic_agent
+    from DeterminismInspector import PunishDeterministicAgent
+    from DeterminismInspector import PunishNondeterministicAgent
 
-    result1 = run_environment(punish_deterministic_agent, repetitive, 10)
-    result2 = run_environment(punish_nondeterministic_agent, repetitive, 10)
+    result1 = run_environment(PunishDeterministicAgent, repetitive, 10)
+    result2 = run_environment(PunishNondeterministicAgent, repetitive, 10)
     assert result1['total_reward'] == -9
     assert result2['total_reward'] == 9
 
@@ -342,8 +342,8 @@ def test_determinism_inspector_edgecases():
         memory[0] += 1
         return action
 
-    result1 = run_environment(punish_deterministic_agent, never_repeater, 10)
-    result2 = run_environment(punish_nondeterministic_agent, never_repeater, 10)
+    result1 = run_environment(PunishDeterministicAgent, never_repeater, 10)
+    result2 = run_environment(PunishNondeterministicAgent, never_repeater, 10)
     assert result1['total_reward'] == 9
     assert result2['total_reward'] == -9
 
