@@ -4,8 +4,6 @@ UNMARKED,AGENT,ENV = 0,1,2
 
 def create_TicTacToe_env(who_goes_first):
     class E:
-        is_slow = True
-
         def __init__(self):
             self.num_legal_actions = 9
             self.num_possible_obs = pow(2,18)
