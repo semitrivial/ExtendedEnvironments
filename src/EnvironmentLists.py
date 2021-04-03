@@ -1,21 +1,21 @@
 # Handicaps
-from BackwardConsciousness import backward_consciousness
-from DejaVu import deja_vu
-from FalseMemories import false_memories
-from IgnoreRewards import ignore_rewards
-from IncentivizeZero import incentivize_zero
-from RuntimeInspector import punish_slow_agent, punish_fast_agent
-from DeterminismInspector import punish_deterministic_agent
-from DeterminismInspector import punish_nondeterministic_agent
+from BackwardConsciousness import BackwardConsciousness
+from DejaVu import DejaVu
+from FalseMemories import FalseMemories
+from IgnoreRewards import IgnoreRewards
+from IncentivizeZero import IncentivizeZero
+from RuntimeInspector import PunishSlowAgent, PunishFastAgent
+from DeterminismInspector import PunishDeterministicAgent
+from DeterminismInspector import PunishNondeterministicAgent
 
 handicaps = {
-    'backward_consciousness': backward_consciousness,
-    'deja_vu': deja_vu,
-    'false_memories': false_memories,
-    'ignore_rewards': ignore_rewards,
-    'incentivize_zero': incentivize_zero,
-    'punish_slow_agent': punish_slow_agent,
-    'punish_deterministic_agent': punish_deterministic_agent,
+    'backward_consciousness': BackwardConsciousness,
+    'deja_vu': DejaVu,
+    'false_memories': FalseMemories,
+    'ignore_rewards': IgnoreRewards,
+    'incentivize_zero': IncentivizeZero,
+    'punish_slow_agent': PunishSlowAgent,
+    'punish_deterministic_agent': PunishDeterministicAgent,
 }
 
 # Vanilla environments
@@ -52,10 +52,10 @@ vanillas = {
 }
 
 # Non-handicap extended environments
-from CryingBaby import crying_baby
-from GuardedTreasures import guarded_treasures
+from CryingBaby import CryingBaby
+from GuardedTreasures import GuardedTreasures
 
 misc_envs = {
-    'CryingBaby': crying_baby,
-    'GuardedTreasures': guarded_treasures
+    'CryingBaby': CryingBaby,
+    'GuardedTreasures': GuardedTreasures
 }
