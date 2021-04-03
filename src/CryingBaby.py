@@ -1,6 +1,12 @@
 FEED, DONTFEED = 0, 1
 LAUGH, CRY = 0, 1
 
+class CryingBaby:
+    def __init__(self):
+        self.num_legal_actions = 2
+        self.num_possible_obs = 2
+        self.fnc = crying_baby
+
 def crying_baby(T, play):
     if len(play) == 0:
         reward, obs = 1, LAUGH
