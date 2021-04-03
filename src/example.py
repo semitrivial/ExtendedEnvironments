@@ -3,25 +3,25 @@ from collections import OrderedDict
 
 from AwarenessBenchmark import awareness_benchmark
 
-def narrow_random_agent(prompt):
+def narrow_random_agent(prompt, *meta):
     return int(random()*3)
 
-def wide_random_agent(prompt):
+def wide_random_agent(prompt, *meta):
     return int(random()*10)
 
-def narrow_incrementer(prompt):
+def narrow_incrementer(prompt, *meta):
     return ((len(prompt)+1)/3)%3
 
-def wide_incrementer(prompt):
+def wide_incrementer(prompt, *meta):
     return ((len(prompt)+1)/3)%10
 
-def always_0(prompt):
+def always_0(prompt, *meta):
     return 0
 
-def always_1(prompt):
+def always_1(prompt, *meta):
     return 1
 
-def naive_learner(prompt):
+def naive_learner(prompt, *meta):
     reward_lists = {i:() for i in range(10)}
 
     if random()<.15:

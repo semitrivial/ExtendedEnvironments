@@ -1,11 +1,21 @@
 def apply_handicap(e, h):
-    def e_star_h(T, play):
-        r_e, o_e = e(T, play)
-        r_h, _ = h(T, play)
+    e_instance, h_instance = e(), h()
+
+    def fnc(T, play):
+        r_e, o_e = e_instance.fnc(T, play)
+        r_h, _ = h_instance.fnc(T, play)
 
         if r_h == 1:
             return (r_e, o_e)
         else:
             return (-1, o_e)
 
-    return e_star_h
+    n_actions = max(e_instance.num_legal_actions, h_instance.num_legal_actions)
+
+    class E_star_H:
+        def __init__(self):
+            self.num_legal_actions = n_actions
+            self.num_possible_obs = e_instance.num_possible_obs
+            self.fnc = fnc
+
+    return E_star_H
