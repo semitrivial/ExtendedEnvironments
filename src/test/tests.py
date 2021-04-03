@@ -1,14 +1,14 @@
 from test.test_agents import agents
 from util import run_environment
 
-from IncentivizeZero import incentivize_zero
-from GuardedTreasures import guarded_treasures
-from IgnoreRewards import ignore_rewards
-from DejaVu import deja_vu
-from CryingBaby import crying_baby
-from FalseMemories import false_memories
-from BackwardConsciousness import backward_consciousness
-from RuntimeInspector import punish_slow_agent, punish_fast_agent
+from IncentivizeZero import IncentivizeZero
+from GuardedTreasures import GuardedTreasures
+from IgnoreRewards import IgnoreRewards
+from DejaVu import DejaVu
+from CryingBaby import CryingBaby
+from FalseMemories import FalseMemories
+from BackwardConsciousness import BackwardConsciousness
+from RuntimeInspector import PunishSlowAgent, PunishFastAgent
 
 def test_environment(env, env_name):
     for agent_name in agents.keys():
@@ -17,28 +17,28 @@ def test_environment(env, env_name):
         print("Reward for "+agent_name+" in "+env_name+": "+str(results['total_reward']))
 
 def test_incentivize_zero():
-    test_environment(incentivize_zero, "incentivize_zero")
+    test_environment(IncentivizeZero, "incentivize_zero")
 
 def test_guarded_treasures():
-    test_environment(guarded_treasures, "guarded_treasures")
+    test_environment(GuardedTreasures, "guarded_treasures")
 
 def test_deja_vu():
-    test_environment(deja_vu, "deja_vu")
+    test_environment(DejaVu, "deja_vu")
 
 def test_crying_baby():
-    test_environment(crying_baby, "crying_baby")
+    test_environment(CryingBaby, "crying_baby")
 
 def test_ignore_rewards():
-    test_environment(ignore_rewards, "ignore_rewards")
+    test_environment(IgnoreRewards, "ignore_rewards")
 
 def test_false_memories():
-    test_environment(false_memories, "false_memories")
+    test_environment(FalseMemories, "false_memories")
 
 def test_backward_consciousness():
-    test_environment(backward_consciousness, "backward_consciousness")
+    test_environment(BackwardConsciousness, "backward_consciousness")
 
 def test_punish_slow_agent():
-    test_environment(punish_slow_agent, "punish_slow_agent")
+    test_environment(PunishSlowAgent, "punish_slow_agent")
 
 def test_punish_fast_agent():
-    test_environment(punish_fast_agent, "punish_fast_agent")
+    test_environment(PunishFastAgent, "punish_fast_agent")
