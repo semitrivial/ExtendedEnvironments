@@ -3,14 +3,17 @@ from random import random
 PAPER, ROCK, SCISSORS = 1, 2, 3
 weaknesses = {PAPER: SCISSORS, ROCK: PAPER, SCISSORS: ROCK}
 
-def PaperRockScissors1(T, play):
-    return abstract_paper_rock_scissors_env(T, play, bias='none')
+def create_PaperRockScissors_env(bias):
+    class E:
+        def __init__(self):
+            self.num_legal_actions = 3
+            self.num_possible_obs = 3
+            self.fnc = lambda T, play: abstract_paper_rock_scissors_env(T, play, bias)
+    return E
 
-def PaperRockScissors2(T, play):
-    return abstract_paper_rock_scissors_env(T, play, bias='repeat')
-
-def PaperRockScissors3(T, play):
-    return abstract_paper_rock_scissors_env(T, play, bias='expect_repeat')
+PaperRockScissors1 = create_PaperRockScissors_env(bias='none')
+PaperRockScissors2 = create_PaperRockScissors_env(bias='repeat')
+PaperRockScissors3 = create_PaperRockScissors_env(bias='expect_repeat')
 
 def abstract_paper_rock_scissors_env(T, play, bias):
     if len(play) == 0:
