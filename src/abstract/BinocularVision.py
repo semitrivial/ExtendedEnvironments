@@ -17,6 +17,12 @@ from util import cantor_pairing_fnc
 # given by LeftCamera/RightCamera, and is rewarded for acting exactly as if it
 # had instead been shown the underlying 3d bitmaps (and is punished otherwise).
 def BinocularVision(Game3D, LeftCamera, RightCamera):
+  class E:
+    def __init__(self):
+      self.num_legal_actions = 2
+      self.num_possible_obs = 999
+      self.fnc = e
+
   def e(T, play):
     if len(play) == 0:
         # Show the agent the initial game world (as two 2d images)
@@ -54,4 +60,4 @@ def BinocularVision(Game3D, LeftCamera, RightCamera):
 
     return (reward, obs)
 
-  return e
+  return E
