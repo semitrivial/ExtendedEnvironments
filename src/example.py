@@ -59,3 +59,18 @@ for name, agent in agents.items():
     rewards = result.values()
     avg_reward = float(sum(rewards))/len(rewards)
     print("Result: "+name+" got avg reward "+str(avg_reward))
+
+from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
+
+SBL_agents = OrderedDict([
+    ['agent_A2C', agent_A2C],
+    ['agent_DQN', agent_DQN],
+    ['agent_PPO', agent_PPO]
+])
+
+for name, agent in SBL_agents.items():
+    print("Testing "+name+"...")
+    result = awareness_benchmark(agent, 100)
+    rewards = result.values()
+    avg_reward = float(sum(rewards))/len(rewards)
+    print("Result: "+name+" got avg reward "+str(avg_reward))
