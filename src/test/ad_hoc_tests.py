@@ -350,9 +350,15 @@ def test_determinism_inspector_edgecases():
 def test_self_insert_edgecases():
     from abstract.SelfInsert import self_insert
 
+    class Dummy_Env:
+        def __init__(self):
+            self.num_legal_actions = 100
+            self.num_possible_obs = -1
+            self.fnc = dummy_env
+
     def dummy_env(T, play):
         return 0,0
-    env = self_insert(dummy_env)
+    env = self_insert(Dummy_Env)
 
     result = run_environment(env, repetitive, 10)
     assert result['total_reward'] == 9
