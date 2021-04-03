@@ -309,10 +309,10 @@ def test_binocular_vision_edgecases():
     assert result['total_reward'] == -9
 
 def test_runtime_inspector_edgecases():
-    from RuntimeInspector import punish_fast_agent, punish_slow_agent
+    from RuntimeInspector import PunishFastAgent, PunishSlowAgent
 
-    result1 = run_environment(punish_fast_agent, repetitive, 10)
-    result2 = run_environment(punish_slow_agent, repetitive, 10)
+    result1 = run_environment(PunishFastAgent, repetitive, 10)
+    result2 = run_environment(PunishSlowAgent, repetitive, 10)
     assert result1['total_reward'] == -9
     assert result2['total_reward'] == 9
 
@@ -322,8 +322,8 @@ def test_runtime_inspector_edgecases():
             x = x-1
         return 0
 
-    result1 = run_environment(punish_fast_agent, timewaster, 10)
-    result2 = run_environment(punish_slow_agent, timewaster, 10)
+    result1 = run_environment(PunishFastAgent, timewaster, 10)
+    result2 = run_environment(PunishSlowAgent, timewaster, 10)
     assert result1['total_reward'] == 9
     assert result2['total_reward'] == -9
 
