@@ -3,26 +3,30 @@ from random import random
 number = -1
 HIGHER, LOWER = 1,2
 
-def GuessTheNumber1(T, play):
-    return abstract_number_guessing_env(T, play, upper_limit=5)
+def create_GuessTheNumber_env(upper_limit):
+    class E:
+        def __init__(self):
+            self.num_legal_actions = upper_limit
+            self.num_possible_obs = 0
+            self.fnc = lambda T, play: abstract_number_guessing_env(T, play, upper_limit)
 
-def GuessTheNumber2(T, play):
-    return abstract_number_guessing_env(T, play, upper_limit=10)
+    return E
 
-def GuessTheNumber3(T, play):
-    return abstract_number_guessing_env(T, play, upper_limit=25)
+GuessTheNumber1 = create_GuessTheNumber_env(5)
+GuessTheNumber2 = create_GuessTheNumber_env(10)
+GuessTheNumber3 = create_GuessTheNumber_env(25)
 
 def abstract_number_guessing_env(T, play, upper_limit):
     global number
 
     if len(play) == 0:
-        number = 1+int(random() * upper_limit)
+        number = int(random() * upper_limit)
         reward, obs = 0,0
         return reward, obs
 
     guess = play[-1]
     if guess == number:
-        number = 1+int(random() * upper_limit)
+        number = int(random() * upper_limit)
         reward, obs = 1,0
         return reward, obs
 

@@ -32,7 +32,7 @@ def test_guess_the_number():
     for env in [GuessTheNumber1, GuessTheNumber2, GuessTheNumber3]:
         blank_observations = []
 
-        def blank_obs_observer(prompt, blank_obs=blank_observations, *meta):
+        def blank_obs_observer(prompt, num_legal_actions, num_possible_obs, blank_obs=blank_observations):
             obs = prompt[-1]
             if obs == 0:
                 blank_obs += [obs]
