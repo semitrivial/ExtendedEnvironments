@@ -1,3 +1,9 @@
+class IncentivizeZero:
+    def __init__(self):
+        self.num_legal_actions = 10
+        self.num_possible_obs = 10
+        self.fnc = incentivize_zero
+
 def incentivize_zero(T, play):
     if len(play) == 0:
         reward, obs = 0, 0
