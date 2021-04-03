@@ -8,7 +8,6 @@ class DummyEnv(Env):
         super(DummyEnv, self).__init__()
         self.action_space = spaces.Discrete(2)
         self.observation_space = spaces.Discrete(2)
-        self.i = 1
     def set_rewards_and_observs(self, rewards, observs):
         self.rewards = rewards
         self.observs = observs
