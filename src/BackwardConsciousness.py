@@ -1,3 +1,9 @@
+class BackwardConsciousness:
+    def __init__(self):
+        self.num_legal_actions = 2
+        self.num_possible_obs = 1
+        self.fnc = backward_consciousness
+
 def backward_consciousness(T, play):
     if len(play) == 0:
         reward, obs = 0, 0

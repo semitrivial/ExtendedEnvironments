@@ -6,8 +6,9 @@ from gym import Env, spaces
 class DummyEnv(Env):
     def __init__(self):
         super(DummyEnv, self).__init__()
-        self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Discrete(2)
+    def set_meta(self, num_legal_actions, num_possible_obs):
+        self.action_space = spaces.Discrete(num_legal_actions)
+        self.observation_space = spaces.Discrete(num_possible_obs)
     def set_rewards_and_observs(self, rewards, observs):
         self.rewards = rewards
         self.observs = observs
@@ -31,12 +32,14 @@ caches = {
 def SBL_agent(learner):
     cache = caches[learner]
 
-    def agent(prompt):
+    def agent(prompt, num_legal_actions, num_possible_obs):
+        dummy_env.set_meta(num_legal_actions, num_possible_obs)
+        meta = (num_legal_actions, num_possible_obs)
         num_observs = (len(prompt)+1)/3
         train_on_len = 3*pow(2, int(log2(num_observs)))-1
         train_on = prompt[:train_on_len]
 
-        if not(train_on in cache):
+        if not((train_on, meta) in cache):
             rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
             observs = [train_on[i+1] for i in range(0,train_on_len,3)]
             dummy_env.set_rewards_and_observs(rewards, observs)
@@ -54,9 +57,9 @@ def SBL_agent(learner):
                 A = learner('MlpPolicy', dummy_env, train_freq=len(rewards)-1)
 
             A.learn(len(rewards)-1)
-            cache[train_on] = A
+            cache[(train_on, meta)] = A
         else:
-            A = cache[train_on]
+            A = cache[(train_on, meta)]
 
         return A.predict(prompt[-1])
 
