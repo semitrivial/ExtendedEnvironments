@@ -6,8 +6,8 @@ weaknesses = {PAPER: SCISSORS, ROCK: PAPER, SCISSORS: ROCK}
 def create_PaperRockScissors_env(bias):
     class E:
         def __init__(self):
-            self.num_legal_actions = 3
-            self.num_possible_obs = 3
+            self.num_legal_actions = 4
+            self.num_possible_obs = 4
             self.fnc = lambda T, play: abstract_paper_rock_scissors_env(T, play, bias)
     return E
 
