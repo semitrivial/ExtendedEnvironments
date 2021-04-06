@@ -96,3 +96,6 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs):
 
     action, _ = A.predict(prompt[-1])
     return action
+
+agent_DQN.requires_numpy_transl = True
+
