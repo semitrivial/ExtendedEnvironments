@@ -3,7 +3,6 @@ from fractions import Fraction
 from pdb import Pdb
 
 agent_cache = {}
-env_cache = {}
 
 def run_environment(env, T, num_steps):
     step = 0
@@ -15,14 +14,25 @@ def run_environment(env, T, num_steps):
     num_legal_actions = env.num_legal_actions
     num_possible_obs = env.num_possible_obs
 
+    if not('skip_cache' in dir(env)):
+        def cached_T(*args):
+            if (T, args) in agent_cache:
+                return agent_cache[(T, args)]
+            else:
+                result = T(*args)
+                agent_cache[(T, args)] = result
+                return result
+    else:
+        cached_T = T
+
     if 'requires_numpy_transl' in dir(T):
         def T_with_meta(prompt):
             import numpy as np
             prompt = tuple(np.int64(x) for x in prompt)
-            return int(T(prompt, num_legal_actions, num_possible_obs))
+            return int(cached_T(prompt, num_legal_actions, num_possible_obs))
     else:
         def T_with_meta(prompt):
-            return T(prompt, num_legal_actions, num_possible_obs)
+            return cached_T(prompt, num_legal_actions, num_possible_obs)
 
     while step < num_steps:
         reward, obs = env_fnc(T_with_meta, play)

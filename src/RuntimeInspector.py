@@ -5,6 +5,7 @@ class PunishSlowAgent:
         self.num_legal_actions = 2
         self.num_possible_obs = 1
         self.fnc = punish_slow_agent
+        self.skip_cache = True
 
 def punish_slow_agent(T, play):
     if len(play) == 0:
@@ -26,6 +27,7 @@ class PunishFastAgent:
         self.num_legal_actions = 2
         self.num_possible_obs = 1
         self.fnc = punish_fast_agent
+        self.skip_cache = True
 
 def punish_fast_agent(T, play):
     if len(play) == 0:

@@ -17,5 +17,11 @@ def apply_handicap(e, h):
             self.num_legal_actions = n_actions
             self.num_possible_obs = e_instance.num_possible_obs
             self.fnc = fnc
+            skip_cache1 = ('skip_cache' in dir(e_instance))
+            skip_cache1 = skip_cache1 and e_instance.skip_cache
+            skip_cache2 = ('skip_cache' in dir(h_instance))
+            skip_cache2 = skip_cache2 and h_instance.skip_cache
+            if skip_cache1 or skip_cache2:
+                self.skip_cache = True
 
     return E_star_H

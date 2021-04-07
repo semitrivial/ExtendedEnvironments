@@ -3,6 +3,7 @@ class PunishDeterministicAgent:
         self.num_legal_actions = 2
         self.num_possible_obs = 1
         self.fnc = punish_deterministic_agent
+        self.skip_cache = True
 
 def punish_deterministic_agent(T, play):
     if len(play) == 0:
@@ -20,6 +21,7 @@ class PunishNondeterministicAgent:
         self.num_legal_actions = 2
         self.num_possible_obs = 1
         self.fnc = punish_nondeterministic_agent
+        self.skip_cache = True
 
 def punish_nondeterministic_agent(T, play):
     if len(play) == 0:
