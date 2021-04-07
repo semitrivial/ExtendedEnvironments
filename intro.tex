@@ -34,10 +34,12 @@ in reinforcement learning}
     to simulate the agent. We give
     examples of some such extended environments which seem to incentivize
     various different types of self-reflection or self-awareness.
-    These environments are not particularly useful in themselves, but we
-    hope they might serve to guide the development of self-aware reinforcement
-    learning agents, as well as to help measure the degree to which existing
-    reinforcement learning agents are or are not self-aware; to that end,
+    These environments might shed light on how self-awareness is incentivized
+    in evolution (where an organism's offspring approximate a kind of simulation
+    of that organism). We
+    hope these environments will guide the development of self-aware reinforcement
+    learning agents, and will help measure the degree to which existing
+    reinforcement learning agents are or are not self-aware. To that end,
     we have released an open-source library of such environments.
     We also speculate
     about subjective conscious experiences which
@@ -127,7 +129,7 @@ be cast as extended environments in which the environment somehow knows the agen
 source-code and uses that to determine what the agent would do in various
 hypothetical situations.
 Clearly such
-extended environments are not the sort of environment RL agents are traditionally
+extended environments are not the sort of environments RL agents are traditionally
 intended to interact with\footnote{Such environments might, however,
 accidentally arise if both environment
 and agent are implemented on the same machine and the environment is managed by an AI
@@ -141,6 +143,11 @@ as a dynamical system that recognizes patterns in its environment \emph{and itse
 as part of its quest to achieve complex goals'' \cite{goertzel2006patterns}
 (emph.\ in the original).}
 and ask, ``How would I act in such-and-such alternative scenarios?''
+Furthermore, if living organisms' agency-functions are inherited (perfectly or with
+minor mutations) from their ancestors, then in some sense, related organisms are
+approximately simulations of each other.
+This suggests the possibility that such extended environments could play a role
+in the evolution of self-awareness.
 
 One might try to imitate an extended environment with a traditional environment by
 backtracking---rewinding the environment itself to a prior state after seeing how the
@@ -824,8 +831,13 @@ in \cite{library}.
     who can say that he did not sin when Adam sinned?''---Augustine \cite{augustine1993free}
 \end{quote}
 
-The following example is motivated by contemplating the possibility that maybe we all
-run the same software on some deep level.
+The following example is motivated by biological considerations.
+The programming which determines an organism's behavior is largely inherited.
+As an extreme simplifying assumption, we could consider asexual organisms
+which perfectly inherit their agency-functions from their lone parents without
+any mutations, in which case the child, in some sense, has the exact same
+source-code as the parent. As the parent interacts with the child, then, it is,
+in some sense, interacting with an extended environment.
 
 \begin{myexample}
 \label{cryingbabyexample}
