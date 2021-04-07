@@ -28,7 +28,7 @@ def run_environment(env, T, num_steps):
     if 'requires_numpy_transl' in dir(T):
         def T_with_meta(prompt):
             import numpy as np
-            prompt = tuple(np.int64(x) for x in prompt)
+            prompt = tuple(np.int64(prompt))
             return int(cached_T(prompt, num_legal_actions, num_possible_obs))
     else:
         def T_with_meta(prompt):
