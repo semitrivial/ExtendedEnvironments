@@ -6,9 +6,12 @@ from BackwardConsciousness import BackwardConsciousness
 from CryingBaby import CryingBaby
 from IgnoreRewards import IgnoreRewards
 
-e = GuardedTreasures
+#e = GuardedTreasures
 #e = BackwardConsciousness
+e = CryingBaby
 
-N = 2000
-result = run_environment(e, agent_DQN, N)
-print('Total reward ' + str(result['total_reward']/N))
+N = 400
+import cProfile
+cProfile.run("run_environment(e, agent_DQN, N)")
+#result = run_environment(e, agent_DQN, N)
+#print('Total reward ' + str(result['total_reward']/N))
