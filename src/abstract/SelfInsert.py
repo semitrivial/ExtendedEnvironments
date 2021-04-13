@@ -4,21 +4,28 @@
 # avoid technical details, this implementation assumes a reinforcement
 # learning framework where observations are allowed to be pairs (unlike
 # in our paper, where observations are required to be natural numbers.)
-def self_insert(e):
-    def env(T, play):
+def self_insert(E):
+    class Env:
+        def __init__(self):
+            E_tmp = E()
+            self.num_legal_actions = E_tmp.num_legal_actions
+            self.num_possible_obs = -1
+            self.fnc = lambda T, play: env(T, play, E_tmp.fnc)
+
+    def env(T, play, fnc):
         if len(play) == 0:
             reward = 0
-            obs = e(T, play)  # Encode a reward-obs pair as a single obs
+            obs = fnc(T, play)  # Encode a reward-obs pair as a single obs
             return reward, obs
 
         prompt, action = play[:-1], play[-1]
         modified_prompt = replace_rewards_with_encoded_rewards(prompt)
-        
+
         reward = 1 if (action == T(modified_prompt)) else -1
-        obs = e(T, play)  # Encode a reward-obs pair as a single obs
+        obs = fnc(T, play)  # Encode a reward-obs pair as a single obs
         return reward, obs
 
-    return env
+    return Env
 
 def replace_rewards_with_encoded_rewards(prompt):
     prompt = list(prompt)

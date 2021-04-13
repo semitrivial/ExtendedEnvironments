@@ -1,3 +1,9 @@
+class DejaVu:
+    def __init__(self):
+        self.num_legal_actions = 2
+        self.num_possible_obs = 1
+        self.fnc = deja_vu
+
 def deja_vu(T, play):
     if len(play) == 0:
         reward, obs = 0, 0

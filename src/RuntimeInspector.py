@@ -1,5 +1,12 @@
 from util import eval_and_count_steps
 
+class PunishSlowAgent:
+    def __init__(self):
+        self.num_legal_actions = 2
+        self.num_possible_obs = 1
+        self.fnc = punish_slow_agent
+        self.skip_cache = True
+
 def punish_slow_agent(T, play):
     if len(play) == 0:
         reward, obs = 0, 0
@@ -15,7 +22,12 @@ def punish_slow_agent(T, play):
 
     return reward, obs
 
-punish_slow_agent.skip_cache = True
+class PunishFastAgent:
+    def __init__(self):
+        self.num_legal_actions = 2
+        self.num_possible_obs = 1
+        self.fnc = punish_fast_agent
+        self.skip_cache = True
 
 def punish_fast_agent(T, play):
     if len(play) == 0:
@@ -31,5 +43,3 @@ def punish_fast_agent(T, play):
     obs = 0
 
     return reward, obs
-
-punish_fast_agent.skip_cache = True

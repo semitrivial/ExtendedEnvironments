@@ -1,5 +1,13 @@
 NORTH, SOUTH, EAST, WEST = 0, 1, 2, 3
 
+def create_maze_env(maze_config):
+    class E:
+        def __init__(self):
+            self.num_legal_actions = 4
+            self.num_possible_obs = maze_config['end_room']+1
+            self.fnc = lambda T, play: abstract_maze_env(T, play, maze_config)
+    return E
+
 maze1_config = {
     'start_room': 1,
     'end_room': 3,
@@ -9,8 +17,7 @@ maze1_config = {
     }
 }
 
-def Maze1(T, play):
-    return abstract_maze_env(T, play, maze=maze1_config)
+Maze1 = create_maze_env(maze1_config)
 
 maze2_config = {
     'start_room': 1,
@@ -23,8 +30,7 @@ maze2_config = {
     }
 }
 
-def Maze2(T, play):
-    return abstract_maze_env(T, play, maze=maze2_config)
+Maze2 = create_maze_env(maze2_config)
 
 maze3_config = {
     'start_room': 1,
@@ -38,8 +44,7 @@ maze3_config = {
     }
 }
 
-def Maze3(T, play):
-    return abstract_maze_env(T, play, maze=maze3_config)
+Maze3 = create_maze_env(maze3_config)
 
 maze4_config = {
     'start_room': 1,
@@ -53,8 +58,7 @@ maze4_config = {
     }
 }
 
-def Maze4(T, play):
-    return abstract_maze_env(T, play, maze=maze4_config)
+Maze4 = create_maze_env(maze4_config)
 
 maze5_config = {
     'start_room': 1,
@@ -68,8 +72,7 @@ maze5_config = {
     }
 }
 
-def Maze5(T, play):
-    return abstract_maze_env(T, play, maze=maze5_config)
+Maze5 = create_maze_env(maze5_config)
 
 def abstract_maze_env(T, play, maze):
     if len(play) == 0:

@@ -17,7 +17,7 @@ def test_vanilla():
 def test_bandits():
     from vanilla.Bandit import Bandit1, Bandit2, Bandit3, Bandit4, Bandit5
 
-    def incrementer(prompt):
+    def incrementer(prompt, *meta):
         return (1+len(prompt))/3
 
     for bandit in [Bandit1, Bandit2, Bandit3, Bandit4, Bandit5]:
@@ -32,7 +32,7 @@ def test_guess_the_number():
     for env in [GuessTheNumber1, GuessTheNumber2, GuessTheNumber3]:
         blank_observations = []
 
-        def blank_obs_observer(prompt, blank_obs=blank_observations):
+        def blank_obs_observer(prompt, num_legal_actions, num_possible_obs, blank_obs=blank_observations):
             obs = prompt[-1]
             if obs == 0:
                 blank_obs += [obs]
@@ -45,7 +45,7 @@ def test_guess_the_number():
 def test_mazes():
     from vanilla.Maze import Maze1, Maze2, Maze3, Maze4, Maze5
 
-    def learns_about_bad_moves(prompt):
+    def learns_about_bad_moves(prompt, *meta):
         if prompt[-2] > 0:
             assert prompt[-1] == 1  # Rewards are always accompanied by reset
 
@@ -80,7 +80,7 @@ def test_mazes():
         result = run_environment(maze, learns_about_bad_moves, 500)
         assert result['total_reward']>0
 
-    def always_goes_north(prompt):
+    def always_goes_north(prompt, *meta):
         return 0
 
     for maze in [Maze1, Maze2, Maze3, Maze4, Maze5]:
@@ -93,7 +93,7 @@ def test_paper_rock_scissors():
     from vanilla.PaperRockScissors import PaperRockScissors3
     from vanilla.PaperRockScissors import PAPER, ROCK, SCISSORS
 
-    def always_plays_paper(prompt):
+    def always_plays_paper(prompt, *meta):
         reward, obs = prompt[-2], prompt[-1]
         if obs != 0:
             if obs == PAPER:
@@ -112,7 +112,7 @@ def test_paper_rock_scissors():
 def test_tic_tac_toe():
     from vanilla.TicTacToe import TicTacToe1, TicTacToe2, TicTacToe3
 
-    def plays_blindly(prompt):
+    def plays_blindly(prompt, *meta):
         return ((1+len(prompt))/3)%9
 
     for env in [TicTacToe1, TicTacToe2, TicTacToe3]:
