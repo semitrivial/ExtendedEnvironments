@@ -20,11 +20,14 @@ class DummyEnv:
         self.observs = observs
         self.history = []
         self.i = 1
-    def get_state():
-    	return self.observs[0]
+    def get_state(self):
+        return self.observs[0]
     def act(self, action, network_act):
-        reward = self.rewards[self.i]
-        obs = self.observs[self.i]
+        try:
+            reward = self.rewards[self.i]
+            obs = self.observs[self.i]
+        except Exception:
+            import pdb; pdb.set_trace()
         self.i += 1
         self.history.append([obs, action, reward])
         return reward, obs, self.history
@@ -51,9 +54,7 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
     else:
         A = cache[(train_on, meta)]
 
-    A.state = prompt[-1]
-    A.act()
-    return A.action
+    return A.network_act(prompt[-1])
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
