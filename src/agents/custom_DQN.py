@@ -29,6 +29,8 @@ class DummyEnv:
         except Exception:
             import pdb; pdb.set_trace()
         self.i += 1
+        # Use o/a/r format from Oscar's code instead of the r/o/a format
+        # from the paper
         self.history.append([obs, action, reward])
         return reward, obs, self.history
 
@@ -55,6 +57,8 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
         A = cache[(train_on, meta)]
 
     state = ([0]*30 + list(prompt))[-30:]
+    # Convert prompt to be consistent with the o/a/r format
+    # used in Oscar's histories (as opposed to the r/o/a format in the paper)
     r1,o1,a1,r2,o2,a2,r3,o3,a3,r4,o4,a4,r5,o5,a5,r6,o6,a6,r7,o7,a7,r8,o8,a8,r9,o9,a9,r10,o10,a10 = state
     state = [o1,a1,r1,o2,a2,r2,o3,a3,r3,o4,a4,r4,o5,a5,r5,o6,a6,r6,o7,a7,r7,o8,a8,r8,o9,a9,r9,o10,a10,r10]
     state = state + [o10]
