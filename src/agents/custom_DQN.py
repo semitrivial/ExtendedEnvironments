@@ -274,12 +274,6 @@ class RecurrentAgent:
             self.state = self.next_state
             self.next_state = None
 
-    def plot_scores(self):
-        pd.Series(self.scores).rolling(100).mean().plot()
-        plt.show()
-
-        return True
-
 
 def multiagent_training_loop(game_env,agents,training=True,episodes=1_000, print_n=100):
     assert game_env.multiagent == True
