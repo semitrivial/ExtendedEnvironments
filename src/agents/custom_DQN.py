@@ -159,16 +159,13 @@ class RecurrentAgent:
 
     def network_act(self,state,history=None):
         if not isinstance(state,torch.Tensor):
-            #state = torch.tensor([state],dtype=torch.float,device=device).unsqueeze(0)
             state = self.create_network_state(state=state, history=history)
 
         assert state.shape == torch.Size([1,((self.lookback * 3) + 1),1])
         self.q_net.eval()
         with torch.no_grad():
-            #print(state.shape)
             h = self.q_net.init_hidden(state.shape[0])
             action_values, h = self.q_net(state, h)
-            #print(action_values)
             result = action_values.max(1)[1].unsqueeze(1)
             assert result.shape == torch.Size([1,1])
         self.q_net.train()
