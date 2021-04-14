@@ -48,16 +48,16 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         dummy_env.set_rewards_and_observs(rewards, observs)
 
-        A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=3)
+        A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=10)
         A.play(episodes = len(rewards)-1)
         cache[(train_on, meta)] = A
     else:
         A = cache[(train_on, meta)]
 
-    state = ([0,0,0,0,0,0,0,0,0] + list(prompt))[-9:]
-    r1,o1,a1,r2,o2,a2,r3,o3,a3 = state
-    state = [o1,a1,r1,o2,a2,r2,o3,a3,r3]
-    state = state + [o3]
+    state = ([0]*30 + list(prompt))[-30:]
+    r1,o1,a1,r2,o2,a2,r3,o3,a3,r4,o4,a4,r5,o5,a5,r6,o6,a6,r7,o7,a7,r8,o8,a8,r9,o9,a9,r10,o10,a10 = state
+    state = [o1,a1,r1,o2,a2,r2,o3,a3,r3,o4,a4,r4,o5,a5,r5,o6,a6,r6,o7,a7,r7,o8,a8,r8,o9,a9,r9,o10,a10,r10]
+    state = state + [o10]
     state = torch.tensor(state, dtype=torch.float, device=device).reshape((1,-1,1))
 
     return A.blind_act(state)
