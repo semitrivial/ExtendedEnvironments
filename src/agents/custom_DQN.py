@@ -48,13 +48,19 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         dummy_env.set_rewards_and_observs(rewards, observs)
 
-        A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=10)
+        A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=3)
         A.play(episodes = len(rewards)-1)
         cache[(train_on, meta)] = A
     else:
         A = cache[(train_on, meta)]
 
-    return A.network_act(prompt[-1])
+    state = ([0,0,0,0,0,0,0,0,0] + list(prompt))[-9:]
+    r1,o1,a1,r2,o2,a2,r3,o3,a3 = state
+    state = [o1,a1,r1,o2,a2,r2,o3,a3,r3]
+    state = state + [o3]
+    state = torch.tensor(state, dtype=torch.float, device=device).reshape((1,-1,1))
+
+    return A.blind_act(state)
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -172,6 +178,17 @@ class RecurrentAgent:
 
         return result.item()
 
+    def blind_act(self,state):
+        assert state.shape == torch.Size([1,((self.lookback * 3) + 1),1])
+        self.q_net.eval()
+        with torch.no_grad():
+            h = self.q_net.init_hidden(state.shape[0])
+            action_values, h = self.q_net(state, h)
+            result = action_values.max(1)[1].unsqueeze(1)
+            assert result.shape == torch.Size([1,1])
+
+        return result.item()
+
     def calculate_epsilon_threshold(self):
         eps_threshold = self.EPS_END + (self.EPS_START - self.EPS_END) * math.exp(-1. * self.steps_done / self.EPS_DECAY)
         eps_sample = np.random.rand()
@@ -182,7 +199,6 @@ class RecurrentAgent:
         if self.state is None:
             self.get_initial_state()
             self.state = self.create_network_state(state=self.state, history=self.history)
-
         eps_threshold, eps_sample = self.calculate_epsilon_threshold()
 
         self.steps_done += 1
