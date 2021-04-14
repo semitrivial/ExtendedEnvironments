@@ -257,7 +257,6 @@ class RecurrentAgent:
         self.optimizer.step()
 
     def play(self, training=True, episodes = 1_000, print_n=100):
-        print(sum(p.numel() for p in self.q_net.parameters()))
         for i_episode in range(episodes):
             if i_episode % print_n == 0:
                 print(f"Played {i_episode} episodes")
