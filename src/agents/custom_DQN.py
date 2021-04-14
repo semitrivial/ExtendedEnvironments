@@ -185,7 +185,6 @@ class RecurrentAgent:
         if self.state is None:
             self.get_initial_state()
             self.state = self.create_network_state(state=self.state, history=self.history)
-            #self.state = torch.tensor([self.state],dtype=torch.float,device=device).unsqueeze(0)
 
         eps_threshold, eps_sample = self.calculate_epsilon_threshold()
 
