@@ -202,7 +202,6 @@ class RecurrentAgent:
 
         self.action = torch.tensor([action], device=device).unsqueeze(0)
         self.reward = torch.tensor([reward], device=device).unsqueeze(0)
-        #self.next_state = torch.tensor([next_state],dtype=torch.float, device=device).unsqueeze(0)
         self.next_state = self.create_network_state(state = next_state, history = self.history)
 
         return reward
