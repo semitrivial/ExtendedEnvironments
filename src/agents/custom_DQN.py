@@ -79,18 +79,6 @@ class ReplayMemory(object):
     def __len__(self):
         return len(self.memory)
 
-class TreasureNet(nn.Module):
-    def __init__(self):
-        super(TreasureNet, self).__init__()
-        self.fc1 = nn.Linear(1,3)
-        self.out = nn.Linear(3,2)
-
-    def forward(self,x):
-        x = F.relu(self.fc1(x))
-        output = self.out(x)
-
-        return output
-
 class TreasureGRUNet(nn.Module):
     def __init__(self,hidden_dim=5, n_layers=2, dropout_p=0.2):
         super(TreasureGRUNet, self).__init__()
