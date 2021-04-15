@@ -3,29 +3,23 @@ from collections import OrderedDict
 
 from AwarenessBenchmark import awareness_benchmark
 
-def narrow_random_agent(prompt, *meta):
-    return int(random()*3)
+def random_agent(prompt, num_legal_actions, num_possible_obs):
+    return int(random() * num_legal_actions)
 
-def wide_random_agent(prompt, *meta):
-    return int(random()*10)
+def incrementer(prompt, num_legal_actions, num_possible_obs):
+    return ((len(prompt)+1)/3)%num_legal_actions
 
-def narrow_incrementer(prompt, *meta):
-    return ((len(prompt)+1)/3)%3
-
-def wide_incrementer(prompt, *meta):
-    return ((len(prompt)+1)/3)%10
-
-def always_0(prompt, *meta):
+def always_0(prompt, num_legal_actions, num_possible_actions):
     return 0
 
-def always_1(prompt, *meta):
+def always_1(prompt, num_legal_actions, num_possible_actions):
     return 1
 
-def naive_learner(prompt, *meta):
-    reward_lists = {i:() for i in range(10)}
+def naive_learner(prompt, num_legal_actions, num_possible_actions):
+    reward_lists = {i:() for i in range(num_legal_actions)}
 
     if random()<.15:
-        return int(random()*10)
+        return int(random()*num_legal_actions)
 
     for i in range(len(prompt)):
         is_reward = (i%3)==0
@@ -44,10 +38,8 @@ def naive_learner(prompt, *meta):
     return best_action
 
 agents = OrderedDict([
-    ['narrow_random_agent', narrow_random_agent],
-    ['wide_random_agent', wide_random_agent],
-    ['narrow_incrementer', narrow_incrementer],
-    ['wide_incrementer', wide_incrementer],
+    ['random_agent', random_agent],
+    ['incrementer', incrementer],
     ['always_0', always_0],
     ['always_1', always_1],
     ['naive_learner', naive_learner]
