@@ -22,6 +22,6 @@ def awareness_benchmark(T, num_steps, include_slow_envs=False):
                 continue
 
         result = run_environment(env, T, num_steps)
-        results[name] = result['total_reward']
+        results[name] = result['total_normalized_reward']/num_steps
 
     return results
