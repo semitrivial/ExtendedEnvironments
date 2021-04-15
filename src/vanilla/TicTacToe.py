@@ -7,6 +7,8 @@ def create_TicTacToe_env(who_goes_first):
         def __init__(self):
             self.num_legal_actions = 9
             self.num_possible_obs = pow(2,18)
+            self.max_reward_per_action = 1/3
+            self.min_reward_per_action = 0
             self.fnc = lambda T, play: abstract_tictactoe_env(T, play, who_goes_first)
 
     return E

@@ -7,6 +7,8 @@ class Bandit1:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.max_reward_per_action = 1
+        self.min_reward_per_action = 0
         self.fnc = lambda T, play: abstract_bandit_env(T, play, bandit1_reward_fnc)
 
 def bandit2_reward_fnc(lever):
@@ -16,6 +18,8 @@ class Bandit2:
     def __init__(self):
         self.num_legal_actions = 3
         self.num_possible_obs = 1
+        self.max_reward_per_action = 2
+        self.min_reward_per_action = 0
         self.fnc = lambda T, play: abstract_bandit_env(T, play, bandit2_reward_fnc)
 
 def bandit3_reward_fnc(lever):
@@ -25,6 +29,8 @@ class Bandit3:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.max_reward_per_action = 2
+        self.min_reward_per_action = 1
         self.fnc = lambda T, play: abstract_bandit_env(T, play, bandit3_reward_fnc)
 
 def bandit4_reward_fnc(lever):
@@ -34,6 +40,8 @@ class Bandit4:
     def __init__(self):
         self.num_legal_actions = 3
         self.num_possible_obs = 1
+        self.max_reward_per_action = 3
+        self.min_reward_per_action = 1
         self.fnc = lambda T, play: abstract_bandit_env(T, play, bandit4_reward_fnc)
 
 def bandit5_reward_fnc(lever):
@@ -46,6 +54,8 @@ class Bandit5:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.max_reward_per_action = 3
+        self.min_reward_per_action = 0
         self.fnc = lambda T, play: abstract_bandit_env(T, play, bandit5_reward_fnc)
 
 def abstract_bandit_env(T, play, reward_fnc):

@@ -8,6 +8,8 @@ def create_PaperRockScissors_env(bias):
         def __init__(self):
             self.num_legal_actions = 4
             self.num_possible_obs = 4
+            self.max_reward_per_action = 2
+            self.min_reward_per_action = 0
             self.fnc = lambda T, play: abstract_paper_rock_scissors_env(T, play, bias)
     return E
 

@@ -8,6 +8,8 @@ def create_GuessTheNumber_env(upper_limit):
         def __init__(self):
             self.num_legal_actions = upper_limit
             self.num_possible_obs = 3
+            self.max_reward_per_action = 1
+            self.min_reward_per_action = 0
             self.fnc = lambda T, play: abstract_number_guessing_env(T, play, upper_limit)
 
     return E

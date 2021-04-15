@@ -5,12 +5,15 @@ def create_maze_env(maze_config):
         def __init__(self):
             self.num_legal_actions = 4
             self.num_possible_obs = maze_config['end_room']+1
+            self.max_reward_per_action = 1/maze_config['distance']
+            self.min_reward_per_action = 0
             self.fnc = lambda T, play: abstract_maze_env(T, play, maze_config)
     return E
 
 maze1_config = {
     'start_room': 1,
     'end_room': 3,
+    'distance': 2,
     'exits': {
         1: {EAST: 2},
         2: {WEST: 1, EAST: 3}
@@ -22,6 +25,7 @@ Maze1 = create_maze_env(maze1_config)
 maze2_config = {
     'start_room': 1,
     'end_room': 5,
+    'distance': 4,
     'exits': {
         1: {EAST: 2},
         2: {WEST: 1, EAST: 3},
@@ -35,6 +39,7 @@ Maze2 = create_maze_env(maze2_config)
 maze3_config = {
     'start_room': 1,
     'end_room': 6,
+    'distance': 2,
     'exits': {
         1: {SOUTH: 2, EAST: 3},
         2: {NORTH: 1},
@@ -49,6 +54,7 @@ Maze3 = create_maze_env(maze3_config)
 maze4_config = {
     'start_room': 1,
     'end_room': 6,
+    'distance': 3,
     'exits': {
         1: {SOUTH: 5, EAST: 2},
         2: {WEST: 1, EAST: 3},
@@ -63,6 +69,7 @@ Maze4 = create_maze_env(maze4_config)
 maze5_config = {
     'start_room': 1,
     'end_room': 6,
+    'distance': 5,
     'exits': {
         1: {EAST: 2},
         2: {WEST: 1, EAST: 3},

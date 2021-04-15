@@ -4,6 +4,8 @@ class PunishSlowAgent:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.max_reward_per_action = 1
+        self.min_reward_per_action = -1
         self.fnc = punish_slow_agent
         self.skip_cache = True
 
@@ -26,6 +28,8 @@ class PunishFastAgent:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.max_reward_per_action = 1
+        self.min_reward_per_action = -1
         self.fnc = punish_fast_agent
         self.skip_cache = True
 

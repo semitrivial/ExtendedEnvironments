@@ -1,6 +1,9 @@
 def apply_handicap(e, h):
     e_instance, h_instance = e(), h()
 
+    if e.min_reward_per_action < 0:
+        raise ValueError("Handicaps only apply to merciful environments")
+
     def fnc(T, play):
         r_e, o_e = e_instance.fnc(T, play)
         r_h, _ = h_instance.fnc(T, play)
@@ -16,6 +19,8 @@ def apply_handicap(e, h):
         def __init__(self):
             self.num_legal_actions = n_actions
             self.num_possible_obs = e_instance.num_possible_obs
+            self.max_reward_per_action = e.max_reward_per_action
+            self.min_reward_per_action = -1
             self.fnc = fnc
             skip_cache1 = ('skip_cache' in dir(e_instance))
             skip_cache1 = skip_cache1 and e_instance.skip_cache
