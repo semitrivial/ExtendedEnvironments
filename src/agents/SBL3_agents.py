@@ -87,7 +87,7 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs):
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         dummy_env.set_rewards_and_observs(rewards, observs)
 
-        A = SBL3.DQN('MlpPolicy', dummy_env, train_freq=len(rewards)-1, seed=0)
+        A = SBL3.DQN('MlpPolicy', dummy_env, train_freq=len(rewards)-1, learning_starts=1, seed=0)
 
         A.learn(len(rewards)-1)
         cache_DQN[(train_on, meta)] = A
