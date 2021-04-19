@@ -21,7 +21,6 @@ def awareness_benchmark(T, num_steps, include_slow_envs=False):
             if any([slowname in name for slowname in slow_envs]):
                 continue
 
-        result = run_environment(env, T, num_steps)
-        results[name] = result['total_normalized_reward']/num_steps
+        results[name] = run_environment(env, T, num_steps)
 
     return results

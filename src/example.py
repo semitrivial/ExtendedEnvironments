@@ -45,12 +45,21 @@ agents = OrderedDict([
     ['naive_learner', naive_learner]
 ])
 
-for name, agent in agents.items():
+def measure_agent(name, agent):
     print("Testing "+name+"...")
-    result = awareness_benchmark(agent, 100)
-    rewards = result.values()
-    avg_reward = float(sum(rewards))/len(rewards)
-    print("Result: "+name+" got avg normalized reward "+str(avg_reward))
+    n_steps = 100
+    result = awareness_benchmark(agent, n_steps)
+    values = result.values()
+    rewards = [x['total_reward'] for x in values]
+    avg_reward = sum(rewards)/(len(rewards)*n_steps)
+    normalized_rewards = [x['total_normalized_reward'] for x in values]
+    avg_nrm_reward = sum(normalized_rewards)/(len(rewards)*n_steps)
+    print("Result: "+name+" got:")
+    print("  * Avg Reward: " + str(avg_reward))
+    print("  * Avg Reward (Normalized): " + str(avg_nrm_reward))
+
+for name, agent in agents.items():
+    measure_agent(name, agent)
 
 from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
 
@@ -61,8 +70,4 @@ SBL_agents = OrderedDict([
 ])
 
 for name, agent in SBL_agents.items():
-    print("Testing "+name+"...")
-    result = awareness_benchmark(agent, 100)
-    rewards = result.values()
-    avg_reward = float(sum(rewards))/len(rewards)
-    print("Result: "+name+" got avg normalized reward "+str(avg_reward))
+    measure_agent(name, agent)
