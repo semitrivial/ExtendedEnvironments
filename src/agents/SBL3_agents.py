@@ -2,6 +2,7 @@ from math import log2
 
 import stable_baselines3 as SBL3
 from gym import Env, spaces
+import numpy as np
 
 from util import cache, numpy_translator
 
@@ -11,13 +12,15 @@ class DummyEnv(Env):
     def set_meta(self, num_legal_actions, num_possible_obs):
         self.action_space = spaces.Discrete(num_legal_actions)
         self.observation_space = spaces.Discrete(num_possible_obs)
-    def set_rewards_and_observs(self, rewards, observs):
+    def set_rewards_and_observs(self, rewards, observs, actions):
         self.rewards = rewards
         self.observs = observs
+        self.actions = actions
         self.i = 1
     def reset(self):
         return self.observs[0]
     def step(self, action):
+        assert action == self.actions[self.i-1]
         obs = self.observs[self.i]
         reward = self.rewards[self.i]
         self.i += 1
@@ -40,9 +43,16 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs):
     if not((train_on, meta) in cache_A2C):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
-        dummy_env.set_rewards_and_observs(rewards, observs)
+        actions = [train_on[i+2] for i in range(0,train_on_len-3,3)]
+        dummy_env.set_rewards_and_observs(rewards, observs, actions)
 
         A = SBL3.A2C('MlpPolicy', dummy_env, n_steps=len(rewards)-1, seed=0)
+
+        def f(*args):
+            action = actions[A.num_timesteps]
+            return action, action
+
+        A._sample_action = f
 
         A.learn(len(rewards)-1)
         cache_A2C[(train_on, meta)] = A
@@ -91,13 +101,20 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs):
     if not((train_on, meta) in cache_DQN):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
-        dummy_env.set_rewards_and_observs(rewards, observs)
+        actions = [train_on[i+2] for i in range(0,train_on_len-3,3)]
+        dummy_env.set_rewards_and_observs(rewards, observs, actions)
         n_steps = len(rewards)-1
 
         if n_steps < 4:
             return 0
 
         A = SBL3.DQN('MlpPolicy', dummy_env, learning_starts=1, seed=0)
+
+        def f(*args):
+            action = np.array([actions[A.num_timesteps]])
+            return action, action
+
+        A._sample_action = f
 
         A.learn(n_steps - (n_steps%4))
         cache_DQN[(train_on, meta)] = A
