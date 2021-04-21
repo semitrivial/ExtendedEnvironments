@@ -22,11 +22,5 @@ def apply_handicap(e, h):
             self.max_reward_per_action = e_instance.max_reward_per_action
             self.min_reward_per_action = -1
             self.fnc = fnc
-            skip_cache1 = ('skip_cache' in dir(e_instance))
-            skip_cache1 = skip_cache1 and e_instance.skip_cache
-            skip_cache2 = ('skip_cache' in dir(h_instance))
-            skip_cache2 = skip_cache2 and h_instance.skip_cache
-            if skip_cache1 or skip_cache2:
-                self.skip_cache = True
 
     return E_star_H

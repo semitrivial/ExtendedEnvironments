@@ -5,7 +5,6 @@ class PunishDeterministicAgent:
         self.max_reward_per_action = 1
         self.min_reward_per_action = -1
         self.fnc = punish_deterministic_agent
-        self.skip_cache = True
 
 def punish_deterministic_agent(T, play):
     if len(play) == 0:
@@ -25,7 +24,6 @@ class PunishNondeterministicAgent:
         self.max_reward_per_action = 1
         self.min_reward_per_action = -1
         self.fnc = punish_nondeterministic_agent
-        self.skip_cache = True
 
 def punish_nondeterministic_agent(T, play):
     if len(play) == 0:

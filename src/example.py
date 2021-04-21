@@ -2,19 +2,25 @@ from random import random
 from collections import OrderedDict
 
 from AwarenessBenchmark import awareness_benchmark
+from util import cache
 
+@cache
 def random_agent(prompt, num_legal_actions, num_possible_obs):
     return int(random() * num_legal_actions)
 
+@cache
 def incrementer(prompt, num_legal_actions, num_possible_obs):
     return ((len(prompt)+1)/3)%num_legal_actions
 
+@cache
 def always_0(prompt, num_legal_actions, num_possible_actions):
     return 0
 
+@cache
 def always_1(prompt, num_legal_actions, num_possible_actions):
     return 1
 
+@cache
 def naive_learner(prompt, num_legal_actions, num_possible_actions):
     reward_lists = {i:() for i in range(num_legal_actions)}
 

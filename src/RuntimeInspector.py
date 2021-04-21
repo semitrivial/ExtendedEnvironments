@@ -7,7 +7,6 @@ class PunishSlowAgent:
         self.max_reward_per_action = 1
         self.min_reward_per_action = -1
         self.fnc = punish_slow_agent
-        self.skip_cache = True
 
 def punish_slow_agent(T, play):
     if len(play) == 0:
@@ -31,7 +30,6 @@ class PunishFastAgent:
         self.max_reward_per_action = 1
         self.min_reward_per_action = -1
         self.fnc = punish_fast_agent
-        self.skip_cache = True
 
 def punish_fast_agent(T, play):
     if len(play) == 0:

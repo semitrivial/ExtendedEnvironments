@@ -3,6 +3,8 @@ from math import log2
 import stable_baselines3 as SBL3
 from gym import Env, spaces
 
+from util import cache
+
 class DummyEnv(Env):
     def __init__(self):
         super(DummyEnv, self).__init__()
@@ -27,6 +29,7 @@ cache_A2C = {}
 cache_DQN = {}
 cache_PPO = {}
 
+@cache
 def agent_A2C(prompt, num_legal_actions, num_possible_obs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
@@ -49,6 +52,7 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs):
     action, _ = A.predict(prompt[-1])
     return action
 
+@cache
 def agent_PPO(prompt, num_legal_actions, num_possible_obs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
@@ -75,6 +79,7 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs):
     action, _ = A.predict(prompt[-1])
     return action
 
+@cache
 def agent_DQN(prompt, num_legal_actions, num_possible_obs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)

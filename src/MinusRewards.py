@@ -12,7 +12,5 @@ def minus_rewards(env):
             self.max_reward_per_action = -tmp_env.min_reward_per_action
             self.min_reward_per_action = -tmp_env.max_reward_per_action
             self.fnc = new_env_fnc
-            if 'skip_cache' in dir(tmp_env):
-                self.skip_cache = tmp_env.skip_cache
 
     return NewEnv
