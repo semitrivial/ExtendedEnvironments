@@ -3,7 +3,7 @@ from math import log2
 import stable_baselines3 as SBL3
 from gym import Env, spaces
 
-from util import cache
+from util import cache, numpy_translator
 
 class DummyEnv(Env):
     def __init__(self):
@@ -79,6 +79,7 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs):
     action, _ = A.predict(prompt[-1])
     return action
 
+@numpy_translator
 @cache
 def agent_DQN(prompt, num_legal_actions, num_possible_obs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
@@ -105,6 +106,3 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs):
 
     action, _ = A.predict(prompt[-1])
     return action
-
-agent_DQN.requires_numpy_transl = True
-

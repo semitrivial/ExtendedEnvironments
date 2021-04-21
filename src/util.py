@@ -3,6 +3,8 @@ from fractions import Fraction
 from functools import lru_cache
 from pdb import Pdb
 
+import numpy as np
+
 def run_environment(env, T, num_steps):
     step = 0
     results = {
@@ -16,14 +18,8 @@ def run_environment(env, T, num_steps):
     num_legal_actions = env.num_legal_actions
     num_possible_obs = env.num_possible_obs
 
-    if 'requires_numpy_transl' in dir(T):
-        def T_with_meta(prompt):
-            import numpy as np
-            prompt = tuple(np.int64(prompt))
-            return int(T(prompt, num_legal_actions, num_possible_obs))
-    else:
-        def T_with_meta(prompt):
-            return T(prompt, num_legal_actions, num_possible_obs)
+    def T_with_meta(prompt):
+        return T(prompt, num_legal_actions, num_possible_obs)
 
     normalization_factor = max(
         abs(env.max_reward_per_action),
@@ -45,6 +41,13 @@ def run_environment(env, T, num_steps):
 
 def cache(f):
     return lru_cache(maxsize=None)(f)
+
+def numpy_translator(T):
+    def T_translated(prompt, num_legal_actions, num_possible_obs):
+        prompt = tuple(np.int64(prompt))
+        return int(T(prompt, num_legal_actions, num_possible_obs))
+
+    return T_translated
 
 def cantor_pairing_fnc(k1,k2):
     # From https://en.wikipedia.org/wiki/Pairing_function#Cantor_pairing_function
