@@ -110,11 +110,11 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs):
 
         A = SBL3.DQN('MlpPolicy', dummy_env, learning_starts=1, seed=0)
 
-        def f(*args):
+        def sample_action_monkeypatch(*args):
             action = np.array([actions[A.num_timesteps]])
             return action, action
 
-        A._sample_action = f
+        A._sample_action = sample_action_monkeypatch
 
         A.learn(n_steps - (n_steps%4))
         cache_DQN[(train_on, meta)] = A
