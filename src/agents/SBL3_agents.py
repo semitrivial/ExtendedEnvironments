@@ -80,7 +80,8 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs):
     if not((train_on, meta) in cache_PPO):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
-        dummy_env.set_rewards_and_observs(rewards, observs)
+        actions = [train_on[i+2] for i in range(0,train_on_len-3,3)]
+        dummy_env.set_rewards_and_observs(rewards, observs, actions)
         n_steps = len(rewards)-1
 
         if n_steps < 2:
@@ -88,7 +89,20 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs):
 
         A = SBL3.PPO('MlpPolicy', dummy_env, n_steps=n_steps, batch_size=n_steps, seed=0)
 
+        forward_backup = A.policy.forward
+        def forward_monkeypatch(*args):
+            _actions, values, log_probs = forward_backup(*args)
+            assert len(_actions) == 1
+            if A.num_timesteps < len(actions):
+                _actions[0] = actions[A.num_timesteps]
+            return _actions, values, log_probs
+
+        A.policy.forward = forward_monkeypatch
+
         A.learn(len(rewards)-1)
+
+        A.policy.forward = forward_backup
+
         cache_PPO[(train_on, meta)] = A
     else:
         A = cache_PPO[(train_on, meta)]
