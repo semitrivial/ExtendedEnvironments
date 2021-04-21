@@ -48,13 +48,20 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs):
 
         A = SBL3.A2C('MlpPolicy', dummy_env, n_steps=len(rewards)-1, seed=0)
 
-        def f(*args):
-            action = actions[A.num_timesteps]
-            return action, action
+        forward_backup = A.policy.forward
+        def forward_monkeypatch(*args):
+            _actions, values, log_probs = forward_backup(*args)
+            assert len(_actions) == 1
+            if A.num_timesteps < len(actions):
+                _actions[0] = actions[A.num_timesteps]
+            return _actions, values, log_probs
 
-        A._sample_action = f
+        A.policy.forward = forward_monkeypatch
 
         A.learn(len(rewards)-1)
+
+        A.policy.forward = forward_backup
+
         cache_A2C[(train_on, meta)] = A
     else:
         A = cache_A2C[(train_on, meta)]
