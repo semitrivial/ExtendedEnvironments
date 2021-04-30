@@ -6,7 +6,7 @@ agent_cache = {}
 
 def run_environment(env, T, num_steps):
     step = 0
-    results = {'total_reward': 0.0}
+    results = {'total_reward': 0.0,'all_rewards':[]}
     play = ()
 
     env = env()
@@ -38,6 +38,7 @@ def run_environment(env, T, num_steps):
         reward, obs = env_fnc(T_with_meta, play)
 
         results['total_reward'] += reward
+        results['all_rewards'].append(reward) 
         prompt = play + (reward, obs)
 
         action = T_with_meta(prompt)

@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import math
 import random
+import pdb
 
 class DummyEnv:
     def set_meta(self, num_legal_actions, num_possible_obs):
@@ -33,7 +34,6 @@ class DummyEnv:
         # from the paper
         self.history.append([obs, action, reward])
         return reward, obs, self.history
-
 dummy_env = DummyEnv()
 
 cache = {}
@@ -51,17 +51,28 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
         dummy_env.set_rewards_and_observs(rewards, observs)
 
         A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=10)
-        A.play(episodes = len(rewards)-1)
+        
+        # old
+        #A.play(episodes = len(rewards)-1)
+        # new
+        A.train_on_history(train_prompt=train_on, print_n=500)
         cache[(train_on, meta)] = A
     else:
         A = cache[(train_on, meta)]
 
-    state = ([0]*30 + list(prompt))[-30:]
+    # old
+    #state = ([0]*30 + list(prompt))[-30:]
     # Convert prompt to be consistent with the o/a/r format
     # used in Oscar's histories (as opposed to the r/o/a format in the paper)
-    r1,o1,a1,r2,o2,a2,r3,o3,a3,r4,o4,a4,r5,o5,a5,r6,o6,a6,r7,o7,a7,r8,o8,a8,r9,o9,a9,r10,o10,a10 = state
-    state = [o1,a1,r1,o2,a2,r2,o3,a3,r3,o4,a4,r4,o5,a5,r5,o6,a6,r6,o7,a7,r7,o8,a8,r8,o9,a9,r9,o10,a10,r10]
-    state = state + [o10]
+    #r1,o1,a1,r2,o2,a2,r3,o3,a3,r4,o4,a4,r5,o5,a5,r6,o6,a6,r7,o7,a7,r8,o8,a8,r9,o9,a9,r10,o10,a10 = state
+    #state = [o1,a1,r1,o2,a2,r2,o3,a3,r3,o4,a4,r4,o5,a5,r5,o6,a6,r6,o7,a7,r7,o8,a8,r8,o9,a9,r9,o10,a10,r10]
+    #state = state + [o10]
+    
+    # new
+    state_obs = [prompt[-1]]
+    filled_prompt = [0]*30 + list(prompt[1:-1])
+    state = (filled_prompt + state_obs)[-31:]
+    
     state = torch.tensor(state, dtype=torch.float, device=device).reshape((1,-1,1))
 
     return A.blind_act(state)
@@ -89,6 +100,50 @@ class ReplayMemory(object):
     def __len__(self):
         return len(self.memory)
 
+class PrioritizedReplayMemory(object):
+    def __init__(self, capacity, prob_alpha=0.6):
+        self.prob_alpha = prob_alpha
+        self.capacity = capacity
+        self.memory = []
+        self.position = 0
+        self.priorities = np.zeros((capacity, ), dtype=np.float32)
+        
+    def push(self, *args):
+        max_prio = self.priorities.max() if self.memory else 1.0
+        if len(self.memory) < self.capacity:
+            self.memory.append(None)
+        self.memory[self.position] = Transition(*args)
+        self.priorities[self.position] = max_prio
+        
+        self.position = (self.position + 1) % self.capacity
+        
+    def sample(self, batch_size, beta=0.4):
+        if len(self.memory) == self.capacity:
+            prios = self.priorities
+        else:
+            prios = self.priorities[:self.position]
+            
+        probs = prios ** self.prob_alpha
+        probs /= probs.sum()
+        
+        indices = np.random.choice(len(self.memory), batch_size, p=probs)
+        samples = [self.memory[idx] for idx in indices]
+        
+        total = len(self.memory)
+        weights = (total * probs[indices]) ** (-beta)
+        weights /= weights.max()
+        weights = np.array(weights, dtype=np.float32)
+        
+        return samples, indices, weights
+    
+    def update_priorities(self, batch_indices, batch_priorities):
+        for idx, prio in zip(batch_indices, batch_priorities):
+            self.priorities[idx] = prio
+            
+    def __len__(self):
+        return len(self.memory)
+
+
 class TreasureGRUNet(nn.Module):
     def __init__(self,hidden_dim=5, n_layers=2, dropout_p=0.2):
         super(TreasureGRUNet, self).__init__()
@@ -114,13 +169,12 @@ class TreasureGRUNet(nn.Module):
 
 
 class RecurrentAgent:
-    def __init__(self, network, game_env, lookback, BATCH_SIZE=128, GAMMA=0.999, EPS_START=1, EPS_END=0.05,EPS_DECAY=1000,TARGET_UPDATE=100,
-        lr=1e-1):
+    def __init__(self, network, game_env, lookback, BATCH_SIZE=128, GAMMA=0.999, EPS_START=1, EPS_END=0.05,EPS_DECAY=1000,TARGET_UPDATE=100, lr=1e-1, prioritized=False):
         self.BATCH_SIZE = BATCH_SIZE
         self.GAMMA = GAMMA
         self.EPS_START = EPS_START
         self.EPS_END = EPS_END
-        self.EPS_DECAY=1000
+        self.EPS_DECAY=10000
         self.TARGET_UPDATE=TARGET_UPDATE
         self.lr = lr
 
@@ -132,7 +186,11 @@ class RecurrentAgent:
 
         self.optimizer = optim.SGD(self.q_net.parameters(), self.lr)
 
-        self.replay_memory = ReplayMemory(10_000)
+        self.prioritized = prioritized
+        if prioritized:
+            self.replay_memory = PrioritizedReplayMemory(10_000)
+        else:
+            self.replay_memory = ReplayMemory(10_000)
 
         self.steps_done = 0
         self.losses = []
@@ -145,6 +203,10 @@ class RecurrentAgent:
         self.history = None
 
         self.lookback = lookback
+
+        beta_start = 0.4
+        beta_frames = 10000
+        self.beta_by_frame = lambda frame_idx: min(1.0, beta_start + frame_idx * (1.0 - beta_start) / beta_frames)
 
     def get_initial_state(self):
         self.state = self.game_env.get_state()
@@ -231,6 +293,16 @@ class RecurrentAgent:
 
         return batch
 
+    def sample_memory_prioritized(self):
+        if len(self.replay_memory) < self.BATCH_SIZE:
+            return None, None, None
+
+        beta = self.beta_by_frame(self.steps_done)
+        transitions, indices, weights = self.replay_memory.sample(self.BATCH_SIZE, beta)
+        batch = Transition(*zip(*transitions))
+
+        return batch, indices, weights
+
     def optimize(self):
         batch = self.sample_memory()
         if batch is None:
@@ -272,6 +344,56 @@ class RecurrentAgent:
 
         self.optimizer.step()
 
+    def optimize_prioritized(self):
+        
+        batch, indices, weights = self.sample_memory_prioritized()
+        if batch is None:
+            return
+
+        state_batch = torch.cat(batch.state)
+        action_batch = torch.cat(batch.action)
+        reward_batch = torch.cat(batch.reward)
+        next_state_batch = torch.cat(batch.next_state)
+
+        weights = np.expand_dims(weights, 1)
+        weights_batch = torch.tensor(weights, dtype=torch.float,device=device)
+
+        assert state_batch.shape[0] == self.BATCH_SIZE
+        assert action_batch.shape[0] == self.BATCH_SIZE
+        assert reward_batch.shape[0] == self.BATCH_SIZE
+        assert next_state_batch.shape[0] == self.BATCH_SIZE
+
+        h = self.q_net.init_hidden(self.BATCH_SIZE).data
+        q_values, h = self.q_net(state_batch, h)
+        assert q_values.shape[0] == self.BATCH_SIZE
+
+        q_values = q_values.gather(1, action_batch)
+
+
+        next_h = self.target_net.init_hidden(self.BATCH_SIZE).data
+        next_state_action_values, next_h = self.target_net(next_state_batch, next_h)
+        next_state_action_values = next_state_action_values.max(1)[0].unsqueeze(1).detach()
+
+        assert next_state_action_values.shape == torch.Size([self.BATCH_SIZE,1])
+
+        expected_q_values = (next_state_action_values * self.GAMMA) + reward_batch
+
+        q_loss = F.smooth_l1_loss(q_values, expected_q_values)
+        q_loss = (q_values - expected_q_values).pow(2) * weights_batch
+        prios = q_loss + 1e-5
+        q_loss = q_loss.mean()
+        self.losses.append(q_loss)
+
+        self.optimizer.zero_grad()
+        q_loss.backward()
+
+        for param in self.q_net.parameters():
+            param.grad.data.clamp_(-1,1)
+
+        self.optimizer.step()  
+
+        self.replay_memory.update_priorities(indices, prios.data.cpu().numpy()) 
+
     def play(self, training=True, episodes = 1_000, print_n=100):
         for i_episode in range(episodes):
             if i_episode % print_n == 0:
@@ -282,10 +404,38 @@ class RecurrentAgent:
 
             if training:
                 self.replay_memory.push(self.state, self.action, self.next_state, self.reward)
-                self.optimize()
+                if self.prioritized:
+                    self.optimize_prioritized()
+                else:
+                    self.optimize()
 
                 if i_episode % self.TARGET_UPDATE == 0:
                     self.target_net.load_state_dict(self.q_net.state_dict())
 
             self.state = self.next_state
             self.next_state = None
+
+    def train_on_history(self, train_prompt, print_n=500):
+        oar_style_prompt = train_prompt[1:]
+        replays = math.ceil(len(oar_style_prompt) / 3)
+        history = [oar_style_prompt[i * 3: (i+1) * 3] for i in range(replays)]
+        for i in range(len(history) - 1):
+            if i % print_n == 0:
+                print(f"Played {i} episodes")
+            state = self.create_network_state(state=history[i][0],history=history[:i])
+            next_state = self.create_network_state(state=history[i+1][0],history=history[:i+1])
+            action = torch.tensor([history[i][1]], device=device).unsqueeze(0)
+            reward = torch.tensor([history[i][2]], device=device).unsqueeze(0)
+            
+            self.replay_memory.push(state, action, next_state, reward)
+            if self.prioritized:
+                self.optimize_prioritized()
+            else:
+                self.optimize()
+
+            if i % self.TARGET_UPDATE == 0:
+                    self.target_net.load_state_dict(self.q_net.state_dict())
+
+
+
+
