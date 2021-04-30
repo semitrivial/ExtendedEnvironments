@@ -68,11 +68,13 @@ for name, agent in agents.items():
     measure_agent(name, agent)
 
 from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
+from agents.custom_DQN import custom_DQN_agent
 
 SBL_agents = OrderedDict([
     ['agent_A2C', agent_A2C],
     ['agent_DQN', agent_DQN],
-    ['agent_PPO', agent_PPO]
+    ['agent_PPO', agent_PPO],
+    ['custom_DQN_agent', custom_DQN_agent],
 ])
 
 for name, agent in SBL_agents.items():
