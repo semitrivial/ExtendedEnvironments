@@ -53,7 +53,7 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
 
         A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=10)
 
-        A.train_on_history(train_prompt=train_on, print_n=500)
+        A.train_on_history(train_prompt=train_on)
         cache_custom_DQN[(train_on, meta)] = A
     else:
         A = cache_custom_DQN[(train_on, meta)]
@@ -383,11 +383,8 @@ class RecurrentAgent:
 
         self.replay_memory.update_priorities(indices, prios.data.cpu().numpy())
 
-    def play(self, training=True, episodes = 1_000, print_n=100):
+    def play(self, training=True, episodes = 1_000):
         for i_episode in range(episodes):
-            if i_episode % print_n == 0:
-                print(f"Played {i_episode} episodes")
-
             score = self.act()
             self.scores.append(score)
 
@@ -404,13 +401,11 @@ class RecurrentAgent:
             self.state = self.next_state
             self.next_state = None
 
-    def train_on_history(self, train_prompt, print_n=500):
+    def train_on_history(self, train_prompt):
         oar_style_prompt = train_prompt[1:]
         replays = math.ceil(len(oar_style_prompt) / 3)
         history = [oar_style_prompt[i * 3: (i+1) * 3] for i in range(replays)]
         for i in range(len(history) - 1):
-            if i % print_n == 0:
-                print(f"Played {i} episodes")
             state = self.create_network_state(state=history[i][0],history=history[:i])
             next_state = self.create_network_state(state=history[i+1][0],history=history[:i+1])
             action = torch.tensor([history[i][1]], device=device).unsqueeze(0)
