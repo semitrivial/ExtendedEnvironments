@@ -9,8 +9,6 @@ def minus_rewards(env):
         def __init__(self):
             self.num_legal_actions = tmp_env.num_legal_actions
             self.num_possible_obs = tmp_env.num_possible_obs
-            self.max_reward_per_action = -tmp_env.min_reward_per_action
-            self.min_reward_per_action = -tmp_env.max_reward_per_action
             self.fnc = new_env_fnc
 
     return NewEnv

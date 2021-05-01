@@ -10,8 +10,6 @@ def self_insert(E):
             E_tmp = E()
             self.num_legal_actions = E_tmp.num_legal_actions
             self.num_possible_obs = -1
-            self.max_reward_per_action = 1
-            self.min_reward_per_action = -1
             self.fnc = lambda T, play: env(T, play, E_tmp.fnc)
 
     def env(T, play, fnc):

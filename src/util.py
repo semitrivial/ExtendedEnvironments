@@ -7,10 +7,7 @@ import numpy as np
 
 def run_environment(env, T, num_steps):
     step = 0
-    results = {
-        'total_reward': 0.0,
-        'total_normalized_reward': 0.0,
-    }
+    results = {'total_reward': 0.0}
     play = ()
 
     env = env()
@@ -25,16 +22,10 @@ def run_environment(env, T, num_steps):
     ):
         return T(prompt, num_legal_actions, num_possible_obs)
 
-    normalization_factor = max(
-        abs(env.max_reward_per_action),
-        abs(env.min_reward_per_action)
-    )
-
     while step < num_steps:
         reward, obs = env_fnc(T_with_meta, play)
 
         results['total_reward'] += reward
-        results['total_normalized_reward'] += reward/normalization_factor
         prompt = play + (reward, obs)
 
         action = T_with_meta(prompt)

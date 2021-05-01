@@ -58,11 +58,7 @@ def measure_agent(name, agent):
     values = result.values()
     rewards = [x['total_reward'] for x in values]
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
-    normalized_rewards = [x['total_normalized_reward'] for x in values]
-    avg_nrm_reward = sum(normalized_rewards)/(len(rewards)*n_steps)
-    print("Result: "+name+" got:")
-    print("  * Avg Reward: " + str(avg_reward))
-    print("  * Avg Reward (Normalized): " + str(avg_nrm_reward))
+    print("Result: "+name+" got avg reward: " + str(avg_reward))
 
 for name, agent in agents.items():
     measure_agent(name, agent)

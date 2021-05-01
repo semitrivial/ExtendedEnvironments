@@ -19,8 +19,6 @@ def apply_handicap(e, h):
         def __init__(self):
             self.num_legal_actions = n_actions
             self.num_possible_obs = e_instance.num_possible_obs
-            self.max_reward_per_action = e_instance.max_reward_per_action
-            self.min_reward_per_action = -1
             self.fnc = fnc
 
     return E_star_H

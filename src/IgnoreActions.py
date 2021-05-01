@@ -4,8 +4,6 @@ class IgnoreActions:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
-        self.max_reward_per_action = 1
-        self.min_reward_per_action = -1
         self.fnc = ignore_observations
 
 def ignore_observations(T, play):

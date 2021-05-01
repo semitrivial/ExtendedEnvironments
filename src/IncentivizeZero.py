@@ -2,8 +2,6 @@ class IncentivizeZero:
     def __init__(self):
         self.num_legal_actions = 10
         self.num_possible_obs = 10
-        self.max_reward_per_action = 1
-        self.min_reward_per_action = -1
         self.fnc = incentivize_zero
 
 def incentivize_zero(T, play):
