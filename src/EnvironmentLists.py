@@ -9,6 +9,7 @@ from DeterminismInspector import PunishDeterministicAgent
 from DeterminismInspector import PunishNondeterministicAgent
 from CryingBaby import CryingBaby
 from GuardedTreasures import GuardedTreasures
+from ThirdActionForbidden import ThirdActionForbidden
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -18,8 +19,9 @@ environments = {
     'incentivize_zero': IncentivizeZero,
     'punish_slow_agent': PunishSlowAgent,
     'punish_deterministic_agent': PunishDeterministicAgent,
-    'CryingBaby': CryingBaby,
-    'GuardedTreasures': GuardedTreasures,
+    'crying_baby': CryingBaby,
+    'guarded_treasures': GuardedTreasures,
+    'third_action_forbidden': ThirdActionForbidden
 }
 
 slow_envs = [

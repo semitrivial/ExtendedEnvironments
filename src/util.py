@@ -18,7 +18,11 @@ def run_environment(env, T, num_steps):
     num_legal_actions = env.num_legal_actions
     num_possible_obs = env.num_possible_obs
 
-    def T_with_meta(prompt):
+    def T_with_meta(
+        prompt,
+        num_legal_actions=num_legal_actions,
+        num_possible_obs=num_possible_obs
+    ):
         return T(prompt, num_legal_actions, num_possible_obs)
 
     normalization_factor = max(

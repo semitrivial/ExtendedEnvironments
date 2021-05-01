@@ -9,6 +9,7 @@ from CryingBaby import CryingBaby
 from FalseMemories import FalseMemories
 from BackwardConsciousness import BackwardConsciousness
 from RuntimeInspector import PunishSlowAgent, PunishFastAgent
+from ThirdActionForbidden import ThirdActionForbidden
 
 def test_environment(env, env_name):
     for agent_name in agents.keys():
@@ -42,3 +43,6 @@ def test_punish_slow_agent():
 
 def test_punish_fast_agent():
     test_environment(PunishFastAgent, "punish_fast_agent")
+
+def test_third_action_forbidden():
+    test_environment(ThirdActionForbidden, "third_action_forbidden")
