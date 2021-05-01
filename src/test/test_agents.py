@@ -12,13 +12,9 @@ def alternating_agent(prompt, *meta):
 def obs_repeating_agent(prompt, *meta):
     return prompt[-1]
 
-def reward_repeating_agent(prompt, *meta):
-    return int(prompt[-2])
-
 agents = {
     'zero_agent': zero_agent,
     'random_agent': random_agent,
     'alternating_agent': alternating_agent,
     'obs_repeating_agent': obs_repeating_agent,
-    'reward_repeating_agent': reward_repeating_agent
 }
