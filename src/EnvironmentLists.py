@@ -3,6 +3,8 @@ from BackwardConsciousness import BackwardConsciousness
 from DejaVu import DejaVu
 from FalseMemories import FalseMemories
 from IgnoreRewards import IgnoreRewards
+from IgnoreObservations import IgnoreObservations
+from IgnoreActions import IgnoreActions
 from IncentivizeZero import IncentivizeZero
 from RuntimeInspector import PunishSlowAgent, PunishFastAgent
 from DeterminismInspector import PunishDeterministicAgent
@@ -16,6 +18,8 @@ environments = {
     'deja_vu': DejaVu,
     'false_memories': FalseMemories,
     'ignore_rewards': IgnoreRewards,
+    'ignore_observations': IgnoreObservations,
+    'ignore_actions': IgnoreActions,
     'incentivize_zero': IncentivizeZero,
     'punish_slow_agent': PunishSlowAgent,
     'punish_deterministic_agent': PunishDeterministicAgent,
