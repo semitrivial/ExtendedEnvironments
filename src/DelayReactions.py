@@ -17,6 +17,6 @@ def delay_reactions(T, play):
 
 def shift_rewards(prompt):
     prompt = list(prompt)
-    for i in range(len(prompt)-2, 0, 3):
+    for i in range(len(prompt)-2, 0, -3):
         prompt[i] = prompt[i-3]
     return tuple(prompt)
