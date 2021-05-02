@@ -20,6 +20,7 @@ from AfterImages import AfterImages
 from SelfRecognition import SelfRecognition
 from LimitedMemory import LimitedMemory
 from CensoredObservation import CensoredObservation
+from NthRewardMultipliedByN import NthRewardMultipliedByN
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -42,6 +43,7 @@ environments = {
     'self_recognition': SelfRecognition,
     'limited_memory': LimitedMemory,
     'censored_observation': CensoredObservation,
+    'nth_reward_multiplied_by_n': NthRewardMultipliedByN,
 }
 
 slow_envs = [
