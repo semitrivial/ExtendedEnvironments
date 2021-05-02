@@ -13,8 +13,8 @@ def after_images(T, play):
         return (reward, obs)
 
     prompt, action = play[:-1], play[-1]
-    hypothetical_action = apply_afterimages(prompt)
-    reward = 1 if (action == hypothetical_action) else -1
+    hypothetical_prompt = apply_afterimages(prompt)
+    reward = 1 if (action == T(hypothetical_prompt)) else -1
     obs = int(random() * 8)
     return (reward, obs)
 
