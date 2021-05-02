@@ -4,7 +4,7 @@ class GuardedTreasures_Eager:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
-        self.fnc = guarded_treasures
+        self.fnc = guarded_treasures_eager
 
 def guarded_treasures_eager(T, play):
     next_room_has_guard = 1 if random() < .75 else 0
