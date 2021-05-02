@@ -10,8 +10,7 @@ class CensoredObservation:
 
 def censored_observation(T, play):
     if len(play) == 0:
-        reward = 0
-        obs = int(random() * 3)
+        reward, obs = 0, 0
         return (reward, obs)
 
     prompt, action = play[:-1], play[-1]
