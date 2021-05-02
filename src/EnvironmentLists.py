@@ -14,6 +14,7 @@ from GuardedTreasures import GuardedTreasures
 from ThirdActionForbidden import ThirdActionForbidden
 from DelayReactions import DelayReactions
 from Repeater import Repeater
+from AfterImages import AfterImages
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -30,6 +31,7 @@ environments = {
     'third_action_forbidden': ThirdActionForbidden,
     'delay_reactions': DelayReactions,
     'repeater': Repeater,
+    'after_images': AfterImages,
 }
 
 slow_envs = [
