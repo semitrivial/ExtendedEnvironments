@@ -13,6 +13,7 @@ from CryingBaby import CryingBaby
 from GuardedTreasures import GuardedTreasures
 from ThirdActionForbidden import ThirdActionForbidden
 from DelayReactions import DelayReactions
+from Repeater import Repeater
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -28,6 +29,7 @@ environments = {
     'guarded_treasures': GuardedTreasures,
     'third_action_forbidden': ThirdActionForbidden,
     'delay_reactions': DelayReactions,
+    'repeater': Repeater,
 }
 
 slow_envs = [
