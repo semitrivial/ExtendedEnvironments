@@ -20,6 +20,6 @@ def after_images(T, play):
 
 def apply_afterimages(prompt):
     prompt = list(prompt)
-    for i in range(len(prompt)-1, 0, -3):
+    for i in range(len(prompt)-1, 3, -3):
         prompt[i] = prompt[i] | prompt[i-3]
     return tuple(prompt)
