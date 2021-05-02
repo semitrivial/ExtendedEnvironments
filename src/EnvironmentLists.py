@@ -10,6 +10,7 @@ from RuntimeInspector import PunishSlowAgent, PunishFastAgent
 from DeterminismInspector import PunishDeterministicAgent
 from DeterminismInspector import PunishNondeterministicAgent
 from CryingBaby import CryingBaby
+from CryingBaby2 import CryingBaby2
 from GuardedTreasures import GuardedTreasures
 from GuardedTreasures_Eager import GuardedTreasures_Eager
 from ThirdActionForbidden import ThirdActionForbidden
@@ -31,6 +32,7 @@ environments = {
     'punish_slow_agent': PunishSlowAgent,
     'punish_deterministic_agent': PunishDeterministicAgent,
     'crying_baby': CryingBaby,
+    'crying_baby_2': CryingBaby2,
     'guarded_treasures': GuardedTreasures,
     'guarded_treasures_eager': GuardedTreasures_Eager,
     'third_action_forbidden': ThirdActionForbidden,
