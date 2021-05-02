@@ -16,6 +16,7 @@ from DelayReactions import DelayReactions
 from Repeater import Repeater
 from AfterImages import AfterImages
 from SelfRecognition import SelfRecognition
+from LimitedMemory import LimitedMemory
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -34,6 +35,7 @@ environments = {
     'repeater': Repeater,
     'after_images': AfterImages,
     'self_recognition': SelfRecognition,
+    'limited_memory': LimitedMemory,
 }
 
 slow_envs = [
