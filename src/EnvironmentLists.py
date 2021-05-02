@@ -17,6 +17,7 @@ from Repeater import Repeater
 from AfterImages import AfterImages
 from SelfRecognition import SelfRecognition
 from LimitedMemory import LimitedMemory
+from CensoredObservation import CensoredObservation
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -36,6 +37,7 @@ environments = {
     'after_images': AfterImages,
     'self_recognition': SelfRecognition,
     'limited_memory': LimitedMemory,
+    'censored_observation': CensoredObservation,
 }
 
 slow_envs = [
