@@ -21,6 +21,8 @@ from SelfRecognition import SelfRecognition
 from LimitedMemory import LimitedMemory
 from CensoredObservation import CensoredObservation
 from NthRewardMultipliedByN import NthRewardMultipliedByN
+from AdversarialSequencePredictor import AdversarialSequencePredictor
+from AdversarialSequencePredictor import AdversarialSequenceEvader
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -44,6 +46,8 @@ environments = {
     'limited_memory': LimitedMemory,
     'censored_observation': CensoredObservation,
     'nth_reward_multiplied_by_n': NthRewardMultipliedByN,
+    'adversarial_sequence_predictor': AdversarialSequencePredictor,
+    'adversarial_sequence_evader': AdversarialSequenceEvader,
 }
 
 slow_envs = [
