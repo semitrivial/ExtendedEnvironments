@@ -10,7 +10,8 @@ def ignore_rewards(T, play):
         return (reward, obs)
 
     prompt, action = play[:-1], play[-1]
-    reward = 1 if action == T(strip_rewards(prompt)) else -1
+    hypothetical_prompt = strip_rewards(prompt)
+    reward = 1 if (action == T(hypothetical_prompt)) else -1
     obs = 0
     return (reward, obs)
 
