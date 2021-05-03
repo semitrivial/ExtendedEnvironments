@@ -14,6 +14,6 @@ def incentivize_learning_rate(T, play):
         desired_action = T(prompt, learning_rate=1)
         reward = 1 if (action == desired_action) else -1
     except TypeError:
-        reward = 1
+        reward = -1
     obs = 0
     return (reward, obs)
