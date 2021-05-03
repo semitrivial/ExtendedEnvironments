@@ -4,6 +4,7 @@ from DejaVu import DejaVu
 from FalseMemories import FalseMemories
 from IgnoreRewards import IgnoreRewards
 from IgnoreRewards2 import IgnoreRewards2
+from IgnoreRewards3 import IgnoreRewards3
 from IgnoreObservations import IgnoreObservations
 from IgnoreActions import IgnoreActions
 from IncentivizeZero import IncentivizeZero
@@ -32,6 +33,7 @@ environments = {
     'false_memories': FalseMemories,
     'ignore_rewards': IgnoreRewards,
     'ignore_rewards2': IgnoreRewards2,
+    'ignore_rewards3': IgnoreRewards3,
     'ignore_observations': IgnoreObservations,
     'ignore_actions': IgnoreActions,
     'incentivize_zero': IncentivizeZero,
