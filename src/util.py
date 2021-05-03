@@ -18,9 +18,10 @@ def run_environment(env, T, num_steps):
     def T_with_meta(
         prompt,
         num_legal_actions=num_legal_actions,
-        num_possible_obs=num_possible_obs
+        num_possible_obs=num_possible_obs,
+        **kwargs
     ):
-        return T(prompt, num_legal_actions, num_possible_obs)
+        return T(prompt, num_legal_actions, num_possible_obs, **kwargs)
 
     while step < num_steps:
         reward, obs = env_fnc(T_with_meta, play)

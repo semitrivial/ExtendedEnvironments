@@ -39,7 +39,7 @@ dummy_env = DummyEnv()
 cache_custom_DQN = {}
 
 @cache
-def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
+def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
     num_observs = (len(prompt)+1)/3
@@ -51,7 +51,12 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs):
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         dummy_env.set_rewards_and_observs(rewards, observs)
 
-        A = RecurrentAgent(network=TreasureGRUNet, game_env=dummy_env, lookback=10)
+        A = RecurrentAgent(
+            network=TreasureGRUNet,
+            game_env=dummy_env,
+            lookback=10,
+            **kwargs
+        )
 
         A.train_on_history(train_prompt=train_on)
         cache_custom_DQN[(train_on, meta)] = A
@@ -158,14 +163,14 @@ class TreasureGRUNet(nn.Module):
 
 
 class RecurrentAgent:
-    def __init__(self, network, game_env, lookback, BATCH_SIZE=128, GAMMA=0.999, EPS_START=1, EPS_END=0.05,EPS_DECAY=1000,TARGET_UPDATE=100, lr=1e-1, prioritized=False):
+    def __init__(self, network, game_env, lookback, BATCH_SIZE=128, GAMMA=0.999, EPS_START=1, EPS_END=0.05,EPS_DECAY=1000,TARGET_UPDATE=100, learning_rate=1e-1, prioritized=False):
         self.BATCH_SIZE = BATCH_SIZE
         self.GAMMA = GAMMA
         self.EPS_START = EPS_START
         self.EPS_END = EPS_END
         self.EPS_DECAY=10000
         self.TARGET_UPDATE=TARGET_UPDATE
-        self.lr = lr
+        self.learning_rate = learning_rate
 
         self.q_net = network().to(device)
 
@@ -173,7 +178,7 @@ class RecurrentAgent:
         self.target_net.load_state_dict(self.q_net.state_dict())
         self.target_net.eval()
 
-        self.optimizer = optim.SGD(self.q_net.parameters(), self.lr)
+        self.optimizer = optim.SGD(self.q_net.parameters(), self.learning_rate)
 
         self.prioritized = prioritized
         if prioritized:

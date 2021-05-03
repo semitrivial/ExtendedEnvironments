@@ -26,6 +26,7 @@ from CensoredObservation import CensoredObservation
 from NthRewardMultipliedByN import NthRewardMultipliedByN
 from AdversarialSequencePredictor import AdversarialSequencePredictor
 from AdversarialSequencePredictor import AdversarialSequenceEvader
+from IncentivizeLearningRate import IncentivizeLearningRate
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
@@ -54,6 +55,7 @@ environments = {
     'nth_reward_multiplied_by_n': NthRewardMultipliedByN,
     'adversarial_sequence_predictor': AdversarialSequencePredictor,
     'adversarial_sequence_evader': AdversarialSequenceEvader,
+    'incentivize_learning_rate': IncentivizeLearningRate,
 }
 
 slow_envs = [
