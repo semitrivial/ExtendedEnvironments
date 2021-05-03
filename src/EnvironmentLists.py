@@ -15,6 +15,7 @@ from GuardedTreasures import GuardedTreasures
 from GuardedTreasures_Eager import GuardedTreasures_Eager
 from ThirdActionForbidden import ThirdActionForbidden
 from DelayReactions import DelayReactions
+from DelayedRewards import DelayedRewards
 from Repeater import Repeater
 from AfterImages import AfterImages
 from SelfRecognition import SelfRecognition
@@ -40,6 +41,7 @@ environments = {
     'guarded_treasures_eager': GuardedTreasures_Eager,
     'third_action_forbidden': ThirdActionForbidden,
     'delay_reactions': DelayReactions,
+    'delayed_rewards': DelayedRewards,
     'repeater': Repeater,
     'after_images': AfterImages,
     'self_recognition': SelfRecognition,
