@@ -3,6 +3,7 @@ from BackwardConsciousness import BackwardConsciousness
 from DejaVu import DejaVu
 from FalseMemories import FalseMemories
 from IgnoreRewards import IgnoreRewards
+from IgnoreRewards2 import IgnoreRewards2
 from IgnoreObservations import IgnoreObservations
 from IgnoreActions import IgnoreActions
 from IncentivizeZero import IncentivizeZero
@@ -30,6 +31,7 @@ environments = {
     'deja_vu': DejaVu,
     'false_memories': FalseMemories,
     'ignore_rewards': IgnoreRewards,
+    'ignore_rewards2': IgnoreRewards2,
     'ignore_observations': IgnoreObservations,
     'ignore_actions': IgnoreActions,
     'incentivize_zero': IncentivizeZero,
