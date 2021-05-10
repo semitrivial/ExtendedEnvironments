@@ -61,12 +61,65 @@
 \maketitle
 
 \begin{abstract}
-  The abstract paragraph should be indented \nicefrac{1}{2}~inch (3~picas) on
-  both the left- and right-hand margins. Use 10~point type, with a vertical
-  spacing (leading) of 11~points.  The word \textbf{Abstract} must be centered,
-  bold, and in point size 12. Two line spaces precede the abstract. The abstract
-  must be limited to one paragraph.
+  Fill this in.
 \end{abstract}
+
+\section{Introduction}
+
+An obstacle course might react to what you do: for example, if you step on a certain
+button, then spikes might appear. If you spend enough time in such an obstacle course,
+you should eventually figure out such patterns.
+But imagine an ``oracular'' obstacle course which reacts to
+what you would hypothetically do in counterfactual scenarios: for example, there is
+no button, but spikes appear
+if you \emph{would} hypothetically step on the button if there were one. Without
+self-reflecting about what you would hypothetically do in counterfactual scenarios, you
+would be unable to figure out such patterns. This suggests that in order to perform
+well (on average) across many such obstacle courses, some sort of self-reflection is
+necessary.
+
+This is a paper about empirically estimating the degree of self-reflection of
+Reinforcement Learning (RL) agents. We propose that an RL agent's degree of self-reflection
+can be estimated by running the agent through a battery of environments which we call
+\emph{extended environments}, environments which react not only to what the agent does
+but to what the agent would hypothetically do. In order to perform well (on average)
+across many such environments, an agent would need to self-reflect about itself, because
+otherwise, environment responses which depend on the agent's own hypothetical actions
+would (on average) seem random and unpredictable. The extended environments which we
+consider are a departure from standard RL environments, however, this does not interfere
+with their usage for judging standard computable RL agents: given a standard agent's
+source-code, one can simulate the agent in an extended environment in spite of the
+latter's non-standardness.
+
+Alongside this paper, we are publishing an open-source library of extended
+environments. This library is intended to serve as a standardized way of
+benchmarking the self-reflectiveness of RL agents. This should not be confused
+with the harder problem of benchmarking how conscious an RL agent is. It is
+plausible that there may be a relationship between the self-reflectiveness and
+the consciousness of RL agents, but that is beyond the scope of this paper.
+In fact, a key result in this paper suggests that if there is such a relationship,
+it is probably more complicated than a simple increasing function (i.e., that
+more self-reflective RL agents are not necessarily more conscious). We will describe
+a simple method for increasing the self-reflectiveness of an RL agent, which method,
+however, does not seem like it should necessarily increase the consciousness of
+the agent.
+
+When designing a library of environments for benchmarking purposes, ideally the
+library should include representative samples of many different types of
+environments. This is a hard and subjective problem in general. We make no claim to have solved
+it: our open-source library of environments should be considered a proof-of-context
+demonstrating that it is possible to empirically benchmark self-awareness of RL
+agents, but we expect this particular benchmark is sub-optimal.
+Rather, we have taken a different approach.
+We have attempted to choose extended environments which are theoretically
+interesting in their own right. Some of our extended environments
+suggest amusing quasi-paradoxes. Some seem to incentivize novel subjective conscious
+experiences (assuming the agent placed in them is sophisticated enough to experience
+consciousness in the first place). And some seem to shed light on how self-reflection
+might be incentivized in nature. We will discuss examples of all three types in Section X.
+
+
+
 
 \section{Submission of papers to NeurIPS 2021}
 
