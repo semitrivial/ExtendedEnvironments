@@ -27,7 +27,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
 
-\title{Formatting Instructions For NeurIPS 2021}
+\title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -118,7 +118,38 @@ experiences (assuming the agent placed in them is sophisticated enough to experi
 consciousness in the first place). And some seem to shed light on how self-reflection
 might be incentivized in nature. We will discuss examples of all three types in Section X.
 
+\section{Preliminaries}
 
+We formalize reinforcement learning following
+the agent model of \cite{hutter2004universal}
+(to align more closely with concrete RL implementations, we modify
+the agent model so that the agent receives an initial perception prior
+to taking its initial action, and we identify agents with their policies).
+
+\begin{definition}
+(RL agents and environments)
+  \begin{enumerate}
+    \item
+    A (traditional) RL environment is a (not necessarily
+    deterministic) function which outputs an initial
+    perception $x_1$ when given the empty sequence as input;
+    and, when given a sequence $x_1y_1\ldots x_ny_n$
+    as input (where each $x_i$ is a perception and each
+    $y_i$ is an action), outputs a perception $x_{k+1}$.
+    \item
+    An RL agent is a (not necessarily deterministic)
+    function which takes as input a sequence $x_1y_1\ldots x_n$
+    and outputs an action $y_n$.
+  \end{enumerate}
+\end{definition}
+
+
+
+\section{Some interesting extended environments}
+
+\section{Making agents more self-reflective}
+
+\section{Example measurements}
 
 
 \section{Submission of papers to NeurIPS 2021}
@@ -422,24 +453,9 @@ when listing the references.
 Note that the Reference section does not count towards the page limit.
 \medskip
 
-{
-\small
+\bibliographystyle{plain}
+\bibliography{bib}
 
-[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
-connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
-(eds.), {\it Advances in Neural Information Processing Systems 7},
-pp.\ 609--616. Cambridge, MA: MIT Press.
-
-[2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
-  Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
-TELOS/Springer--Verlag.
-
-[3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
-recall at excitatory recurrent synapses and cholinergic modulation in rat
-hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Checklist}
 
 %%% BEGIN INSTRUCTIONS %%%
