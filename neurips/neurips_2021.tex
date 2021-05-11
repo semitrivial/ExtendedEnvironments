@@ -26,6 +26,17 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
+\usepackage{amsthm}
+\usepackage{amsmath}
+\newtheorem{mytheorem}{Theorem}
+\newtheorem{definition}[mytheorem]{Definition}
+\newtheorem{mylemma}[mytheorem]{Lemma}
+\newtheorem{myquestion}[mytheorem]{Question}
+\newtheorem{myexample}[mytheorem]{Example}
+\newtheorem{myproposition}[mytheorem]{Proposition}
+\newtheorem{mycorollary}[mytheorem]{Corollary}
+\newtheorem{mydefinition}[mytheorem]{Definition}
+\newtheorem{myprinciple}[mytheorem]{Principle}
 
 \title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
 
@@ -126,24 +137,58 @@ the agent model of \cite{hutter2004universal}
 the agent model so that the agent receives an initial perception prior
 to taking its initial action, and we identify agents with their policies).
 
-\begin{definition}
+\begin{mydefinition}
 (RL agents and environments)
   \begin{enumerate}
     \item
-    A (traditional) RL environment is a (not necessarily
-    deterministic) function which outputs an initial
-    perception $x_1$ when given the empty sequence as input;
-    and, when given a sequence $x_1y_1\ldots x_ny_n$
+    A (traditional) \emph{environment} is a (not necessarily
+    deterministic) function $\mu$ which outputs an initial
+    perception $\mu(\langle\rangle)=x_1$ when given the empty sequence $\langle\rangle$
+    as input;
+    and which, when given a sequence $x_1y_1\ldots x_ny_n$
     as input (where each $x_i$ is a perception and each
-    $y_i$ is an action), outputs a perception $x_{k+1}$.
+    $y_i$ is an action), outputs a perception
+    $\mu(x_1y_1\ldots x_ny_n)=x_{k+1}$.
     \item
-    An RL agent is a (not necessarily deterministic)
-    function which takes as input a sequence $x_1y_1\ldots x_n$
-    and outputs an action $y_n$.
+    An \emph{agent} is a (not necessarily deterministic)
+    function $\pi$ which outputs an initial action $\pi(\langle x_1\rangle)=y_1$
+    in response to the length-1 perception sequence $\langle x_1\rangle$;
+    and which, when given a sequence $x_1y_1\ldots x_n$ as input
+    (each $x_i$ a perception and each $y_i$ an action),
+    outputs an action $\pi(x_1y_1\ldots x_n)=y_n$.
+    \item
+    If $\pi$ is an agent and $\mu$ is an environment, the \emph{result of
+    $\pi$ interacting with $\mu$} is the infinite sequence
+    $x_1y_1x_2y_2\ldots$ defined in the obvious way.
   \end{enumerate}
-\end{definition}
+\end{mydefinition}
 
+We extend traditional environments by allowing their outputs to depend not only on
+$x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\pi$.
 
+\begin{mydefinition}
+(Extended environments)
+\begin{enumerate}
+  \item
+  An \emph{extended environment} is a (not necessarily deterministic)
+  function $\mu$ which outputs initial perception $\mu(T,\langle\rangle)=x_1$
+  in response to input $(T,\langle\rangle)$ where $T$ is a source-code of an
+  computable agent; and which, when given input $(T,x_1y_1\ldots x_ny_n)$ (where
+  $T$ is such a source-code, each $x_i$ is a perception and each $y_i$ is
+  an action), outputs a perception $\mu(T,x_1y_1\ldots x_ny_n)=x_{n+1}$.
+  \item
+  If $\pi$ is a computable agent (with source-code $T$)
+  and $\mu$ is an environment, the \emph{result of $\pi$ (as encoded by $T$)
+  interacting with $\mu$} is the infinite sequence $x_1y_1x_2y_2\ldots$ defined in
+  the obvious way, namely:
+  \begin{align*}
+    x_1 &= \mu(T,\langle\rangle)\\
+    y_1 &= \pi(\langle x_1\rangle)\\
+    x_2 &= \mu(T,x_1y_1)\\
+    y_2 &= \pi(x_1y_1x_2) \ldots
+  \end{align*}
+\end{enumerate}
+\end{mydefinition}
 
 \section{Some interesting extended environments}
 
