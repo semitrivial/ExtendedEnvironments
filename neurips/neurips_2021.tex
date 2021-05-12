@@ -136,6 +136,9 @@ the agent model of \cite{hutter2004universal}
 (to align more closely with concrete RL implementations, we modify
 the agent model so that the agent receives an initial perception prior
 to taking its initial action, and we identify agents with their policies).
+We assume a fixed set of actions and observations. By a \emph{perception}
+we mean a pair $(r,o)$ where $o$ is an observation and $r\in\mathbb Q$
+is a reward.
 
 \begin{mydefinition}
 (RL agents and environments)
@@ -167,6 +170,7 @@ We extend traditional environments by allowing their outputs to depend not only 
 $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\pi$.
 
 \begin{mydefinition}
+\label{extendedenvironmentsdefn}
 (Extended environments)
 \begin{enumerate}
   \item
@@ -191,6 +195,43 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
 \end{mydefinition}
 
 \section{Some interesting extended environments}
+
+\begin{myexample}
+\label{rewardagentforignoringrewardsexample}
+  (Rewarding the Agent for Ignoring Rewards)
+  For every perception $p=(r,o)$, let $p'=(0,o)$ be the result of zeroing the
+  reward component of $p$.
+  Choose some fixed observation $o_0$.
+  Define an extended environment $\mu$ as follows:
+  \begin{align*}
+    \mu(T,\langle\rangle) &= (0,o_0),\\
+    \mu(T,x_1y_1\ldots x_ny_n) &=
+      \begin{cases}
+        (1,o_0) & \mbox{if $y_n=T(x'_1y_1\ldots x'_n)$,}\\
+        (-1,o_0) & \mbox{otherwise.}
+      \end{cases}
+  \end{align*}
+\end{myexample}
+
+In Example \ref{rewardagentforignoringrewardsexample}, every time the agent
+takes an action $y_n$, the environment simulates the agent in order to determine:
+would the agent have taken the same action if the history so far were identical
+except for all rewards being $0$? If so, then the environment gives the agent $+1$
+reward, otherwise, the environment gives the agent $-1$ reward. Thus, the agent
+is rewarded for ignoring rewards. Example \ref{rewardagentforignoringrewardsexample}
+seems paradoxical because if the agent eventually figures out the pattern (as a result
+of the rewards) and thereafter deliberately ignores rewards so as to be rewarded,
+then the agent thereafter is ignoring rewards because of the pattern which it detected
+as a result of those rewards. So in that case, does the agent ignore rewards, or not?
+
+Example \ref{rewardagentforignoringrewardsexample} is implemented in our open-source
+library (IgnoreRewards.py). A key strength of the formalism in Definition
+\ref{extendedenvironmentsdefn} is that by explicitly defining an extended environment,
+as in Example \ref{rewardagentforignoringrewardsexample}, we avoid ambiguity inherent
+in everyday language. If one merely spoke informally of ``an environment which rewards
+the agent for ignoring rewards'', that could be interpreted in various different ways
+(two other interpretations are implemented in our open-source library as IgnoreRewards2.py
+and IgnoreRewards3.py).
 
 \section{Making agents more self-reflective}
 
