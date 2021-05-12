@@ -201,7 +201,7 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
   (Rewarding the Agent for Ignoring Rewards)
   For every perception $p=(r,o)$, let $p'=(0,o)$ be the result of zeroing the
   reward component of $p$.
-  Choose some fixed observation $o_0$.
+  Fix some observation $o_0$.
   Define an extended environment $\mu$ as follows:
   \begin{align*}
     \mu(T,\langle\rangle) &= (0,o_0),\\
@@ -214,10 +214,10 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
 \end{myexample}
 
 In Example \ref{rewardagentforignoringrewardsexample}, every time the agent
-takes an action $y_n$, the environment simulates the agent in order to determine:
+takes an action $y_n$, $\mu$ simulates the agent in order to determine:
 would the agent have taken the same action if the history so far were identical
-except for all rewards being $0$? If so, then the environment gives the agent $+1$
-reward, otherwise, the environment gives the agent $-1$ reward. Thus, the agent
+except for all rewards being $0$? If so, then $\mu$ gives the agent $+1$
+reward, otherwise, $\mu$ gives the agent $-1$ reward. Thus, the agent
 is rewarded for ignoring rewards. Example \ref{rewardagentforignoringrewardsexample}
 seems paradoxical because if the agent eventually figures out the pattern (as a result
 of the rewards) and thereafter deliberately ignores rewards so as to be rewarded,
@@ -228,10 +228,37 @@ Example \ref{rewardagentforignoringrewardsexample} is implemented in our open-so
 library (IgnoreRewards.py). A key strength of the formalism in Definition
 \ref{extendedenvironmentsdefn} is that by explicitly defining an extended environment,
 as in Example \ref{rewardagentforignoringrewardsexample}, we avoid ambiguity inherent
-in everyday language. If one merely spoke informally of ``an environment which rewards
+in everyday language. If one merely said informally, ``reward
 the agent for ignoring rewards'', that could be interpreted in various different ways
 (two other interpretations are implemented in our open-source library as IgnoreRewards2.py
 and IgnoreRewards3.py).
+
+\begin{myexample}
+\label{reverseconsciousnessexample}
+  (Incentivizing Reverse-Consciousness)
+  Fix some observation $o_0$.
+  Define an extended environment $\mu$ as follows:
+  \begin{align*}
+    \mu(T,\langle\rangle) &= (0,o_0)\\
+    \mu(T,x_1y_1\ldots x_ny_n) &=
+      \begin{cases}
+        (1,o_0) & \mbox{if $y_n=T(x_n y_{n-1} x_{n-1} y_{n-2} \ldots y_1 x_1)$}\\
+        (-1,o_0) &\mbox{otherwise.}
+      \end{cases}
+  \end{align*}
+\end{myexample}
+
+In Example \ref{reverseconsciousnessexample}, whenever the agent takes an action $y_n$,
+$\mu$ simulates the agent in order to determine: would the agent have taken that same
+action if everything which happened before that action had, in fact, happened in reverse?
+If so, reward the agent, otherwise, punish the agent.
+Thus, the agent is rewarded for acting the same way that it would act if time were
+reversed. It is interesting to informally speculate about what subjective conscious
+experience Example \ref{reverseconsciousnessexample} would incentivize in an agent,
+if that agent were highly intelligent and were capable of experiencing consciousness.
+Would such an agent eventually (in order to parsimoniously extract rewards from the
+environment) subjectively experience time moving in reverse?
+
 
 \section{Making agents more self-reflective}
 
