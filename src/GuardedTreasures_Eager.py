@@ -26,7 +26,7 @@ def guarded_treasures_eager(T, play):
     else:
         if action == 0:
             # Agent chooses not to take treasure
-            reward = 0
+            reward = -1
             return (reward, obs)
 
         reward = 1

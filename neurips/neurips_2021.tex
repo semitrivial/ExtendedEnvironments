@@ -234,6 +234,56 @@ the agent for ignoring rewards'', that could be interpreted in various different
 and IgnoreRewards3.py).
 
 \begin{myexample}
+\label{buttonexample}
+  (A Tempting Button)
+  Fix two observatinos $o_0$ (thought of as ``there is no button'') and
+  $o_1$ (thought of as ``there is a button''). Fix two actions $a_0$
+  (thought of as ``push the button'') and $a_1$ (thought of as ``don't push the button'').
+  Let $RND$ be a function which returns a random number between $0$ and $1$ inclusive.
+  Define an extended environment $\mu$ as follows:
+  \begin{align*}
+    \mu(T,\langle\rangle) &= (0,o),\\
+    \mu(T,x_1y_1\ldots x_ny_n) &=
+      \begin{cases}
+        (1,o) &\mbox{if $x_n=o_1$ and $y_n=a_0$,}\\
+        (-1,o) &\mbox{if $x_n=o_1$ and $y_n\not=a_0$,}\\
+        (1,o) &\mbox{if $x_n=o_0$ and $T(x_1y_1\ldots x_{n-1}y_{n-1}x_no_1)=a_0$,}\\
+        (-1,o) &\mbox{if $x_n=o_0$ and $T(x_1y_1\ldots x_{n-1}y_{n-1}x_no_1)\not=a_0$,}
+      \end{cases}
+  \end{align*}
+  where $o=o_0$ if $RND()<.75$, $o=o_1$ if $RND()\geq .75$.
+\end{myexample}
+
+In Example \ref{buttonexample}, one should think of the agent as wandering from room
+to room. Each room either has a button (with 25\% probability) or does not have a button
+(75\% probability).
+\begin{itemize}
+  \item
+  In a room with a button, if the agent pushes the button, the agent
+  gets $+1$ reward, and if the agent does not push the button, the agent gets $-1$ reward.
+  \item
+  In a room with no button, it does not matter what the agent does.
+  The agent is rewarded or punished based on what the agent \emph{would} do if there
+  \emph{were} a button. If the agent \emph{would} push the button (if there were one),
+  then the agent gets reward $-1$. Otherwise, the agent gets reward $+1$.
+\end{itemize}
+Thus, whenever the agent sees a button, the agent can push the button for a free reward
+with no consequences presently nor in the future; nevertheless, it is in the agent's
+best interest to commit itself to never push any buttons! Greedily pushing every button
+yields an average reward of $1\cdot(.25)-1\cdot(.75)=-.5$ per turn, whereas
+a policy of never pushing the button yields an average reward of
+$-1\cdot(.25)+1\cdot(.75)=+.5$ per turn.
+
+Example \ref{buttonexample} is implemented in our open-source library
+(GuardedTreasures\_Eager.py).
+Interestingly, we found that
+a recurrent DQN agent with lookback 10 (implemented in our library as custom\_DQN.py)
+behaves in such a way that its rewards in
+Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn.
+This is fascinating because DQN was designed for traditional RL environments,
+not for extended environments.
+
+\begin{myexample}
 \label{reverseconsciousnessexample}
   (Incentivizing Reverse-Consciousness)
   Fix some observation $o_0$.
