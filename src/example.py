@@ -1,8 +1,12 @@
 from random import random
 from collections import OrderedDict
 
+from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
+from agents.custom_DQN import custom_DQN_agent
+from RealityCheck import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import cache
+
 
 @cache
 def random_agent(prompt, num_legal_actions, num_possible_obs):
@@ -48,13 +52,35 @@ agents = OrderedDict([
     ['incrementer', incrementer],
     ['always_0', always_0],
     ['always_1', always_1],
-    ['naive_learner', naive_learner]
+    ['naive_learner', naive_learner],
+    ['agent_A2C', agent_A2C],
+    ['agent_DQN', agent_DQN],
+    ['agent_PPO', agent_PPO],
+    ['custom_DQN_agent', custom_DQN_agent],
 ])
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
     n_steps = 100
     result = awareness_benchmark(agent, n_steps)
+
+    try:
+        fp = open("result_table.csv", "r")
+        fp.close()
+    except Exception:
+        print("Initiating results_table.csv")
+        fp = open("result_table.csv", "w")
+        fp.write("agent,env,nsteps,reward\n")
+        fp.close()
+
+    fp = open("result_table.csv", "a")
+    for env in result.keys():
+        reward = result[env]['total_reward']
+        line = ",".join([name, env, str(n_steps), str(reward)])
+        line += "\n"
+        fp.write(line)
+    fp.close()
+
     values = result.values()
     rewards = [x['total_reward'] for x in values]
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
@@ -62,16 +88,6 @@ def measure_agent(name, agent):
 
 for name, agent in agents.items():
     measure_agent(name, agent)
-
-from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
-from agents.custom_DQN import custom_DQN_agent
-
-SBL_agents = OrderedDict([
-    ['agent_A2C', agent_A2C],
-    ['agent_DQN', agent_DQN],
-    ['agent_PPO', agent_PPO],
-    ['custom_DQN_agent', custom_DQN_agent],
-])
-
-for name, agent in SBL_agents.items():
+    name = "reality_check("+name+")"
+    agent = reality_check(agent)
     measure_agent(name, agent)
