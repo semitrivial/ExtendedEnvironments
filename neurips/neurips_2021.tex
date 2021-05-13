@@ -128,7 +128,8 @@ interesting in their own right. Some of our extended environments
 suggest amusing quasi-paradoxes. Some seem to incentivize novel subjective conscious
 experiences (assuming the agent placed in them is sophisticated enough to experience
 consciousness in the first place). And some seem to shed light on how self-reflection
-might be incentivized in nature. We will discuss examples of all three types in Section X.
+might be incentivized in nature. We will discuss examples of all three types in
+Section \ref{examplesection}.
 
 \section{Preliminaries}
 
@@ -142,6 +143,7 @@ we mean a pair $(r,o)$ where $o$ is an observation and $r\in\mathbb Q$
 is a reward.
 
 \begin{mydefinition}
+\label{agentenvironmentdefn}
 (RL agents and environments)
   \begin{enumerate}
     \item
@@ -196,6 +198,7 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
 \end{mydefinition}
 
 \section{Some interesting extended environments}
+\label{examplesection}
 
 \begin{myexample}
 \label{rewardagentforignoringrewardsexample}
@@ -365,7 +368,7 @@ between pleasure and laughter. Of course, Example \ref{cryingbabyexample} is a g
 over-simplification. In reality, there would not be such a simple formula for the
 baby's nutrition level, and the agent would need to figure out the nutrition level
 based on observing the baby laughing or crying. Both baby and parent would need to
-learn to learn to anticipate what the other would do in response to various actions.
+learn how to communicate with each other effectively.
 
 With the above in mind, extended environments might shed light on how living organisms
 evolve self-reflection. Assume children inherit their policy source-code from their ancestors
@@ -390,6 +393,7 @@ actions in response to the same input, i.e., an agent with no random component).
 In the next section, empirical results will suggest the transformation works as intended.
 
 \begin{definition}
+\label{realitycheckdefn}
   Suppose $\pi$ is a deterministic agent. The \emph{reality check} of $\pi$ is the agent
   $\pi_{\RC}$ defined recursively by:
   \begin{align*}
@@ -442,6 +446,81 @@ We leave the proof of Proposition \ref{transformationproposition} as an exercise
 for the reader.
 
 \section{Example measurements}
+
+Based on our conviction that self-reflection is necessary in order for an agent to
+achieve good average perform across many extended environments, self-reflection can
+be estimated by running an agent against some standard battery of extended environments.
+Our open-source library of extended environments \cite{library} provides a battery of
+25 such extended environments, and infrastructure for measuring an agent's self-reflection
+by running the agent on all these environments and their opposites for a given number of
+steps.\footnote{By the \emph{opposite} of an environment we mean the environment
+obtained by multiplying
+all rewards by $-1$. Including these opposite-environments serves to normalize
+agent performance in the following sense. If an agent blindly acts, ignoring the environment,
+then, a priori, that agent might achieve some nonzero score by blind luck. By including
+opposite-environments, we ensure that whenever a blind agent gains points by blind luck
+from one environment, it loses the same points by blind misfortune from the opposite
+environment. This ensures that such blind agents should receive an average score close to
+$0$ (possibly non-zero due to randomness).} For uniformity, all environments in the library
+always output rewards of either $1$, $-1$ or $0$.
+
+We have used this library to measure the self-reflection of the following agents:
+\begin{itemize}
+  \item RandomAgent: An agent who acts randomly.
+  \item IncrementerAgent: An agent who systematically iterates through available
+    actions.
+  \item ConstantAgent: An agent who always takes the same action.
+  \item NaiveLearner: An agent who acts randomly 15\% of the time, and otherwise
+    takes the action which yielded the highest average immediate reward in the past.
+  \item A2C, DQN, and PPO agents from the Stable Baselines3 library
+    \cite{stable-baselines3}; see remark below.
+  \item RecurrentDQN: A custom implementation of a recurrent DQN agent; see remark below.
+  \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
+\end{itemize}
+We remark that because our because of our universalist approach to RL (with no notion of
+pre-training the agent), it was necessary to adapt the A2C, DQN, and PPO agents accordingly.
+To obtain an agent $\pi$ (as in Definition \ref{agentenvironmentdefn}) from,
+say, a PPO implementation (which assumes pre-training and an environment conforming to
+OpenAI Gym's environment interface),
+we proceed as follows. To evaluate
+$\pi(x_1y_1\ldots x_n)$, we create instantiate an OpenAI Gym-conformant dummy environment
+hardcoded to blindly regurgitate rewards and observations $x_1,\ldots,x_n$.
+We then run the PPO implementation on this environment for $n$ steps, of which the first
+$k$ steps are training steps and the remaining $n-k$ steps are post-training steps,
+where $k=\max\{2^\ell\,:\,2^\ell<n\}$
+(this allows the pre-training phase to be memoized, otherwise $\pi$ be
+computationally infeasible). For the training phase, we monkeypatch the implementation
+so that whenever it would choose an action randomly or from its policy, it is instead
+forced to choose that action systematically from $y_1\ldots y_n$.
+
+The following table summarizes the results.
+
+\begin{table}
+  \caption{Measuring self-reflection of some agents}
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Agent     & Avg Reward (100 steps)     & Avg Reward (200 steps) \\
+    \midrule
+    RandomAgent & $-.018$ & tbd\\
+    IncrementerAgent & $-.031$ & tbd\\
+    ConstantAgent & $+.006$ & tbd\\
+    NaiveLearner & $+.196$ & tbd\\
+    A2C & $-.088$ & tbd\\
+    DQN & $+.019$ & tbd\\
+    PPO & $-.018$ & tbd\\
+    RecurrentDQN & $+.005$ & tbd\\
+    RandomAgent${}_{\RC}$ & tbd & tbd\\
+    IncrementerAgent${}_{\RC}$ & tbd & tbd\\
+    ConstantAgent${}_{\RC}$ & tbd & tbd\\
+    NaiveLearning${}_{\RC}$ & tbd & tbd\\
+    A2C${}_{\RC}$ & tbd & tbd\\
+    DQN${}_{\RC}$ & tbd & tbd\\
+    PPO${}_{\RC}$ & tbd & tbd\\
+    RecurrentDQN${}_{\RC}$ & tbd & tbd\\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 
 \section{Submission of papers to NeurIPS 2021}
