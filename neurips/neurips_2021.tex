@@ -37,6 +37,7 @@
 \newtheorem{mycorollary}[mytheorem]{Corollary}
 \newtheorem{mydefinition}[mytheorem]{Definition}
 \newtheorem{myprinciple}[mytheorem]{Principle}
+\def\RC{\textrm{RC}}
 
 \title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
 
@@ -375,8 +376,70 @@ to the other organisms with which it interacts, the more closely this approximat
 A human, when interacting with another human, might achieve better results by self-reflectively
 considering, ``what would I do in this other person's position?''
 
+We implement Example \ref{cryingbabyexample} as CryingBaby.py.
+
 
 \section{Making agents more self-reflective}
+
+One advantage of empirically measuring the self-reflection of RL agents is that it
+provides a way to experimentally test whether various transformations make various
+agents more self-reflective. To illustrate this, we will define a simple transformation,
+the \emph{reality check} transformation, designed to increase the self-reflection
+of deterministic agents (a deterministic agent is an agent who always takes the same
+actions in response to the same input, i.e., an agent with no random component).
+In the next section, empirical results will suggest the transformation works as intended.
+
+\begin{definition}
+  Suppose $\pi$ is a deterministic agent. The \emph{reality check} of $\pi$ is the agent
+  $\pi_{\RC}$ defined recursively by:
+  \begin{align*}
+    \pi_{\RC}(\langle x_1\rangle) &= \pi(\langle x_1\rangle)\\
+    \pi_{\RC}(x_1y_1\ldots x_n) &=
+    \begin{cases}
+      \pi(x_1y_1\ldots x_n) & \mbox{if $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$,}\\
+      \pi(\langle x_1\rangle) & \mbox{otherwise.}
+    \end{cases}
+  \end{align*}
+\end{definition}
+
+In other words, $\pi_{\RC}$ is the agent which, at each step, first reviews all the actions
+which it has taken in the past, and verifies that those are the actions which $\pi_{\RC}$ would
+have taken. If so, then $\pi_{\RC}$ acts as $\pi$ would act. But if any action which
+the agent has taken in the past was not the action $\pi_{\RC}$ would have taken, then
+$\pi_{\RC}$ freezes up and forever thereafter takes the same fixed action, as if catatonic.
+Since the act of reviewing one's past actions and verifying that they are indeed the actions
+one would take, is an act of self-reflection, it seems plausible that if $\pi$
+is intelligent and deterministic but lacks self-reflection, then $\pi_{\RC}$ is
+more self-reflective than $\pi$. In the next section, we will see that experimental
+evidence supports this hypothesis. We close this section by stating some simple results
+about the transformation.
+
+\begin{myproposition}
+\label{transformationproposition}
+  Let $\pi$ be any deterministic agent.
+  \begin{enumerate}
+    \item
+    (A more efficient way to compute $\pi_{\RC}$)
+    An equivalent alternate definition of $\pi_{\RC}$ is:
+    \begin{align*}
+      \pi_{\RC}(\langle x_1\rangle) &= \pi(\langle x_1\rangle)\\
+      \pi_{\RC}(x_1y_1\ldots x_n) &=
+      \begin{cases}
+        \pi(x_1y_1\ldots x_n) & \mbox{if $y_i=\pi(x_1y_1\ldots x_i)$ for all $1\leq i<n$,}\\
+        \pi(\langle x_1\rangle) & \mbox{otherwise.}
+      \end{cases}
+    \end{align*}
+    \item
+    (Idempotence) $\pi_{\RC}=(\pi_{\RC})_{\RC}$.
+    \item
+    (Equivalence in traditional RL)
+    For every deterministic traditional environment $\mu$, the result of $\pi_{\RC}$
+    interacting with $\mu$ equals the result of $\pi$ interacting with $\mu$.
+  \end{enumerate}
+\end{myproposition}
+
+We leave the proof of Proposition \ref{transformationproposition} as an exercise
+for the reader.
 
 \section{Example measurements}
 
