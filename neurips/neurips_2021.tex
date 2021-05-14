@@ -514,8 +514,11 @@ where $k=\max\{2^\ell\,:\,2^\ell<n\}$
 computationally infeasible). For the training phase, we monkeypatch the implementation
 so that whenever it would choose an action randomly or from its policy, it is instead
 forced to choose that action systematically from $y_1\ldots y_n$.
+For additional details about these agents, see \cite{library}.
 
-Table \ref{measurementtable} summarizes how the agents performed. The table provides
+Table \ref{measurementtable} summarizes how the agents performed.
+Computations were performed on a consumer-grade laptop with no GPU.
+The table provides
 experimental evidence in support of our hypothesis that the reality check transformation
 (Section \ref{realitychecksection}) increases agent self-reflection, at least for
 non-recurrent agents. The fact that NaiveLearner performs so well is a reflection of the
@@ -628,11 +631,14 @@ Fill this in.
     \answerYes{These are included in the open-source library, which we will include
     as supplemental material.}
   \item Did you specify all the training details (e.g., data splits, hyperparameters, how they were chosen)?
-    \answerTODO{}
+    \answerNo{We determined that these details would distract from the paper, so we
+    instead refer the reader to the open-source library, where these decisions are
+    documented with comments.}
 	\item Did you report error bars (e.g., with respect to the random seed after running experiments multiple times)?
     \answerTODO{}
 	\item Did you include the total amount of compute and the type of resources used (e.g., type of GPUs, internal cluster, or cloud provider)?
-    \answerTODO{}
+    \answerYes{Yes, in Section \ref{measurementssection} we mention that
+    the computations were performed on a consumer-grade laptop without GPU.}
 \end{enumerate}
 
 \item If you are using existing assets (e.g., code, data, models) or curating/releasing new assets...
