@@ -225,7 +225,7 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
 The fact that standard agents can interact normally with extended environments
 (Definition \ref{extendedenvironmentsdefn} part 3) implies that various universal
 RL intelligence measures
-\cite{goertzel2006patterns} \cite{hernandez} \cite{legg2007universal}
+\cite{goertzel2006patterns} \cite{hernandez} \cite{gavane} \cite{legg2007universal}
 have straightforward analogous measures which also take
 extended environments into account and which might therefore measure some combination
 of intelligence and self-reflection.
@@ -368,6 +368,14 @@ We implement Example \ref{reverseconsciousnessexample} as BackwardConsciousness.
 
 \subsection{An extended environment of biological interest}
 
+\begin{quote}
+``It  is  only  when  people  are  embedded  in  a  complex  competitive  social
+environment  that  the  goal  of  interacting  with  others  requires  them
+to  anthropomorphise  their  own  actions. This recursive modelling gives rise to
+an understanding of selfhood, an appreciation of the first-person experiential
+self.''---Maguire et al \cite{maguire2016understanding}
+\end{quote}
+
 \begin{myexample}
 \label{cryingbabyexample}
   (Crying Baby)
@@ -413,30 +421,24 @@ within specified bounds and feels pain when its nutrition goes outside those bou
 At first glance, one might imagine the agent's optimal strategy is to feed the baby
 so as to keep its nutrition within happy bounds at all times. But what would the
 agent do in the position of a baby always so fed (and thus always given $+1$ reward
-regardless what actions it takes)? Presumably, in that position, the agent would have
+regardless what actions it takes)? Presumably, in that position, the agent (as baby) would have
 no way of associating its rewards with its actions, and so would act randomly,
 sometimes crying and sometimes laughing. Apparently, it would be better for the agent
-to calibrate feedings in such a way that the baby will learn a relationship
+(as parent) to calibrate feedings in such a way that the baby will learn a relationship
 between pleasure and laughter. Of course, Example \ref{cryingbabyexample} is a gross
 over-simplification. In reality, there would not be such a simple formula for the
-baby's nutrition level, and the agent would need to figure out the nutrition level
+baby's nutrition level, and the agent (as parent) would need to figure out the nutrition level
 based on observing the baby laughing or crying. Both baby and parent would need to
 learn how to communicate with each other effectively.
 
 With the above in mind, extended environments might shed light on how living organisms
-evolve self-reflection. Assume children inherit their policy source-code from their ancestors
+evolve self-reflection. Assume descendants inherit their policy source-code from their ancestors
 (possibly with minor mutations). Then whenever an organism interacts with other organisms,
 it interacts with an environment whose reactions depend (via those other organisms' actions)
 approximately on that organism's own source-code. The closer the organism is related
 to the other organisms with which it interacts, the more closely this approximation holds.
 A human, when interacting with another human, might achieve better results by self-reflectively
-considering, ``what would I do in this other person's position?''
-To quote Maguire et al:
-``It  is  only  when  people  are  embedded  in  a  complex  competitive  social
-environment  that  the  goal  of  interacting  with  others  requires  them
-to  anthropomorphise  their  own  actions. This recursive modelling gives rise to
-an understanding of selfhood, an appreciation of the first-person experiential self.''
-\cite{maguire2016understanding}
+considering, ``What would I do in this other person's position?''
 
 We implement Example \ref{cryingbabyexample} as CryingBaby.py.
 
