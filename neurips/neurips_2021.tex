@@ -560,7 +560,7 @@ To obtain an agent $\pi$ (as in Definition \ref{agentenvironmentdefn}) from,
 say, a PPO implementation (which assumes pre-training and an environment conforming to
 OpenAI Gym's environment interface),
 we proceed as follows. To evaluate
-$\pi(x_1y_1\ldots x_n)$, we create instantiate an OpenAI Gym-conformant dummy environment
+$\pi(x_1y_1\ldots x_n)$, we instantiate an OpenAI Gym-conformant dummy environment
 hardcoded to blindly regurgitate rewards and observations $x_1,\ldots,x_n$.
 We then run the PPO implementation on this environment for $n$ steps, of which the first
 $k$ steps are training steps and the remaining $n-k$ steps are post-training steps,
