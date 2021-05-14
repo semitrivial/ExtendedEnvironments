@@ -413,6 +413,31 @@ considering, ``what would I do in this other person's position?''
 
 We implement Example \ref{cryingbabyexample} as CryingBaby.py.
 
+\subsection{Additional examples in brief}
+
+Here are a few additional extended environment examples, without full details.
+We indicate in parentheses where these environments are implemented in \cite{library}.
+
+\begin{itemize}
+  \item
+  (AdversarialSequencePredictor.py) Environments which, like Example \ref{cryingbabyexample}, pit the agent against
+  another copy of the agent in an adversarial sequence prediction competition
+  \cite{hibbard2008adversarial}.
+  \item
+  (DeterminismInspector.py) Environments which reward the agent for being deterministic,
+  or for being non-deterministic.
+  \item
+  (IncentivizeLearningRate.py) Environments which reward the agent for behaving as if
+  the agent were configured with a particular learning rate (suggesting that extended
+  environments can incentivize agents to learn about their own internal mechanisms,
+  as in \cite{sherstan2016introspective}).
+  \item
+  (RuntimeInspector.py) Environments which reward the agent for responding quickly,
+  or for responding slowly (suggesting possible connections to real-time RL \cite{gavane}).
+  \item
+  (SelfRecognition.py) Environments which reward the agent for recognizing actions it itself
+  would take.
+\end{itemize}
 
 \section{Making agents more self-reflective}
 \label{realitychecksection}
