@@ -233,6 +233,10 @@ of intelligence and self-reflection.
 \section{Some interesting extended environments}
 \label{examplesection}
 
+In this section, we exhibit some interesting examples of extended environments.
+
+\subsection{A quasi-paradoxical extended environment}
+
 \begin{myexample}
 \label{rewardagentforignoringrewardsexample}
   (Rewarding the Agent for Ignoring Rewards)
@@ -269,6 +273,8 @@ in everyday language. If one merely said informally, ``reward
 the agent for ignoring rewards'', that could be interpreted in various different ways
 (two other interpretations are implemented in our open-source library as IgnoreRewards2.py
 and IgnoreRewards3.py).
+
+\subsection{An extended environment where a reccurent DQN performs surprisingly well}
 
 \begin{myexample}
 \label{buttonexample}
@@ -312,13 +318,16 @@ a policy of never pushing the button yields an average reward of
 $-1\cdot(.25)+1\cdot(.75)=+.5$ per turn.
 
 Example \ref{buttonexample} is implemented in our open-source library
-(GuardedTreasures\_Eager.py).
+(TemptingButton.py).
 Interestingly, we found that
 a recurrent DQN agent with lookback 10 (implemented in our library as custom\_DQN.py)
 behaves in such a way that its rewards in
 Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn.
 This is fascinating because DQN was designed for traditional RL environments,
 not for extended environments.
+
+\subsection{An extended environment which might incentivize a novel subjective
+conscious experience}
 
 \begin{myexample}
 \label{reverseconsciousnessexample}
@@ -356,6 +365,8 @@ experimenter's objective? Is deception possible if the agent can be perfectly
 simulated in an extended environment?}
 
 We implement Example \ref{reverseconsciousnessexample} as BackwardConsciousness.py.
+
+\subsection{An extended environment of biological interest}
 
 \begin{myexample}
 \label{cryingbabyexample}
