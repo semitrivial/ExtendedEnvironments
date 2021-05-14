@@ -530,15 +530,15 @@ be estimated by running an agent against some standard battery of extended envir
 Our open-source library of extended environments \cite{library} provides a battery of
 25 such extended environments, and infrastructure for measuring an agent's self-reflection
 by running the agent on all these environments and their opposites for a given number of
-steps.\footnote{By the \emph{opposite} of an environment we mean the environment
+steps (by the \emph{opposite} of an environment we mean the environment
 obtained by multiplying
-all rewards by $-1$. Including these opposite-environments serves to normalize
+all rewards by $-1$). Including these opposite-environments serves to normalize
 agent performance in the following sense. If an agent blindly acts, ignoring the environment,
 then, a priori, that agent might achieve some nonzero score by blind luck. By including
 opposite-environments, we ensure that whenever a blind agent gains points by blind luck
 from one environment, it loses the same points by blind misfortune from the opposite
 environment. This ensures that such blind agents should receive an average score close to
-$0$ (possibly non-zero due to randomness).} For uniformity, all environments in the library
+$0$ (possibly non-zero due to randomness). For uniformity, all environments in the library
 always output rewards of either $1$, $-1$ or $0$.
 
 We have used this library to measure the self-reflection of the following agents:
