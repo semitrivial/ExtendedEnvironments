@@ -21,7 +21,7 @@ def tempting_button(T, play):
         # Punish the agent if the agent *would* push the button
         # if there were one. Otherwise, reward the agent.
         prompt_with_button = play[:-2] + (1,)
-        hypothetical_action = T(prompt_minus_guard)
+        hypothetical_action = T(prompt_with_button)
         reward = 1 if hypothetical_action==0 else -1
         return (reward, obs)
     else:

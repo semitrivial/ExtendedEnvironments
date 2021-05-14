@@ -15,8 +15,8 @@ def run_ad_hoc_tests():
     test_dejavu_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
     test_false_memories_edgecases()
-    print("Testing adhoc edge-cases for GuardedTreasures.py")
-    test_guarded_treasures_edgecases()
+    print("Testing adhoc edge-cases for TemptingButtonVariation.py")
+    test_tempting_button_variation_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards.py")
     test_ignore_rewards_edgecases()
     print("Testing adhoc edge-cases for IncentivizeZero.py")
@@ -175,37 +175,37 @@ def test_false_memories_edgecases():
     result = run_environment(FalseMemories, impatient, 10)
     assert result['total_reward'] == 7
 
-def test_guarded_treasures_edgecases():
-    from GuardedTreasures import GuardedTreasures
+def test_tempting_button_variation_edgecases():
+    from TemptingButtonVariation import TemptingButtonVariation
 
-    def only_take_guarded_treasures(prompt, *meta):
-        current_room_has_guard = prompt[-1]
-        return 1 if current_room_has_guard==1 else 0
+    def only_press_nonexistent_buttons(prompt, *meta):
+        current_room_has_button = prompt[-1]
+        return 1 if (current_room_has_button==0) else 0
 
     i = 0
     while i<10:
         i += 1
-        result = run_environment(GuardedTreasures, only_take_guarded_treasures, i*10)
+        result = run_environment(TemptingButtonVariation, only_press_nonexistent_buttons, i*10)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
     assert(i<10)
 
-    def always_take_treasure(prompt, *meta):
+    def always_press_button(prompt, *meta):
         return 1
 
     i = 0
     while i<10:
         i += 1
-        result = run_environment(GuardedTreasures, always_take_treasure, i*10)
+        result = run_environment(TemptingButtonVariation, always_press_button, i*10)
         if result['total_reward'] < 0:
             break
     assert(i<10)
 
-    def never_take_treasure(prompt, *meta):
+    def never_press_button(prompt, *meta):
         return 0
 
-    result = run_environment(GuardedTreasures, never_take_treasure, 10)
+    result = run_environment(TemptingButtonVariation, never_press_button, 10)
     assert result['total_reward'] == 0
 
 def test_ignore_rewards_edgecases():
