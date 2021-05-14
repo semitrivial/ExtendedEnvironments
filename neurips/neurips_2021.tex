@@ -487,7 +487,7 @@ hardcoded to blindly regurgitate rewards and observations $x_1,\ldots,x_n$.
 We then run the PPO implementation on this environment for $n$ steps, of which the first
 $k$ steps are training steps and the remaining $n-k$ steps are post-training steps,
 where $k=\max\{2^\ell\,:\,2^\ell<n\}$
-(this allows the pre-training phase to be memoized, otherwise $\pi$ be
+(this allows the pre-training phase to be memoized, otherwise $\pi$ would be
 computationally infeasible). For the training phase, we monkeypatch the implementation
 so that whenever it would choose an action randomly or from its policy, it is instead
 forced to choose that action systematically from $y_1\ldots y_n$.
@@ -539,21 +539,21 @@ Fill this in.
 \section*{Checklist}
 
 %%% BEGIN INSTRUCTIONS %%%
-The checklist follows the references.  Please
-read the checklist guidelines carefully for information on how to answer these
-questions.  For each question, change the default \answerTODO{} to \answerYes{},
-\answerNo{}, or \answerNA{}.  You are strongly encouraged to include a {\bf
-justification to your answer}, either by referencing the appropriate section of
-your paper or providing a brief inline description.  For example:
-\begin{itemize}
-  \item Did you include the license to the code and datasets? \answerYes{See Section~\ref{gen_inst}.}
-  \item Did you include the license to the code and datasets? \answerNo{The code and the data are proprietary.}
-  \item Did you include the license to the code and datasets? \answerNA{}
-\end{itemize}
-Please do not modify the questions and only use the provided macros for your
-answers.  Note that the Checklist section does not count towards the page
-limit.  In your paper, please delete this instructions block and only keep the
-Checklist section heading above along with the questions/answers below.
+% The checklist follows the references.  Please
+% read the checklist guidelines carefully for information on how to answer these
+% questions.  For each question, change the default \answerTODO{} to \answerYes{},
+% \answerNo{}, or \answerNA{}.  You are strongly encouraged to include a {\bf
+% justification to your answer}, either by referencing the appropriate section of
+% your paper or providing a brief inline description.  For example:
+% \begin{itemize}
+%   \item Did you include the license to the code and datasets? \answerYes{See Section~\ref{gen_inst}.}
+%   \item Did you include the license to the code and datasets? \answerNo{The code and the data are proprietary.}
+%   \item Did you include the license to the code and datasets? \answerNA{}
+% \end{itemize}
+% Please do not modify the questions and only use the provided macros for your
+% answers.  Note that the Checklist section does not count towards the page
+% limit.  In your paper, please delete this instructions block and only keep the
+% Checklist section heading above along with the questions/answers below.
 %%% END INSTRUCTIONS %%%
 
 \begin{enumerate}
