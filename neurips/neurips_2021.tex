@@ -573,7 +573,8 @@ We have used this library to measure the self-reflection of the following agents
   \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
 \end{itemize}
 We remark that because of our universalist approach to RL (with no notion of
-pre-training the agent), it was necessary to adapt the A2C, DQN, and PPO agents accordingly.
+pre-training the agent for ``a single function in isolation'' \cite{thrun1998lifelong}),
+it was necessary to adapt the A2C, DQN, and PPO implementations accordingly.
 To obtain an agent $\pi$ (as in Definition \ref{agentenvironmentdefn}) from,
 say, a PPO implementation (which assumes pre-training and an environment conforming to
 OpenAI Gym's environment interface),
