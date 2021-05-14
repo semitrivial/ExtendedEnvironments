@@ -14,7 +14,7 @@ from DeterminismInspector import PunishNondeterministicAgent
 from CryingBaby import CryingBaby
 from CryingBaby2 import CryingBaby2
 from GuardedTreasures import GuardedTreasures
-from GuardedTreasures_Eager import GuardedTreasures_Eager
+from TemptingButton import TemptingButton
 from ThirdActionForbidden import ThirdActionForbidden
 from DelayReactions import DelayReactions
 from DelayedRewards import DelayedRewards
@@ -43,7 +43,7 @@ environments = {
     'crying_baby': CryingBaby,
     'crying_baby_2': CryingBaby2,
     'guarded_treasures': GuardedTreasures,
-    'guarded_treasures_eager': GuardedTreasures_Eager,
+    'tempting_button': TemptingButton,
     'third_action_forbidden': ThirdActionForbidden,
     'delay_reactions': DelayReactions,
     'delayed_rewards': DelayedRewards,
