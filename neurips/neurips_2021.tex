@@ -121,7 +121,8 @@ source-code, one can simulate the agent in an extended environment in spite of t
 latter's non-standardness.
 
 Alongside this paper, we are publishing an open-source library of extended
-environments. This library is intended to serve as a standardized way of
+environments (released under MIT license).
+This library is intended to serve as a standardized way of
 benchmarking the self-reflectiveness of RL agents. This should not be confused
 with the harder problem of benchmarking how conscious an RL agent is. It is
 plausible that there may be a relationship between the self-reflectiveness and
@@ -495,7 +496,7 @@ We have used this library to measure the self-reflection of the following agents
   \item NaiveLearner: An agent who acts randomly 15\% of the time, and otherwise
     takes the action which yielded the highest average immediate reward in the past.
   \item A2C, DQN, and PPO agents from the Stable Baselines3 library
-    \cite{stable-baselines3}; see remark below.
+    \cite{stable-baselines3} (MIT-licensed); see remark below.
   \item RecurrentDQN: A custom implementation of a recurrent DQN agent; see remark below.
   \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
 \end{itemize}
@@ -644,25 +645,27 @@ Fill this in.
 \item If you are using existing assets (e.g., code, data, models) or curating/releasing new assets...
 \begin{enumerate}
   \item If your work uses existing assets, did you cite the creators?
-    \answerTODO{}
+    \answerYes{We use and we cite Stable Baselines3.}
   \item Did you mention the license of the assets?
-    \answerTODO{}
+    \answerYes{We mention that our open-source extended environment library
+    is MIT-licensed. We also mention that Stable Baselines3 is MIT-licensed.}
   \item Did you include any new assets either in the supplemental material or as a URL?
-    \answerTODO{}
+    \answerYes{Alongside the paper, we are publishing an open-source library of
+    extended environments. This will be included in the supplemental material.}
   \item Did you discuss whether and how consent was obtained from people whose data you're using/curating?
-    \answerTODO{}
+    \answerNA{}
   \item Did you discuss whether the data you are using/curating contains personally identifiable information or offensive content?
-    \answerTODO{}
+    \answerNA{}
 \end{enumerate}
 
 \item If you used crowdsourcing or conducted research with human subjects...
 \begin{enumerate}
   \item Did you include the full text of instructions given to participants and screenshots, if applicable?
-    \answerTODO{}
+    \answerNA{}
   \item Did you describe any potential participant risks, with links to Institutional Review Board (IRB) approvals, if applicable?
-    \answerTODO{}
+    \answerNA{}
   \item Did you include the estimated hourly wage paid to participants and the total amount spent on participant compensation?
-    \answerTODO{}
+    \answerNA{}
 \end{enumerate}
 
 \end{enumerate}
