@@ -400,6 +400,7 @@ We implement Example \ref{cryingbabyexample} as CryingBaby.py.
 
 
 \section{Making agents more self-reflective}
+\label{realitychecksection}
 
 One advantage of empirically measuring the self-reflection of RL agents is that it
 provides a way to experimentally test whether various transformations make various
@@ -462,6 +463,7 @@ about the transformation.
 For the proof of Proposition \ref{transformationproposition}, see appendix.
 
 \section{Example measurements}
+\label{measurementssection}
 
 Based on our conviction that self-reflection is necessary in order for an agent to
 achieve good average perform across many extended environments, self-reflection can
@@ -509,9 +511,16 @@ computationally infeasible). For the training phase, we monkeypatch the implemen
 so that whenever it would choose an action randomly or from its policy, it is instead
 forced to choose that action systematically from $y_1\ldots y_n$.
 
-The following table summarizes the results.
+Table \ref{measurementtable} summarizes how the agents performed. The table provides
+experimental evidence in support of our hypothesis that the reality check transformation
+(Section \ref{realitychecksection}) increases agent self-reflection, at least for
+non-recurrent agents. The fact that NaiveLearner performs so well is a reflection of the
+lack of sophistication of the environments in our library. This is not particularly
+surprising, since we have not attempted to exhaustively optimize the library, instead
+prefering to fill it with extended environments of theoretical interest.
 
 \begin{table}
+\label{measurementtable}
   \caption{Measuring self-reflection of some agents}
   \centering
   \begin{tabular}{lll}
@@ -537,7 +546,6 @@ The following table summarizes the results.
     \bottomrule
   \end{tabular}
 \end{table}
-
 
 
 \section{Submission of papers to NeurIPS 2021}
@@ -578,7 +586,12 @@ Fill this in.
 \item For all authors...
 \begin{enumerate}
   \item Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
-    \answerTODO{}
+    \answerYes{In order for this paper's measurement technique to realize its full potential,
+    it will be necessary for much more study to be put into the design of a sufficiently
+    representative library of benchmark extended environments. We make this clear in both
+    the abstract and the introduction, and we discuss the problem in Section
+    \ref{measurementssection} as well.
+    }
   \item Did you describe the limitations of your work?
     \answerTODO{}
   \item Did you discuss any potential negative societal impacts of your work?
