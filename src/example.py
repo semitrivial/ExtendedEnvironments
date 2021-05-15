@@ -2,6 +2,7 @@ import random
 from collections import OrderedDict
 
 import numpy as np
+import torch
 
 from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
 from agents.custom_DQN import custom_DQN_agent
@@ -9,8 +10,10 @@ from RealityCheck import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import cache
 
-np.random.seed(0)
-random.seed(0)
+seed = 0
+np.random.seed(seed)
+random.seed(seed)
+torch.manual_seed(seed)
 
 @cache
 def random_agent(prompt, num_legal_actions, num_possible_obs):
