@@ -12,6 +12,8 @@ import random
 
 from util import cache
 
+lookback = 3
+
 class DummyEnv:
     def set_meta(self, num_legal_actions, num_possible_obs):
         self.num_legal_actions = num_legal_actions
@@ -58,7 +60,7 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwar
         A = RecurrentAgent(
             network=TreasureGRUNet,
             game_env=dummy_env,
-            lookback=10,
+            lookback=lookback,
             **kwargs
         )
 
@@ -68,8 +70,8 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwar
         A = cache_custom_DQN[(train_on, meta)]
 
     state_obs = [prompt[-1]]
-    filled_prompt = [0]*30 + list(prompt[1:-1])
-    state = (filled_prompt + state_obs)[-31:]
+    filled_prompt = [0]*(3*lookback) + list(prompt[1:-1])
+    state = (filled_prompt + state_obs)[-(3*lookback+1):]
 
     state = torch.tensor(state, dtype=torch.float, device=device).reshape((1,-1,1))
 
