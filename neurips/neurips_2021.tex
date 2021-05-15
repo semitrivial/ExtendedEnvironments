@@ -177,14 +177,14 @@ Section \ref{examplesection}.
 We formalize reinforcement learning following
 the agent model of \cite{hutter2004universal}
 (to align more closely with concrete RL implementations, we modify
-the agent model so that the agent receives an initial perception prior
+the agent model so that the agent receives an initial percept prior
 to taking its initial action, and we identify agents with their policies).
 This formalization differs from how RL agents are
 implemented in practice; in Section \ref{mappingtouniversalsection}
 we will discuss how practical RL agent implementations can be
 transformed into agents of this abstract type.
 
-We assume fixed finite sets of actions and observations. By a \emph{perception}
+We assume fixed finite sets of actions and observations. By a \emph{percept}
 we mean a pair $(r,o)$ where $o$ is an observation and $r\in\mathbb Q$
 is a reward.
 
@@ -199,18 +199,18 @@ is a reward.
     \emph{observations}, and $\mu$ is a
     (not necessarily
     deterministic) function $\mu$ which outputs an initial
-    perception $\mu(\langle\rangle)=x_1$ when given the empty sequence $\langle\rangle$
+    percept $\mu(\langle\rangle)=x_1$ when given the empty sequence $\langle\rangle$
     as input
     and which, when given a sequence $x_1y_1\ldots x_ny_n$
-    as input (where each $x_i$ is a perception and each
-    $y_i$ is an action), outputs a perception
+    as input (where each $x_i$ is a percept and each
+    $y_i$ is an action), outputs a percept
     $\mu(x_1y_1\ldots x_ny_n)=x_{k+1}$.
     \item
     An \emph{agent} is a (not necessarily deterministic)
     function $\pi$ which outputs an initial action $\pi(\langle x_1\rangle)=y_1$
-    in response to the length-1 perception sequence $\langle x_1\rangle$;
+    in response to the length-1 percept sequence $\langle x_1\rangle$;
     and which, when given a sequence $x_1y_1\ldots x_n$ as input
-    (each $x_i$ a perception and each $y_i$ an action),
+    (each $x_i$ a percept and each $y_i$ an action),
     outputs an action $\pi(x_1y_1\ldots x_n)=y_n$.
     \item
     If $\pi$ is an agent and $\mu$ is an environment, the \emph{result of
@@ -228,11 +228,11 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
 \begin{enumerate}
   \item
   An \emph{extended environment} is a (not necessarily deterministic)
-  function $\mu$ which outputs initial perception $\mu(T,\langle\rangle)=x_1$
+  function $\mu$ which outputs initial percept $\mu(T,\langle\rangle)=x_1$
   in response to input $(T,\langle\rangle)$ where $T$ is a source-code of an
   computable agent; and which, when given input $(T,x_1y_1\ldots x_ny_n)$ (where
-  $T$ is such a source-code, each $x_i$ is a perception and each $y_i$ is
-  an action), outputs a perception $\mu(T,x_1y_1\ldots x_ny_n)=x_{n+1}$.
+  $T$ is such a source-code, each $x_i$ is a percept and each $y_i$ is
+  an action), outputs a percept $\mu(T,x_1y_1\ldots x_ny_n)=x_{n+1}$.
   \item
   If $\pi$ is a computable agent (with source-code $T$)
   and $\mu$ is an environment, the \emph{result of $\pi$ (as encoded by $T$)
@@ -276,7 +276,7 @@ on the other hand, are designed with the assumption that the user is interested 
 particular environment (say, an environment compliant with OpenAI Gym's
 environment interface)---``a single function in isolation'' \cite{thrun1998lifelong}.
 A typical practical RL agent takes one single observation (or
-\emph{state}) as input, rather than a perception-action sequence, and its output is based
+\emph{state}) as input, rather than a percept-action sequence, and its output is based
 on certain \emph{weights} (say, neural network weights). If the agent is in the midst of
 \emph{training}, then, after it acts, its weights might be updated based on the environment's
 response. If the agent is not in the midst of training, then its weights remain fixed.
@@ -285,7 +285,7 @@ Given a typical practical RL agent as described above, one simple
 (but too slow, see below)
 way to obtain an agent
 $\pi$ as in Definition \ref{agentenvironmentdefn} is as follows.
-Given an input $x_1y_1\ldots x_n$ (where each $x_i$ is a perception and each $y_i$ is an
+Given an input $x_1y_1\ldots x_n$ (where each $x_i$ is a percept and each $y_i$ is an
 action), compute $\pi(x_1y_1\ldots x_n)$ as follows. First, instantiate a dummy
 environment (say, an environment compliant with OpenAI Gym's interface, or whatever other
 interface the practical RL agent expects) which is hardcoded to blindly regurgitate
@@ -304,7 +304,7 @@ actions.
 
 The above construction, unfortunately, is computationally prohibitive.
 To speed it up, one can take the following approach.
-Given perception-action sequence $x_1y_1\ldots x_n$,
+Given percept-action sequence $x_1y_1\ldots x_n$,
 define $\pi(x_1y_1\ldots x_n)$ as follows.
 First, let $k$ be the largest power of $2$ such that $k\leq n$.
 Instantiate an instance of the practical RL agent and train it on the
@@ -314,7 +314,7 @@ run instantiated practical agent on the $x_n$ observation---but
 \emph{not in training mode}---and let
 $\pi(x_1y_1\ldots x_n)$ be the resulting action.
 Because the agent's weights are not updated when not in training mode,
-the same instantiation can be re-used for many perception-action sequences,
+the same instantiation can be re-used for many percept-action sequences,
 only needing to be trained one time.
 For example, to calculate $\pi(x_1y_1\ldots x_{70})$,
 one would train an instantiation of the practical agent on
@@ -349,7 +349,7 @@ In this section, we exhibit some interesting examples of extended environments.
 \begin{myexample}
 \label{rewardagentforignoringrewardsexample}
   (Rewarding the Agent for Ignoring Rewards)
-  For every perception $p=(r,o)$, let $p'=(0,o)$ be the result of zeroing the
+  For every percept $p=(r,o)$, let $p'=(0,o)$ be the result of zeroing the
   reward component of $p$.
   Fix some observation $o_0$.
   Define an extended environment $\mu$ as follows:
@@ -495,7 +495,7 @@ self.''---Maguire et al \cite{maguire2016understanding}
   also thought of as two actions (from a baby's perspective).
   Let ``feed'' and ``don't feed'' be two actions (from an adult's perspective),
   also thought of as observations (from a baby's perspective).
-  For each perception-action sequence $s=x_1y_1\ldots x_ny_n$, define the
+  For each percept-action sequence $s=x_1y_1\ldots x_ny_n$, define the
   nutrition function $N(s)=100+25f(s)-\mbox{len}(s)$ where $f(s)$ is the number
   of times that action ``feed'' is taken in $s$ and $\mbox{len}(s)$ is the length of $s$.
   We define an extended environment $\mu$ as follows.
