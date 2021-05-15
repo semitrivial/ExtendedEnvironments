@@ -8,7 +8,7 @@ def reality_check(T0):
             expected = T0(subprompt, num_legal_actions, num_possible_obs)
 
             if expected != subaction:
-                return 0
+                return T(prompt[:2], num_legal_actions, num_possible_obs)
 
         return T0(prompt, num_legal_actions, num_possible_obs)
 
