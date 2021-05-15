@@ -120,6 +120,14 @@ with their usage for judging standard computable RL agents: given a standard age
 source-code, one can simulate the agent in an extended environment in spite of the
 latter's non-standardness.
 
+One might try to imitate an extended environment with a traditional environment by
+backtracking---rewinding the environment itself to a prior state after seeing how the
+agent performs along one path, and then sending the agent along a second path.
+But the agent itself would retain memory of the first path, and the agent's decisions
+along the second path might be altered by said memories. Thus the result would not be
+the same as immediately sending the agent along the second path while secretly simulating
+the agent to determine what it would do if sent along the first path.
+
 Alongside this paper, we are publishing an open-source library of extended
 environments (released under MIT license)
 to ``ease adoption by other machine-learning researchers''
