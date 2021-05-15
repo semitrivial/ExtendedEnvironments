@@ -30,6 +30,7 @@
 \usepackage{amsmath}
 \newtheorem{mytheorem}{Theorem}
 \newtheorem{definition}[mytheorem]{Definition}
+\newtheorem{myremark}[mytheorem]{Remark}
 \newtheorem{mylemma}[mytheorem]{Lemma}
 \newtheorem{myquestion}[mytheorem]{Question}
 \newtheorem{myexample}[mytheorem]{Example}
@@ -253,6 +254,17 @@ RL intelligence measures
 have straightforward analogous measures which also take
 extended environments into account and which might therefore measure some combination
 of intelligence and self-reflection.
+
+\begin{myremark}
+  In the accompanying extended environment library \cite{library}, we formalize agents
+  and extended environments slightly differently. There, for better interoperability
+  with practical RL implementations, instead of fixing finite
+  sets of actions and observations globally, we require each extended environment
+  to specify how many actions and observations are legal in that environment.
+  These two numbers are passed to agents as two additional inputs.
+  We have simplified the formalization in the paper because it simplifies
+  the mathematical notation while, we believe, not hiding any fundamental insights.
+\end{myremark}
 
 \subsection{Converting practical RL agents to agents as in
 Definition \ref{agentenvironmentdefn}}
