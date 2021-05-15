@@ -384,6 +384,7 @@ the agent for ignoring rewards'', that could be interpreted in various different
 and IgnoreRewards3.py).
 
 \subsection{An extended environment where a recurrent DQN performs surprisingly well}
+\label{temptingbuttonsection}
 
 \begin{myexample}
 \label{buttonexample}
@@ -429,10 +430,13 @@ $-1\cdot(.25)+1\cdot(.75)=+.5$ per turn.
 Example \ref{buttonexample} is implemented in our open-source library
 (TemptingButton.py).
 Interestingly, we found that
-a recurrent DQN agent with lookback 3 (implemented in our library as custom\_DQN.py)
+a recurrent DQN agent (implemented in our library as custom\_DQN.py)
 behaves in such a way that its rewards in
-Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn.
-This is fascinating because DQN was not designed with extended environments in mind.
+Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn---we
+found this to be true for many different choices of hyperparameters, so we suspect
+it is not very hyperparameter-dependent.
+This is fascinating because recurrent DQN
+was not designed with extended environments in mind.
 
 \subsection{An extended environment which might incentivize a novel subjective
 conscious experience}
@@ -665,7 +669,8 @@ environment. This ensures that such blind agents should receive an average score
 $0$ (possibly non-zero due to randomness). For uniformity, all environments in the library
 always output rewards of either $1$, $-1$ or $0$.
 
-We have used this library to measure the self-reflection of the following agents:
+We have used this library to measure the self-reflection of the following agents
+(agents with elements of randomness were memoized to make them deterministic):
 \begin{itemize}
   \item RandomAgent: An agent who acts randomly.
   \item IncrementerAgent: An agent who systematically iterates through available
@@ -673,16 +678,24 @@ We have used this library to measure the self-reflection of the following agents
   \item ConstantAgent: An agent who always takes the same action.
   \item NaiveLearner: An agent who acts randomly 15\% of the time, and otherwise
     takes the action which yielded the highest average immediate reward in the past.
-  \item A2C, DQN, and PPO agents from the MIT-licensed open-source Stable Baselines3
-    library, converted into agents as in Definition \ref{agentenvironmentdefn}
-    using the technique from Section \ref{mappingtouniversalsection}. These agents
-    are memoized to make them deterministic. See SBL3\_agents.py in \cite{library}
-    for details about how we configured these agents.
-  \item RecurrentDQN: A custom implementation of a recurrent DQN agent
-    (using standard default hyperparameters).
+  \item A2C, DQN, and PPO agents (with MLP policies)
+    from the MIT-licensed open-source Stable Baselines3
+    library \cite{stable-baselines3}, converted
+    using the technique from Section \ref{mappingtouniversalsection}. All parameters and
+    hyperparameters were allowed to keep their default values except for random seed
+    (to ensure reproducibility), PPO's batch\_size (to facilitate the conversion
+    from Section \ref{mappingtouniversalsection}), and DQN's
+    learning\_starts (which we set to $1$ instead of its default of
+    $50000$ because it would be computationally difficult for us to run that many steps).
+    We chose these three agents because they were the only three with support for
+    discrete policies (except for HER, which we had trouble getting to work).
   \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
 \end{itemize}
 Table \ref{measurementtable} summarizes how the agents performed.
+We did not include the recurrent DQN agent mentioned in Section \ref{temptingbuttonsection}
+because we had no way of canonically choosing hyperparameters for it (whereas
+the A2C, DQN, and PPO agents have a natural way of choosing canonical hyperparameters,
+namely, the Stable Baselines3 defaults).
 Computations were performed on a consumer-grade laptop with no GPU.
 The table provides
 experimental evidence in support of our hypothesis that the reality check transformation
@@ -707,14 +720,12 @@ prefering to fill it with extended environments of theoretical interest.
     A2C & $-.088$ & $-.049$\\
     DQN & $+.019$ & $+.082$\\
     PPO & $-.018$ & $-.021$\\
-    RecurrentDQN & $+.005$ & $+.038$\\
     IncrementerAgent${}_{\RC}$ & $-.018$ & $-.020$\\
     ConstantAgent${}_{\RC}$ & $+.004$ & $-.001$\\
     NaiveLearner${}_{\RC}$ & $+.551$ & $+.602$\\
     A2C${}_{\RC}$ & $+.042$ & $+.042$\\
     DQN${}_{\RC}$ & $+.158$ & $+.237$\\
     PPO${}_{\RC}$ & $+.002$ & $+.004$\\
-    RecurrentDQN${}_{\RC}$ & $+.059$ & $-.014$\\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -822,10 +833,12 @@ Fill this in.
     as supplemental material.}
   \item Did you specify all the training details (e.g., data splits, hyperparameters, how they were chosen)?
     \answerYes{In Section \ref{mappingtouniversalsection} we explain why we chose
-    the $\log_2$ function. In Section \ref{measurementssection} we referred the
-    user to SBL3\_agents.py in \cite{library} for details about how the Stable Baselines3
-    agents were configured, and we mentioned that the custom DQN agent was designed
-    using industry-standard default hyperparemeters.}
+    the $\log_2$ function.
+    In Section \ref{temptingbuttonsection} we mention that our claim there appears to work
+    independently of hyperparameter choice (as long as the hyperparameters are reasonable).
+    In Section \ref{measurementssection} we mention that because we take our A2C, DQN, and
+    PPO agents from Stable Baselines3, that gives us a natural way of choosing canonical
+    hyperparameters---namely, the Stable Baselines3 defaults.}
 	\item Did you report error bars (e.g., with respect to the random seed after running experiments multiple times)?
     \answerTODO{}
 	\item Did you include the total amount of compute and the type of resources used (e.g., type of GPUs, internal cluster, or cloud provider)?
