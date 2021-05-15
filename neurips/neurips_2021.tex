@@ -641,30 +641,13 @@ We have used this library to measure the self-reflection of the following agents
   \item ConstantAgent: An agent who always takes the same action.
   \item NaiveLearner: An agent who acts randomly 15\% of the time, and otherwise
     takes the action which yielded the highest average immediate reward in the past.
-  \item A2C, DQN, and PPO agents from the Stable Baselines3 library
-    \cite{stable-baselines3} (MIT-licensed); see remark below.
-  \item RecurrentDQN: A custom implementation of a recurrent DQN agent; see remark below.
+  \item A2C, DQN, and PPO agents from the MIT-licensed open-source Stable Baselines3
+    library, converted into agents as in Definition \ref{agentenvironmentdefn}
+    using the technique from Section \ref{mappingtouniversalsection}. These agents
+    are memoized to make them deterministic.
+  \item RecurrentDQN: A custom implementation of a recurrent DQN agent.
   \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
 \end{itemize}
-We remark that because of our universalist approach to RL (with no notion of
-pre-training the agent for ``a single function in isolation'' \cite{thrun1998lifelong}),
-it was necessary to adapt the A2C, DQN, and PPO implementations accordingly.
-To obtain an agent $\pi$ (as in Definition \ref{agentenvironmentdefn}) from,
-say, a PPO implementation (which assumes pre-training and an environment conforming to
-OpenAI Gym's environment interface),
-we proceed as follows. To evaluate
-$\pi(x_1y_1\ldots x_n)$, we instantiate an OpenAI Gym-conformant dummy environment
-hardcoded to blindly regurgitate rewards and observations $x_1,\ldots,x_n$.
-We then run the PPO implementation on this environment for $n$ steps, of which the first
-$k$ steps are training steps and the remaining $n-k$ steps are post-training steps,
-where $k=\max\{2^\ell\,:\,2^\ell<n\}$
-(this allows the pre-training phase to be memoized, otherwise $\pi$ would be
-computationally infeasible). For the training phase, we monkeypatch the implementation
-so that whenever it would choose an action randomly or from its policy, it is instead
-forced to choose that action systematically from $y_1\ldots y_n$.
-This description is an oversimplification,
-for full details about these agents, see \cite{library}.
-
 Table \ref{measurementtable} summarizes how the agents performed.
 Computations were performed on a consumer-grade laptop with no GPU.
 The table provides
