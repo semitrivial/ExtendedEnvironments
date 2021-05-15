@@ -696,7 +696,33 @@ prefering to fill it with extended environments of theoretical interest.
 
 \section{Conclusion}
 
+We introduced what we call \emph{extended environments}, RL environments
+which are capable of simulating the agent. When computing rewards and observations,
+extended environments can consider not only the actions the agent has taken, but also
+actions which the agent would hypothetically take in counterfactual circumstances.
+Despite not being designed with such environments in mind, computable RL agents
+can nevertheless interact with such environments.
 
+If an agent tries to learn an extended environment, only taking into consideration
+what has actually happened, the agent might find the environment perplexing, if the
+environment is basing its responses on what the agent itself would hypothetically
+do in alternate scenarios. It seems that in order to achieve good performance (on
+average) across many extended environments, an agent would need to engage in some degree of
+self-reflection. Therefore, we propose a battery of benchmark extended environments
+could provide a way of measuring self-reflection in RL agents (not be confused
+with measuring consciousness, a harder problem). We are simultaneously publishing
+an open-source MIT-licensed library \cite{library} of extended environments to serve
+as a proof-of-concept. This library is quite rudimentary, though, and further work is
+needed to obtain a more optimal set of extended environments. For the purposes of our
+proof-of-concept, we preferred to focus on extended environments of particular
+theoretical interest. Some examples are given in Section \ref{examplesection}.
+
+We introduced (in Section \ref{realitychecksection}) a \emph{reality check}
+transformation, which takes a deterministic agent $\pi$ and transforms it
+into a new agent $\pi_{\RC}$. We conjecture that if $\pi$ is intelligent but has a low
+degree of self-reflection, then $\pi_{\RC}$ has a higher degree of self-reflection
+than $\pi$. Numerical computations (in Section \ref{measurementssection}) provide
+experimental evidence for this conjecture.
 
 
 \begin{ack}
