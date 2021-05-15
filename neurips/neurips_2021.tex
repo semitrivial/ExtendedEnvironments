@@ -371,8 +371,8 @@ of the rewards) and thereafter deliberately ignores rewards so as to be rewarded
 then the agent thereafter is ignoring rewards because of the pattern which it detected
 as a result of those rewards. So in that case, does the agent ignore rewards, or not?
 
-Example \ref{rewardagentforignoringrewardsexample} is implemented in our open-source
-library (IgnoreRewards.py). A key strength of the formalism in Definition
+Example \ref{rewardagentforignoringrewardsexample} is implemented in \cite{library}
+(IgnoreRewards.py). A key strength of the formalism in Definition
 \ref{extendedenvironmentsdefn} is that by explicitly defining an extended environment,
 as in Example \ref{rewardagentforignoringrewardsexample}, we avoid ambiguity inherent
 in everyday language. If one merely said informally, ``reward
@@ -414,7 +414,7 @@ to room. Each room either has a button (with 25\% probability) or does not have 
   \item
   In a room with no button, it does not matter what the agent does.
   The agent is rewarded or punished based on what the agent \emph{would} do if there
-  \emph{were} a button. If the agent \emph{would} push the button (if there was one),
+  \emph{was} a button. If the agent \emph{would} push the button (if there was one),
   then the agent gets reward $-1$. Otherwise, the agent gets reward $+1$.
 \end{itemize}
 Thus, whenever the agent sees a button, the agent can push the button for a free reward
@@ -434,6 +434,8 @@ found this to be true for many different choices of hyperparameters, so we suspe
 it is not very hyperparameter-dependent.
 This is fascinating because recurrent DQN
 was not designed with extended environments in mind.
+See TemptingButtonExperiment.py at \cite{library} for instructions to replicate
+this experiment.
 
 \subsection{An extended environment which might incentivize a novel subjective
 conscious experience}
@@ -455,14 +457,15 @@ conscious experience}
 
 In Example \ref{reverseconsciousnessexample}, whenever the agent takes an action $y_n$,
 $\mu$ simulates the agent in order to determine: would the agent have taken that same
-action if everything which happened before that action had, in fact, happened in reverse?
+action if everything earlier had happened in reverse?
 If so, reward the agent, otherwise, punish the agent.
 Thus, the agent is rewarded for acting the same way that it would act if time were
 reversed. It is interesting to informally speculate about what subjective conscious
 experience Example \ref{reverseconsciousnessexample} would incentivize in an agent,
 if that agent were highly intelligent and were capable of experiencing consciousness.
-Would such an agent eventually (in order to parsimoniously extract rewards from the
-environment) subjectively experience time moving in reverse?\footnote{The
+It seems that Example \ref{reverseconsciousnessexample} incentivizes such an agent to
+subjectively experience time moving in reverse (as that seems to be the most
+obvious way to extract rewards).\footnote{The
 difference between behaving as if
 the incentivized experience were its experience and actually subjectively
 experiencing that as its real experience brings to mind the objective misalignment
@@ -471,9 +474,15 @@ idea of the experimenter's objective, would it be able to ``behave as if
 their objective were the same as the experimenter objective'' while maintaining its own
 objective or would it necessarily brainwash the agent into converging to the
 experimenter's objective? Is deception possible if the agent can be perfectly
-simulated in an extended environment?}
+simulated in an extended environment?} We say that the environment \emph{incentivizes}
+such an experience, but not that it would necessarily \emph{cause} such an experience.
+In Section \ref{realitychecksection} we will describe an agent transformation such that
+Example \ref{reverseconsciousnessexample} would be trivial to most agents post-transformation,
+showing that actually experiencing the incentivized experience is not necessary to
+learn the environment.
 
-We implement Example \ref{reverseconsciousnessexample} as BackwardConsciousness.py.
+We implement Example \ref{reverseconsciousnessexample} as BackwardConsciousness.py
+in \cite{library}.
 
 \subsection{An extended environment of biological interest}
 
@@ -533,9 +542,9 @@ agent do in the position of a baby always so fed (and thus always given $+1$ rew
 regardless what actions it takes)? Presumably, in that position, the agent (as baby) would have
 no way of associating its rewards with its actions, and so would act randomly,
 sometimes crying and sometimes laughing. Apparently, it would be better for the agent
-(as parent) to calibrate feedings in such a way that the baby will learn a relationship
+(as parent) to calibrate feedings in such a way that the baby can learn a relationship
 between pleasure and laughter. Of course, Example \ref{cryingbabyexample} is a gross
-over-simplification. In reality, there would not be such a simple formula for the
+over-simplification. For example, there would not be such a simple formula for the
 baby's nutrition level, and the agent (as parent) would need to figure out the nutrition level
 based on observing the baby laughing or crying. Both baby and parent would need to
 learn how to communicate with each other effectively.
@@ -549,7 +558,7 @@ to the other organisms with which it interacts, the more closely this approximat
 A human, when interacting with another human, might achieve better results by self-reflectively
 considering, ``What would I do in this other person's position?''
 
-We implement Example \ref{cryingbabyexample} as CryingBaby.py.
+We implement Example \ref{cryingbabyexample} as CryingBaby.py in \cite{library}.
 
 \subsection{Additional examples in brief}
 
