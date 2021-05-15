@@ -39,7 +39,11 @@ dummy_env = DummyEnv()
 cache_custom_DQN = {}
 
 @cache
-def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
+def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)
+
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
     num_observs = (len(prompt)+1)/3
