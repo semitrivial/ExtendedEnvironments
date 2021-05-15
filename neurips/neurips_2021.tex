@@ -300,6 +300,13 @@ $\pi(x_1y_1\ldots x_{80})$, one could immediately plug the $x_{80}$ observation 
 the agent to get the answer, with no additional training. Indeed, no additional
 training would be needed until $\pi(x_1y_1\ldots x_{128})$.
 
+Above, we chose to let $k$ be the largest power of $2$ which is $\leq n$
+in order to strike a fine balance between efficiency and training.
+The slow growth of $\log_2$ limits how often the practical agent must be trained
+(training being the biggest bottleneck in the above process). Faster-growing functions
+would presumably make $\pi$ more performant, at the price of greater computational
+expense.
+
 In \cite{library}, in SB3\_agents.py, we use the above technique
 (including the monkeypatching) to obtain RL agents as in Definition \ref{agentenvironmentdefn}
 from the practical implementations of A2C, DQN, and PPO
@@ -644,8 +651,10 @@ We have used this library to measure the self-reflection of the following agents
   \item A2C, DQN, and PPO agents from the MIT-licensed open-source Stable Baselines3
     library, converted into agents as in Definition \ref{agentenvironmentdefn}
     using the technique from Section \ref{mappingtouniversalsection}. These agents
-    are memoized to make them deterministic.
-  \item RecurrentDQN: A custom implementation of a recurrent DQN agent.
+    are memoized to make them deterministic. See SBL3\_agents.py in \cite{library}
+    for details about how we configured these agents.
+  \item RecurrentDQN: A custom implementation of a recurrent DQN agent
+    (using standard default hyperparameters).
   \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
 \end{itemize}
 Table \ref{measurementtable} summarizes how the agents performed.
@@ -761,9 +770,11 @@ Fill this in.
     \answerYes{These are included in the open-source library, which we will include
     as supplemental material.}
   \item Did you specify all the training details (e.g., data splits, hyperparameters, how they were chosen)?
-    \answerNo{We determined that these details would distract from the paper, so we
-    instead refer the reader to the open-source library, where these decisions are
-    documented with comments.}
+    \answerYes{In Section \ref{mappingtouniversalsection} we explain why we chose
+    the $\log_2$ function. In Section \ref{measurementssection} we referred the
+    user to SBL3\_agents.py in \cite{library} for details about how the Stable Baselines3
+    agents were configured, and we mentioned that the custom DQN agent was designed
+    using industry-standard default hyperparemeters.}
 	\item Did you report error bars (e.g., with respect to the random seed after running experiments multiple times)?
     \answerTODO{}
 	\item Did you include the total amount of compute and the type of resources used (e.g., type of GPUs, internal cluster, or cloud provider)?
