@@ -131,7 +131,7 @@ along the second path might be altered by said memories. Thus the result would n
 the same as immediately sending the agent along the second path while secretly simulating
 the agent to determine what it would do if sent along the first path.
 
-Alongside this paper, we are publishing an open-source library of extended
+Alongside this paper, we are publishing an open-source library \cite{library} of extended
 environments (released under MIT license)
 to ``ease adoption by other machine-learning researchers''
 \cite{sonnenburg2007need}.
@@ -225,7 +225,7 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
   \item
   An \emph{extended environment} is a (not necessarily deterministic)
   function $\mu$ which outputs initial percept $\mu(T,\langle\rangle)=x_1$
-  in response to input $(T,\langle\rangle)$ where $T$ is a source-code of an
+  in response to input $(T,\langle\rangle)$ where $T$ is a source-code of a
   computable agent; and which, when given input $(T,x_1y_1\ldots x_ny_n)$ (where
   $T$ is such a source-code, each $x_i$ is a percept and each $y_i$ is
   an action), outputs a percept $\mu(T,x_1y_1\ldots x_ny_n)=x_{n+1}$.
@@ -243,8 +243,8 @@ $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\p
 \end{enumerate}
 \end{mydefinition}
 
-The fact that standard agents can interact normally with extended environments
-(Definition \ref{extendedenvironmentsdefn} part 3) implies that various universal
+The fact that agents can interact normally with extended environments
+(Definition \ref{extendedenvironmentsdefn} part 2) implies that various universal
 RL intelligence measures
 \cite{goertzel2006patterns} \cite{hernandez} \cite{gavane} \cite{legg2007universal}
 have straightforward analogous measures which also take
@@ -253,13 +253,14 @@ of intelligence and self-reflection.
 
 \begin{myremark}
   In the accompanying extended environment library \cite{library}, we formalize agents
-  and extended environments slightly differently. There, for better interoperability
+  and extended environments slightly differently than above.
+  For better interoperability
   with practical RL implementations, instead of fixing finite
-  sets of actions and observations globally, we require each extended environment
-  to specify how many actions and observations are legal in that environment.
-  These two numbers are passed to agents as two additional inputs.
+  sets of actions and observations globally, each of the library's extended environments
+  specifies how many actions and observations are legal in that environment.
+  These numbers are passed to agents as additional inputs.
   We have simplified the formalization in the paper because it simplifies
-  the mathematical notation while, we believe, not hiding any fundamental insights.
+  mathematical notation while, we believe, not hiding any insights.
 \end{myremark}
 
 \subsection{Converting practical RL agents to agents as in
@@ -298,7 +299,7 @@ be monkeypatched in order to override the randomness of the action choice and en
 that the random number generator chooses $y_1,\ldots,y_{n-1}$ as the first $n-1$
 actions.
 
-The above construction, unfortunately, is computationally prohibitive.
+The above construction is computationally prohibitive.
 To speed it up, one can take the following approach.
 Given percept-action sequence $x_1y_1\ldots x_n$,
 define $\pi(x_1y_1\ldots x_n)$ as follows.
@@ -306,7 +307,7 @@ First, let $k$ be the largest power of $2$ such that $k\leq n$.
 Instantiate an instance of the practical RL agent and train it on the
 above-described dummy environment for $k$ steps.
 Then, ignoring $x_{k+1},\ldots,x_{n-1}$ completely,
-run instantiated practical agent on the $x_n$ observation---but
+run the instantiated practical agent on the $x_n$ observation---but
 \emph{not in training mode}---and let
 $\pi(x_1y_1\ldots x_n)$ be the resulting action.
 Because the agent's weights are not updated when not in training mode,
