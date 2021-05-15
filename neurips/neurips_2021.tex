@@ -280,7 +280,7 @@ The above construction, unfortunately, is computationally prohibitive.
 To speed it up, one can take the following approach.
 Given perception-action sequence $x_1y_1\ldots x_n$,
 define $\pi(x_1y_1\ldots x_n)$ as follows.
-First, let $k$ be the largest power of $2$ such that $k<n$.
+First, let $k$ be the largest power of $2$ such that $k\leq n$.
 Instantiate an instance of the practical RL agent and train it on the
 above-described dummy environment for $k$ steps.
 Then, ignoring $x_{k+1},\ldots,x_{n-1}$ completely,
@@ -292,13 +292,13 @@ the same instantiation can be re-used for many perception-action sequences,
 only needing to be trained one time.
 For example, to calculate $\pi(x_1y_1\ldots x_{70})$,
 one would train an instantiation of the practical agent on
-$x_1y_1\ldots x_{64}$ ($64$ being the largest power of $2$ below $70$),
+$x_1y_1\ldots x_{64}$ ($64$ being the largest power of $2$ which is $\leq 70$),
 and plug the $x_{70}$ observation into the agent---not in training mode---to get
 $\pi(x_1y_1\ldots x_{70})$.
 Having done this, if one later needed to compute
 $\pi(x_1y_1\ldots x_{80})$, one could immediately plug the $x_{80}$ observation into
 the agent to get the answer, with no additional training. Indeed, no additional
-training would be needed until $\pi(x_1y_1\ldots x_{129})$.
+training would be needed until $\pi(x_1y_1\ldots x_{128})$.
 
 In \cite{library}, in SB3\_agents.py, we use the above technique
 (including the monkeypatching) to obtain RL agents as in Definition \ref{agentenvironmentdefn}
