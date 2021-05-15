@@ -38,6 +38,8 @@
 \newtheorem{mydefinition}[mytheorem]{Definition}
 \newtheorem{myprinciple}[mytheorem]{Principle}
 \def\RC{\textrm{RC}}
+\def\A{\mathcal{A}}
+\def\O{\mathcal{O}}
 
 \title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
 
@@ -120,7 +122,7 @@ with their usage for judging standard computable RL agents: given a standard age
 source-code, one can simulate the agent in an extended environment in spite of the
 latter's non-standardness.
 
-One might try to imitate an extended environment with a traditional environment by
+One might try to imitate an extended environment with a non-extended environment by
 backtracking---rewinding the environment itself to a prior state after seeing how the
 agent performs along one path, and then sending the agent along a second path.
 But the agent itself would retain memory of the first path, and the agent's decisions
@@ -181,19 +183,23 @@ implemented in practice; in Section \ref{mappingtouniversalsection}
 we will discuss how practical RL agent implementations can be
 transformed into agents of this abstract type.
 
-We assume fixed sets of actions and observations. By a \emph{perception}
-we mean a pair $(r,o)$ where $o$ is an observation and $r\in\mathbb Q$
-is a reward.
+Whenever a set $\O$ of available observations is clear from context,
+by a \emph{perception} we mean a pair $(r,o)$ where $o\in\O$ is an
+observation and $r\in\mathbb Q$ is a reward.
 
 \begin{mydefinition}
 \label{agentenvironmentdefn}
 (RL agents and environments)
   \begin{enumerate}
     \item
-    A (traditional) \emph{environment} is a (not necessarily
+    A (non-extended) \emph{environment} is a
+    pair $\langle \A,\O,\mu\rangle$ where $\A$ is a finite
+    set of available \emph{actions}, $\O$ is a finite set of available
+    \emph{observations}, and $\mu$ is a
+    (not necessarily
     deterministic) function $\mu$ which outputs an initial
     perception $\mu(\langle\rangle)=x_1$ when given the empty sequence $\langle\rangle$
-    as input;
+    as input
     and which, when given a sequence $x_1y_1\ldots x_ny_n$
     as input (where each $x_i$ is a perception and each
     $y_i$ is an action), outputs a perception
@@ -212,7 +218,7 @@ is a reward.
   \end{enumerate}
 \end{mydefinition}
 
-We extend traditional environments by allowing their outputs to depend not only on
+We extend environments by allowing their outputs to depend not only on
 $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\pi$.
 
 \begin{mydefinition}
@@ -414,8 +420,7 @@ Interestingly, we found that
 a recurrent DQN agent with lookback 3 (implemented in our library as custom\_DQN.py)
 behaves in such a way that its rewards in
 Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn.
-This is fascinating because DQN was designed for traditional RL environments,
-not for extended environments.
+This is fascinating because DQN was not designed with extended environments in mind.
 
 \subsection{An extended environment which might incentivize a novel subjective
 conscious experience}
@@ -616,8 +621,8 @@ about the transformation.
     \item
     (Idempotence) $\pi_{\RC}=(\pi_{\RC})_{\RC}$.
     \item
-    (Equivalence in traditional RL)
-    For every deterministic traditional environment $\mu$, the result of $\pi_{\RC}$
+    (Equivalence in non-extended RL)
+    For every deterministic non-extended environment $\mu$, the result of $\pi_{\RC}$
     interacting with $\mu$ equals the result of $\pi$ interacting with $\mu$.
   \end{enumerate}
 \end{myproposition}
