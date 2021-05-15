@@ -168,7 +168,12 @@ the agent model of \cite{hutter2004universal}
 (to align more closely with concrete RL implementations, we modify
 the agent model so that the agent receives an initial perception prior
 to taking its initial action, and we identify agents with their policies).
-We assume a fixed set of actions and observations. By a \emph{perception}
+This formalization differs from how RL agents are
+implemented in practice; in Section \ref{mappingtouniversalsection}
+we will discuss how practical RL agent implementations can be
+transformed into agents of this abstract type.
+
+We assume fixed sets of actions and observations. By a \emph{perception}
 we mean a pair $(r,o)$ where $o$ is an observation and $r\in\mathbb Q$
 is a reward.
 
@@ -234,6 +239,72 @@ RL intelligence measures
 have straightforward analogous measures which also take
 extended environments into account and which might therefore measure some combination
 of intelligence and self-reflection.
+
+\subsection{Converting practical RL agents to agents as in
+Definition \ref{agentenvironmentdefn}}
+\label{mappingtouniversalsection}
+
+The agents in Definition \ref{agentenvironmentdefn} have no training phase. They must be
+ready to perform in any environment, out-of-the-box. Practical RL agent implementations,
+on the other hand, are designed with the assumption that the user is interested in one
+particular environment (say, an environment compliant with OpenAI Gym's
+environment interface)---``a single function in isolation'' \cite{thrun1998lifelong}.
+A typical practical RL agent takes one single observation (or
+\emph{state}) as input, rather than a perception-action sequence, and its output is based
+on certain \emph{weights} (say, neural network weights). If the agent is in the midst of
+\emph{training}, then, after it acts, its weights might be updated based on the environment's
+response. If the agent is not in the midst of training, then its weights remain fixed.
+
+Given a typical practical RL agent as described above, one simple
+(but too slow, see below)
+way to obtain an agent
+$\pi$ as in Definition \ref{agentenvironmentdefn} is as follows.
+Given an input $x_1y_1\ldots x_n$ (where each $x_i$ is a perception and each $y_i$ is an
+action), compute $\pi(x_1y_1\ldots x_n)$ as follows. First, instantiate a dummy
+environment (say, an environment compliant with OpenAI Gym's interface, or whatever other
+interface the practical RL agent expects) which is hardcoded to blindly regurgitate
+$x_1,\ldots,x_n$ as its first $n$ responses, regardless of what the agent does.
+Then train the agent on this environment for $n$ steps, with instructions to
+take $y_1,\ldots,y_{n-1}$ as its first $n-1$ actions, and finally, let
+$\pi(x_1y_1\ldots x_n)$ be whatever $n$th action the agent chooses as a result.
+Unfortunately, in our experience, the typical practical RL agent probably does not have
+any way for the user to tell it to take $y_1,\ldots,y_{n-1}$ as its first $n-1$
+actions. Instead, if left to itself, the agent would choose its first $n-1$ actions
+randomly, or based on an underlying policy (usually still with an element of randomness).
+Fortunately, most practical RL agents are implemented in Python, and can therefore
+be monkeypatched in order to override the randomness of the action choice and ensure
+that the random number generator chooses $y_1,\ldots,y_{n-1}$ as the first $n-1$
+actions.
+
+The above construction, unfortunately, is computationally prohibitive.
+To speed it up, one can take the following approach.
+Given perception-action sequence $x_1y_1\ldots x_n$,
+define $\pi(x_1y_1\ldots x_n)$ as follows.
+First, let $k$ be the largest power of $2$ such that $k<n$.
+Instantiate an instance of the practical RL agent and train it on the
+above-described dummy environment for $k$ steps.
+Then, ignoring $x_{k+1},\ldots,x_{n-1}$ completely,
+run instantiated practical agent on the $x_n$ observation---but
+\emph{not in training mode}---and let
+$\pi(x_1y_1\ldots x_n)$ be the resulting action.
+Because the agent's weights are not updated when not in training mode,
+the same instantiation can be re-used for many perception-action sequences,
+only needing to be trained one time.
+For example, to calculate $\pi(x_1y_1\ldots x_{70})$,
+one would train an instantiation of the practical agent on
+$x_1y_1\ldots x_{64}$ ($64$ being the largest power of $2$ below $70$),
+and plug the $x_{70}$ observation into the agent---not in training mode---to get
+$\pi(x_1y_1\ldots x_{70})$.
+Having done this, if one later needed to compute
+$\pi(x_1y_1\ldots x_{80})$, one could immediately plug the $x_{80}$ observation into
+the agent to get the answer, with no additional training. Indeed, no additional
+training would be needed until $\pi(x_1y_1\ldots x_{129})$.
+
+In \cite{library}, in SB3\_agents.py, we use the above technique
+(including the monkeypatching) to obtain RL agents as in Definition \ref{agentenvironmentdefn}
+from the practical implementations of A2C, DQN, and PPO
+agents in the MIT-licensed open-source
+Stable Baselines3 library \cite{stable-baselines3}.
 
 \section{Some interesting extended environments}
 \label{examplesection}
@@ -540,6 +611,7 @@ For the proof of Proposition \ref{transformationproposition}, see appendix.
 Unfortunately, even the more efficient definition of $\pi_{\RC}$ still involves
 potentially $O(n^2)$ many calls to $\pi$, making $\pi_{\RC}$ computationally
 expensive.
+
 
 \section{Example measurements}
 \label{measurementssection}
