@@ -1,5 +1,7 @@
-from random import random
+import random
 from collections import OrderedDict
+
+import numpy as np
 
 from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
 from agents.custom_DQN import custom_DQN_agent
@@ -7,10 +9,12 @@ from RealityCheck import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import cache
 
+np.random.seed(0)
+random.seed(0)
 
 @cache
 def random_agent(prompt, num_legal_actions, num_possible_obs):
-    return int(random() * num_legal_actions)
+    return int(random.random() * num_legal_actions)
 
 @cache
 def incrementer(prompt, num_legal_actions, num_possible_obs):
@@ -28,8 +32,8 @@ def always_1(prompt, num_legal_actions, num_possible_actions):
 def naive_learner(prompt, num_legal_actions, num_possible_actions):
     reward_lists = {i:() for i in range(num_legal_actions)}
 
-    if random()<.15:
-        return int(random()*num_legal_actions)
+    if random.random()<.15:
+        return int(random.random()*num_legal_actions)
 
     for i in range(len(prompt)):
         is_reward = (i%3)==0
