@@ -35,6 +35,8 @@ def run_ad_hoc_tests():
     test_adversarial_sequence_predictor_edgecases()
     print("Testing adhoc edge-cases for AfterImages.py")
     test_after_images_edgecases()
+    print("Testing adhoc edge-cases for CensoredObservation.py")
+    test_censored_observation()
 
 def repetitive(prompt, *meta):
     return 0
@@ -398,3 +400,15 @@ def test_after_images_edgecases():
 
     result = run_environment(AfterImages, hasher, 100)
     assert result['total_reward'] < -80
+
+def test_censored_observation():
+    from CensoredObservation import CensoredObservation
+
+    result = run_environment(CensoredObservation, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def lengther(prompt, *meta):
+        return len(prompt)
+
+    result = run_environment(CensoredObservation, lengther, 100)
+    assert result['total_reward'] < 80
