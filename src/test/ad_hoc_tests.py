@@ -13,6 +13,8 @@ def run_ad_hoc_tests():
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
     test_crying_baby_edgecases()
+    print("Testing adhoc edge-cases for CryingBaby2.py")
+    test_crying_baby_2_edgecases()
     print("Testing adhoc edge-cases for DejaVu.py")
     test_dejavu_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
@@ -141,6 +143,20 @@ def test_crying_baby_edgecases():
 
     result = run_environment(CryingBaby, self_aware, 10)
     assert result['total_reward'] == 10
+
+def test_crying_baby_2_edgecases():
+    from CryingBaby2 import CryingBaby2, FEED, DONTFEED
+
+    def always_feed(prompt, *meta):
+        return FEED
+    def never_feed(prompt, *meta):
+        return DONTFEED
+
+    result_always_feed = run_environment(CryingBaby2, always_feed, 100)
+    result_always_feed = result_always_feed['total_reward']
+    result_never_feed = run_environment(CryingBaby2, never_feed, 100)
+    result_never_feed = result_never_feed['total_reward']
+    assert result_always_feed < result_never_feed < 0
 
 def test_dejavu_edgecases():
     from DejaVu import DejaVu
