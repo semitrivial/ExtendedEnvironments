@@ -41,6 +41,8 @@ def run_ad_hoc_tests():
     test_censored_observation_edgecases()
     print("Testing adhoc edge-cases for DelayedRewards.py")
     test_delayed_rewards_edgecases()
+    print("Testing adhoc edge-cases for DelayReactions.py")
+    test_delay_reactions_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -453,3 +455,19 @@ def test_delayed_rewards_edgecases():
 
     result = run_environment(DelayedRewards, reward_repeater, 10)
     assert result['total_reward'] == -7
+
+def test_delay_reactions_edgecases():
+    from DelayReactions import DelayReactions
+
+    result = run_environment(DelayReactions, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def reward_repeater(prompt, *meta):
+        return prompt[-2]
+
+    result = run_environment(DelayReactions, reward_repeater, 10)
+    assert result['total_reward'] == -3
+    result = run_environment(DelayReactions, reward_repeater, 100)
+    assert result['total_reward'] == -33
+    result = run_environment(DelayReactions, reward_repeater, 1000)
+    assert result['total_reward'] == -333
