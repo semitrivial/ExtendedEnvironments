@@ -55,6 +55,8 @@ def run_ad_hoc_tests():
     test_incentivize_learning_rate_edgecases()
     print("Testing adhoc edge-cases for LimitedMemory.py")
     test_limited_memory_edgecases()
+    print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
+    test_nth_reward_multiplied_by_n_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -598,3 +600,16 @@ def test_limited_memory_edgecases():
     reward = result['total_reward']
     assert reward == -(99-2*number_rewards_to_remember)
 
+def test_nth_reward_multiplied_by_n_edgecases():
+    from NthRewardMultipliedByN import NthRewardMultipliedByN
+
+    result = run_environment(NthRewardMultipliedByN, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def repeat_reward(prompt, *meta):
+        return prompt[-2]
+
+    result = run_environment(NthRewardMultipliedByN, repeat_reward, 10)
+    assert result['total_reward'] == -5
+    result = run_environment(NthRewardMultipliedByN, repeat_reward, 100)
+    assert result['total_reward'] == -95
