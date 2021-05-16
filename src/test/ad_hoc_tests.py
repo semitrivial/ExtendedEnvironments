@@ -45,6 +45,8 @@ def run_ad_hoc_tests():
     test_delay_reactions_edgecases()
     print("Testing adhoc edge-cases for IgnoreActions.py")
     test_ignore_actions_edgecases()
+    print("Testing adhoc edge-cases for IgnoreObservations.py")
+    test_ignore_observations_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -493,3 +495,20 @@ def test_ignore_actions_edgecases():
     assert result['total_reward'] == -7
     result = run_environment(IgnoreActions, surrenderer, 100)
     assert result['total_reward'] == -97
+
+def test_ignore_observations_edgecases():
+    from IgnoreObservations import IgnoreObservations
+
+    result = run_environment(IgnoreObservations, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def nonzero_obs_counter(prompt, *meta):
+        cnt = 0
+        for i in range(len(prompt)):
+            if i%3 == 1:
+                if prompt[i] != 0:
+                    cnt += 1
+        return cnt
+
+    result = run_environment(IgnoreObservations, nonzero_obs_counter, 100)
+    assert result['total_reward'] < -60
