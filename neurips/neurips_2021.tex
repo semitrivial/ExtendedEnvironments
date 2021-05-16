@@ -617,12 +617,19 @@ have taken. If so, then $\pi_{\RC}$ acts as $\pi$ would act. But if any action w
 the agent has taken in the past was not the action $\pi_{\RC}$ would have taken, then
 $\pi_{\RC}$ freezes up and forever thereafter takes the same fixed action, as if catatonic.
 Loosely speaking, $\pi_{\RC}$ is like an agent who considers the possibility that it might
-be in a dream, and so asks: ``How did I get here?''
+be dreaming, and so asks: ``How did I get here?''
 Since the act of reviewing one's past actions and verifying that they are indeed the actions
 one would take, is an act of self-reflection, it seems plausible that if $\pi$
 is intelligent and deterministic but lacks self-reflection, then $\pi_{\RC}$ is
 more self-reflective than $\pi$. In the next section, we will see that experimental
-evidence supports this hypothesis. We close this section by stating some simple results
+evidence supports this hypothesis.
+For most intelligent deterministic agents $\pi$, $\pi_{\RC}$ would certainly perform well in
+Examples \ref{rewardagentforignoringrewardsexample} and
+\ref{reverseconsciousnessexample} because those environments would
+run simulations in which the agent's catatonic branch would be triggered,
+making such simulations trivial and therefore predictable.
+
+We close this section by stating some simple results
 about the transformation.
 
 \begin{myproposition}
@@ -630,7 +637,7 @@ about the transformation.
   Let $\pi$ be any deterministic agent.
   \begin{enumerate}
     \item
-    (A more efficient way to compute $\pi_{\RC}$)
+    (Alternate definition)
     An equivalent alternate definition of $\pi_{\RC}$ is:
     \begin{align*}
       \pi_{\RC}(\langle x_1\rangle) &= \pi(\langle x_1\rangle)\\
@@ -641,6 +648,9 @@ about the transformation.
       \end{cases}
     \end{align*}
     \item
+    (Determinacy)
+    $\pi_{\RC}$ is deterministic.
+    \item
     (Idempotence) $\pi_{\RC}=(\pi_{\RC})_{\RC}$.
     \item
     (Equivalence in non-extended RL)
@@ -650,9 +660,6 @@ about the transformation.
 \end{myproposition}
 
 For the proof of Proposition \ref{transformationproposition}, see appendix.
-Unfortunately, even the more efficient definition of $\pi_{\RC}$ still involves
-potentially $O(n^2)$ many calls to $\pi$, making $\pi_{\RC}$ computationally
-expensive.
 
 
 \section{Example measurements}
