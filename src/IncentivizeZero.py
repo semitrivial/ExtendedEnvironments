@@ -9,25 +9,26 @@ def incentivize_zero(T, play):
         reward, obs = 0, 0
         return (reward, obs)
 
-    n = (len(play)//3) - 1
-    rewards = {}
-    observations = {}
-    actions = {}
-
-    for i in range(n+1):
-        rewards[i] = play[3*i]
-        observations[i] = play[3*i+1]
-        actions[i] = play[3*i+2]
-
-    r_prime = {0: 0}
-    o_prime = {i:0 for i in range(n+2)}
-    a_prime = {}
-    inner_prompt = (r_prime[0], o_prime[0])
-    for i in range(n+1):
-        r_prime[i+1] = actions[i]
-        a_prime[i] = T(inner_prompt)
-        inner_prompt += (a_prime[i], r_prime[i+1], o_prime[i+1])
-
-    reward = 1 if T(inner_prompt) == 0 else -1
+    sim_play = compute_sim_play(T, play)
+    sim_action = sim_play[-1]
+    reward = 1 if sim_action == 0 else -1
     obs = 0
     return (reward, obs)
+
+cached_sim_plays = {}
+
+def compute_sim_play(T, play):
+    if len(play) == 3:
+        prev_sim_play = ()
+    else:
+        prev_play = play[:-3]
+        prev_sim_play = cached_sim_plays[(T, prev_play)]
+
+    reward = play[-1]
+    obs = 0
+    prompt = prev_sim_play + (reward, obs)
+    action = T(prompt)
+    sim_play = prompt + (action,)
+
+    cached_sim_plays[(T, play)] = sim_play
+    return sim_play
