@@ -41,8 +41,8 @@ def clear_cache_PPO():
 
 @memoize
 def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
+    dummy_env.set_meta(*meta)
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
@@ -84,8 +84,8 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
 
 @memoize
 def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
+    dummy_env.set_meta(*meta)
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
@@ -133,8 +133,8 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
 @numpy_translator
 @memoize
 def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
+    dummy_env.set_meta(*meta)
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
