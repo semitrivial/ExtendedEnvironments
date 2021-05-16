@@ -1,5 +1,5 @@
+import sys
 import random
-from collections import OrderedDict
 
 import numpy as np
 import torch
@@ -12,7 +12,20 @@ from RealityCheck import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import memoize
 
-seed = 0
+seed, n_steps = 0, 100
+
+args = sys.argv[::-1][:-1]
+while args:
+    arg = args.pop()
+    if arg == 'seed':
+        seed = int(args.pop())
+    elif arg == 'steps':
+        n_steps = int(args.pop())
+    else:
+        raise ValueError("Unrecognized commandline argument")
+
+print("Testing agents with seed="+str(seed)+", n_steps="+str(n_steps))
+
 np.random.seed(seed)
 random.seed(seed)
 torch.manual_seed(seed)
