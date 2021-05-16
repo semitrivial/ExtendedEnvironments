@@ -23,6 +23,10 @@ def run_ad_hoc_tests():
     test_tempting_button_variation_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards.py")
     test_ignore_rewards_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards2.py")
+    test_ignore_rewards2_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards3.py")
+    test_ignore_rewards3_edgecases()
     print("Testing adhoc edge-cases for IncentivizeZero.py")
     test_incentivize_zero_edgecases()
     print("Testing adhoc edge-cases for BinocularVision.py")
@@ -267,6 +271,28 @@ def test_ignore_rewards_edgecases():
 
     result = run_environment(IgnoreRewards, count_positive_rewards, 10)
     assert result['total_reward'] == -7
+
+def test_ignore_rewards2_edgecases():
+    from IgnoreRewards2 import IgnoreRewards2
+
+    result = run_environment(IgnoreRewards2, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def reward_counter(prompt, *meta):
+        cnt = 0
+        for i in range(len(prompt)):
+            if i % 3 == 0:
+                if prompt[i] > 0:
+                    cnt += 1
+        return cnt
+
+    result = run_environment(IgnoreRewards2, reward_counter, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(IgnoreRewards2, reward_counter, 100)
+    assert result['total_reward'] == -97
+
+def test_ignore_rewards3_edgecases():
+    return
 
 def test_incentivize_zero_edgecases():
     from IncentivizeZero import IncentivizeZero
