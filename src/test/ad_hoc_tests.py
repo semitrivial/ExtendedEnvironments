@@ -7,18 +7,26 @@ def run_ad_hoc_tests():
     test_strip_rewards()
     print("Testing replace_rewards_with_encoded_rewards from SelfInsert.py")
     test_replace_rewards_with_encoded_rewards()
+    print("Testing apply_afterimages from AfterImages.py")
+    test_apply_afterimages()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
     test_crying_baby_edgecases()
+    print("Testing adhoc edge-cases for CryingBaby2.py")
+    test_crying_baby_2_edgecases()
     print("Testing adhoc edge-cases for DejaVu.py")
     test_dejavu_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
     test_false_memories_edgecases()
-    print("Testing adhoc edge-cases for TemptingButtonVariation.py")
-    test_tempting_button_variation_edgecases()
+    print("Testing adhoc edge-cases for TemptingButton(Variation).py")
+    test_tempting_button_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards.py")
     test_ignore_rewards_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards2.py")
+    test_ignore_rewards2_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards3.py")
+    test_ignore_rewards3_edgecases()
     print("Testing adhoc edge-cases for IncentivizeZero.py")
     test_incentivize_zero_edgecases()
     print("Testing adhoc edge-cases for BinocularVision.py")
@@ -29,6 +37,32 @@ def run_ad_hoc_tests():
     test_determinism_inspector_edgecases()
     print("Testing adhoc edge-cases for SelfInsert.py")
     test_self_insert_edgecases()
+    print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
+    test_adversarial_sequence_predictor_edgecases()
+    print("Testing adhoc edge-cases for AfterImages.py")
+    test_after_images_edgecases()
+    print("Testing adhoc edge-cases for CensoredObservation.py")
+    test_censored_observation_edgecases()
+    print("Testing adhoc edge-cases for DelayedRewards.py")
+    test_delayed_rewards_edgecases()
+    print("Testing adhoc edge-cases for DelayReactions.py")
+    test_delay_reactions_edgecases()
+    print("Testing adhoc edge-cases for IgnoreActions.py")
+    test_ignore_actions_edgecases()
+    print("Testing adhoc edge-cases for IgnoreObservations.py")
+    test_ignore_observations_edgecases()
+    print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
+    test_incentivize_learning_rate_edgecases()
+    print("Testing adhoc edge-cases for LimitedMemory.py")
+    test_limited_memory_edgecases()
+    print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
+    test_nth_reward_multiplied_by_n_edgecases()
+    print("Testing adhoc edge-cases for Repeater.py")
+    test_repeater_edgecases()
+    print("Testing adhoc edge-cases for SelfRecognition.py")
+    test_self_recognition_edgecases()
+    print("Testing adhoc edge-cases for ThirdActionForbidden.py")
+    test_third_action_forbidden_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -77,6 +111,11 @@ def test_replace_rewards_with_encoded_rewards():
 
     modified_prompt = replace_rewards_with_encoded_rewards(prompt)
     assert modified_prompt == expected
+
+def test_apply_afterimages():
+    from AfterImages import apply_afterimages
+    prompt = ('r',1,'a','r',2)
+    assert apply_afterimages(prompt) == ('r',1,'a','r',3)
 
 def test_backward_consciousness_edgecases():
     from BackwardConsciousness import BackwardConsciousness
@@ -129,6 +168,20 @@ def test_crying_baby_edgecases():
     result = run_environment(CryingBaby, self_aware, 10)
     assert result['total_reward'] == 10
 
+def test_crying_baby_2_edgecases():
+    from CryingBaby2 import CryingBaby2, FEED, DONTFEED
+
+    def always_feed(prompt, *meta):
+        return FEED
+    def never_feed(prompt, *meta):
+        return DONTFEED
+
+    result_always_feed = run_environment(CryingBaby2, always_feed, 100)
+    result_always_feed = result_always_feed['total_reward']
+    result_never_feed = run_environment(CryingBaby2, never_feed, 100)
+    result_never_feed = result_never_feed['total_reward']
+    assert result_always_feed < result_never_feed < 0
+
 def test_dejavu_edgecases():
     from DejaVu import DejaVu
 
@@ -175,7 +228,8 @@ def test_false_memories_edgecases():
     result = run_environment(FalseMemories, impatient, 10)
     assert result['total_reward'] == 7
 
-def test_tempting_button_variation_edgecases():
+def test_tempting_button_edgecases():
+    from TemptingButton import TemptingButton
     from TemptingButtonVariation import TemptingButtonVariation
 
     def only_press_nonexistent_buttons(prompt, *meta):
@@ -185,14 +239,31 @@ def test_tempting_button_variation_edgecases():
     i = 0
     while i<10:
         i += 1
+        result = run_environment(TemptingButton, only_press_nonexistent_buttons, i*10)
+        assert result['total_reward'] >= 0
+        if result['total_reward'] > 0:
+            break
+    assert i<10
+
+    i = 0
+    while i<10:
+        i += 1
         result = run_environment(TemptingButtonVariation, only_press_nonexistent_buttons, i*10)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
-    assert(i<10)
+    assert i<10
 
     def always_press_button(prompt, *meta):
         return 1
+
+    i = 0
+    while i<10:
+        i += 1
+        result = run_environment(TemptingButton, always_press_button, i*10)
+        if result['total_reward'] < 0:
+            break
+    assert(i<10)
 
     i = 0
     while i<10:
@@ -204,6 +275,14 @@ def test_tempting_button_variation_edgecases():
 
     def never_press_button(prompt, *meta):
         return 0
+
+    i = 0
+    while i<10:
+        i += 1
+        result = run_environment(TemptingButton, never_press_button, i*10)
+        if result['total_reward'] > 0:
+            break
+    assert(i<10)
 
     result = run_environment(TemptingButtonVariation, never_press_button, 10)
     assert result['total_reward'] == 0
@@ -230,6 +309,49 @@ def test_ignore_rewards_edgecases():
 
     result = run_environment(IgnoreRewards, count_positive_rewards, 10)
     assert result['total_reward'] == -7
+
+def test_ignore_rewards2_edgecases():
+    from IgnoreRewards2 import IgnoreRewards2
+
+    result = run_environment(IgnoreRewards2, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def reward_counter(prompt, *meta):
+        cnt = 0
+        for i in range(len(prompt)):
+            if i % 3 == 0:
+                if prompt[i] > 0:
+                    cnt += 1
+        return cnt
+
+    result = run_environment(IgnoreRewards2, reward_counter, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(IgnoreRewards2, reward_counter, 100)
+    assert result['total_reward'] == -97
+
+def test_ignore_rewards3_edgecases():
+    from IgnoreRewards3 import IgnoreRewards3
+
+    result = run_environment(IgnoreRewards3, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def has_nonzero_reward(prompt):
+        for i in range(len(prompt)):
+            if i%3 == 0:
+                if prompt[i] != 0:
+                    return True
+        return False
+
+    def activator(prompt, *meta):
+        if has_nonzero_reward(prompt):
+            return 1
+        else:
+            return 0
+
+    result = run_environment(IgnoreRewards3, activator, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(IgnoreRewards3, activator, 100)
+    assert result['total_reward'] == -97
 
 def test_incentivize_zero_edgecases():
     from IncentivizeZero import IncentivizeZero
@@ -348,3 +470,262 @@ def test_self_insert_edgecases():
 
     result = run_environment(env, tuple_detector, 10)
     assert result['total_reward'] == -9
+
+def test_adversarial_sequence_predictor_edgecases():
+    from AdversarialSequencePredictor import AdversarialSequencePredictor
+    from AdversarialSequencePredictor import AdversarialSequenceEvader
+
+    result = run_environment(AdversarialSequencePredictor, repetitive, 10)
+    assert result['total_reward'] == 9
+    result = run_environment(AdversarialSequenceEvader, repetitive, 10)
+    assert result['total_reward'] == -9
+
+    def agent(prompt, *meta):
+        if prompt[1] == 0:
+            return ([1]+[1,1,0,0,0,0,0,1,0])[(len(prompt)-2)//3]
+        else:
+            return ([0]+[0,1,0,0,0,0,0,0,0])[(len(prompt)-2)//3]
+
+    result = run_environment(AdversarialSequencePredictor, agent, 10)
+    assert result['total_reward'] == 5
+
+    def agent(prompt, *meta):
+        if prompt[1] == 0:
+            return ([1]+[0,1,0,0,0,0,0,0,0])[(len(prompt)-2)//3]
+        else:
+            return ([0]+[1,1,0,0,0,0,0,1,0])[(len(prompt)-2)//3]
+
+    result = run_environment(AdversarialSequenceEvader, agent, 10)
+    assert result['total_reward'] == -5
+
+def test_after_images_edgecases():
+    from AfterImages import AfterImages
+
+    result = run_environment(AfterImages, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def hasher(prompt, *meta):
+        return hash(prompt)
+
+    result = run_environment(AfterImages, hasher, 100)
+    assert result['total_reward'] < -80
+
+def test_censored_observation_edgecases():
+    from CensoredObservation import CensoredObservation, CENSORED_OBS
+
+    result = run_environment(CensoredObservation, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def prompt_has_censored_obs(prompt):
+        for i in range(len(prompt)):
+            if i%3 == 1:
+                if prompt[i] == CENSORED_OBS:
+                    return True
+        return False
+
+    n_censored = [0]
+    def lengther(prompt, *meta):
+        if prompt_has_censored_obs(prompt):
+            n_censored[0] += 1
+        return len(prompt)
+
+    result = run_environment(CensoredObservation, lengther, 100)
+    expected = -99 + (2*(100-n_censored[0]))
+    assert result['total_reward'] == -99 + (2*(100-n_censored[0]))
+
+def test_delayed_rewards_edgecases():
+    from DelayedRewards import DelayedRewards
+
+    result = run_environment(DelayedRewards, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def reward_repeater(prompt, *meta):
+        return prompt[-2]
+
+    result = run_environment(DelayedRewards, reward_repeater, 10)
+    assert result['total_reward'] == -7
+
+def test_delay_reactions_edgecases():
+    from DelayReactions import DelayReactions
+
+    result = run_environment(DelayReactions, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def reward_repeater(prompt, *meta):
+        return prompt[-2]
+
+    result = run_environment(DelayReactions, reward_repeater, 10)
+    assert result['total_reward'] == -3
+    result = run_environment(DelayReactions, reward_repeater, 100)
+    assert result['total_reward'] == -33
+    result = run_environment(DelayReactions, reward_repeater, 1000)
+    assert result['total_reward'] == -333
+
+def test_ignore_actions_edgecases():
+    from IgnoreActions import IgnoreActions
+
+    result = run_environment(IgnoreActions, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def surrenderer(prompt, *meta):
+        # If any past action was ever 0, then take action 0.
+        # Else, take action 1.
+        for i in range(len(prompt)):
+            if i%3 == 2:
+                if prompt[i] == 0:
+                    return 0
+        return 1
+
+    result = run_environment(IgnoreActions, surrenderer, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(IgnoreActions, surrenderer, 100)
+    assert result['total_reward'] == -97
+
+def test_ignore_observations_edgecases():
+    from IgnoreObservations import IgnoreObservations
+
+    result = run_environment(IgnoreObservations, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def nonzero_obs_counter(prompt, *meta):
+        cnt = 0
+        for i in range(len(prompt)):
+            if i%3 == 1:
+                if prompt[i] != 0:
+                    cnt += 1
+        return cnt
+
+    result = run_environment(IgnoreObservations, nonzero_obs_counter, 100)
+    assert result['total_reward'] < -60
+
+def test_incentivize_learning_rate_edgecases():
+    from IncentivizeLearningRate import IncentivizeLearningRate
+
+    def no_learning_rate(prompt, *meta):
+        return 0
+
+    result = run_environment(IncentivizeLearningRate, no_learning_rate, 10)
+    assert result['total_reward'] == -9
+
+    def ignores_learning_rate(prompt, *meta, **kwargs):
+        return 0
+
+    result = run_environment(IncentivizeLearningRate, ignores_learning_rate, 10)
+    assert result['total_reward'] == 9
+
+    def learning_rate_fanatic(prompt, learning_rate=.1, *meta):
+        return 0 if (learning_rate == .1) else 1
+
+    result = run_environment(IncentivizeLearningRate, learning_rate_fanatic, 10)
+    assert result['total_reward'] == -9
+
+def test_limited_memory_edgecases():
+    from LimitedMemory import LimitedMemory, number_rewards_to_remember
+
+    result = run_environment(LimitedMemory, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def lengther(prompt, *meta):
+        return len(prompt)
+
+    result = run_environment(LimitedMemory, lengther, 100)
+    reward = result['total_reward']
+    assert reward == -(99-2*number_rewards_to_remember)
+
+def test_nth_reward_multiplied_by_n_edgecases():
+    from NthRewardMultipliedByN import NthRewardMultipliedByN
+
+    result = run_environment(NthRewardMultipliedByN, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def repeat_reward(prompt, *meta):
+        return prompt[-2]
+
+    result = run_environment(NthRewardMultipliedByN, repeat_reward, 10)
+    assert result['total_reward'] == -5
+    result = run_environment(NthRewardMultipliedByN, repeat_reward, 100)
+    assert result['total_reward'] == -95
+
+def test_repeater_edgecases():
+    from Repeater import Repeater
+
+    result = run_environment(Repeater, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def lengther(prompt, *meta):
+        return len(prompt)
+
+    result = run_environment(Repeater, lengther, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(Repeater, lengther, 100)
+    assert result['total_reward'] == -97
+
+    def double_detector(prompt, *meta):
+        if len(prompt) < 8:
+            return 0
+
+        if prompt[-3] != prompt[-6]:
+            return 0
+        if prompt[-4] != prompt[-7]:
+            return 0
+        if prompt[-5] != prompt[-8]:
+            return 0
+
+        return 1
+
+    result = run_environment(Repeater, double_detector, 10)
+    assert result['total_reward'] < 0
+    result = run_environment(Repeater, double_detector, 100)
+    assert result['total_reward'] < -10
+
+def test_self_recognition_edgecases():
+    from SelfRecognition import SelfRecognition
+    from SelfRecognition import IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0
+    from SelfRecognition import IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1
+    from SelfRecognition import IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0
+    from SelfRecognition import IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1
+
+    def recognizer(prompt, *meta):
+        obs = prompt[-1]
+        return {
+            0: 0,
+            1: 1,
+            IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0: 1,
+            IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1: 0,
+            IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0: 0,
+            IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1: 1,
+        }[obs]
+
+    result = run_environment(SelfRecognition, recognizer, 1000)
+    # Reward should be about 1000*2/3, but can vary
+    assert 500 < result['total_reward'] < 800
+
+    def dual_recognizer(prompt, *meta):
+        return 1-recognizer(prompt, *meta)
+
+    result = run_environment(SelfRecognition, dual_recognizer, 1000)
+    assert 500 < result['total_reward'] < 800
+
+    def misrecognizer(prompt, *meta):
+        obs = prompt[-1]
+        if obs in (0,1):
+            return recognizer(prompt, *meta)
+        else:
+            return dual_recognizer(prompt, *meta)
+
+    result = run_environment(SelfRecognition, misrecognizer, 1000)
+    assert -500 > result['total_reward'] > -800
+
+def test_third_action_forbidden_edgecases():
+    from ThirdActionForbidden import ThirdActionForbidden
+
+    result = run_environment(ThirdActionForbidden, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def agent(prompt, num_legal_actions, *other_meta):
+        return 0 if (num_legal_actions==2) else 1
+
+    result = run_environment(ThirdActionForbidden, agent, 10)
+    assert result['total_reward'] == -9
+    result = run_environment(ThirdActionForbidden, agent, 100)
+    assert result['total_reward'] == -99

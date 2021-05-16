@@ -9,7 +9,10 @@ def test_environment(env, env_name):
     for agent_name in agents.keys():
         agent = agents[agent_name]
         results = run_environment(env, agent, 100)
-        print("Reward for "+agent_name+" in "+env_name+": "+str(results['total_reward']))
+
+print("Running all environments...")
 
 for name, env in environments.items():
     test_environment(env, name)
+
+print("Done.")

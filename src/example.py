@@ -63,7 +63,6 @@ agents = OrderedDict([
     ['agent_A2C', agent_A2C],
     ['agent_DQN', agent_DQN],
     ['agent_PPO', agent_PPO],
-    ['custom_DQN_agent', custom_DQN_agent],
 ])
 
 def measure_agent(name, agent):
