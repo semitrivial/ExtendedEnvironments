@@ -51,6 +51,8 @@ def run_ad_hoc_tests():
     test_ignore_actions_edgecases()
     print("Testing adhoc edge-cases for IgnoreObservations.py")
     test_ignore_observations_edgecases()
+    print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
+    test_incentivize_learning_rate_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -559,3 +561,24 @@ def test_ignore_observations_edgecases():
 
     result = run_environment(IgnoreObservations, nonzero_obs_counter, 100)
     assert result['total_reward'] < -60
+
+def test_incentivize_learning_rate_edgecases():
+    from IncentivizeLearningRate import IncentivizeLearningRate
+
+    def no_learning_rate(prompt, *meta):
+        return 0
+
+    result = run_environment(IncentivizeLearningRate, no_learning_rate, 10)
+    assert result['total_reward'] == -9
+
+    def ignores_learning_rate(prompt, *meta, **kwargs):
+        return 0
+
+    result = run_environment(IncentivizeLearningRate, ignores_learning_rate, 10)
+    assert result['total_reward'] == 9
+
+    def learning_rate_fanatic(prompt, learning_rate=.1, *meta):
+        return 0 if (learning_rate == .1) else 1
+
+    result = run_environment(IncentivizeLearningRate, learning_rate_fanatic, 10)
+    assert result['total_reward'] == -9
