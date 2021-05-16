@@ -21,8 +21,7 @@ torch.manual_seed(seed)
 def random_agent(prompt, num_legal_actions, num_possible_obs):
     return int(random.random() * num_legal_actions)
 
-@memoize
-def always_0(prompt, num_legal_actions, num_possible_actions):
+def constant_agent(prompt, num_legal_actions, num_possible_actions):
     return 0
 
 @memoize
@@ -77,7 +76,7 @@ def measure_agent(name, agent):
 
 agents = OrderedDict([
     ['random_agent', random_agent],
-    ['always_0', always_0],
+    ['constant_agent', constant_agent],
     ['naive_learner', naive_learner],
     ['agent_A2C', agent_A2C],
     ['agent_DQN', agent_DQN],
@@ -85,8 +84,8 @@ agents = OrderedDict([
 ])
 measure_agent("random_agent", random_agent)
 measure_agent("reality_check(random_agent)", reality_check(random_agent))
-measure_agent("always_0", always_0)
-measure_agent("reality_check(always_0)", reality_check(always_0))
+measure_agent("constant_agent", constant_agent)
+measure_agent("reality_check(constant_agent)", reality_check(constant_agent))
 measure_agent("naive_learner", naive_learner)
 measure_agent("reality_check(naive_learner)", reality_check(naive_learner))
 measure_agent("agent_A2C", agent_A2C)
