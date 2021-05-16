@@ -35,7 +35,7 @@ def run_environment(env, T, num_steps):
 
     return results
 
-def cache(f):
+def memoize(f):
     return lru_cache(maxsize=None)(f)
 
 def numpy_translator(T):

@@ -5,33 +5,32 @@ import numpy as np
 import torch
 
 from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
-from agents.custom_DQN import custom_DQN_agent
 from RealityCheck import reality_check
 from AwarenessBenchmark import awareness_benchmark
-from util import cache
+from util import memoize
 
 seed = 0
 np.random.seed(seed)
 random.seed(seed)
 torch.manual_seed(seed)
 
-@cache
+@memoize
 def random_agent(prompt, num_legal_actions, num_possible_obs):
     return int(random.random() * num_legal_actions)
 
-@cache
+@memoize
 def incrementer(prompt, num_legal_actions, num_possible_obs):
     return ((len(prompt)+1)/3)%num_legal_actions
 
-@cache
+@memoize
 def always_0(prompt, num_legal_actions, num_possible_actions):
     return 0
 
-@cache
+@memoize
 def always_1(prompt, num_legal_actions, num_possible_actions):
     return 1
 
-@cache
+@memoize
 def naive_learner(prompt, num_legal_actions, num_possible_actions):
     reward_lists = {i:() for i in range(num_legal_actions)}
 

@@ -10,7 +10,7 @@ import pandas as pd
 import math
 import random
 
-from util import cache
+from util import memoize
 
 lookback = 3
 
@@ -32,15 +32,13 @@ class DummyEnv:
         except Exception:
             import pdb; pdb.set_trace()
         self.i += 1
-        # Use o/a/r format from Oscar's code instead of the r/o/a format
-        # from the paper
         self.history.append([obs, action, reward])
         return reward, obs, self.history
 dummy_env = DummyEnv()
 
 cache_custom_DQN = {}
 
-@cache
+@memoize
 def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
     np.random.seed(seed)
     random.seed(seed)

@@ -4,7 +4,7 @@ import stable_baselines3 as SBL3
 from gym import Env, spaces
 import numpy as np
 
-from util import cache, numpy_translator
+from util import memoize, numpy_translator
 
 class DummyEnv(Env):
     def __init__(self):
@@ -32,7 +32,7 @@ cache_A2C = {}
 cache_DQN = {}
 cache_PPO = {}
 
-@cache
+@memoize
 def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
@@ -75,7 +75,7 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
     action, _ = A.predict(prompt[-1])
     return action
 
-@cache
+@memoize
 def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
@@ -124,7 +124,7 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
     return action
 
 @numpy_translator
-@cache
+@memoize
 def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
