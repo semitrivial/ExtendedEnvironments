@@ -1,5 +1,6 @@
 import sys
 import random
+from collections import deque
 
 import numpy as np
 import torch
@@ -14,13 +15,13 @@ from util import memoize
 
 seed, n_steps = 0, 100
 
-args = sys.argv[::-1][:-1]
+args = deque(sys.argv[1:])
 while args:
-    arg = args.pop()
+    arg = args.popleft()
     if arg == 'seed':
-        seed = int(args.pop())
+        seed = int(args.popleft())
     elif arg == 'steps':
-        n_steps = int(args.pop())
+        n_steps = int(args.popleft())
     else:
         raise ValueError("Unrecognized commandline argument")
 
