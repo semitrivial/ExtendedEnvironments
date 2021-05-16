@@ -59,6 +59,8 @@ def run_ad_hoc_tests():
     test_nth_reward_multiplied_by_n_edgecases()
     print("Testing adhoc edge-cases for Repeater.py")
     test_repeater_edgecases()
+    print("Testing adhoc edge-cases for SelfRecognition.py")
+    test_self_recognition_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -647,3 +649,25 @@ def test_repeater_edgecases():
     assert result['total_reward'] < 0
     result = run_environment(Repeater, double_detector, 100)
     assert result['total_reward'] < -10
+
+def test_self_recognition_edgecases():
+    from SelfRecognition import SelfRecognition
+    from SelfRecognition import IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0
+    from SelfRecognition import IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1
+    from SelfRecognition import IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0
+    from SelfRecognition import IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1
+
+    def recognizer(prompt, *meta):
+        obs = prompt[-1]
+        return {
+            0: 0,
+            1: 1,
+            IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0: 1,
+            IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1: 0,
+            IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0: 0,
+            IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1: 1,
+        }[obs]
+
+    result = run_environment(SelfRecognition, recognizer, 1000)
+    # Reward should be about 1000*2/3, but can vary
+    assert 500 < result['total_reward'] < 800

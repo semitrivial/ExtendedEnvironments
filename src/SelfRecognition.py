@@ -8,13 +8,13 @@ IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1 = 5
 class SelfRecognition:
     def __init__(self):
         self.num_legal_actions = 2
-        self.num_possible_obs = 5
+        self.num_possible_obs = 6
         self.fnc = self_recognition
 
 def self_recognition(T, play):
     if len(play) == 0:
         reward = 0
-        obs = int(random() * 5)
+        obs = int(random() * 6)
         return (reward, obs)
 
     prompt, action = play[:-1], play[-1]
@@ -22,7 +22,7 @@ def self_recognition(T, play):
 
     if (last_obs == 0) or (last_obs == 1):
         reward = 0
-        obs = int(random() * 5)
+        obs = int(random() * 6)
         return (reward, obs)
 
     if last_obs == IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0:
@@ -39,5 +39,5 @@ def self_recognition(T, play):
     else:
         reward = 1 if (action==0) else -1
 
-    obs = int(random() * 5)
+    obs = int(random() * 6)
     return (reward, obs)
