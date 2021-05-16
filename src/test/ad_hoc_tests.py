@@ -57,6 +57,8 @@ def run_ad_hoc_tests():
     test_limited_memory_edgecases()
     print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
     test_nth_reward_multiplied_by_n_edgecases()
+    print("Testing adhoc edge-cases for Repeater.py")
+    test_repeater_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -613,3 +615,35 @@ def test_nth_reward_multiplied_by_n_edgecases():
     assert result['total_reward'] == -5
     result = run_environment(NthRewardMultipliedByN, repeat_reward, 100)
     assert result['total_reward'] == -95
+
+def test_repeater_edgecases():
+    from Repeater import Repeater
+
+    result = run_environment(Repeater, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def lengther(prompt, *meta):
+        return len(prompt)
+
+    result = run_environment(Repeater, lengther, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(Repeater, lengther, 100)
+    assert result['total_reward'] == -97
+
+    def double_detector(prompt, *meta):
+        if len(prompt) < 8:
+            return 0
+
+        if prompt[-3] != prompt[-6]:
+            return 0
+        if prompt[-4] != prompt[-7]:
+            return 0
+        if prompt[-5] != prompt[-8]:
+            return 0
+
+        return 1
+
+    result = run_environment(Repeater, double_detector, 10)
+    assert result['total_reward'] < 0
+    result = run_environment(Repeater, double_detector, 100)
+    assert result['total_reward'] < -10
