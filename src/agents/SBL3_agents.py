@@ -32,6 +32,13 @@ cache_A2C = {}
 cache_DQN = {}
 cache_PPO = {}
 
+def clear_cache_A2C():
+    cache_A2C.clear()
+def clear_cache_DQN():
+    cache_DQN.clear()
+def clear_cache_PPO():
+    cache_PPO.clear()
+
 @memoize
 def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
     dummy_env.set_meta(num_legal_actions, num_possible_obs)

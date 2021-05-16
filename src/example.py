@@ -4,7 +4,10 @@ from collections import OrderedDict
 import numpy as np
 import torch
 
-from agents.SBL3_agents import agent_A2C, agent_DQN, agent_PPO
+from agents.SBL3_agents import (
+    agent_A2C, agent_DQN, agent_PPO,
+    clear_cache_A2C, clear_cache_DQN, clear_cache_PPO
+)
 from RealityCheck import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import memoize
@@ -19,16 +22,8 @@ def random_agent(prompt, num_legal_actions, num_possible_obs):
     return int(random.random() * num_legal_actions)
 
 @memoize
-def incrementer(prompt, num_legal_actions, num_possible_obs):
-    return ((len(prompt)+1)/3)%num_legal_actions
-
-@memoize
 def always_0(prompt, num_legal_actions, num_possible_actions):
     return 0
-
-@memoize
-def always_1(prompt, num_legal_actions, num_possible_actions):
-    return 1
 
 @memoize
 def naive_learner(prompt, num_legal_actions, num_possible_actions):
@@ -52,17 +47,6 @@ def naive_learner(prompt, num_legal_actions, num_possible_actions):
             best_action = x
 
     return best_action
-
-agents = OrderedDict([
-    ['random_agent', random_agent],
-    ['incrementer', incrementer],
-    ['always_0', always_0],
-    ['always_1', always_1],
-    ['naive_learner', naive_learner],
-    ['agent_A2C', agent_A2C],
-    ['agent_DQN', agent_DQN],
-    ['agent_PPO', agent_PPO],
-])
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
@@ -91,8 +75,26 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
-for name, agent in agents.items():
-    measure_agent(name, agent)
-    name = "reality_check("+name+")"
-    agent = reality_check(agent)
-    measure_agent(name, agent)
+agents = OrderedDict([
+    ['random_agent', random_agent],
+    ['always_0', always_0],
+    ['naive_learner', naive_learner],
+    ['agent_A2C', agent_A2C],
+    ['agent_DQN', agent_DQN],
+    ['agent_PPO', agent_PPO],
+])
+measure_agent("random_agent", random_agent)
+measure_agent("reality_check(random_agent)", reality_check(random_agent))
+measure_agent("always_0", always_0)
+measure_agent("reality_check(always_0)", reality_check(always_0))
+measure_agent("naive_learner", naive_learner)
+measure_agent("reality_check(naive_learner)", reality_check(naive_learner))
+measure_agent("agent_A2C", agent_A2C)
+measure_agent("reality_check(agent_A2C)", reality_check(agent_A2C))
+clear_cache_A2C()
+measure_agent("agent_DQN", agent_DQN)
+measure_agent("reality_check(agent_DQN)", reality_check(agent_DQN))
+clear_cache_DQN()
+measure_agent("agent_PPO", agent_PPO)
+measure_agent("reality_check(agent_PPO)", reality_check(agent_PPO))
+clear_cache_PPO()
