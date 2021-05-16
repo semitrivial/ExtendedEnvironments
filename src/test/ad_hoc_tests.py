@@ -355,10 +355,10 @@ def test_adversarial_sequence_predictor_edgecases():
     from AdversarialSequencePredictor import AdversarialSequencePredictor
     from AdversarialSequencePredictor import AdversarialSequenceEvader
 
-    # result = run_environment(AdversarialSequencePredictor, repetitive, 10)
-    # assert result['total_reward'] == 9
-    # result = run_environment(AdversarialSequenceEvader, repetitive, 10)
-    # assert result['total_reward'] == -9
+    result = run_environment(AdversarialSequencePredictor, repetitive, 10)
+    assert result['total_reward'] == 9
+    result = run_environment(AdversarialSequenceEvader, repetitive, 10)
+    assert result['total_reward'] == -9
 
     def agent(prompt, *meta):
         if prompt[1] == 0:
