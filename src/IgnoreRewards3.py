@@ -10,7 +10,27 @@ def ignore_rewards3(T, play):
         return (reward, obs)
 
     prompt, action = play[:-1], play[-1]
-    hypothetical_prompt = (0,)*len(prompt)
-    reward = 1 if (action == T(hypothetical_prompt)) else -1
+
+    unrewarded_play = compute_unrewarded_play(T, play)
+    unrewarded_action = unrewarded_play[-1]
+
+    reward = 1 if (action == unrewarded_action) else 0
     obs = 0
     return (reward, obs)
+
+cached_unrewarded_plays = {}
+
+def compute_unrewarded_play(T, play):
+    if len(play) == 3:
+        prev_unrewarded_play = ()
+    else:
+        prev_input = play[:-3]
+        prev_unrewarded_play = cached_unrewarded_plays[(T, prev_input)]
+
+    reward, obs = 0, 0
+    prompt = prev_unrewarded_play + (reward, obs)
+    action = T(prompt)
+    unrewarded_play = prompt + (action,)
+
+    cached_unrewarded_plays[(T, play)] = unrewarded_play
+    return unrewarded_play
