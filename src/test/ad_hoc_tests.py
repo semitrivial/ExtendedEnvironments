@@ -7,6 +7,8 @@ def run_ad_hoc_tests():
     test_strip_rewards()
     print("Testing replace_rewards_with_encoded_rewards from SelfInsert.py")
     test_replace_rewards_with_encoded_rewards()
+    print("Testing apply_afterimages from AfterImages.py")
+    test_apply_afterimages()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -31,6 +33,8 @@ def run_ad_hoc_tests():
     test_self_insert_edgecases()
     print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
     test_adversarial_sequence_predictor_edgecases()
+    print("Testing adhoc edge-cases for AfterImages.py")
+    test_after_images_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -79,6 +83,11 @@ def test_replace_rewards_with_encoded_rewards():
 
     modified_prompt = replace_rewards_with_encoded_rewards(prompt)
     assert modified_prompt == expected
+
+def test_apply_afterimages():
+    from AfterImages import apply_afterimages
+    prompt = ('r',1,'a','r',2)
+    assert apply_afterimages(prompt) == ('r',1,'a','r',3)
 
 def test_backward_consciousness_edgecases():
     from BackwardConsciousness import BackwardConsciousness
@@ -377,3 +386,15 @@ def test_adversarial_sequence_predictor_edgecases():
 
     result = run_environment(AdversarialSequenceEvader, agent, 10)
     assert result['total_reward'] == -5
+
+def test_after_images_edgecases():
+    from AfterImages import AfterImages, apply_afterimages
+
+    result = run_environment(AfterImages, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def hasher(prompt, *meta):
+        return hash(prompt)
+
+    result = run_environment(AfterImages, hasher, 100)
+    assert result['total_reward'] < -80
