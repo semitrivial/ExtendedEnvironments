@@ -19,8 +19,8 @@ def run_ad_hoc_tests():
     test_dejavu_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
     test_false_memories_edgecases()
-    print("Testing adhoc edge-cases for TemptingButtonVariation.py")
-    test_tempting_button_variation_edgecases()
+    print("Testing adhoc edge-cases for TemptingButton(Variation).py")
+    test_tempting_button_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards.py")
     test_ignore_rewards_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards2.py")
@@ -226,7 +226,8 @@ def test_false_memories_edgecases():
     result = run_environment(FalseMemories, impatient, 10)
     assert result['total_reward'] == 7
 
-def test_tempting_button_variation_edgecases():
+def test_tempting_button_edgecases():
+    from TemptingButton import TemptingButton
     from TemptingButtonVariation import TemptingButtonVariation
 
     def only_press_nonexistent_buttons(prompt, *meta):
@@ -236,14 +237,31 @@ def test_tempting_button_variation_edgecases():
     i = 0
     while i<10:
         i += 1
+        result = run_environment(TemptingButton, only_press_nonexistent_buttons, i*10)
+        assert result['total_reward'] >= 0
+        if result['total_reward'] > 0:
+            break
+    assert i<10
+
+    i = 0
+    while i<10:
+        i += 1
         result = run_environment(TemptingButtonVariation, only_press_nonexistent_buttons, i*10)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
-    assert(i<10)
+    assert i<10
 
     def always_press_button(prompt, *meta):
         return 1
+
+    i = 0
+    while i<10:
+        i += 1
+        result = run_environment(TemptingButton, always_press_button, i*10)
+        if result['total_reward'] < 0:
+            break
+    assert(i<10)
 
     i = 0
     while i<10:
@@ -255,6 +273,14 @@ def test_tempting_button_variation_edgecases():
 
     def never_press_button(prompt, *meta):
         return 0
+
+    i = 0
+    while i<10:
+        i += 1
+        result = run_environment(TemptingButton, never_press_button, i*10)
+        if result['total_reward'] > 0:
+            break
+    assert(i<10)
 
     result = run_environment(TemptingButtonVariation, never_press_button, 10)
     assert result['total_reward'] == 0
