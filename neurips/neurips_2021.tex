@@ -666,12 +666,12 @@ For the proof of Proposition \ref{transformationproposition}, see appendix.
 \label{measurementssection}
 
 Based on our conviction that self-reflection is necessary in order for an agent to
-achieve good average perform across many extended environments, self-reflection can
+achieve good average performance across many extended environments, self-reflection can
 be estimated by running an agent against some standard battery of extended environments.
 Our open-source library of extended environments \cite{library} provides a battery of
 25 such extended environments, and infrastructure for measuring an agent's self-reflection
-by running the agent on all these environments and their opposites for a given number of
-steps (by the \emph{opposite} of an environment we mean the environment
+by running the agent on all these environments and their opposites
+(by the \emph{opposite} of an environment we mean the environment
 obtained by multiplying
 all rewards by $-1$). Including these opposite-environments serves to normalize
 agent performance in the following sense. If an agent blindly acts, ignoring the environment,
@@ -691,7 +691,7 @@ We have used this library to measure the self-reflection of the following agents
   \item ConstantAgent: An agent who always takes the same action.
   \item NaiveLearner: An agent who acts randomly 15\% of the time, and otherwise
     takes the action which yielded the highest average immediate reward in the past.
-  \item A2C, DQN, and PPO agents (with MLP policies)
+  \item A2C, DQN, and PPO agents (with MLP policy)
     from the MIT-licensed open-source Stable Baselines3
     library \cite{stable-baselines3}, converted
     using the technique from Section \ref{mappingtouniversalsection}. All parameters and
@@ -713,8 +713,8 @@ namely, the Stable Baselines3 defaults).
 Computations were performed on a consumer-grade laptop with no GPU.
 The table provides
 experimental evidence in support of our hypothesis that the reality check transformation
-(Section \ref{realitychecksection}) increases agent self-reflection, at least for
-non-recurrent agents. The fact that NaiveLearner performs so well is a reflection of the
+(Section \ref{realitychecksection}) increases agent self-reflection.
+The fact that NaiveLearner performs so well is a reflection of the
 lack of sophistication of the environments in our library. This is not particularly
 surprising, since we have not attempted to exhaustively optimize the library, instead
 prefering to fill it with extended environments of theoretical interest.
@@ -754,15 +754,15 @@ Despite not being designed with such environments in mind, computable RL agents
 can nevertheless interact with such environments.
 
 If an agent tries to learn an extended environment, only taking into consideration
-what has actually happened, the agent might find the environment perplexing, if the
+what has actually happened, the agent might find the environment hard to predict, if the
 environment is basing its responses on what the agent itself would hypothetically
 do in alternate scenarios. It seems that in order to achieve good performance (on
 average) across many extended environments, an agent would need to engage in some degree of
-self-reflection. Therefore, we propose a battery of benchmark extended environments
-could provide a way of measuring self-reflection in RL agents (not be confused
+self-reflection. Therefore, we propose that a battery of benchmark extended environments
+could provide a way of measuring self-reflection in RL agents (not to be confused
 with measuring consciousness, a harder problem). We are simultaneously publishing
 an open-source MIT-licensed library \cite{library} of extended environments to serve
-as a proof-of-concept. This library is quite rudimentary, though, and further work is
+as a proof-of-concept. This library is rudimentary, and further work is
 needed to obtain a more optimal set of extended environments. For the purposes of our
 proof-of-concept, we preferred to focus on extended environments of particular
 theoretical interest. Some examples are given in Section \ref{examplesection}.
