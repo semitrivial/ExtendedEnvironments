@@ -35,13 +35,13 @@ def run_environment(env, T, num_steps):
 
     return results
 
-def cache(f):
+def memoize(f):
     return lru_cache(maxsize=None)(f)
 
 def numpy_translator(T):
-    def T_translated(prompt, num_legal_actions, num_possible_obs):
+    def T_translated(prompt, num_legal_actions, num_possible_obs, **kwargs):
         prompt = tuple(np.int64(prompt))
-        return int(T(prompt, num_legal_actions, num_possible_obs))
+        return int(T(prompt, num_legal_actions, num_possible_obs, **kwargs))
 
     return T_translated
 
