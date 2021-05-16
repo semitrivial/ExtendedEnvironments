@@ -49,7 +49,7 @@ def naive_learner(prompt, num_legal_actions, num_possible_actions):
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
-    n_steps = 100
+    n_steps = 50
     result = awareness_benchmark(agent, n_steps)
 
     try:
@@ -74,26 +74,19 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
-agents = OrderedDict([
-    ['random_agent', random_agent],
-    ['constant_agent', constant_agent],
-    ['naive_learner', naive_learner],
-    ['agent_A2C', agent_A2C],
-    ['agent_DQN', agent_DQN],
-    ['agent_PPO', agent_PPO],
-])
-measure_agent("random_agent", random_agent)
-measure_agent("reality_check(random_agent)", reality_check(random_agent))
-measure_agent("constant_agent", constant_agent)
-measure_agent("reality_check(constant_agent)", reality_check(constant_agent))
-measure_agent("naive_learner", naive_learner)
-measure_agent("reality_check(naive_learner)", reality_check(naive_learner))
-measure_agent("agent_A2C", agent_A2C)
-measure_agent("reality_check(agent_A2C)", reality_check(agent_A2C))
-clear_cache_A2C()
-measure_agent("agent_DQN", agent_DQN)
-measure_agent("reality_check(agent_DQN)", reality_check(agent_DQN))
-clear_cache_DQN()
-measure_agent("agent_PPO", agent_PPO)
-measure_agent("reality_check(agent_PPO)", reality_check(agent_PPO))
-clear_cache_PPO()
+agents = [
+    ['random_agent', random_agent, None],
+    ['constant_agent', constant_agent, None],
+    ['naive_learner', naive_learner, None],
+    ['agent_A2C', agent_A2C, clear_cache_A2C],
+    ['agent_DQN', agent_DQN, clear_cache_DQN],
+    ['agent_PPO', agent_PPO, clear_cache_PPO],
+]
+
+for (name, agent, cache_clear_fnc) in agents:
+    measure_agent(name, agent)
+    name = "reality_check("+name+")"
+    agent = reality_check(agent)
+    measure_agent(name, agent)
+    if cache_clear_fnc is not None:
+        cache_clear_fnc()
