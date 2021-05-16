@@ -14,7 +14,7 @@ def ignore_rewards3(T, play):
     unrewarded_play = compute_unrewarded_play(T, play)
     unrewarded_action = unrewarded_play[-1]
 
-    reward = 1 if (action == unrewarded_action) else 0
+    reward = 1 if (action == unrewarded_action) else -1
     obs = 0
     return (reward, obs)
 

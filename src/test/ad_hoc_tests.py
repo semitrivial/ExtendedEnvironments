@@ -292,7 +292,28 @@ def test_ignore_rewards2_edgecases():
     assert result['total_reward'] == -97
 
 def test_ignore_rewards3_edgecases():
-    return
+    from IgnoreRewards3 import IgnoreRewards3
+
+    result = run_environment(IgnoreRewards3, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def has_nonzero_reward(prompt):
+        for i in range(len(prompt)):
+            if i%3 == 0:
+                if prompt[i] != 0:
+                    return True
+        return False
+
+    def activator(prompt, *meta):
+        if has_nonzero_reward(prompt):
+            return 1
+        else:
+            return 0
+
+    result = run_environment(IgnoreRewards3, activator, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(IgnoreRewards3, activator, 100)
+    assert result['total_reward'] == -97
 
 def test_incentivize_zero_edgecases():
     from IncentivizeZero import IncentivizeZero
