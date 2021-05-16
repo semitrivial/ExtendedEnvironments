@@ -88,12 +88,12 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
-def seeded_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    return agent_A2C(prompt, num_legal_actions, num_possible_obs, seed=seed)
-def seeded_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    return agent_PPO(prompt, num_legal_actions, num_possible_obs, seed=seed)
-def seeded_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    return agent_DQN(prompt, num_legal_actions, num_possible_obs, seed=seed)
+def seeded_A2C(*args, **kwargs):
+    return agent_A2C(*args, seed=seed, **kwargs)
+def seeded_PPO(*args, **kwargs):
+    return agent_PPO(*args, seed=seed, **kwargs)
+def seeded_DQN(*args, **kwargs):
+    return agent_DQN(*args, seed=seed, **kwargs)
 
 agents = [
     ['random_agent', random_agent, None],
