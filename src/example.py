@@ -71,13 +71,13 @@ def measure_agent(name, agent):
     except Exception:
         print("Initiating results_table.csv")
         fp = open("result_table.csv", "w")
-        fp.write("agent,env,nsteps,reward\n")
+        fp.write("agent,env,seed,nsteps,reward\n")
         fp.close()
 
     fp = open("result_table.csv", "a")
     for env in result.keys():
         reward = result[env]['total_reward']
-        line = ",".join([name, env, str(n_steps), str(reward)])
+        line = ",".join([name, env, str(seed), str(n_steps), str(reward)])
         line += "\n"
         fp.write(line)
     fp.close()
