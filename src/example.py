@@ -63,7 +63,6 @@ def naive_learner(prompt, num_legal_actions, num_possible_obs):
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
-    n_steps = 50
     result = awareness_benchmark(agent, n_steps)
 
     try:
