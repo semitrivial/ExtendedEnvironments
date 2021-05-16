@@ -43,6 +43,8 @@ def run_ad_hoc_tests():
     test_delayed_rewards_edgecases()
     print("Testing adhoc edge-cases for DelayReactions.py")
     test_delay_reactions_edgecases()
+    print("Testing adhoc edge-cases for IgnoreActions.py")
+    test_ignore_actions_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -471,3 +473,23 @@ def test_delay_reactions_edgecases():
     assert result['total_reward'] == -33
     result = run_environment(DelayReactions, reward_repeater, 1000)
     assert result['total_reward'] == -333
+
+def test_ignore_actions_edgecases():
+    from IgnoreActions import IgnoreActions
+
+    result = run_environment(IgnoreActions, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def surrenderer(prompt, *meta):
+        # If any past action was ever 0, then take action 0.
+        # Else, take action 1.
+        for i in range(len(prompt)):
+            if i%3 == 2:
+                if prompt[i] == 0:
+                    return 0
+        return 1
+
+    result = run_environment(IgnoreActions, surrenderer, 10)
+    assert result['total_reward'] == -7
+    result = run_environment(IgnoreActions, surrenderer, 100)
+    assert result['total_reward'] == -97
