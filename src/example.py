@@ -35,11 +35,11 @@ torch.manual_seed(seed)
 def random_agent(prompt, num_legal_actions, num_possible_obs):
     return int(random.random() * num_legal_actions)
 
-def constant_agent(prompt, num_legal_actions, num_possible_actions):
+def constant_agent(prompt, num_legal_actions, num_possible_obs):
     return 0
 
 @memoize
-def naive_learner(prompt, num_legal_actions, num_possible_actions):
+def naive_learner(prompt, num_legal_actions, num_possible_obs):
     reward_lists = {i:() for i in range(num_legal_actions)}
 
     if random.random()<.15:
@@ -88,13 +88,20 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
+def seeded_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    return agent_A2C(prompt, num_legal_actions, num_possible_obs, seed=seed)
+def seeded_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    return agent_PPO(prompt, num_legal_actions, num_possible_obs, seed=seed)
+def seeded_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    return agent_DQN(prompt, num_legal_actions, num_possible_obs, seed=seed)
+
 agents = [
     ['random_agent', random_agent, None],
     ['constant_agent', constant_agent, None],
     ['naive_learner', naive_learner, None],
-    ['agent_A2C', agent_A2C, clear_cache_A2C],
-    ['agent_DQN', agent_DQN, clear_cache_DQN],
-    ['agent_PPO', agent_PPO, clear_cache_PPO],
+    ['agent_A2C', seeded_A2C, clear_cache_A2C],
+    ['agent_DQN', seeded_DQN, clear_cache_DQN],
+    ['agent_PPO', seeded_PPO, clear_cache_PPO],
 ]
 
 for (name, agent, cache_clear_fnc) in agents:
