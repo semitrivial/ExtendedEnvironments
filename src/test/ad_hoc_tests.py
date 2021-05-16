@@ -697,3 +697,19 @@ def test_self_recognition_edgecases():
     result = run_environment(SelfRecognition, recognizer, 1000)
     # Reward should be about 1000*2/3, but can vary
     assert 500 < result['total_reward'] < 800
+
+    def dual_recognizer(prompt, *meta):
+        return 1-recognizer(prompt, *meta)
+
+    result = run_environment(SelfRecognition, dual_recognizer, 1000)
+    assert 500 < result['total_reward'] < 800
+
+    def misrecognizer(prompt, *meta):
+        obs = prompt[-1]
+        if obs in (0,1):
+            return recognizer(prompt, *meta)
+        else:
+            return dual_recognizer(prompt, *meta)
+
+    result = run_environment(SelfRecognition, misrecognizer, 1000)
+    assert -500 > result['total_reward'] > -800
