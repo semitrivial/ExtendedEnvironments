@@ -29,6 +29,8 @@ def run_ad_hoc_tests():
     test_determinism_inspector_edgecases()
     print("Testing adhoc edge-cases for SelfInsert.py")
     test_self_insert_edgecases()
+    print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
+    test_adversarial_sequence_predictor_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -348,3 +350,30 @@ def test_self_insert_edgecases():
 
     result = run_environment(env, tuple_detector, 10)
     assert result['total_reward'] == -9
+
+def test_adversarial_sequence_predictor_edgecases():
+    from AdversarialSequencePredictor import AdversarialSequencePredictor
+    from AdversarialSequencePredictor import AdversarialSequenceEvader
+
+    # result = run_environment(AdversarialSequencePredictor, repetitive, 10)
+    # assert result['total_reward'] == 9
+    # result = run_environment(AdversarialSequenceEvader, repetitive, 10)
+    # assert result['total_reward'] == -9
+
+    def agent(prompt, *meta):
+        if prompt[1] == 0:
+            return ([1]+[1,1,0,0,0,0,0,1,0])[(len(prompt)-2)//3]
+        else:
+            return ([0]+[0,1,0,0,0,0,0,0,0])[(len(prompt)-2)//3]
+
+    result = run_environment(AdversarialSequencePredictor, agent, 10)
+    assert result['total_reward'] == 5
+
+    def agent(prompt, *meta):
+        if prompt[1] == 0:
+            return ([1]+[0,1,0,0,0,0,0,0,0])[(len(prompt)-2)//3]
+        else:
+            return ([0]+[1,1,0,0,0,0,0,1,0])[(len(prompt)-2)//3]
+
+    result = run_environment(AdversarialSequenceEvader, agent, 10)
+    assert result['total_reward'] == -5
