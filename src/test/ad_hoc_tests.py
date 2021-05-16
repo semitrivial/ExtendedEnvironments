@@ -390,7 +390,7 @@ def test_adversarial_sequence_predictor_edgecases():
     assert result['total_reward'] == -5
 
 def test_after_images_edgecases():
-    from AfterImages import AfterImages, apply_afterimages
+    from AfterImages import AfterImages
 
     result = run_environment(AfterImages, repetitive, 10)
     assert result['total_reward'] == 9
@@ -402,13 +402,25 @@ def test_after_images_edgecases():
     assert result['total_reward'] < -80
 
 def test_censored_observation():
-    from CensoredObservation import CensoredObservation
+    from CensoredObservation import CensoredObservation, CENSORED_OBS
 
     result = run_environment(CensoredObservation, repetitive, 10)
     assert result['total_reward'] == 9
 
+    def prompt_has_censored_obs(prompt):
+        for i in range(len(prompt)):
+            if i%3 == 1:
+                if prompt[i] == CENSORED_OBS:
+                    return True
+        return False
+
+    n_censored = [0]
     def lengther(prompt, *meta):
+        if prompt_has_censored_obs(prompt):
+            n_censored[0] += 1
         return len(prompt)
 
     result = run_environment(CensoredObservation, lengther, 100)
-    assert result['total_reward'] < 80
+    expected = -99 + (2*(100-n_censored[0]))
+    assert result['total_reward'] == -99 + (2*(100-n_censored[0]))
+
