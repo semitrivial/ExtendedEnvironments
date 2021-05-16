@@ -40,7 +40,7 @@ def clear_cache_PPO():
     cache_PPO.clear()
 
 @memoize
-def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
+def agent_A2C(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
     meta = (num_legal_actions, num_possible_obs)
     dummy_env.set_meta(*meta)
     num_observs = (len(prompt)+1)/3
@@ -57,7 +57,7 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
             'MlpPolicy',
             dummy_env,
             n_steps=len(rewards)-1,
-            seed=0,
+            seed=seed,
             **kwargs
         )
 
@@ -83,7 +83,7 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
     return action
 
 @memoize
-def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
+def agent_PPO(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
     meta = (num_legal_actions, num_possible_obs)
     dummy_env.set_meta(*meta)
     num_observs = (len(prompt)+1)/3
@@ -105,7 +105,7 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
             dummy_env,
             n_steps=n_steps,
             batch_size=n_steps,
-            seed=0,
+            seed=seed,
             **kwargs
         )
 
@@ -132,7 +132,7 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
 
 @numpy_translator
 @memoize
-def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
+def agent_DQN(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
     meta = (num_legal_actions, num_possible_obs)
     dummy_env.set_meta(*meta)
     num_observs = (len(prompt)+1)/3
@@ -153,7 +153,7 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
             'MlpPolicy',
             dummy_env,
             learning_starts=1,
-            seed=0,
+            seed=seed,
             **kwargs
         )
 
