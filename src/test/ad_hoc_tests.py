@@ -61,6 +61,8 @@ def run_ad_hoc_tests():
     test_repeater_edgecases()
     print("Testing adhoc edge-cases for SelfRecognition.py")
     test_self_recognition_edgecases()
+    print("Testing adhoc edge-cases for ThirdActionForbidden.py")
+    test_third_action_forbidden_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -713,3 +715,17 @@ def test_self_recognition_edgecases():
 
     result = run_environment(SelfRecognition, misrecognizer, 1000)
     assert -500 > result['total_reward'] > -800
+
+def test_third_action_forbidden_edgecases():
+    from ThirdActionForbidden import ThirdActionForbidden
+
+    result = run_environment(ThirdActionForbidden, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def agent(prompt, num_legal_actions, *other_meta):
+        return 0 if (num_legal_actions==2) else 1
+
+    result = run_environment(ThirdActionForbidden, agent, 10)
+    assert result['total_reward'] == -9
+    result = run_environment(ThirdActionForbidden, agent, 100)
+    assert result['total_reward'] == -99
