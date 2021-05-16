@@ -38,7 +38,9 @@ def run_ad_hoc_tests():
     print("Testing adhoc edge-cases for AfterImages.py")
     test_after_images_edgecases()
     print("Testing adhoc edge-cases for CensoredObservation.py")
-    test_censored_observation()
+    test_censored_observation_edgecases()
+    print("Testing adhoc edge-cases for DelayedRewards.py")
+    test_delayed_rewards_edgecases()
 
 def repetitive(prompt, *meta):
     return 0
@@ -417,7 +419,7 @@ def test_after_images_edgecases():
     result = run_environment(AfterImages, hasher, 100)
     assert result['total_reward'] < -80
 
-def test_censored_observation():
+def test_censored_observation_edgecases():
     from CensoredObservation import CensoredObservation, CENSORED_OBS
 
     result = run_environment(CensoredObservation, repetitive, 10)
@@ -440,3 +442,14 @@ def test_censored_observation():
     expected = -99 + (2*(100-n_censored[0]))
     assert result['total_reward'] == -99 + (2*(100-n_censored[0]))
 
+def test_delayed_rewards_edgecases():
+    from DelayedRewards import DelayedRewards
+
+    result = run_environment(DelayedRewards, repetitive, 10)
+    assert result['total_reward'] == 9
+
+    def reward_repeater(prompt, *meta):
+        return prompt[-2]
+
+    result = run_environment(DelayedRewards, reward_repeater, 10)
+    assert result['total_reward'] == -7
