@@ -823,9 +823,9 @@ Fill this in.
     consciousness of an agent.}
   \item Did you discuss any potential negative societal impacts of your work?
     \answerYes{In the Introduction, we included the following language:
-    ``In particular, it would be inappropriate to use self-reflectiveness
+    ``It would be inappropriate to use self-reflectiveness
     measurements using the techniques in this paper for purposes of making any kind
-    of policy decisions related to consciousness.''}
+    of policy-decisions related to consciousness.''}
   \item Have you read the ethics review guidelines and ensured that your paper conforms to them?
     \answerYes{}
 \end{enumerate}
@@ -835,7 +835,7 @@ Fill this in.
   \item Did you state the full set of assumptions of all theoretical results?
     \answerYes{In the statement of Proposition \ref{transformationproposition} we
     stated necessary hypotheses, namely, that the agent be deterministic, and,
-    for part 3, that the environment be deterministic.}
+    for part 4, that the environment be deterministic.}
 	\item Did you include complete proofs of all theoretical results?
     \answerTODO{}
 \end{enumerate}
@@ -982,11 +982,28 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   first we compute $\pi_{\RC}(x_1y_1\ldots x_i)$ for $i=1,\ldots,n-1$,
   and check whether the results are $y_1,\ldots,y_{n-1}$, respectively.
   Each of these computations always has the same outcome, by the induction hypothesis.
-  So, every time we check whether or not each $y_i=\pi_{RC}(x_1y_1\ldots x_n)$ for
+  So, every time we check whether or not each $y_i=\pi_{\RC}(x_1y_1\ldots x_n)$ for
   all $1\leq i<n$, we get the same answer.
   If that answer is ``yes'', then we finally output $\pi(x_1y_1\ldots x_n)$ (which is
   determinate since $\pi$ is determinate). Otherwise, we finally output
   $\pi(\langle x_1\rangle)$ (which is determinate since $\pi$ is determinate).
+
+  \item
+  (Part 3)
+  We will show by induction on $n$ that for all $x_1y_1\ldots x_n\in D$,
+  $\pi_{\RC}(x_1y_1\ldots x_n)=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)$. For the base case,
+  this is trivial, both evaluate to $\pi(\langle x_1\rangle)$.
+  For the induction step, assume $n>1$ and that the claim holds for all smaller sequences.
+
+  Case 1: $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$.
+  Then by induction, $y_i=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$.
+  By definition of $\pi_{\RC}$, this means
+  $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$, as desired.
+
+  Case 2: There is some $1\leq i<n$ such that $y_i\not=\pi_{\RC}(x_1y_1\ldots x_i)$.
+  By induction, $y_i\not=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$.
+  Thus, $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(\langle x_1\rangle)
+  =\pi(\langle x_1\rangle)$ as desired.
 \end{proof}
 
 \end{document}
