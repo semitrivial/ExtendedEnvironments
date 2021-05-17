@@ -837,7 +837,7 @@ Fill this in.
     stated necessary hypotheses, namely, that the agent be deterministic, and,
     for part 4, that the environment be deterministic.}
 	\item Did you include complete proofs of all theoretical results?
-    \answerTODO{}
+    \answerYes{}
 \end{enumerate}
 
 \item If you ran experiments...
@@ -1004,6 +1004,28 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   By induction, $y_i\not=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$.
   Thus, $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(\langle x_1\rangle)
   =\pi(\langle x_1\rangle)$ as desired.
+
+  \item
+  (Part 4)
+  Let $\mu$ be a deterministic non-extended environment, let $x_1y_1x_2y_2\ldots$ be the
+  result of $\pi$ interacting with $\mu$, and let $x'_1y'_1x'_2y'_2\ldots$ be the
+  result of $\pi_{\RC}$ interacting with $\mu$. We will show by induction that each
+  $x_n=x'_n$ and each $y_n=y'_n$.
+  First, the base case, $x_1=x'_1=\mu(\langle\rangle)$ (the environment's initial percept
+  does not depend on the agent), and therefore
+  $y_1=\pi(\langle x_1\rangle)=\pi(\langle x'_1\rangle)=y'_1$. For the induction step,
+  \begin{align*}
+    x_{n+1} &= \mu(x_1y_1\ldots x_ny_n)\\
+      &= \mu(x'_1y'_1\ldots x'_ny'_n) &\mbox{(By induction)}\\
+      &= x'_{n+1},\\
+    y_{n+1} &= \pi(x_1y_1\ldots x_{n+1})\\
+      &= \pi(x'_1y'_1\ldots x'_{n+1}), &\mbox{(Induction plus $x_{n+1}=x'_{n+1}$)}\\
+  \end{align*}
+  and the latter is $\pi_{\RC}(x'_1y'_1\ldots x'_{n+1})$
+  because for all $1\leq i<n$, $y'_i=\pi_{\RC}(x'_1y'_1\ldots x'_i)$
+  since $x'_1y'_1x'_2y'_2\ldots$ is the result of $\pi_{\RC}$ interacting with $\mu$.
+  And finally, $\pi_{\RC}(x'_1y'_1\ldots x'_{n+1})$ is $y'_{n+1}$,
+  so $y_{n+1}=y'_{n+1}$.
 \end{proof}
 
 \end{document}
