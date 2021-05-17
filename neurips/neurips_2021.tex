@@ -924,7 +924,7 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   \]
   We wish to show that $\rho=\pi_{\RC}$, which will prove part 1 of
   Proposition \ref{transformationproposition}.
-  We will prove by inductionthat for all $x_1y_1\ldots x_n\in D$,
+  We will prove by inductionthat for each $x_1y_1\ldots x_n\in D$,
   $\rho(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$.
   The base case is trivial:
   $\rho(\langle x_1\rangle)=\pi(\langle x_1\rangle)=\pi_{\RC}(\langle x_1\rangle)$
@@ -942,9 +942,10 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
     &= y_i, &\mbox{(By $*$)}
   \end{align*}
   proving the claim. Now, since we have proved that for all $1\leq i<n$,
-  $y_i=\rho(x_1y_1\ldots x_i)$. Our induction hypothesis says that for each such $i$,
+  $y_i=\rho(x_1y_1\ldots x_i)$, and since our induction hypothesis is that for
+  all such $i$,
   $\rho(x_1y_1\ldots x_i)=\pi_{\RC}(x_1y_1\ldots x_i)$,
-  so for all $1\leq i<n$, $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$.
+  we may conclude that for all $1\leq i<n$, $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$.
   Thus $\pi_{\RC}(x_1y_1\ldots x_n)=\pi(x_1y_1\ldots x_n)=\rho(x_1y_1\ldots x_n)$
   as desired.
 
@@ -984,8 +985,8 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   So, every time we check whether or not each $y_i=\pi_{\RC}(x_1y_1\ldots x_n)$ for
   all $1\leq i<n$, we get the same answer.
   If that answer is ``yes'', then we finally output $\pi(x_1y_1\ldots x_n)$ (which is
-  determinate since $\pi$ is determinate). Otherwise, we finally output
-  $\pi(\langle x_1\rangle)$ (which is determinate since $\pi$ is determinate).
+  deterministic since $\pi$ is deterministic). Otherwise, we finally output
+  $\pi(\langle x_1\rangle)$ (which is deterministic since $\pi$ is deterministic).
 
   \item
   (Part 3)
