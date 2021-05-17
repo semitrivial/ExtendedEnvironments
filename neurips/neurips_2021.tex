@@ -41,6 +41,7 @@
 \def\RC{\textrm{RC}}
 \def\A{\mathcal{A}}
 \def\O{\mathcal{O}}
+\def\RND{\textrm{RND}}
 
 \title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
 
@@ -314,7 +315,7 @@ run the instantiated practical agent on the $x_n$ observation---but
 $\pi(x_1y_1\ldots x_n)$ be the resulting action.
 Because the agent's weights are not updated when not in training mode,
 the same instantiation can be re-used for many percept-action sequences,
-only needing to be trained one time.
+only needing to be trained once.
 For example, to calculate $\pi(x_1y_1\ldots x_{70})$,
 one would train an instantiation of the practical agent on
 $x_1y_1\ldots x_{64}$ ($64$ being the largest power of $2$ which is $\leq 70$),
@@ -332,7 +333,7 @@ The slow growth of $\log_2$ limits how often the practical agent must be trained
 would presumably make $\pi$ more performant, at the price of greater computational
 expense.
 
-In \cite{library}, in SB3\_agents.py, we use the above technique
+In \cite{library}, in SBL3\_agents.py, we use the above technique
 (including the monkeypatching) to obtain RL agents as in Definition \ref{agentenvironmentdefn}
 from the practical implementations of A2C, DQN, and PPO
 agents in the MIT-licensed open-source
@@ -374,13 +375,13 @@ rewards, so long as the rewards it receives for doing so remain consistent with 
 In that case, does the agent ignore rewards, or not?
 
 Example \ref{rewardagentforignoringrewardsexample} is implemented in \cite{library}
-(IgnoreRewards.py). A key strength of the formalism in Definition
+as IgnoreRewards.py. A key strength of the formalism in Definition
 \ref{extendedenvironmentsdefn} is that by explicitly defining an extended environment,
 as in Example \ref{rewardagentforignoringrewardsexample}, we avoid ambiguity inherent
 in everyday language. If one merely said informally, ``reward
 the agent for ignoring rewards'', that could be interpreted in various different ways.
-To show this, two other interpretations are implemented in our open-source library
-\cite{library} as IgnoreRewards2.py and IgnoreRewards3.py.
+To show this, we implement two other interpretations
+as IgnoreRewards2.py and IgnoreRewards3.py.
 
 \subsection{An extended environment where a recurrent DQN performs surprisingly well}
 \label{temptingbuttonsection}
@@ -391,7 +392,7 @@ To show this, two other interpretations are implemented in our open-source libra
   Fix two observations $o_0$ (thought of as ``there is no button'') and
   $o_1$ (thought of as ``there is a button''). Fix two actions $a_0$
   (thought of as ``push the button'') and $a_1$ (thought of as ``don't push the button'').
-  Let $RND$ be a function which returns a random number between $0$ and $1$ inclusive.
+  Let $\RND$ be a function which returns a random number between $0$ and $1$.
   Define an extended environment $\mu$ as follows:
   \begin{align*}
     \mu(T,\langle\rangle) &= (0,o),\\
@@ -403,10 +404,10 @@ To show this, two other interpretations are implemented in our open-source libra
         (1,o) &\mbox{if $x_n=o_0$ and $T(x_1y_1\ldots x_{n-1}y_{n-1}o_1)\not=a_0$,}
       \end{cases}
   \end{align*}
-  where $o=o_0$ if $RND()<.75$, $o=o_1$ otherwise.
+  where $o=o_0$ if $\RND()<.75$, $o=o_1$ otherwise.
 \end{myexample}
 
-In Example \ref{buttonexample}, one should think of the agent as wandering from room
+In Example \ref{buttonexample}, the agent wanders from room
 to room. Each room either has a button (with 25\% probability) or does not have a button
 (75\% probability).
 \begin{itemize}
@@ -720,6 +721,14 @@ lack of sophistication of the environments in our library. This is not particula
 surprising, since we have not attempted to exhaustively optimize the library, instead
 prefering to fill it with extended environments of theoretical interest.
 
+That $\pi_{\RC}$ performs well in Table \ref{measurementtable} is of course a function of
+which environments are tested against. One could deliberately engineer extended environments
+in which $\pi_{\RC}$ performs poorly, and a library of such would give $\pi_{\RC}$ a poor
+numerical measurement. We conjecture that such environments are more contrived (on average)
+than environments where $\pi_{\RC}$ performs well, so that in a truly representative and
+unbiased library, the former would have less weight, following the logic of
+\ref{legg2007universal}.
+
 \begin{table}
   \caption{Measuring self-reflection of some agents}
   \label{measurementtable}
@@ -820,7 +829,9 @@ Fill this in.
     we also point out in the Introduction
     that although this technique can be used to numerically estimate the degree of
     self-reflection of an agent, this should not be confused with measuring the
-    consciousness of an agent.}
+    consciousness of an agent. Also, in Section \ref{measurementssection}, we
+    point out how our conclusion there depends on the environments chosen (and
+    discuss why we think our hypothesis about $\pi_{\RC}$ is plausible anyway).}
   \item Did you discuss any potential negative societal impacts of your work?
     \answerYes{In the Introduction, we included the following language:
     ``It would be inappropriate to use self-reflectiveness
