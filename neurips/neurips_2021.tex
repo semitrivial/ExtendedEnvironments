@@ -148,9 +148,9 @@ benchmarking the self-reflectiveness of RL agents. This should not be confused
 with the harder problem of benchmarking how conscious an RL agent is. It is
 plausible that there may be a relationship between the self-reflectiveness and
 the consciousness of RL agents, but that is beyond the scope of this paper.
-In particular, it would be absolutely inappropriate to use self-reflectiveness
+In particular, it would be inappropriate to use self-reflectiveness
 measurements using the techniques in this paper for purposes of making any kind
-of policy decisions related to consciousness.
+of policy-decisions related to consciousness.
 We will describe (in Section \ref{realitychecksection})
 a simple method for increasing the self-reflectiveness of an RL agent, which method,
 however, does not seem like it should necessarily increase the consciousness of
@@ -176,10 +176,11 @@ Section \ref{examplesection}.
 \section{Preliminaries}
 
 We formalize reinforcement learning following
-the agent model of \cite{hutter2004universal}
-(to align more closely with concrete RL implementations, we modify
-the agent model so that the agent receives an initial percept prior
-to taking its initial action, and we identify agents with their policies).
+the agent model of \cite{hutter2004universal},
+except that,
+to align more closely with concrete RL implementations,
+we assume the agent receives an initial percept before
+taking its initial action.
 This formalization differs from how RL agents are
 implemented in practice; in Section \ref{mappingtouniversalsection}
 we will discuss how practical RL agent implementations can be
@@ -366,11 +367,11 @@ takes an action $y_n$, $\mu$ simulates the agent in order to determine:
 would the agent have taken the same action if the history so far were identical
 except for all rewards being $0$? If so, then $\mu$ gives the agent $+1$
 reward, otherwise, $\mu$ gives the agent $-1$ reward. Thus, the agent
-is rewarded for ignoring rewards. Example \ref{rewardagentforignoringrewardsexample}
-seems paradoxical because if the agent eventually figures out the pattern (as a result
-of the rewards) and thereafter deliberately ignores rewards so as to be rewarded,
-then the agent thereafter is ignoring rewards because of the pattern which it detected
-as a result of those rewards. So in that case, does the agent ignore rewards, or not?
+is rewarded for ignoring rewards.
+Example \ref{rewardagentforignoringrewardsexample}
+seems paradoxical: suppose an agent guesses the pattern and begins deliberately ignoring
+rewards, so long as the rewards it receives for doing so remain consistent with that guess.
+In that case, does the agent ignore rewards, or not?
 
 Example \ref{rewardagentforignoringrewardsexample} is implemented in \cite{library}
 (IgnoreRewards.py). A key strength of the formalism in Definition
@@ -821,7 +822,7 @@ Fill this in.
     consciousness of an agent.}
   \item Did you discuss any potential negative societal impacts of your work?
     \answerYes{In the Introduction, we included the following language:
-    ``In particular, it would be absolutely inappropriate to use self-reflectiveness
+    ``In particular, it would be inappropriate to use self-reflectiveness
     measurements using the techniques in this paper for purposes of making any kind
     of policy decisions related to consciousness.''}
   \item Have you read the ethics review guidelines and ensured that your paper conforms to them?
