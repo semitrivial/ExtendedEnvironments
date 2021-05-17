@@ -114,10 +114,11 @@ This is a paper about empirically estimating the degree of self-reflection of
 Reinforcement Learning (RL) agents. We propose that an RL agent's degree of self-reflection
 can be estimated by running the agent through a battery of environments which we call
 \emph{extended environments}, environments which react not only to what the agent does
-but to what the agent would hypothetically do. In order to perform well (on average)
-across many such environments, an agent would need to self-reflect about itself, because
+but to what the agent would hypothetically do.
+For good performance averaged over
+many such environments, an agent would need to self-reflect about itself, because
 otherwise, environment responses which depend on the agent's own hypothetical actions
-would (on average) seem random and unpredictable. The extended environments which we
+would often seem random and unpredictable. The extended environments which we
 consider are a departure from standard RL environments, however, this does not interfere
 with their usage for judging standard computable RL agents: given a standard agent's
 source-code, one can simulate the agent in an extended environment in spite of the
