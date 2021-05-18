@@ -727,7 +727,7 @@ in which $\pi_{\RC}$ performs poorly, and a library of such would give $\pi_{\RC
 numerical measurement. We conjecture that such environments are more contrived (on average)
 than environments where $\pi_{\RC}$ performs well, so that in a truly representative and
 unbiased library, the former would have less weight, following the logic of
-\ref{legg2007universal}.
+\cite{legg2007universal}.
 
 \begin{table}
   \caption{Measuring self-reflection of some agents}
@@ -735,21 +735,20 @@ unbiased library, the former would have less weight, following the logic of
   \centering
   \begin{tabular}{lll}
     \toprule
-    Agent     & Avg Reward (100 steps)     & Avg Reward (200 steps)\\
+    Agent     & Avg Reward (500 steps)     & Avg Reward (1000 steps)\\
     \midrule
-    RandomAgent & $-.018$ & $-.037$\\
-    IncrementerAgent & $-.031$ & $-.041$\\
-    ConstantAgent & $+.006$ & $-.001$\\
-    NaiveLearner & $+.196$ & $+.224$\\
-    A2C & $-.088$ & $-.049$\\
-    DQN & $+.019$ & $+.082$\\
-    PPO & $-.018$ & $-.021$\\
-    IncrementerAgent${}_{\RC}$ & $-.018$ & $-.020$\\
-    ConstantAgent${}_{\RC}$ & $+.004$ & $-.001$\\
-    NaiveLearner${}_{\RC}$ & $+.551$ & $+.602$\\
-    A2C${}_{\RC}$ & $+.042$ & $+.042$\\
-    DQN${}_{\RC}$ & $+.158$ & $+.237$\\
-    PPO${}_{\RC}$ & $+.002$ & $+.004$\\
+    RandomAgent & $-0.019152$ & $-0.021478$\\
+    RandomAgent${}_{\RC}$ & $-0.019450$ & $-0.019508$\\
+    ConstantAgent & $-0.000054$ & $-0.000024$\\
+    ConstantAgent${}_{\RC}$ & $+0.000098$ & $-0.000120$\\
+    NaiveLearner & $+0.225236$ & $+0.218754$\\
+    NaiveLearner${}_{\RC}$ & $+0.555360$ & $+0.558626$\\
+    A2C & $-0.030767$ & $-0.021534$\\
+    A2C${}_{\RC}$ & $+0.021720$ & $+0.030948$\\
+    DQN & $+0.137247$ & $+0.151150$\\
+    DQN${}_{\RC}$ & $+0.375120$ & $+0.463296$\\
+    PPO & $-0.021454$ & $-0.025418$\\
+    PPO${}_{\RC}$ & $-0.000098$ & $-0.003126$\\
     \bottomrule
   \end{tabular}
 \end{table}
