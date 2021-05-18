@@ -735,20 +735,21 @@ unbiased library, the former would have less weight, following the logic of
   \centering
   \begin{tabular}{lll}
     \toprule
-    Agent     & Avg Reward (500 steps)     & Avg Reward (1000 steps)\\
+    Agent     & Avg Reward $\pm$ StdErr     & Avg Reward $\pm$ StdErr \\
+              & (500 steps)                & (1000 steps)
     \midrule
-    RandomAgent & $-0.019852$ & $-0.021478$\\
-    RandomAgent${}_{\RC}$ & $-0.020800$ & $-0.019508$\\
-    ConstantAgent & $-0.000304$ & $-0.000024$\\
-    ConstantAgent${}_{\RC}$ & $+0.000024$ & $-0.000120$\\
-    NaiveLearner & $+0.221532$ & $+0.218754$\\
-    NaiveLearner${}_{\RC}$ & $+0.551488$ & $+0.558626$\\
-    A2C & $-0.027680$ & $-0.021534$\\
-    A2C${}_{\RC}$ & $+0.024784$ & $+0.030948$\\
-    DQN & $+0.142624$ & $+0.151150$\\
-    DQN${}_{\RC}$ & $+0.371136$ & $+0.463296$\\
-    PPO & $-0.001384$ & $-0.025418$\\
-    PPO${}_{\RC}$ & $-0.000098$ & $-0.003126$\\
+    RandomAgent & $-0.019852\pm 0.0007$ & $-0.021478\pm0.0003$\\
+    RandomAgent${}_{\RC}$ & $-0.020800\pm0.0007$ & $-0.019508\pm0.0005$\\
+    ConstantAgent & $-0.000304\pm 0.0001$ & $-0.000024\pm0.0000$\\
+    ConstantAgent${}_{\RC}$ & $+0.000024\pm0.0001$ & $-0.000120\pm0.0001$\\
+    NaiveLearner & $+0.221532\pm 0.0020$ & $+0.218754\pm0.0017$\\
+    NaiveLearner${}_{\RC}$ & $+0.551488\pm0.0025$ & $+0.558626\pm0.0030$\\
+    A2C & $-0.027680\pm 0.0018$ & $-0.021534\pm0.0009$\\
+    A2C${}_{\RC}$ & $+0.024784\pm0.0022$ & $+0.030948\pm0.0006$\\
+    DQN & $+0.142624\pm 0.0046$ & $+0.151150\pm0.0033$\\
+    DQN${}_{\RC}$ & $+0.371136\pm0.0085$ & $+0.463296\pm0.0059$\\
+    PPO & $-0.001384\pm 0.0016$ & $-0.025418\pm0.0015$\\
+    PPO${}_{\RC}$ & $-0.000098\pm0.0016$ & $-0.003126\pm0.0013$\\
     \bottomrule
   \end{tabular}
 \end{table}
