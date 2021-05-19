@@ -597,7 +597,8 @@ One advantage of empirically measuring the self-reflection of RL agents is that 
 provides a way to experimentally test whether various transformations make various
 agents more self-reflective. To illustrate this, we will define a simple transformation,
 the \emph{reality check} transformation, designed to increase the self-reflection
-of deterministic agents (a deterministic agent is an agent who always takes the same
+of deterministic agents who have some amount of intelligence
+(a deterministic agent is an agent who always takes the same
 actions in response to the same input, i.e., an agent with no random component).
 In the next section, empirical results will suggest the transformation works as intended.
 
@@ -627,7 +628,7 @@ one would take, is an act of self-reflection, it seems plausible that if $\pi$
 is intelligent and deterministic but lacks self-reflection, then $\pi_{\RC}$ is
 more self-reflective than $\pi$. In the next section, we will see that experimental
 evidence supports this hypothesis.
-For most intelligent deterministic agents $\pi$, $\pi_{\RC}$ would certainly perform well in
+For intelligent deterministic agents $\pi$, $\pi_{\RC}$ would certainly perform well in
 Examples \ref{rewardagentforignoringrewardsexample} and
 \ref{reverseconsciousnessexample} because those environments would
 run simulations in which the agent's catatonic branch would be triggered,
