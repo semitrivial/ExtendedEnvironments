@@ -607,7 +607,8 @@ the \emph{reality check} transformation, designed to increase the self-reflectio
 of deterministic agents who have some amount of intelligence
 (a deterministic agent is an agent who always takes the same
 actions in response to the same inputs).
-In the next section, empirical results will suggest the transformation works as intended.
+In Section \ref{measurementssection}, empirical results will suggest
+the transformation works as intended.
 
 \begin{definition}
 \label{realitycheckdefn}
@@ -627,7 +628,7 @@ In other words, $\pi_{\RC}$ is the agent which, at each step, first reviews all 
 which it has taken in the past, and verifies that those are the actions which $\pi_{\RC}$ would
 have taken. If so, then $\pi_{\RC}$ acts as $\pi$ would act. But if any action which
 the agent has taken in the past was not the action $\pi_{\RC}$ would have taken, then
-$\pi_{\RC}$ freezes up and forever thereafter takes the same fixed action, as if catatonic.
+$\pi_{\RC}$ freezes up and forever thereafter takes the same fixed action, as if frozen.
 Loosely speaking, $\pi_{\RC}$ is like an agent who considers the possibility that it might
 be dreaming, and so asks: ``How did I get here?''
 Since the act of reviewing one's past actions and verifying that they are indeed the actions
@@ -638,7 +639,7 @@ evidence supports this hypothesis.
 For intelligent deterministic agents $\pi$, $\pi_{\RC}$ would certainly perform well in
 Examples \ref{rewardagentforignoringrewardsexample} and
 \ref{reverseconsciousnessexample} because those environments would
-run simulations in which the agent's catatonic branch would be triggered,
+run simulations in which the agent's frozen branch would be triggered,
 making such simulations trivial and therefore predictable.
 
 We close this section by stating some simple results
@@ -694,7 +695,7 @@ environment. This ensures that such blind agents should receive an average score
 $0$ (possibly non-zero due to randomness). For uniformity, all environments in the library
 always output rewards of either $1$, $-1$ or $0$.
 
-We have used this library to measure the self-reflection of the following agents
+We have used our library to measure the self-reflection of the following agents
 (agents with elements of randomness were memoized to make them deterministic):
 \begin{itemize}
   \item RandomAgent: An agent who acts randomly.
@@ -705,7 +706,7 @@ We have used this library to measure the self-reflection of the following agents
     from the MIT-licensed open-source Stable Baselines3
     library \cite{stable-baselines3}, converted
     using the technique from Section \ref{mappingtouniversalsection}. All parameters and
-    hyperparameters were allowed to keep their default values except for random seed
+    hyperparameters kept their default values except for random seed
     (to ensure reproducibility), PPO's batch\_size (to facilitate the conversion
     from Section \ref{mappingtouniversalsection}), and DQN's
     learning\_starts (which we set to $1$ instead of its default of
@@ -716,6 +717,9 @@ We have used this library to measure the self-reflection of the following agents
   \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
 \end{itemize}
 Table \ref{measurementtable} summarizes how the agents performed.
+We used \cite{library} to measure each agent for $500$ steps on each extended environment
+(repeated
+$10$ times with different random number seeds) and likewise for $1000$ steps.
 We did not include the recurrent DQN agent mentioned in Section \ref{temptingbuttonsection}
 because we had no way of canonically choosing hyperparameters for it (whereas
 the A2C, DQN, and PPO agents have a natural way of choosing canonical hyperparameters,
@@ -725,8 +729,8 @@ The table provides
 experimental evidence in support of our hypothesis that the reality check transformation
 (Section \ref{realitychecksection}) increases agent self-reflection.
 The fact that NaiveLearner performs so well is a reflection of the
-lack of sophistication of the environments in our library. This is not particularly
-surprising, since we have not attempted to exhaustively optimize the library, instead
+lack of sophistication of the environments in our library. This is not
+surprising, since we have not attempted to optimize the library, instead
 prefering to fill it with extended environments of theoretical interest.
 
 That $\pi_{\RC}$ performs well in Table \ref{measurementtable} is of course a function of
@@ -734,7 +738,7 @@ which environments are tested against. One could deliberately engineer extended 
 in which $\pi_{\RC}$ performs poorly, and a library of such would give $\pi_{\RC}$ a poor
 numerical measurement. We conjecture that such environments are more contrived (on average)
 than environments where $\pi_{\RC}$ performs well, so that in a truly representative and
-unbiased library, the former would have less weight, following the logic of
+unbiased library, they would have less weight, following the logic of
 \cite{legg2007universal}.
 
 \begin{table}
@@ -743,7 +747,7 @@ unbiased library, the former would have less weight, following the logic of
   \centering
   \begin{tabular}{lll}
     \toprule
-    Agent     & Avg Reward $\pm$ StdErr     & Avg Reward $\pm$ StdErr \\
+    Agent     & Avg Measure $\pm$ StdErr     & Avg Measure $\pm$ StdErr \\
               & (500 steps)                & (1000 steps)\\
     \midrule
     RandomAgent & $-0.019852\pm 0.0007$ & $-0.021478\pm0.0003$\\
@@ -843,7 +847,7 @@ Fill this in.
   \item Did you discuss any potential negative societal impacts of your work?
     \answerYes{In the Introduction, we included the following language:
     ``It would be inappropriate to use self-reflectiveness
-    measurements using the techniques in this paper for purposes of making any kind
+    measurements from this paper for purposes of making any kind
     of policy-decisions related to consciousness.''}
   \item Have you read the ethics review guidelines and ensured that your paper conforms to them?
     \answerYes{}
@@ -873,9 +877,9 @@ Fill this in.
     PPO agents from Stable Baselines3, that gives us a natural way of choosing canonical
     hyperparameters---namely, the Stable Baselines3 defaults.}
 	\item Did you report error bars (e.g., with respect to the random seed after running experiments multiple times)?
-    \answerYes{In Table \ref{measurementtable} we display Avg Reward $\pm$ StdErr.}
+    \answerYes{In Table \ref{measurementtable} we display Avg Measure $\pm$ StdErr.}
 	\item Did you include the total amount of compute and the type of resources used (e.g., type of GPUs, internal cluster, or cloud provider)?
-    \answerYes{Yes, in Section \ref{measurementssection} we mention that
+    \answerYes{In Section \ref{measurementssection} we mention that
     the computations were performed on a consumer-grade laptop without GPU.}
 \end{enumerate}
 
@@ -935,7 +939,7 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   \]
   We wish to show that $\rho=\pi_{\RC}$, which will prove part 1 of
   Proposition \ref{transformationproposition}.
-  We will prove by inductionthat for each $x_1y_1\ldots x_n\in D$,
+  We will prove by induction that for each $x_1y_1\ldots x_n\in D$,
   $\rho(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$.
   The base case is trivial:
   $\rho(\langle x_1\rangle)=\pi(\langle x_1\rangle)=\pi_{\RC}(\langle x_1\rangle)$
@@ -963,7 +967,7 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   Case 2: Assume there is some $1\leq i<n$ such that
   $y_i\not=\pi(x_1y_1\ldots x_i)$.
   We may choose $i$ as small as possible.
-  Thus, for all $1\leq j<i$, $y_j=\pi(x_1y_1\ldots x_i)$.
+  Thus, for all $1\leq j<i$, $y_j=\pi(x_1y_1\ldots x_j)$.
   By similar logic as in Case 1, it follows that for all
   $1\leq j<i$, $y_j=\rho(x_1y_1\ldots x_j)$.
   Our induction hypothesis says that for each such $j$,
@@ -993,7 +997,7 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   first we compute $\pi_{\RC}(x_1y_1\ldots x_i)$ for $i=1,\ldots,n-1$,
   and check whether the results are $y_1,\ldots,y_{n-1}$, respectively.
   Each of these computations always has the same outcome, by the induction hypothesis.
-  So, every time we check whether or not each $y_i=\pi_{\RC}(x_1y_1\ldots x_n)$ for
+  So, every time we check whether or not each $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for
   all $1\leq i<n$, we get the same answer.
   If that answer is ``yes'', then we finally output $\pi(x_1y_1\ldots x_n)$ (which is
   deterministic since $\pi$ is deterministic). Otherwise, we finally output
@@ -1008,13 +1012,14 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
 
   Case 1: $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$.
   Then by induction, $y_i=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$.
-  By definition of $\pi_{\RC}$, this means
+  By definition of $(\pi_{\RC})_{\RC}$, this means
   $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$, as desired.
 
   Case 2: There is some $1\leq i<n$ such that $y_i\not=\pi_{\RC}(x_1y_1\ldots x_i)$.
   By induction, $y_i\not=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$.
   Thus, $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(\langle x_1\rangle)
-  =\pi(\langle x_1\rangle)$ as desired.
+  =\pi(\langle x_1\rangle)$, which equals $\pi_{\RC}(x_1y_1\ldots x_n)$
+  since $y_i\not=\pi_{\RC}(x_1y_1\ldots x_i)$ and $i<n$.
 
   \item
   (Part 4)
@@ -1022,7 +1027,7 @@ As promised, we will now prove Proposition \ref{transformationproposition}.
   result of $\pi$ interacting with $\mu$, and let $x'_1y'_1x'_2y'_2\ldots$ be the
   result of $\pi_{\RC}$ interacting with $\mu$. We will show by induction that each
   $x_n=x'_n$ and each $y_n=y'_n$.
-  First, the base case, $x_1=x'_1=\mu(\langle\rangle)$ (the environment's initial percept
+  For the base case, $x_1=x'_1=\mu(\langle\rangle)$ (the environment's initial percept
   does not depend on the agent), and therefore
   $y_1=\pi(\langle x_1\rangle)=\pi(\langle x'_1\rangle)=y'_1$. For the induction step,
   \begin{align*}
