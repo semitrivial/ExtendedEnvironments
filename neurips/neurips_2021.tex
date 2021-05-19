@@ -42,6 +42,8 @@
 \def\A{\mathcal{A}}
 \def\O{\mathcal{O}}
 \def\RND{\textrm{RND}}
+\def\obs{\textrm{obs}}
+\def\rwd{\textrm{rwd}}
 
 \title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
 
@@ -150,7 +152,7 @@ with the harder problem of benchmarking how conscious an RL agent is. It is
 plausible that there may be a relationship between the self-reflectiveness and
 the consciousness of RL agents, but that is beyond the scope of this paper.
 In particular, it would be inappropriate to use self-reflectiveness
-measurements using the techniques in this paper for purposes of making any kind
+measurements from this paper for purposes of making any kind
 of policy-decisions related to consciousness.
 We will describe (in Section \ref{realitychecksection})
 a simple method for increasing the self-reflectiveness of an RL agent, which method,
@@ -182,8 +184,9 @@ except that,
 to align more closely with concrete RL implementations,
 we assume the agent receives an initial percept before
 taking its initial action.
-This formalization differs from how RL agents are
-implemented in practice; in Section \ref{mappingtouniversalsection}
+
+Our formalization differs from how RL agents are
+implemented in practice. In Section \ref{mappingtouniversalsection}
 we will discuss how practical RL agent implementations can be
 transformed into agents of this abstract type.
 
@@ -329,7 +332,7 @@ training would be needed until $\pi(x_1y_1\ldots x_{128})$.
 Above, we chose to let $k$ be the largest power of $2$ which is $\leq n$
 in order to strike a fine balance between efficiency and training.
 The slow growth of $\log_2$ limits how often the practical agent must be trained
-(training being the biggest bottleneck in the above process). Faster-growing functions
+(training being the bottleneck in the above process). Faster-growing functions
 would presumably make $\pi$ more performant, at the price of greater computational
 expense.
 
@@ -389,22 +392,26 @@ as IgnoreRewards2.py and IgnoreRewards3.py.
 \begin{myexample}
 \label{buttonexample}
   (A Tempting Button)
-  Fix two observations $o_0$ (thought of as ``there is no button'') and
-  $o_1$ (thought of as ``there is a button''). Fix two actions $a_0$
+  Fix two observations $o_0$ (thought of as ``there is a button'') and
+  $o_1$ (thought of as ``there is no button''). Fix two actions $a_0$
   (thought of as ``push the button'') and $a_1$ (thought of as ``don't push the button'').
+  For each percept $p=(r,o)$, write $\obs(p)=o$ for the observation component of $p$,
+  $\rwd(p)=r$ for the reward component of $p$.
   Let $\RND$ be a function which returns a random number between $0$ and $1$.
   Define an extended environment $\mu$ as follows:
   \begin{align*}
     \mu(T,\langle\rangle) &= (0,o),\\
     \mu(T,x_1y_1\ldots x_ny_n) &=
       \begin{cases}
-        (1,o) &\mbox{if $x_n=o_1$ and $y_n=a_0$,}\\
-        (-1,o) &\mbox{if $x_n=o_1$ and $y_n\not=a_0$,}\\
-        (-1,o) &\mbox{if $x_n=o_0$ and $T(x_1y_1\ldots x_{n-1}y_{n-1}o_1)=a_0$,}\\
-        (1,o) &\mbox{if $x_n=o_0$ and $T(x_1y_1\ldots x_{n-1}y_{n-1}o_1)\not=a_0$,}
+        (1,o) &\mbox{if $\obs(x_n)=o_0$ and $y_n=a_0$,}\\
+        (-1,o) &\mbox{if $\obs(x_n)=o_0$ and $y_n\not=a_0$,}\\
+        (-1,o) &\mbox{if $\obs(x_n)=o_1$ and
+          $T(x_1y_1\ldots x_{n-1}y_{n-1}(\rwd(x_n),o_1))=a_0$,}\\
+        (1,o) &\mbox{if $\obs(x_n)=o_1$ and
+          $T(x_1y_1\ldots x_{n-1}y_{n-1}(\rwd(x_n),o_1))\not=a_0$,}
       \end{cases}
   \end{align*}
-  where $o=o_0$ if $\RND()<.75$, $o=o_1$ otherwise.
+  where $o=o_0$ if $\RND()<.25$, $o=o_1$ otherwise.
 \end{myexample}
 
 In Example \ref{buttonexample}, the agent wanders from room
@@ -599,7 +606,7 @@ agents more self-reflective. To illustrate this, we will define a simple transfo
 the \emph{reality check} transformation, designed to increase the self-reflection
 of deterministic agents who have some amount of intelligence
 (a deterministic agent is an agent who always takes the same
-actions in response to the same input, i.e., an agent with no random component).
+actions in response to the same inputs).
 In the next section, empirical results will suggest the transformation works as intended.
 
 \begin{definition}
