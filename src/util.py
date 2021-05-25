@@ -9,7 +9,6 @@ def run_environment(env, T, num_steps):
     play = ()
 
     env = env()
-    env_fnc = env.fnc
     num_legal_actions = env.num_legal_actions
     num_possible_obs = env.num_possible_obs
 
@@ -22,7 +21,7 @@ def run_environment(env, T, num_steps):
         return T(prompt, num_legal_actions, num_possible_obs, **kwargs)
 
     while step < num_steps:
-        reward, obs = env_fnc(T_with_meta, play)
+        reward, obs = env.react(T_with_meta, play)
 
         results['total_reward'] += reward
         prompt = play + (reward, obs)
