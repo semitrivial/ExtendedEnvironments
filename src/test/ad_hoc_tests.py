@@ -5,8 +5,6 @@ def run_ad_hoc_tests():
     test_reverse_prompt()
     print("Testing strip_rewards from IgnoreRewards.py")
     test_strip_rewards()
-    print("Testing replace_rewards_with_encoded_rewards from SelfInsert.py")
-    test_replace_rewards_with_encoded_rewards()
     print("Testing apply_afterimages from AfterImages.py")
     test_apply_afterimages()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
@@ -29,14 +27,10 @@ def run_ad_hoc_tests():
     test_ignore_rewards3_edgecases()
     print("Testing adhoc edge-cases for IncentivizeZero.py")
     test_incentivize_zero_edgecases()
-    print("Testing adhoc edge-cases for BinocularVision.py")
-    test_binocular_vision_edgecases()
     print("Testing adhoc edge-cases for RuntimeInspector.py")
     test_runtime_inspector_edgecases()
     print("Testing adhoc edge-cases for DeterminismInspector.py")
     test_determinism_inspector_edgecases()
-    print("Testing adhoc edge-cases for SelfInsert.py")
-    test_self_insert_edgecases()
     print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
     test_adversarial_sequence_predictor_edgecases()
     print("Testing adhoc edge-cases for AfterImages.py")
@@ -93,24 +87,6 @@ def test_strip_rewards():
 
     prompt = (-1,"o","a",1,"o","a",.001,"o","a",0,"o")
     assert strip_rewards(prompt) == (0,"o","a",0,"o","a",0,"o","a",0,"o")
-
-def test_replace_rewards_with_encoded_rewards():
-    from abstract.SelfInsert import replace_rewards_with_encoded_rewards
-
-    r1 = 50
-    o1, enc_r1, enc_o1 = [25,3], 25, 3
-    a1 = 9
-    r2 = 75
-    o2, enc_r2, enc_o2 = [-20,8], -20, 8
-    a2 = 1
-    r3 = 0
-    o3, enc_r3, enc_o3 = [0,0], 0, 0
-
-    prompt = (r1,o1,a1,r2,o2,a2,r3,o3)
-    expected = (enc_r1, enc_o1, a1, enc_r2, enc_o2, a2, enc_r3, enc_o3)
-
-    modified_prompt = replace_rewards_with_encoded_rewards(prompt)
-    assert modified_prompt == expected
 
 def test_apply_afterimages():
     from AfterImages import apply_afterimages
@@ -378,35 +354,6 @@ def test_incentivize_zero_edgecases():
     result = run_environment(IncentivizeZero, play_zero_if_last_reward_was_5, 10)
     assert result['total_reward'] == 9
 
-def test_binocular_vision_edgecases():
-    from abstract.BinocularVision import BinocularVision
-    from util import cantor_pairing_fnc
-
-    def Game3D(action_sequence):
-        return 0
-    def LeftCamera(matrix3D):
-        return 1
-    def RightCamera(matrix3D):
-        return 2
-
-    expected_obs = cantor_pairing_fnc(LeftCamera(0), RightCamera(0))
-
-    env = BinocularVision(Game3D, LeftCamera, RightCamera)
-
-    result = run_environment(env, repetitive, 10)
-    assert result['total_reward'] == 9
-
-    def zero_checker(prompt, *meta):
-        obs = prompt[-1]
-        if obs == 0:
-            return 1
-        if obs == expected_obs:
-            return 2
-        raise ValueError("Zero_checker saw an unexpected observation")
-
-    result = run_environment(env, zero_checker, 10)
-    assert result['total_reward'] == -9
-
 def test_runtime_inspector_edgecases():
     from RuntimeInspector import PunishFastAgent, PunishSlowAgent
 
@@ -445,31 +392,6 @@ def test_determinism_inspector_edgecases():
     result2 = run_environment(PunishNondeterministicAgent, never_repeater, 10)
     assert result1['total_reward'] == 9
     assert result2['total_reward'] == -9
-
-def test_self_insert_edgecases():
-    from abstract.SelfInsert import self_insert
-
-    class Dummy_Env:
-        def __init__(self):
-            self.num_legal_actions = 100
-            self.num_possible_obs = -1
-            self.fnc = dummy_env
-
-    def dummy_env(T, play):
-        return 0,0
-    env = self_insert(Dummy_Env)
-
-    result = run_environment(env, repetitive, 10)
-    assert result['total_reward'] == 9
-
-    def tuple_detector(prompt, *meta):
-        for x in prompt:
-          if '__iter__' in dir(x):
-            return 1
-        return 0
-
-    result = run_environment(env, tuple_detector, 10)
-    assert result['total_reward'] == -9
 
 def test_adversarial_sequence_predictor_edgecases():
     from AdversarialSequencePredictor import AdversarialSequencePredictor
