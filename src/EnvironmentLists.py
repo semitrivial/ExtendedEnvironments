@@ -1,4 +1,3 @@
-# Handicaps
 from BackwardConsciousness import BackwardConsciousness
 from DejaVu import DejaVu
 from FalseMemories import FalseMemories

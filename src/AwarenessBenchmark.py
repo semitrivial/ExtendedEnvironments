@@ -1,4 +1,3 @@
-from Handicap import apply_handicap
 from EnvironmentLists import environments, slow_envs
 from MinusRewards import minus_rewards
 from util import run_environment
