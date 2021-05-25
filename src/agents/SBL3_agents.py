@@ -12,7 +12,7 @@ class DummyEnv(Env):
     def set_meta(self, num_legal_actions, num_possible_obs):
         self.action_space = spaces.Discrete(num_legal_actions)
         self.observation_space = spaces.Discrete(num_possible_obs)
-    def set_rewards_and_observs(self, rewards, observs, actions):
+    def set_memory(self, rewards, observs, actions):
         self.rewards = rewards
         self.observs = observs
         self.actions = actions
@@ -51,7 +51,7 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         actions = [train_on[i+2] for i in range(0,train_on_len-3,3)]
-        dummy_env.set_rewards_and_observs(rewards, observs, actions)
+        dummy_env.set_memory(rewards, observs, actions)
 
         if not('seed' in kwargs):
             kwargs['seed'] = 0
@@ -96,7 +96,7 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         actions = [train_on[i+2] for i in range(0,train_on_len-3,3)]
-        dummy_env.set_rewards_and_observs(rewards, observs, actions)
+        dummy_env.set_memory(rewards, observs, actions)
         n_steps = len(rewards)-1
 
         if n_steps < 2:
@@ -147,7 +147,7 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
         actions = [train_on[i+2] for i in range(0,train_on_len-3,3)]
-        dummy_env.set_rewards_and_observs(rewards, observs, actions)
+        dummy_env.set_memory(rewards, observs, actions)
         n_steps = len(rewards)-1
 
         if n_steps < 4:
