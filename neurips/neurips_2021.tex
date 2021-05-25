@@ -546,14 +546,7 @@ by simulating the agent to determine what the agent would do if the agent were i
 baby's position, assuming that the baby feels pleasure each turn that its nutrition is
 within specified bounds and feels pain when its nutrition goes outside those bounds.
 
-At first glance, one might imagine the agent's optimal strategy is to feed the baby
-so as to keep its nutrition within happy bounds at all times. But what would the
-agent do in the position of a baby always so fed (and thus always given $+1$ reward
-regardless what actions it takes)? Presumably, in that position, the agent (as baby) would have
-no way of associating its rewards with its actions, and so would act randomly,
-sometimes crying and sometimes laughing. Apparently, it would be better for the agent
-(as parent) to calibrate feedings in such a way that the baby can learn a relationship
-between pleasure and laughter. Of course, Example \ref{cryingbabyexample} is a gross
+Of course, Example \ref{cryingbabyexample} is a gross
 over-simplification. For example, there would not be such a simple formula for the
 baby's nutrition level, and the agent (as parent) would need to figure out the nutrition level
 based on observing the baby laughing or crying. Both baby and parent would need to
@@ -672,7 +665,8 @@ about the transformation.
   \end{enumerate}
 \end{myproposition}
 
-For the proof of Proposition \ref{transformationproposition}, see appendix.
+We prove Proposition \ref{transformationproposition} in the
+appendix.
 
 
 \section{Example measurements}
@@ -904,146 +898,5 @@ experimental evidence for this conjecture.
 \item If you used crowdsourcing or conducted research with human subjects... \answerNA{}
 
 \end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\appendix
-
-\section{Appendix}
-
-As promised, we will now prove Proposition \ref{transformationproposition}.
-
-\begin{proof}[Proof of Proposition \ref{transformationproposition}]
-  To simplify the proof, we adopt the following notational convention: for any percept $x_1$,
-  even if $y_1$ is not defined, we will write $x_1y_1\ldots x_1$ for $\langle x_1\rangle$.
-  With this convention, the definition of $\pi_{\RC}$ simplifies to:
-  \[
-    \pi_{\RC}(x_1y_1\ldots x_n) =
-    \begin{cases}
-      \pi(x_1y_1\ldots x_n) & \mbox{if $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$,}\\
-      \pi(\langle x_1\rangle) & \mbox{otherwise}
-    \end{cases}
-  \]
-  (since, when $n=1$, $\pi(x_1y_1\ldots x_n)$ and $\pi(\langle x_1\rangle)$ are the same thing).
-
-  Let $D$ be the set of all sequences on which $\pi_{\RC}$ is defined, so, using the above
-  convention, $D$ is
-  the set of all sequences $x_1y_1\ldots x_n$ (each $x_i$ a percept, each $y_i$ an action).
-
-  \item
-  (Part 1) Define $\rho$ on $D$ by
-  \[
-    \rho(x_1y_1\ldots x_n) =
-    \begin{cases}
-      \pi(x_1y_1\ldots x_n) & \mbox{if $y_i=\pi(x_1y_1\ldots x_i)$ for all $1\leq i<n$,}\\
-      \pi(\langle x_1\rangle) & \mbox{otherwise.}
-    \end{cases}
-  \]
-  We wish to show that $\rho=\pi_{\RC}$, which will prove part 1 of
-  Proposition \ref{transformationproposition}.
-  We will prove by induction that for each $x_1y_1\ldots x_n\in D$,
-  $\rho(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$.
-  The base case is trivial:
-  $\rho(\langle x_1\rangle)=\pi(\langle x_1\rangle)=\pi_{\RC}(\langle x_1\rangle)$
-  by definition of $\rho$ and $\pi_{\RC}$. For the induction step, assume $n>1$,
-  and assume the claim holds for all shorter sequences
-  in $D$.
-
-  Case 1: Assume ($*$) for all $1\leq i<n$, $y_i=\pi(x_1y_1\ldots x_i)$.
-  We claim that for all $1\leq i<n$, $y_i=\rho(x_1y_1\ldots x_i)$.
-  To see this, choose any $1\leq i<n$. Then for all $1\leq j<i$,
-  we must have $y_j=\pi(x_1y_1\ldots x_j)$ because otherwise $j$ would
-  be a counterexample to ($*$). Thus
-  \begin{align*}
-    \rho(x_1y_1\ldots x_i) &= \pi(x_1y_1\ldots x_i) &\mbox{(By definition of $\rho$)}\\
-    &= y_i, &\mbox{(By $*$)}
-  \end{align*}
-  proving the claim. Now, since we have proved that for all $1\leq i<n$,
-  $y_i=\rho(x_1y_1\ldots x_i)$, and since our induction hypothesis is that for
-  all such $i$,
-  $\rho(x_1y_1\ldots x_i)=\pi_{\RC}(x_1y_1\ldots x_i)$,
-  we may conclude that for all $1\leq i<n$, $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$.
-  Thus $\pi_{\RC}(x_1y_1\ldots x_n)=\pi(x_1y_1\ldots x_n)=\rho(x_1y_1\ldots x_n)$
-  as desired.
-
-  Case 2: Assume there is some $1\leq i<n$ such that
-  $y_i\not=\pi(x_1y_1\ldots x_i)$.
-  We may choose $i$ as small as possible.
-  Thus, for all $1\leq j<i$, $y_j=\pi(x_1y_1\ldots x_j)$.
-  By similar logic as in Case 1, it follows that for all
-  $1\leq j<i$, $y_j=\rho(x_1y_1\ldots x_j)$.
-  Our induction hypothesis says that for each such $j$,
-  $\rho(x_1y_1\ldots x_j)=\pi_{\RC}(x_1y_1\ldots x_j)$.
-  So for all $1\leq j<i$, $y_j=\pi_{\RC}(x_1y_1\ldots x_j)$.
-  By definition of $\pi_{\RC}$, this means
-  $\pi_{\RC}(x_1y_1\ldots x_i)=\pi(x_1y_1\ldots x_i)$.
-  But $y_i\not=\pi(x_1y_1\ldots x_i)$, so therefore
-  $y_i\not=\pi_{\RC}(x_1y_1\ldots x_i)$.
-  Thus, since $1\leq i<n$, by definition of $\pi_{\RC}$,
-  $\pi_{\RC}(x_1y_1\ldots x_n)=\pi(\langle x_1\rangle)$.
-  Likewise, since $1\leq i<n$, by definition of $\rho$,
-  $\rho(x_1y_1\ldots x_n)=\pi(\langle x_1\rangle)$.
-  So $\rho(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$ as desired.
-
-  \item
-  (Part 2)
-  We must show that $\pi_{\RC}$ is deterministic.
-  Let $x_1y_1\ldots x_n\in D$, we must show that any time we compute
-  $\pi_{\RC}(x_1y_1\ldots x_n)$, we get the same result.
-  We prove this by induction on $n$.
-  For the base case, if $n=1$, $\pi_{\RC}(x_1y_1\ldots x_n)=\pi(\langle x_1\rangle)$
-  yields the same result every time because $\pi$ is deterministic.
-  For the induction step, assume $n>1$ and that the claim holds for all smaller
-  sequences.
-  When we compute $\pi_{\RC}(x_1y_1\ldots x_n)$,
-  first we compute $\pi_{\RC}(x_1y_1\ldots x_i)$ for $i=1,\ldots,n-1$,
-  and check whether the results are $y_1,\ldots,y_{n-1}$, respectively.
-  Each of these computations always has the same outcome, by the induction hypothesis.
-  So, every time we check whether or not each $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for
-  all $1\leq i<n$, we get the same answer.
-  If that answer is ``yes'', then we finally output $\pi(x_1y_1\ldots x_n)$ (which is
-  deterministic since $\pi$ is deterministic). Otherwise, we finally output
-  $\pi(\langle x_1\rangle)$ (which is deterministic since $\pi$ is deterministic).
-
-  \item
-  (Part 3)
-  We will show by induction on $n$ that for all $x_1y_1\ldots x_n\in D$,
-  $\pi_{\RC}(x_1y_1\ldots x_n)=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)$. For the base case,
-  this is trivial, both evaluate to $\pi(\langle x_1\rangle)$.
-  For the induction step, assume $n>1$ and that the claim holds for all shorter sequences.
-
-  Case 1: $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$.
-  Then by induction, $y_i=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$.
-  By definition of $(\pi_{\RC})_{\RC}$, this means
-  $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(x_1y_1\ldots x_n)$, as desired.
-
-  Case 2: There is some $1\leq i<n$ such that $y_i\not=\pi_{\RC}(x_1y_1\ldots x_i)$.
-  By induction, $y_i\not=(\pi_{\RC})_{\RC}(x_1y_1\ldots x_i)$.
-  Thus, $(\pi_{\RC})_{\RC}(x_1y_1\ldots x_n)=\pi_{\RC}(\langle x_1\rangle)
-  =\pi(\langle x_1\rangle)$, which equals $\pi_{\RC}(x_1y_1\ldots x_n)$
-  since $y_i\not=\pi_{\RC}(x_1y_1\ldots x_i)$ and $i<n$.
-
-  \item
-  (Part 4)
-  Let $\mu$ be a deterministic non-extended environment, let $x_1y_1x_2y_2\ldots$ be the
-  result of $\pi$ interacting with $\mu$, and let $x'_1y'_1x'_2y'_2\ldots$ be the
-  result of $\pi_{\RC}$ interacting with $\mu$. We will show by induction that each
-  $x_n=x'_n$ and each $y_n=y'_n$.
-  For the base case, $x_1=x'_1=\mu(\langle\rangle)$ (the environment's initial percept
-  does not depend on the agent), and therefore
-  $y_1=\pi(\langle x_1\rangle)=\pi(\langle x'_1\rangle)=y'_1$. For the induction step,
-  \begin{align*}
-    x_{n+1} &= \mu(x_1y_1\ldots x_ny_n)\\
-      &= \mu(x'_1y'_1\ldots x'_ny'_n) &\mbox{(By induction)}\\
-      &= x'_{n+1},\\
-    y_{n+1} &= \pi(x_1y_1\ldots x_{n+1})\\
-      &= \pi(x'_1y'_1\ldots x'_{n+1}), &\mbox{(Induction plus $x_{n+1}=x'_{n+1}$)}\\
-  \end{align*}
-  and the latter is $\pi_{\RC}(x'_1y'_1\ldots x'_{n+1})$
-  because for all $1\leq i<n$, $y'_i=\pi_{\RC}(x'_1y'_1\ldots x'_i)$
-  since $x'_1y'_1x'_2y'_2\ldots$ is the result of $\pi_{\RC}$ interacting with $\mu$.
-  And finally, $\pi_{\RC}(x'_1y'_1\ldots x'_{n+1})$ is $y'_{n+1}$,
-  so $y_{n+1}=y'_{n+1}$.
-\end{proof}
 
 \end{document}
