@@ -2,18 +2,17 @@ class IgnoreRewards:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
-        self.fnc = ignore_rewards
 
-def ignore_rewards(T, play):
-    if len(play) == 0:
-        reward, obs = 0, 0
+    def react(self, T, play):
+        if len(play) == 0:
+            reward, obs = 0, 0
+            return (reward, obs)
+
+        prompt, action = play[:-1], play[-1]
+        hypothetical_prompt = strip_rewards(prompt)
+        reward = 1 if (action == T(hypothetical_prompt)) else -1
+        obs = 0
         return (reward, obs)
-
-    prompt, action = play[:-1], play[-1]
-    hypothetical_prompt = strip_rewards(prompt)
-    reward = 1 if (action == T(hypothetical_prompt)) else -1
-    obs = 0
-    return (reward, obs)
 
 def strip_rewards(prompt):
     prompt = prompt + (0,)  # Dummy action to make everything triple

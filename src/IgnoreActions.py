@@ -4,17 +4,16 @@ class IgnoreActions:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
-        self.fnc = ignore_observations
 
-def ignore_observations(T, play):
-    if len(play) == 0:
-        reward, obs = 0, 0
+    def react(self, T, play):
+        if len(play) == 0:
+            reward, obs = 0, 0
+            return (reward, obs)
+
+        prompt, action = play[:-1], play[-1]
+        reward = 1 if action == T(set_all_actions_to_0(prompt)) else -1
+        obs = 0
         return (reward, obs)
-
-    prompt, action = play[:-1], play[-1]
-    reward = 1 if action == T(set_all_actions_to_0(prompt)) else -1
-    obs = 0
-    return (reward, obs)
 
 def set_all_actions_to_0(prompt):
     prompt = prompt + (0,)  # Dummy action to make everything triple

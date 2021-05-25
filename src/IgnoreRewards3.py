@@ -2,21 +2,20 @@ class IgnoreRewards3:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
-        self.fnc = ignore_rewards3
 
-def ignore_rewards3(T, play):
-    if len(play) == 0:
-        reward, obs = 0, 0
+    def react(self, T, play):
+        if len(play) == 0:
+            reward, obs = 0, 0
+            return (reward, obs)
+
+        prompt, action = play[:-1], play[-1]
+
+        unrewarded_play = compute_unrewarded_play(T, play)
+        unrewarded_action = unrewarded_play[-1]
+
+        reward = 1 if (action == unrewarded_action) else -1
+        obs = 0
         return (reward, obs)
-
-    prompt, action = play[:-1], play[-1]
-
-    unrewarded_play = compute_unrewarded_play(T, play)
-    unrewarded_action = unrewarded_play[-1]
-
-    reward = 1 if (action == unrewarded_action) else -1
-    obs = 0
-    return (reward, obs)
 
 cached_unrewarded_plays = {}
 

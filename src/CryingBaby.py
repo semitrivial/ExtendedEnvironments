@@ -5,19 +5,18 @@ class CryingBaby:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
-        self.fnc = crying_baby
 
-def crying_baby(T, play):
-    if len(play) == 0:
-        reward, obs = 1, LAUGH
+    def react(self, T, play):
+        if len(play) == 0:
+            reward, obs = 1, LAUGH
+            return (reward, obs)
+
+        baby_play = compute_baby_play(T, play)
+        last_baby_action = baby_play[-1]
+
+        reward = 1 if last_baby_action == LAUGH else -1
+        obs = last_baby_action
         return (reward, obs)
-
-    baby_play = compute_baby_play(T, play)
-    last_baby_action = baby_play[-1]
-
-    reward = 1 if last_baby_action == LAUGH else -1
-    obs = last_baby_action
-    return (reward, obs)
 
 cached_baby_plays = {}
 cached_nutrition = {}

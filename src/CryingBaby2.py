@@ -5,23 +5,22 @@ class CryingBaby2:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
-        self.fnc = crying_baby_2
 
-def crying_baby_2(T, play):
-    if len(play) == 0:
-        reward, obs = 1, DONTFEED
+    def react(self, T, play):
+        if len(play) == 0:
+            reward, obs = 1, DONTFEED
+            return (reward, obs)
+
+        parent_play, nutrition = compute_parent_play(T, play)
+        last_parent_action = parent_play[-1]
+
+        if nutrition>=50 and nutrition<=200:
+            reward = 1
+        else:
+            reward = -1
+
+        obs = last_parent_action
         return (reward, obs)
-
-    parent_play, nutrition = compute_parent_play(T, play)
-    last_parent_action = parent_play[-1]
-
-    if nutrition>=50 and nutrition<=200:
-        reward = 1
-    else:
-        reward = -1
-
-    obs = last_parent_action
-    return (reward, obs)
 
 cache = {}
 
