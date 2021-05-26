@@ -730,6 +730,9 @@ The fact that NaiveLearner performs so well is a reflection of the
 lack of sophistication of the environments in our library. This is not
 surprising, since we have not attempted to optimize the library, instead
 prefering to fill it with extended environments of theoretical interest.
+A2C, DQN and PPO could be made to perform better by choosing learning rates
+more appropriate for so few training steps, but we prefer to minimize such
+decisions.
 
 That $\pi_{\RC}$ performs well in Table \ref{measurementtable} is of course a function of
 which environments are tested against. One could deliberately engineer extended environments
