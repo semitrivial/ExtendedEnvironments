@@ -303,7 +303,7 @@ Unfortunately, in our experience, the typical practical RL agent probably does n
 any way for the user to tell it to take $y_1,\ldots,y_{n-1}$ as its first $n-1$
 actions. Instead, if left to itself, the agent would choose its first $n-1$ actions
 randomly, or based on an underlying policy (usually still with an element of randomness).
-Fortunately, for RL agents implemented in Python, the
+Fortunately, for RL agents implemented in Python,
 action-choice methods can often be intercepted (or \emph{monkeypatched})
 in order to override the randomness of the action choice and ensure
 that the random number generator chooses $y_1,\ldots,y_{n-1}$ as the first $n-1$
