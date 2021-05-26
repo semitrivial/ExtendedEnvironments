@@ -303,8 +303,9 @@ Unfortunately, in our experience, the typical practical RL agent probably does n
 any way for the user to tell it to take $y_1,\ldots,y_{n-1}$ as its first $n-1$
 actions. Instead, if left to itself, the agent would choose its first $n-1$ actions
 randomly, or based on an underlying policy (usually still with an element of randomness).
-Fortunately, most practical RL agents are implemented in Python, and can therefore
-be monkeypatched in order to override the randomness of the action choice and ensure
+Fortunately, for RL agents implemented in Python, the
+action-choice methods can often be intercepted (or \emph{monkeypatched})
+in order to override the randomness of the action choice and ensure
 that the random number generator chooses $y_1,\ldots,y_{n-1}$ as the first $n-1$
 actions.
 
@@ -340,7 +341,7 @@ would presumably make $\pi$ more performant, at the price of greater computation
 expense.
 
 In \cite{library}, in SBL3\_agents.py, we use the above technique
-(including the monkeypatching) to obtain RL agents as in Definition \ref{agentenvironmentdefn}
+to obtain RL agents as in Definition \ref{agentenvironmentdefn}
 from the practical implementations of A2C, DQN, and PPO
 agents in the MIT-licensed open-source
 Stable Baselines3 library \cite{stable-baselines3}.
