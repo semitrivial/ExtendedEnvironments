@@ -226,7 +226,8 @@ is a reward.
   \end{enumerate}
 \end{mydefinition}
 
-We extend environments by allowing their outputs to depend not only on
+In the following definition,
+we extend environments by allowing their outputs to depend not only on
 $x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\pi$.
 
 \begin{mydefinition}
@@ -336,7 +337,7 @@ training would be needed until $\pi(x_1y_1\ldots x_{128})$.
 Above, we chose to let $k$ be the largest power of $2$ which is $\leq n$
 in order to strike a fine balance between efficiency and training.
 The slow growth of $\log_2$ limits how often the practical agent must be trained
-(training being the bottleneck in the above process). Faster-growing functions
+(training being the bottleneck in the above process). More frequent training
 would presumably make $\pi$ more performant, at the price of greater computational
 expense.
 
@@ -718,6 +719,8 @@ Table \ref{measurementtable} summarizes how the agents performed.
 We used \cite{library} to measure each agent for $500$ steps on each extended environment
 (repeated
 $10$ times with different random number seeds) and likewise for $1000$ steps.
+See ExampleMeasurements.py there for instructions to
+replicate this experiment.
 We did not include the recurrent DQN agent mentioned in Section \ref{temptingbuttonsection}
 because we had no way of canonically choosing hyperparameters for it (whereas
 the A2C, DQN, and PPO agents have a natural way of choosing canonical hyperparameters,
@@ -870,7 +873,9 @@ experimental evidence for this conjecture.
 \begin{enumerate}
   \item Did you include the code, data, and instructions needed to reproduce the main experimental results (either in the supplemental material or as a URL)?
     \answerYes{These are included in the open-source library, which we will include
-    as supplemental material.}
+    as supplemental material. In the text itself, where we discuss experimental results,
+    we refer the user to specific files in the library containing instructions for how
+    to replicate those experimental results.}
   \item Did you specify all the training details (e.g., data splits, hyperparameters, how they were chosen)?
     \answerYes{In Section \ref{mappingtouniversalsection} we explain why we chose
     the $\log_2$ function.
