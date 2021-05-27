@@ -32,13 +32,11 @@ class DummyEnv:
         self.i += 1
         self.history.append([obs, action, reward])
         return reward, obs, self.history
-dummy_env = DummyEnv()
 
 cache_custom_DQN = {}
 
 @memoize
 def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
-    dummy_env.set_meta(num_legal_actions, num_possible_obs)
     meta = (num_legal_actions, num_possible_obs)
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(math.log2(num_observs)))-1
@@ -50,6 +48,8 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwar
     if not((train_on, meta) in cache_custom_DQN):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
+        dummy_env = DummyEnv()
+        dummy_env.set_meta(num_legal_actions, num_possible_obs)
         dummy_env.set_rewards_and_observs(rewards, observs)
 
         A = RecurrentAgent(
