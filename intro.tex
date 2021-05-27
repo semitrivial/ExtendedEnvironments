@@ -160,9 +160,28 @@ the agent to determine what it would do if sent along the first path.
 We will give examples of
 extended environments designed to incentivize RL agents to
 recursively engage in self-awareness in various ways.
-It would be interesting to measure the performance of industry-standard
-traditional RL agents in these example environments, given that these agents
-were not designed with such self-awareness in mind.
+It is an interesting question how traditional RL agents would perform
+in these extended environments. We ran a DQN agent on some of these
+extended environments and found that it performs
+better than we initially expected on some environments; more on this below.
+We tentatively conjecture that the ability of traditional RL agents to cope with these
+extended environments is related to two things. First, how far the actual history differs from
+the hypothetical histories which the environment examines. Second, the size of the action space. 
+
+For example, in the above thought experiment of ``Treasures for the Worthy'',
+the guards base their decisions on a hypothetical history which is identical
+with the true history except for just their own room, and so, since the
+two histories are so similar, the agent might be able to determine that
+uniformly refusing to take unguarded treasures is better than uniformly
+always taking unguarded treasures, even without understanding why that is so.
+If the hypothetical history is more drastically different than the true
+history, more self-awareness might be needed in order for the agent to
+choose decent actions. Similarly, any other extension of the environment that 
+modifies the history can be \emph{solved} by continuously playing the same 
+action across a variety of circumstances. For games with small action spaces, like 
+Guarded Treasure, it's very likely the agent will stumble upon a solution that 
+just plays the same action across a variety of circumstances and exploit it.
+
 We hope these examples will facilitate
 new self-aware RL techniques, hopefully as a step toward AGI.
 
@@ -1032,6 +1051,183 @@ etc., nevertheless might have some connection to RL-style reward mechanisms
 is suggested by Aristotle:
 ``Whatever has a sense has the capacity for pleasure and pain and therefore has pleasant
 and painful objects present to it...'' \cite{aristotlesoul}.
+
+\section{Deep Reinforcement Learning For Extended Environments}
+
+Modern reinforcement learning techniques combine deep learning methods with 
+traditional reinforcement learning in order to approximate the 
+Q function (Deep Q Networks) or the Policy (Policy Gradient Methods). 
+
+We sought to test how well Deep Reinforcement Learning agents performed in extended 
+environments. In particular, we tested how well an agent that relies on Deep Q Networks(DQN)
+would perform under different extended environments. 
+
+Our results show that a simple DQN with minimal extensions performs well in a given extended 
+environment; however, given the simplicity of the environments, we suspect this has more to 
+do with memorizing transformations and environment dynamics than any sort 
+of \emph{self-awareness}. We present our results and conclusions, as well as avenues for further 
+work.
+
+\subsection{DQN Extensions and Overfitting}
+
+State-of-the-art(SOTA) implementations of Deep Reinforcement Learning Agents often rely on many 
+extensions over the basic algorithm in order to improve performance. In addition, the benchmarks 
+these agents are evaluated on often involve the agent learning to take in a rich state space 
+with complex dynamics (e.g. video game environments and 3D movement environments).
+
+While we'd love to test if a SOTA agent like Agent-57 can play Atari in reverse, the 
+environments we used in our tests are intentionally simple. The state can be represented as 
+a real number, and episodes consist of one interaction. Because of this, we chose to limit 
+our agents' complexity in order to prevent overfitting or simple memorization of all possible 
+states. 
+
+Future work should scale the complexity of the Deep RL algorithm to the complexity of the 
+environment that is being processed.
+
+Our DQN uses the following extensions of the basic algorithm:
+\begin{itemize}
+    \item
+    (Replay Memory)
+    Our agent trains on a sample of episodes from its replay buffer.
+    \item
+    (Double Deep Q Networks)
+    Our agent utilizes a target network to calculate the Bellman Optimality 
+    loss for its Q network.
+    \item
+    (Recurrent Deep Q Networks)
+    Our agent processes sequences of experience trajectories to better learn 
+    environment dynamics.
+\end{itemize}
+
+\subsection{DQN Methodology}
+
+We tested different DQN architectures on a variety of extensions to evaluate whether a 
+single architecture could perform well on all tasks. Our methodology was as follows:
+\begin{enumerate}
+    \item
+    The agent was trained on the vanilla, non-extended environment to ensure the 
+    agent could learn to play.
+    \item
+    The agent was trained from scratch on the same environment, but with a handicap 
+    applied based on the examples in Section 3.
+    \item
+    Performance was evaluated and compared to to the theoretical optimum.
+\end{enumerate}
+
+In all cases, performance was calculated as average reward over 100 episode windows.
+
+\subsection{DQN Guided Treasure}
+
+We ran our agent in the Guided Treasure environment from Section 1 under the 
+following conditions:
+\begin{enumerate}
+    \item
+    \textbf{Vanilla} The agent is rewarded for taking the treasure when not guarded and 
+    leaving it when guarded.
+    \item
+    \textbf{Treasures For the Most Worthy} The agent is rewarded for taking the treasure 
+    when not guarded, as in the Vanilla variant. However, if the treasure is guarded, the agent 
+    is simulated to see what they would do at that exact moment were the treasure unguarded. If 
+    they take the treasure, the guard punishes them, otherwise they are rewarded.
+    \item
+    \textbf{Ignore Rewards} The unguarded case is the same as Vanilla. However, if the treasure 
+    is guarded, the agent is simulated to see what they would do if all rewards were suddenly 0; 
+    if it is the same as the action they chose, they are rewarded, otherwise they are punished.
+    \item
+    \textbf{Backward Consciousness} The unguarded case is the same as Vanilla. 
+    However, if the treasure is guarded, the agent is simulated to see what they would do if 
+    all the events thus far were played in reverse; if it is the same as the action they chose, 
+    they are rewarded, otherwise they are punished.
+    \item
+    \textbf{Deja Vu} The unguarded case is the same as Vanilla. 
+    However, if the treasure is guarded, the agent is simulated to see what they would do if 
+    events were to repeat themselves after their most recent action; if it is the same as 
+    the action they chose, they are rewarded, otherwise they are punished.
+    \item
+    \textbf{Incentivize Zero} The unguarded case is the same as Vanilla. 
+    However, if the treasure is guarded, the agent is simulated to see what they would 
+    do if their actions were the rewards for an alternate version of themselves(as described in 
+    Section 3); if their alternate version plays $0$, they are rewarded, otherwise 
+    they are punished.
+\end{enumerate}
+
+In all cases, the probability of a guard room was set to $0.75$ (unguarded $0.25$).
+
+We ran both a recurrent and non-recurrent DQN agent through the environment. While both agents 
+achieved optimal performance in the Vanilla environment, only the recurrent DQN agent was able 
+to perform well in the extended environments. 
+
+To our surprise, the $312$-parameter recurrent DQN agent with Gated Recurrent Units (GRU) 
+with $10$-episode memory achieved optimal scores in all extended environments after $5000$ 
+training steps.
+
+While this is encouraging, we lay a healthy grain of salt on the results, and provide 
+interpretation for why the recurrent DQN agent performs well in this simple environment.
+
+\subsection{DQN Conclusion and Concerns}
+
+While we'd love to conclude our recurrent DQN agent is \emph{self-aware}, it is more likely our 
+results speak to a combination of the simplicity of the environment, the power of neural 
+networks, and potential flaws in the operationalization of our theoretical extended environments.
+
+Deep neural networks are notoriously capable of overfitting, particularly when the capacity of 
+the model far exceeds the complexity of the environment. The environment for Guarded Treasure is 
+simple; the state can be represented as one of two real numbers, and there are only two action. 
+Given this simplicity, we tried to keep our models small. However, even with the additional 
+combinatorial variations of state-action-reward trajectories for the recurrent agent, the $312$ 
+parameters of our recurrent Q network may be too large for the simplicity of the environment. It 
+could easily be the case that the recurrent agent's outperformance over the simpler DQN agent 
+has more to do with its capacity to memorize or overfit, than with understanding the transition 
+dynamics of the environment. This problem is further obfuscated by our methodology; the agent is 
+allowed to train and be evaluated on its performance in the single extended environment, rather 
+than being forced to generalize to \emph{all} extended environments.
+
+Moreover, our results may speak more to the flexibility of neural networks than the power of 
+self-awareness. Neural networks are excellent function approximators. The transformations of the 
+history to evaluate the agent in many of the extended environments can be thought of as a 
+transformation of the state space the agent observes. Given that the network is 
+allowed to train on the extended environment before being evaluated, it is likely the agent's Q 
+network can learn an approximation of a function that maps the observed state to the unobserved 
+state used to evaluate it (for example in the case of Ignore Rewards and Backward 
+Consciousness), so that its actions for those two states are the same. The simplicity of this 
+approach is further facilitated by the simplicity of the action space (two actions), allowing 
+the agent to converge quicker or learn to play the same action at all times (in the case of 
+Incentivize Zero). 
+
+In addition, GRU and other sequence processing techniques in deep learning specialize in 
+learning dependencies within the universe of state sequences. In an environment like Deja Vu, 
+the recurrent DQN agent can easily learn to just pay attention to the the final part of the 
+history sequence so it is consistent even if actions repeat.
+
+Finally, the interpretation of our results depends on whether the operationalization of the 
+extended environment handicaps and base vanilla environments properly operationalize their 
+theoretical underpinnings proposed in this paper. For one thing, in extended environments where 
+the agent is evaluated on what they would do if history were different, it is unclear whether 
+the agent should be evaluated on their exact architecture and weights with the input history 
+state transformed, or should the agent be evaluated on a parallel network whose weights are 
+trained from scratch with the same history states but transformed as specified by the extended 
+environment. The former is closer to, ``What would you do, given what you've experienced, if you 
+then experienced an alternate world where the history is like this instead''. While the latter 
+asks, ``If I took your brain architecture and learning personality and simulated you from birth 
+to now in this alternate world, what would you do at this moment?''.
+
+Further, when operationalizing the evaluation standards for the agent's performance, given 
+the simplicity of the environment, should the agent be evaluated on a separately 
+trained architecture for each extended environment, or should the same agent be asked to play in 
+an environment where the type of extended environment can change at a moment's notice? 
+
+Overall, our results suggest DQN agents are clever game players, and, a single Q network 
+architecture is flexible to a variety of similar extended environment tasks.
+
+\subsection{Further Work}
+
+Further work with Deep Reinforcement Learning and extended environments should explore more 
+complex environments, test the limits of network size to environment, investigate whether a 
+single trained agent can perform across different extended environment handicaps for the same 
+game, and toy with the operationalization for deep learning of the extended environment theorems.
+
+In addition, further work should test how less deterministic methods like A2C and PPO fare 
+relative to the greedy DQN. 
 
 \section{Measuring Self-awareness}
 
