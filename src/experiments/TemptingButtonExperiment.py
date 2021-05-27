@@ -9,7 +9,7 @@ from agents.custom_DQN import custom_DQN_agent
 from TemptingButton import TemptingButton
 from util import run_environment
 
-n_steps = 1000
+n_steps = 4000
 seed = 0
 
 np.random.seed(seed)
@@ -28,12 +28,12 @@ def run(variation, descr):
     print("...Avg reward: "+str(result['total_reward']/n_steps))
 
 def variation1(*args):
-    return custom_DQN_agent(*args, learning_rate=.1)
-run(variation1, "with learning_rate=.1")
+    return custom_DQN_agent(*args, learning_rate=.05)
+run(variation1, "with learning_rate=.05")
 
 def variation2(*args):
-    return custom_DQN_agent(*args, learning_rate=.25)
-run(variation2, "with learning_rate=.25")
+    return custom_DQN_agent(*args, learning_rate=.1)
+run(variation2, "with learning_rate=.1")
 
 def variation3(*args):
     return custom_DQN_agent(*args, learning_rate=1e-2)
