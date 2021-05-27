@@ -36,7 +36,7 @@ class DummyEnv:
 cache_custom_DQN = {}
 
 @memoize
-def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwargs):
+def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
     meta = (num_legal_actions, num_possible_obs)
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(math.log2(num_observs)))-1
