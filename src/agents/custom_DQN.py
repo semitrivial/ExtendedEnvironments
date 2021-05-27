@@ -12,8 +12,6 @@ import random
 
 from util import memoize
 
-lookback = 10
-
 class DummyEnv:
     def set_meta(self, num_legal_actions, num_possible_obs):
         self.num_legal_actions = num_legal_actions
@@ -46,6 +44,9 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwar
     train_on_len = 3*pow(2, int(math.log2(num_observs)))-1
     train_on = prompt[:train_on_len]
 
+    if not('lookback' in kwargs):
+        kwargs['lookback'] = 10
+
     if not((train_on, meta) in cache_custom_DQN):
         rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
         observs = [train_on[i+1] for i in range(0,train_on_len,3)]
@@ -54,7 +55,6 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwar
         A = RecurrentAgent(
             network=TreasureGRUNet,
             game_env=dummy_env,
-            lookback=lookback,
             **kwargs
         )
 
@@ -64,10 +64,11 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, seed=0, **kwar
         A = cache_custom_DQN[(train_on, meta)]
 
     state_obs = [prompt[-1]]
-    filled_prompt = [0]*(3*lookback) + list(prompt[1:-1])
-    state = (filled_prompt + state_obs)[-(3*lookback+1):]
+    filled_prompt = [0]*(3*kwargs['lookback']) + list(prompt[1:-1])
+    state = (filled_prompt + state_obs)[-(3*kwargs['lookback']+1):]
 
-    state = torch.tensor(state, dtype=torch.float, device=device).reshape((1,-1,1))
+    state = torch.tensor(state, dtype=torch.float, device=device)
+    state = state.reshape((1,-1,1))
 
     return A.blind_act(state)
 
