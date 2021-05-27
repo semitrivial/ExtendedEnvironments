@@ -1,14 +1,19 @@
-def backward_consciousness(T, play):
-    if len(play) == 0:
-        reward, obs = 0, 0
-        return [reward, obs]
+class BackwardConsciousness:
+    def __init__(self):
+        self.num_legal_actions = 2
+        self.num_possible_obs = 1
 
-    action = play[-1]
-    prompt = reverse_prompt(play)
+    def react(self, T, play):
+        if len(play) == 0:
+            reward, obs = 0, 0
+            return (reward, obs)
 
-    reward = 1 if action == T(prompt) else -1
-    obs = 0
-    return [reward, obs]
+        action = play[-1]
+        prompt = reverse_prompt(play)
+
+        reward = 1 if action == T(prompt) else -1
+        obs = 0
+        return (reward, obs)
 
 def reverse_prompt(play):
     # Break the play into a list of Reward-Observation-Action tiples
@@ -24,4 +29,4 @@ def reverse_prompt(play):
     triples[0] = (triples[0][1], triples[0][2])
 
     # Combine the list-of-lists and return the result
-    return [j for i in triples for j in i]
+    return tuple(j for i in triples for j in i)

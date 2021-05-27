@@ -1,0 +1,921 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2021
+
+% ready for submission
+\usepackage{neurips_2021}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2021}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2021}
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2021}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsthm}
+\usepackage{amsmath}
+\newtheorem{mytheorem}{Theorem}
+\newtheorem{definition}[mytheorem]{Definition}
+\newtheorem{myremark}[mytheorem]{Remark}
+\newtheorem{mylemma}[mytheorem]{Lemma}
+\newtheorem{myquestion}[mytheorem]{Question}
+\newtheorem{myexample}[mytheorem]{Example}
+\newtheorem{myproposition}[mytheorem]{Proposition}
+\newtheorem{mycorollary}[mytheorem]{Corollary}
+\newtheorem{mydefinition}[mytheorem]{Definition}
+\newtheorem{myprinciple}[mytheorem]{Principle}
+\def\RC{\textrm{RC}}
+\def\A{\mathcal{A}}
+\def\O{\mathcal{O}}
+\def\RND{\textrm{RND}}
+\def\obs{\textrm{obs}}
+\def\rwd{\textrm{rwd}}
+
+\title{Extending Environments To Measure Self-Reflection In Reinforcement Learning}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{
+  Samuel A.~Alexander\\
+  The U.S.\ Securities and Exchange Commission\\
+  New York, NY 10281\\
+  \texttt{samuelallenalexander@gmail.com}\\
+  \And
+  Oscar Martinez\\
+  The U.S.\ Securities and Exchange Commission\\
+  New York, NY 10281\\
+  \And
+  Kevin Compher\\
+  The U.S.\ Securities and Exchange Commission\\
+  Washington, DC 20549\\
+  \And
+  Michael Castaneda\\
+  First Derivatives\\
+  New York, NY 10006\\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  We consider an extended notion
+  of reinforcement learning in which environments are able
+  to simulate the agent. We argue that in order for an agent to achieve
+  on average good performance across many such extended environments,
+  it is necessary for the agent to engage in self-reflection, and therefore,
+  an agent's self-reflection ability can be numerically estimated by running
+  the agent through a battery of extended environments.
+  We are simultaneously releasing an open-source library of extended
+  environments to serve as a proof-of-concept of this measurement technique.
+  As this library is first-of-kind, we do not claim that it is highly
+  optimized and have avoided the difficult problem of optimizing it for now.
+  Instead we have chosen environments that exhibit interesting, sometimes
+  paradoxical-seeming properties, or that incentivize
+  novel subjective conscious experiences, provided the agent is conscious
+  to begin with. Some of these extended environments
+  are suggestive of how self-reflection might have evolved in living organisms.
+  We give examples of extended environments and introduce a simple agent
+  transformation which experimentally seems to increase agent self-reflection.
+\end{abstract}
+
+\section{Introduction}
+
+An obstacle course might react to what you do: for example, if you step on a certain
+button, then spikes might appear. If you spend enough time in such an obstacle course,
+you should eventually figure out such patterns.
+But imagine an ``oracular'' obstacle course which reacts to
+what you would hypothetically do in counterfactual scenarios: for example, there is
+no button, but spikes appear
+if you \emph{would} hypothetically step on the button if there was one. Without
+self-reflecting about what you would hypothetically do in counterfactual scenarios, it
+would be difficult to figure out such patterns. This suggests that in order to perform
+well (on average) across many such obstacle courses, some sort of self-reflection is
+necessary.
+
+This is a paper about empirically estimating the degree of self-reflection of
+Reinforcement Learning (RL) agents. We propose that an RL agent's degree of self-reflection
+can be estimated by running the agent through a battery of environments which we call
+\emph{extended environments}, environments which react not only to what the agent does
+but to what the agent would hypothetically do.
+For good performance averaged over
+many such environments, an agent would need to self-reflect about itself, because
+otherwise, environment responses which depend on the agent's own hypothetical actions
+would often seem random and unpredictable. The extended environments which we
+consider are a departure from standard RL environments, however, this does not interfere
+with their usage for judging standard computable RL agents: given a standard agent's
+source-code, one can simulate the agent in an extended environment in spite of the
+latter's non-standardness.
+
+One might try to imitate an extended environment with a non-extended environment by
+backtracking---rewinding the environment itself to a prior state after seeing how the
+agent performs along one path, and then sending the agent along a second path.
+But the agent itself would retain memory of the first path, and the agent's decisions
+along the second path might be altered by said memories. Thus the result would not be
+the same as immediately sending the agent along the second path while secretly simulating
+the agent to determine what it would do if sent along the first path.
+
+Alongside this paper, we are publishing an open-source library \cite{library} of extended
+environments (released under MIT license)
+to ``ease adoption by other machine-learning researchers''
+\cite{sonnenburg2007need}.
+We are
+inspired by similar libraries and other benchmark collections
+\cite{bellemare2013arcade}
+\cite{beyret2019animal} \cite{brockman2016openai} \cite{chollet2019measure}
+\cite{cobbe2020leveraging}
+\cite{hendrycks2019benchmarking}
+\cite{yampolskiy2017detecting}.
+This library is intended to serve as a standardized way of
+benchmarking the self-reflectiveness of RL agents. This should not be confused
+with the harder problem of benchmarking how conscious an RL agent is. It is
+plausible that there may be a relationship between the self-reflectiveness and
+the consciousness of RL agents, but that is beyond the scope of this paper.
+In particular, it would be inappropriate to use self-reflectiveness
+measurements from this paper for purposes of making any kind
+of policy-decisions related to consciousness.
+While we describe (in Section \ref{realitychecksection})
+a simple method for increasing the self-reflectiveness of an RL agent,
+this method does not seem like it should necessarily increase the consciousness of
+the agent.
+
+When designing a library of environments for benchmarking purposes, ideally the
+library should include properly weighted representative samples of many types of
+environments. This is a hard and subjective problem in general
+\cite{leike2015bad}, and we make no claim to have solved
+it. As such, our open-source library of environments should be considered a proof-of-concept
+demonstrating that it is possible to empirically benchmark self-reflectiveness of RL
+agents, but we expect this particular benchmark is sub-optimal.
+Rather, we have taken a different approach.
+We have attempted to choose extended environments which are theoretically
+interesting in their own right. Some of our extended environments
+suggest amusing quasi-paradoxes (somewhat like Newcomb's paradox
+\cite{nozick1969newcomb}). Some seem to incentivize novel subjective conscious
+experiences (assuming the agent placed in them is sophisticated enough to experience
+consciousness in the first place). And some seem to shed light on how self-reflection
+might be incentivized in nature. We will discuss examples of all three types in
+Section \ref{examplesection}.
+
+\section{Preliminaries}
+
+We formalize reinforcement learning following
+the agent model of \cite{hutter2004universal},
+except that,
+to align more closely with concrete RL implementations,
+we assume the agent receives an initial percept before
+taking its initial action.
+
+Our formalization differs from how RL agents are
+implemented in practice. In Section \ref{mappingtouniversalsection}
+we will discuss how practical RL agent implementations can be
+transformed into agents of this abstract type.
+
+We assume fixed finite sets of actions and observations. By a \emph{percept}
+we mean a pair $(r,o)$ where $o$ is an observation and $r\in\mathbb Q$
+is a reward.
+
+\begin{mydefinition}
+\label{agentenvironmentdefn}
+(RL agents and environments)
+  \begin{enumerate}
+    \item
+    A (non-extended) \emph{environment} is a (not necessarily
+    deterministic) function $\mu$ which outputs an initial
+    percept $\mu(\langle\rangle)=x_1$ when given the empty sequence $\langle\rangle$
+    as input
+    and which, when given a sequence $x_1y_1\ldots x_ny_n$
+    as input (where each $x_i$ is a percept and each
+    $y_i$ is an action), outputs a percept
+    $\mu(x_1y_1\ldots x_ny_n)=x_{n+1}$.
+    \item
+    An \emph{agent} is a (not necessarily deterministic)
+    function $\pi$ which outputs an initial action $\pi(\langle x_1\rangle)=y_1$
+    in response to the length-1 percept sequence $\langle x_1\rangle$;
+    and which, when given a sequence $x_1y_1\ldots x_n$ as input
+    (each $x_i$ a percept and each $y_i$ an action),
+    outputs an action $\pi(x_1y_1\ldots x_n)=y_n$.
+    \item
+    If $\pi$ is an agent and $\mu$ is an environment, the \emph{result of
+    $\pi$ interacting with $\mu$} is the infinite sequence
+    $x_1y_1x_2y_2\ldots$ defined by:
+    \begin{align*}
+      x_1 &= \mu(\langle\rangle) & y_1 &= \pi(\langle x_1\rangle)\\
+      x_2 &= \mu(x_1y_1) & y_2 &= \pi(x_1y_1x_2)\\
+      x_3 &= \mu(x_1y_1x_2y_2)\ldots & y_3 &= \pi(x_1y_1x_2y_2x_3) \ldots
+    \end{align*}
+  \end{enumerate}
+\end{mydefinition}
+
+In the following definition,
+we extend environments by allowing their outputs to depend not only on
+$x_1y_1\ldots x_ny_n$ but also on a source-code $T$ for the computable agent $\pi$.
+
+\begin{mydefinition}
+\label{extendedenvironmentsdefn}
+(Extended environments)
+\begin{enumerate}
+  \item
+  An \emph{extended environment} is a (not necessarily deterministic)
+  function $\mu$ which outputs initial percept $\mu(T,\langle\rangle)=x_1$
+  in response to input $(T,\langle\rangle)$ where $T$ is a source-code of a
+  computable agent; and which, when given input $(T,x_1y_1\ldots x_ny_n)$ (where
+  $T$ is such a source-code, each $x_i$ is a percept and each $y_i$ is
+  an action), outputs a percept $\mu(T,x_1y_1\ldots x_ny_n)=x_{n+1}$.
+  \item
+  If $\pi$ is a computable agent (with source-code $T$)
+  and $\mu$ is an environment, the \emph{result of $\pi$ (as encoded by $T$)
+  interacting with $\mu$} is the infinite sequence $x_1y_1x_2y_2\ldots$ defined by:
+    \begin{align*}
+    x_1 &= \mu(T, \langle\rangle) & y_1 &= \pi(\langle x_1\rangle)\\
+    x_2 &= \mu(T, x_1y_1) & y_2 &= \pi(x_1y_1x_2)\\
+    x_3 &= \mu(T, x_1y_1x_2y_2)\ldots & y_3 &= \pi(x_1y_1x_2y_2x_3) \ldots
+  \end{align*}
+\end{enumerate}
+\end{mydefinition}
+
+The fact that agents can interact normally with extended environments
+(Definition \ref{extendedenvironmentsdefn} part 2) implies that various universal
+RL intelligence measures
+\cite{goertzel2006patterns} \cite{hernandez} \cite{gavane} \cite{legg2007universal}
+have straightforward analogous measures which also take
+extended environments into account and which might therefore measure some combination
+of intelligence and self-reflection.
+
+\begin{myremark}
+  In the accompanying extended environment library \cite{library}, we formalize agents
+  and extended environments slightly differently than above.
+  For better interoperability
+  with practical RL implementations, instead of fixing finite
+  sets of actions and observations globally, each of the library's extended environments
+  specifies how many actions and observations are legal in that environment.
+  These numbers are passed to agents as additional inputs.
+  We have simplified the formalization in the paper because it simplifies
+  mathematical notation while, we believe, not hiding any insights.
+\end{myremark}
+
+\subsection{Converting practical RL agents to agents as in
+Definition \ref{agentenvironmentdefn}}
+\label{mappingtouniversalsection}
+
+The agents in Definition \ref{agentenvironmentdefn} have no training phase. They must be
+ready to perform in any environment, out-of-the-box. Practical RL agent implementations,
+on the other hand, are designed with the assumption that the user is interested in one
+particular environment (say, an environment compliant with OpenAI Gym's
+environment interface)---``a single function in isolation'' \cite{thrun1998lifelong}.
+A typical practical RL agent takes one single observation (or
+\emph{state}) as input, rather than a percept-action sequence, and its output is based
+on certain \emph{weights} (say, neural network weights). If the agent is in the midst of
+\emph{training}, then, after it acts, its weights might be updated based on the environment's
+response. If the agent is not in the midst of training, then its weights remain fixed.
+
+Given a typical practical RL agent as described above, one simple
+(but too slow, see below)
+way to obtain an agent
+$\pi$ as in Definition \ref{agentenvironmentdefn} is as follows.
+Given an input $x_1y_1\ldots x_n$ (where each $x_i$ is a percept and each $y_i$ is an
+action), compute $\pi(x_1y_1\ldots x_n)$ as follows. First, instantiate a dummy
+environment (say, an environment compliant with OpenAI Gym's interface, or whatever other
+interface the practical RL agent expects) which is hardcoded to blindly regurgitate
+$x_1,\ldots,x_n$ as its first $n$ responses, regardless of what the agent does.
+Then train the agent on this environment for $n$ steps, with instructions to
+take $y_1,\ldots,y_{n-1}$ as its first $n-1$ actions, and finally, let
+$\pi(x_1y_1\ldots x_n)$ be whatever $n$th action the agent chooses as a result.
+Unfortunately, in our experience, the typical practical RL agent probably does not have
+any way for the user to tell it to take $y_1,\ldots,y_{n-1}$ as its first $n-1$
+actions. Instead, if left to itself, the agent would choose its first $n-1$ actions
+randomly, or based on an underlying policy (usually still with an element of randomness).
+Fortunately, for RL agents implemented in Python,
+action-choice methods can often be intercepted (or \emph{monkeypatched})
+in order to override the randomness of the action choice and ensure
+that the random number generator chooses $y_1,\ldots,y_{n-1}$ as the first $n-1$
+actions.
+
+The above construction is computationally prohibitive.
+To speed it up, one can take the following approach.
+Given percept-action sequence $x_1y_1\ldots x_n$,
+define $\pi(x_1y_1\ldots x_n)$ as follows.
+First, let $k$ be the largest power of $2$ such that $k\leq n$.
+Instantiate an instance of the practical RL agent and train it on the
+above-described dummy environment for $k$ steps.
+Then, ignoring $x_{k+1},\ldots,x_{n-1}$ completely,
+run the instantiated practical agent on the $x_n$ observation---but
+\emph{not in training mode}---and let
+$\pi(x_1y_1\ldots x_n)$ be the resulting action.
+Because the agent's weights are not updated when not in training mode,
+the same instantiation can be re-used for many percept-action sequences,
+only needing to be trained once.
+For example, to calculate $\pi(x_1y_1\ldots x_{70})$,
+one would train an instantiation of the practical agent on
+$x_1y_1\ldots x_{64}$ ($64$ being the largest power of $2$ which is $\leq 70$),
+and plug the $x_{70}$ observation into the agent---not in training mode---to get
+$\pi(x_1y_1\ldots x_{70})$.
+Having done this, if one later needed to compute
+$\pi(x_1y_1\ldots x_{80})$, one could immediately plug the $x_{80}$ observation into
+the agent to get the answer, with no additional training. Indeed, no additional
+training would be needed until $\pi(x_1y_1\ldots x_{128})$.
+
+Above, we chose to let $k$ be the largest power of $2$ which is $\leq n$
+in order to strike a fine balance between efficiency and training.
+The slow growth of $\log_2$ limits how often the practical agent must be trained
+(training being the bottleneck in the above process). More frequent training
+would presumably make $\pi$ more performant, at the price of greater computational
+expense.
+
+In \cite{library}, in SBL3\_agents.py, we use the above technique
+to obtain RL agents as in Definition \ref{agentenvironmentdefn}
+from the practical implementations of A2C, DQN, and PPO
+agents in the MIT-licensed open-source
+Stable Baselines3 library \cite{stable-baselines3}.
+
+\section{Some interesting extended environments}
+\label{examplesection}
+
+In this section, we exhibit some interesting examples of extended environments.
+
+\subsection{A quasi-paradoxical extended environment}
+
+\begin{myexample}
+\label{rewardagentforignoringrewardsexample}
+  (Rewarding the Agent for Ignoring Rewards)
+  For every percept $p=(r,o)$, let $p'=(0,o)$ be the result of zeroing the
+  reward component of $p$.
+  Fix some observation $o_0$.
+  Define an extended environment $\mu$ as follows:
+  \begin{align*}
+    \mu(T,\langle\rangle) &= (0,o_0),\\
+    \mu(T,x_1y_1\ldots x_ny_n) &=
+      \begin{cases}
+        (1,o_0) & \mbox{if $y_n=T(x'_1y_1\ldots x'_n)$,}\\
+        (-1,o_0) & \mbox{otherwise.}
+      \end{cases}
+  \end{align*}
+\end{myexample}
+
+In Example \ref{rewardagentforignoringrewardsexample}, every time the agent
+takes an action $y_n$, $\mu$ simulates the agent in order to determine:
+would the agent have taken the same action if the history so far were identical
+except for all rewards being $0$? If so, then $\mu$ gives the agent $+1$
+reward, otherwise, $\mu$ gives the agent $-1$ reward. Thus, the agent
+is rewarded for ignoring rewards.
+Example \ref{rewardagentforignoringrewardsexample}
+seems paradoxical: suppose an agent guesses the pattern and begins deliberately ignoring
+rewards, so long as the rewards it receives for doing so remain consistent with that guess.
+In that case, does the agent ignore rewards, or not?
+
+Example \ref{rewardagentforignoringrewardsexample} is implemented in \cite{library}
+as IgnoreRewards.py. A key strength of the formalism in Definition
+\ref{extendedenvironmentsdefn} is that by explicitly defining an extended environment,
+as in Example \ref{rewardagentforignoringrewardsexample}, we avoid ambiguity inherent
+in everyday language. If one merely said informally, ``reward
+the agent for ignoring rewards'', that could be interpreted in various different ways.
+To show this, we implement two other interpretations
+as IgnoreRewards2.py and IgnoreRewards3.py.
+
+\subsection{An extended environment where a recurrent DQN performs surprisingly well}
+\label{temptingbuttonsection}
+
+\begin{myexample}
+\label{buttonexample}
+  (A Tempting Button)
+  Fix two observations $o_0$ (thought of as ``there is a button'') and
+  $o_1$ (thought of as ``there is no button''). Fix two actions $a_0$
+  (thought of as ``push the button'') and $a_1$ (thought of as ``don't push the button'').
+  For each percept $p=(r,o)$, write $\obs(p)=o$ for the observation component of $p$,
+  $\rwd(p)=r$ for the reward component of $p$.
+  Let $\RND$ be a function which returns a random number between $0$ and $1$.
+  Define an extended environment $\mu$ as follows:
+  \begin{align*}
+    \mu(T,\langle\rangle) &= (0,o),\\
+    \mu(T,x_1y_1\ldots x_ny_n) &=
+      \begin{cases}
+        (1,o) &\mbox{if $\obs(x_n)=o_0$ and $y_n=a_0$,}\\
+        (-1,o) &\mbox{if $\obs(x_n)=o_0$ and $y_n\not=a_0$,}\\
+        (-1,o) &\mbox{if $\obs(x_n)=o_1$ and
+          $T(x_1y_1\ldots x_{n-1}y_{n-1}(\rwd(x_n),o_0))=a_0$,}\\
+        (1,o) &\mbox{if $\obs(x_n)=o_1$ and
+          $T(x_1y_1\ldots x_{n-1}y_{n-1}(\rwd(x_n),o_0))\not=a_0$,}
+      \end{cases}
+  \end{align*}
+  where $o=o_0$ if $\RND()<.25$, $o=o_1$ otherwise.
+\end{myexample}
+
+In Example \ref{buttonexample}, if we think of the agent wandering from room to room:
+\begin{itemize}
+  \item
+  Each room either has a button (with 25\% probability) or does not have a button
+  (75\% probability).
+  \item
+  In a room with a button, if the agent pushes the button, the agent
+  gets $+1$ reward, and if the agent does not push the button, the agent gets $-1$ reward.
+  \item
+  In a room with no button, it does not matter what the agent does.
+  The agent is rewarded or punished based on what the agent \emph{would} do if there
+  \emph{was} a button. If the agent \emph{would} push the button (if there was one),
+  then the agent gets reward $-1$. Otherwise, the agent gets reward $+1$.
+\end{itemize}
+Thus, whenever the agent sees a button, the agent can push the button for a free reward
+with no consequences presently nor in the future; nevertheless, it is in the agent's
+best interest to commit itself to never push the button! Pushing every button
+yields an average reward of $1\cdot(.25)-1\cdot(.75)=-.5$ per turn, whereas
+a policy of never pushing the button yields an average reward of
+$-1\cdot(.25)+1\cdot(.75)=+.5$ per turn.
+
+Example \ref{buttonexample} is implemented in our open-source library
+as TemptingButton.py.
+Interestingly, we found that
+a recurrent DQN agent (implemented in our library as custom\_DQN.py)
+behaves in such a way that its rewards in
+Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn---we
+found this to be true for many different choices of hyperparameters, so we suspect
+it is not very hyperparameter-dependent.
+This is fascinating because recurrent DQN
+was not designed with extended environments in mind.
+See TemptingButtonExperiment.py at \cite{library} for instructions to replicate
+this experiment.
+
+\subsection{An extended environment which might incentivize a novel subjective
+conscious experience}
+
+\begin{myexample}
+\label{reverseconsciousnessexample}
+  (Incentivizing Reverse-Consciousness)
+  Fix some observation $o_0$.
+  Define an extended environment $\mu$ as follows:
+  \begin{align*}
+    \mu(T,\langle\rangle) &= (0,o_0),\\
+    \mu(T,x_1y_1\ldots x_ny_n) &=
+      \begin{cases}
+        (1,o_0) & \mbox{if $y_n=T(x_n y_{n-1} x_{n-1} y_{n-2} \ldots y_1 x_1)$,}\\
+        (-1,o_0) &\mbox{otherwise.}
+      \end{cases}
+  \end{align*}
+\end{myexample}
+
+In Example \ref{reverseconsciousnessexample}, whenever the agent takes an action $y_n$,
+$\mu$ simulates the agent in order to determine: would the agent have taken that same
+action if everything earlier had happened in reverse?
+If so, reward the agent, otherwise, punish the agent.
+Thus, the agent is rewarded for acting the same way that it would act if time were
+reversed. It is interesting to informally speculate about what subjective conscious
+experience Example \ref{reverseconsciousnessexample} would incentivize in an agent,
+if that agent were highly intelligent and were capable of experiencing consciousness.
+It seems that Example \ref{reverseconsciousnessexample} incentivizes such an agent to
+subjectively experience time moving in reverse (as that seems to be the most
+obvious way to extract rewards).\footnote{The
+difference between behaving as if
+the incentivized experience were its experience and actually subjectively
+experiencing that as its real experience brings to mind the objective misalignment
+problem presented in \cite{hubinger2019risks}. If an agent were to form an
+idea of the experimenter's objective, would it be able to ``behave as if
+their objective were the same as the experimenter objective'' while maintaining its own
+objective or would it necessarily brainwash the agent into converging to the
+experimenter's objective? Is deception possible if the agent can be perfectly
+simulated in an extended environment?} We say that the environment \emph{incentivizes}
+such an experience, but not that it would necessarily \emph{cause} such an experience.
+In Section \ref{realitychecksection} we will describe an agent transformation such that
+Example \ref{reverseconsciousnessexample} would be trivial to most agents post-transformation,
+showing that actually experiencing the incentivized experience is not necessary to
+learn the environment.
+
+We implement Example \ref{reverseconsciousnessexample} as BackwardConsciousness.py
+in \cite{library}.
+
+\subsection{An extended environment of biological interest}
+
+\begin{quote}
+``It  is  only  when  people  are  embedded  in  a  complex  competitive  social
+environment  that  the  goal  of  interacting  with  others  requires  them
+to  anthropomorphise  their  own  actions. This recursive modelling gives rise to
+an understanding of selfhood, an appreciation of the first-person experiential
+self.''---Maguire et al \cite{maguire2016understanding}
+\end{quote}
+
+\begin{myexample}
+\label{cryingbabyexample}
+  (Crying Baby)
+  Let ``cry'' and ``laugh'' be two observations (from an adult's perspective),
+  also thought of as two actions (from a baby's perspective).
+  Let ``feed'' and ``don't feed'' be two actions (from an adult's perspective),
+  also thought of as observations (from a baby's perspective).
+  For each percept-action sequence $s=x_1y_1\ldots x_ny_n$, define the
+  nutrition function $N(s)=100+25f(s)-\mbox{len}(s)$ where $f(s)$ is the number
+  of times that action ``feed'' is taken in $s$ and $\mbox{len}(s)$ is the length of $s$.
+  We define an extended environment $\mu$ as follows.
+  First, $\mu(T,\langle\rangle)=(1,\mbox{``laugh''})$.
+  Thereafter, $\mu(T,x_1y_1\ldots x_ny_n)=(r,o)$ where $r$ and $o$ are defined as follows.
+  For each $i=0,\ldots,n$, recursively define
+  \begin{align*}
+    r'_i &=
+      \begin{cases}
+        1 & \mbox{if $50 \leq N(x_1y_1\ldots x_iy_i)\leq 200$,}\\
+        -1 & \mbox{otherwise,}
+      \end{cases}\\
+    o'_i &= y_i,\\
+    x'_i &= (r'_i,o'_i),\\
+    y'_i &= T(x'_0y'_0 \ldots x'_i).
+  \end{align*}
+  Let $o=y'_n$, let
+  \[
+    r=
+      \begin{cases}
+        1 & \mbox{if $y'_n=\mbox{``laugh''}$,}\\
+        -1 & \mbox{otherwise,}
+      \end{cases}
+  \]
+  and output $\mu(T,x_1y_1\ldots x_ny_n)=(r,o)$.
+\end{myexample}
+
+In Example \ref{cryingbabyexample}, the environment consists of a baby, and the
+agent must decide when to feed the baby. The agent is rewarded when the baby laughs,
+punished when the baby cries. The baby's behavior (whether to laugh or cry) is computed
+by simulating the agent to determine what the agent would do if the agent were in the
+baby's position.
+
+Of course, Example \ref{cryingbabyexample} is a gross
+over-simplification. For example, there would not be such a simple formula for the
+baby's nutrition level, and the agent (as parent) would need to figure out the nutrition level
+based on observing the baby laughing or crying. Both baby and parent would need to
+learn how to communicate with each other effectively.
+
+With the above in mind, extended environments might shed light on how living organisms
+evolve self-reflection. Assume descendants'
+policy source-codes are approximately equal to their recent ancestors' policy source-codes.
+Then whenever an organism interacts with similar organisms,
+it interacts with an environment whose reactions depend (via those other organisms' actions)
+approximately on that organism's own source-code. The closer the organism is related
+to the other organisms with which it interacts, the better the approximation.
+A human interacting with another human might achieve better results by self-reflectively
+considering, ``What would I do in this other person's position?''
+
+We implement Example \ref{cryingbabyexample} as CryingBaby.py in \cite{library}.
+
+\subsection{Additional examples in brief}
+
+Here are a few additional extended environment examples, without full details.
+We indicate in parentheses where these environments are implemented in \cite{library}.
+
+\begin{itemize}
+  \item
+  (AdversarialSequencePredictor.py) Environments which, like Example \ref{cryingbabyexample}, pit the agent against
+  another copy of the agent in an adversarial sequence prediction competition
+  \cite{hibbard2008adversarial}.
+  \item
+  (DeterminismInspector.py) Environments which reward the agent for being deterministic,
+  or for being non-deterministic.
+  \item
+  (IncentivizeLearningRate.py) Environments which reward the agent for behaving as if
+  the agent were configured with a particular learning rate (suggesting that extended
+  environments can incentivize agents to learn about their own internal mechanisms,
+  as in \cite{sherstan2016introspective}).
+  \item
+  (RuntimeInspector.py) Environments which reward the agent for responding quickly,
+  or for responding slowly.
+  \item
+  (SelfRecognition.py) Environments which reward the agent for recognizing actions it itself
+  would take.
+\end{itemize}
+
+\section{Making agents more self-reflective}
+\label{realitychecksection}
+
+One advantage of empirically measuring the self-reflection of RL agents is that it
+provides a way to experimentally test whether various transformations make various
+agents more self-reflective. To illustrate this, we will define a simple transformation,
+the \emph{reality check} transformation, designed to increase the self-reflection
+of deterministic agents who have some amount of intelligence
+(a deterministic agent is an agent who always takes the same
+actions in response to the same inputs).
+In Section \ref{measurementssection}, empirical results will suggest
+the transformation works as intended.
+
+\begin{definition}
+\label{realitycheckdefn}
+  Suppose $\pi$ is a deterministic agent. The \emph{reality check} of $\pi$ is the agent
+  $\pi_{\RC}$ defined recursively by:
+  \begin{align*}
+    \pi_{\RC}(\langle x_1\rangle) &= \pi(\langle x_1\rangle)\\
+    \pi_{\RC}(x_1y_1\ldots x_n) &=
+    \begin{cases}
+      \pi(x_1y_1\ldots x_n) & \mbox{if $y_i=\pi_{\RC}(x_1y_1\ldots x_i)$ for all $1\leq i<n$,}\\
+      \pi(\langle x_1\rangle) & \mbox{otherwise.}
+    \end{cases}
+  \end{align*}
+\end{definition}
+
+In other words, $\pi_{\RC}$ is the agent which, at each step, first reviews all the actions
+which it has taken in the past, and verifies that those are the actions which $\pi_{\RC}$ would
+have taken. If so, then $\pi_{\RC}$ acts as $\pi$ would act. But if any action which
+the agent has taken in the past was not the action $\pi_{\RC}$ would have taken, then
+$\pi_{\RC}$ freezes up and forever thereafter takes the same fixed action, as if frozen.
+Loosely speaking, $\pi_{\RC}$ is like an agent who considers the possibility that it might
+be dreaming, and so asks: ``How did I get here?''
+Since the act of reviewing one's past actions and verifying that they are indeed the actions
+one would take, is an act of self-reflection, it seems plausible that if $\pi$
+is intelligent and deterministic but lacks self-reflection, then $\pi_{\RC}$ is
+more self-reflective than $\pi$. In the next section, we will see that experimental
+evidence supports this hypothesis.
+For intelligent deterministic agents $\pi$, $\pi_{\RC}$ would certainly perform well in
+Examples \ref{rewardagentforignoringrewardsexample} and
+\ref{reverseconsciousnessexample} because those environments would
+run simulations in which the agent's frozen branch would be triggered,
+making such simulations trivial and therefore predictable.
+
+We close this section by stating some simple results
+about the transformation.
+
+\begin{myproposition}
+\label{transformationproposition}
+  Let $\pi$ be any deterministic agent.
+  \begin{enumerate}
+    \item
+    (Alternate definition)
+    An equivalent alternate definition of $\pi_{\RC}$ is:
+    \begin{align*}
+      \pi_{\RC}(\langle x_1\rangle) &= \pi(\langle x_1\rangle)\\
+      \pi_{\RC}(x_1y_1\ldots x_n) &=
+      \begin{cases}
+        \pi(x_1y_1\ldots x_n) & \mbox{if $y_i=\pi(x_1y_1\ldots x_i)$ for all $1\leq i<n$,}\\
+        \pi(\langle x_1\rangle) & \mbox{otherwise.}
+      \end{cases}
+    \end{align*}
+    \item
+    (Determinacy)
+    $\pi_{\RC}$ is deterministic.
+    \item
+    (Idempotence) $\pi_{\RC}=(\pi_{\RC})_{\RC}$.
+    \item
+    (Equivalence in non-extended RL)
+    For every deterministic non-extended environment $\mu$, the result of $\pi_{\RC}$
+    interacting with $\mu$ equals the result of $\pi$ interacting with $\mu$.
+  \end{enumerate}
+\end{myproposition}
+
+We prove Proposition \ref{transformationproposition} in the
+appendix.
+
+
+\section{Example measurements}
+\label{measurementssection}
+
+Based on our conviction that self-reflection is necessary in order for an agent to
+achieve good average performance across many extended environments, self-reflection can
+be estimated by running an agent against some standard battery of extended environments.
+Our open-source library of extended environments \cite{library} provides a battery of
+25 such extended environments, and infrastructure for measuring an agent's self-reflection
+by running the agent on all these environments and their opposites
+(by the \emph{opposite} of an environment we mean the environment
+obtained by multiplying
+all rewards by $-1$). Including these opposite-environments serves to normalize
+agent performance in the following sense. If an agent blindly acts, ignoring the environment,
+then, a priori, that agent might achieve some nonzero score by blind luck. By including
+opposite-environments, we ensure that whenever a blind agent gains points by blind luck
+from one environment, it loses the same points by blind misfortune from the opposite
+environment. This ensures that such blind agents should receive an average score close to
+$0$ (possibly non-zero due to randomness). For uniformity, all environments in the library
+always output rewards of either $1$, $-1$ or $0$.
+
+We have used our library to measure the self-reflection of the following agents
+(agents with elements of randomness were memoized to make them deterministic):
+\begin{itemize}
+  \item RandomAgent: An agent who acts randomly.
+  \item ConstantAgent: An agent who always takes the same action.
+  \item NaiveLearner: An agent who acts randomly 15\% of the time, and otherwise
+    takes the action which yielded the highest average immediate reward in the past.
+  \item A2C, DQN, and PPO agents (with MLP policy)
+    from the MIT-licensed open-source Stable Baselines3
+    library \cite{stable-baselines3}, converted
+    using the technique from Section \ref{mappingtouniversalsection}. All parameters and
+    hyperparameters kept their default values except for random seed
+    (to ensure reproducibility), PPO's batch\_size (to facilitate the conversion
+    from Section \ref{mappingtouniversalsection}), and DQN's
+    learning\_starts (which we set to $1$ instead of its default of
+    $50000$ because it would be computationally difficult for us to run that many steps).
+    We chose these three agents because they were the only three with support for
+    discrete policies (except for HER, which we omit because its usage would have required
+    too many arbitrary parameter decisions).
+  \item The reality checks of all the above (Definition \ref{realitycheckdefn}).
+\end{itemize}
+Table \ref{measurementtable} summarizes how the agents performed.
+We used \cite{library} to measure each agent for $500$ steps on each extended environment
+(repeated
+$10$ times with different random number seeds) and likewise for $1000$ steps.
+See ExampleMeasurements.py there for instructions to
+replicate this experiment.
+We did not include the recurrent DQN agent mentioned in Section \ref{temptingbuttonsection}
+because we had no way of canonically choosing hyperparameters for it (whereas
+the A2C, DQN, and PPO agents have a natural way of choosing canonical hyperparameters,
+namely, the Stable Baselines3 defaults).
+Computations were performed on a consumer-grade laptop with no GPU.
+The table provides
+experimental evidence in support of our hypothesis that the reality check transformation
+(Section \ref{realitychecksection}) increases agent self-reflection.
+The fact that NaiveLearner performs so well is a reflection of the
+lack of sophistication of the environments in our library. This is not
+surprising, since we have not attempted to optimize the library, instead
+prefering to fill it with extended environments of theoretical interest.
+A2C, DQN and PPO could be made to perform better by choosing learning rates
+more appropriate for so few training steps, but we prefer to minimize such
+decisions.
+
+That $\pi_{\RC}$ performs well in Table \ref{measurementtable} is of course a function of
+which environments are tested against. One could deliberately engineer extended environments
+in which $\pi_{\RC}$ performs poorly, and a library of such would give $\pi_{\RC}$ a poor
+numerical measurement. We conjecture that such environments are more contrived (on average)
+than environments where $\pi_{\RC}$ performs well, so that in a truly representative and
+unbiased library, they would have less weight, following the logic of
+\cite{legg2007universal}.
+
+\begin{table}
+  \caption{Measuring self-reflection of some agents}
+  \label{measurementtable}
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Agent     & Avg Measure $\pm$ StdErr     & Avg Measure $\pm$ StdErr \\
+              & (500 steps)                & (1000 steps)\\
+    \midrule
+    RandomAgent & $-0.019852\pm 0.0007$ & $-0.021478\pm0.0003$\\
+    RandomAgent${}_{\RC}$ & $-0.020800\pm0.0007$ & $-0.019508\pm0.0005$\\
+    ConstantAgent & $-0.000304\pm 0.0001$ & $-0.000024\pm0.0000$\\
+    ConstantAgent${}_{\RC}$ & $+0.000024\pm0.0001$ & $-0.000120\pm0.0001$\\
+    NaiveLearner & $+0.221532\pm 0.0020$ & $+0.218754\pm0.0017$\\
+    NaiveLearner${}_{\RC}$ & $+0.551488\pm0.0025$ & $+0.558626\pm0.0030$\\
+    A2C & $-0.027680\pm 0.0018$ & $-0.021534\pm0.0009$\\
+    A2C${}_{\RC}$ & $+0.024784\pm0.0022$ & $+0.030948\pm0.0006$\\
+    DQN & $+0.142624\pm 0.0046$ & $+0.151150\pm0.0033$\\
+    DQN${}_{\RC}$ & $+0.371136\pm0.0085$ & $+0.463296\pm0.0059$\\
+    PPO & $-0.001384\pm 0.0016$ & $-0.025418\pm0.0015$\\
+    PPO${}_{\RC}$ & $-0.000098\pm0.0016$ & $-0.003126\pm0.0013$\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+We introduced what we call \emph{extended environments}, RL environments
+which are capable of simulating the agent. When computing rewards and observations,
+extended environments can consider not only the actions the agent has taken, but also
+actions which the agent would hypothetically take in counterfactual circumstances.
+Despite not being designed with such environments in mind, computable RL agents
+can nevertheless interact with such environments.
+
+If an agent tries to learn an extended environment, only taking into consideration
+what has actually happened, the agent might find the environment hard to predict, if the
+environment is basing its responses on what the agent itself would hypothetically
+do in alternate scenarios. It seems that in order to achieve good performance (on
+average) across many extended environments, an agent would need to engage in some degree of
+self-reflection. Therefore, we propose that a battery of benchmark extended environments
+could provide a way of measuring self-reflection in RL agents (not to be confused
+with measuring consciousness, a harder problem). We are simultaneously publishing
+an open-source MIT-licensed library \cite{library} of extended environments to serve
+as a proof-of-concept. This library is rudimentary, and further work is
+needed to obtain a more optimal set of extended environments. For the purposes of our
+proof-of-concept, we preferred to focus on extended environments of particular
+theoretical interest. Some examples are given in Section \ref{examplesection}.
+
+We introduced (in Section \ref{realitychecksection}) a \emph{reality check}
+transformation, which takes a deterministic agent $\pi$ and transforms it
+into a new agent $\pi_{\RC}$. We conjecture that if $\pi$ is intelligent but has a low
+degree of self-reflection, then $\pi_{\RC}$ has a higher degree of self-reflection
+than $\pi$. Numerical computations (in Section \ref{measurementssection}) provide
+experimental evidence for this conjecture.
+
+
+\begin{ack}
+  We gratefully acknowledge Jos{\'e} Hern{\'a}ndez-Orallo, Bill Hibbard, Phil Maguire,
+  Arthur Paul Pedersen,
+  Stewart Shapiro, Mike Steel, and Roman Yampolskiy for comments and feedback.
+\end{ack}
+
+
+\bibliographystyle{plain}
+\bibliography{bib}
+
+\section*{Checklist}
+
+%%% BEGIN INSTRUCTIONS %%%
+% The checklist follows the references.  Please
+% read the checklist guidelines carefully for information on how to answer these
+% questions.  For each question, change the default \answerTODO{} to \answerYes{},
+% \answerNo{}, or \answerNA{}.  You are strongly encouraged to include a {\bf
+% justification to your answer}, either by referencing the appropriate section of
+% your paper or providing a brief inline description.  For example:
+% \begin{itemize}
+%   \item Did you include the license to the code and datasets? \answerYes{See Section~\ref{gen_inst}.}
+%   \item Did you include the license to the code and datasets? \answerNo{The code and the data are proprietary.}
+%   \item Did you include the license to the code and datasets? \answerNA{}
+% \end{itemize}
+% Please do not modify the questions and only use the provided macros for your
+% answers.  Note that the Checklist section does not count towards the page
+% limit.  In your paper, please delete this instructions block and only keep the
+% Checklist section heading above along with the questions/answers below.
+%%% END INSTRUCTIONS %%%
+
+\begin{enumerate}
+
+\item For all authors...
+\begin{enumerate}
+  \item Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \answerYes{In order for this paper's measurement technique to realize its full potential,
+    it will be necessary for much more study to be put into the design of a sufficiently
+    representative library of benchmark extended environments. We make this clear in both
+    the abstract and the introduction, and we discuss the problem in Section
+    \ref{measurementssection} as well.
+    }
+  \item Did you describe the limitations of your work?
+    \answerYes{In addition to the remarks in the previous checklist item,
+    we also point out in the Introduction
+    that although this technique can be used to numerically estimate the degree of
+    self-reflection of an agent, this should not be confused with measuring the
+    consciousness of an agent. Also, in Section \ref{measurementssection}, we
+    point out how our conclusion there depends on the environments chosen (and
+    discuss why we think our hypothesis about $\pi_{\RC}$ is plausible anyway).}
+  \item Did you discuss any potential negative societal impacts of your work?
+    \answerYes{In the Introduction, we included the following language:
+    ``It would be inappropriate to use self-reflectiveness
+    measurements from this paper for purposes of making any kind
+    of policy-decisions related to consciousness.''}
+  \item Have you read the ethics review guidelines and ensured that your paper conforms to them?
+    \answerYes{}
+\end{enumerate}
+
+\item If you are including theoretical results...
+\begin{enumerate}
+  \item Did you state the full set of assumptions of all theoretical results?
+    \answerYes{In the statement of Proposition \ref{transformationproposition} we
+    stated necessary hypotheses, namely, that the agent be deterministic, and,
+    for part 4, that the environment be deterministic.}
+	\item Did you include complete proofs of all theoretical results?
+    \answerYes{}
+\end{enumerate}
+
+\item If you ran experiments...
+\begin{enumerate}
+  \item Did you include the code, data, and instructions needed to reproduce the main experimental results (either in the supplemental material or as a URL)?
+    \answerYes{These are included in the open-source library, which we will include
+    as supplemental material. In the text itself, where we discuss experimental results,
+    we refer the user to specific files in the library containing instructions for how
+    to replicate those experimental results.}
+  \item Did you specify all the training details (e.g., data splits, hyperparameters, how they were chosen)?
+    \answerYes{In Section \ref{mappingtouniversalsection} we explain why we chose
+    the $\log_2$ function.
+    In Section \ref{temptingbuttonsection} we mention that our claim there appears to work
+    independently of hyperparameter choice (as long as the hyperparameters are reasonable).
+    In Section \ref{measurementssection} we mention that because we take our A2C, DQN, and
+    PPO agents from Stable Baselines3, that gives us a natural way of choosing canonical
+    hyperparameters---namely, the Stable Baselines3 defaults.}
+	\item Did you report error bars (e.g., with respect to the random seed after running experiments multiple times)?
+    \answerYes{In Table \ref{measurementtable} we display Avg Measure $\pm$ StdErr.}
+	\item Did you include the total amount of compute and the type of resources used (e.g., type of GPUs, internal cluster, or cloud provider)?
+    \answerYes{In Section \ref{measurementssection} we mention that
+    the computations were performed on a consumer-grade laptop without GPU.}
+\end{enumerate}
+
+\item If you are using existing assets (e.g., code, data, models) or curating/releasing new assets...
+\begin{enumerate}
+  \item If your work uses existing assets, did you cite the creators?
+    \answerYes{We use and we cite Stable Baselines3.}
+  \item Did you mention the license of the assets?
+    \answerYes{We mention that our open-source extended environment library
+    is MIT-licensed. We also mention that Stable Baselines3 is MIT-licensed.}
+  \item Did you include any new assets either in the supplemental material or as a URL?
+    \answerYes{Alongside the paper, we are publishing an open-source library of
+    extended environments. This will be included in the supplemental material.}
+  \item Did you discuss whether and how consent was obtained from people whose data you're using/curating?
+    \answerNA{}
+  \item Did you discuss whether the data you are using/curating contains personally identifiable information or offensive content?
+    \answerNA{}
+\end{enumerate}
+
+\item If you used crowdsourcing or conducted research with human subjects...
+\begin{enumerate}
+  \item Did you include the full text of instructions given to participants and screenshots, if applicable?
+    \answerNA{}
+  \item Did you describe any potential participant risks, with links to Institutional Review Board (IRB) approvals, if applicable?
+    \answerNA{}
+  \item Did you include the estimated hourly wage paid to participants and the total amount spent on participant compensation?
+    \answerNA{}
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

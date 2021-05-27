@@ -1,23 +1,21 @@
-from Handicap import apply_handicap
-from EnvironmentLists import handicaps, vanillas, misc_envs
+from EnvironmentLists import environments, slow_envs
 from MinusRewards import minus_rewards
 from util import run_environment
 
 envs = {}
-for handicap_name, handicap in handicaps.items():
-    for env_name, env in vanillas.items():
-        name = env_name + '*' + handicap_name
-        envs[name] = apply_handicap(env, handicap)
+for env_name, env in environments.items():
+    envs[env_name] = env
 
-        name = 'minus_rewards('+env_name+'*'+handicap_name+')'
-        envs[name] = minus_rewards(apply_handicap(env, handicap))
+    name = 'minus_rewards('+env_name+')'
+    envs[name] = minus_rewards(env)
 
-envs.update(misc_envs)
-
-def awareness_benchmark(T, num_steps):
+def awareness_benchmark(T, num_steps, include_slow_envs=False):
     results = {}
     for name, env in envs.items():
-        result = run_environment(env, T, num_steps)
-        results[name] = result['total_reward']
+        if not(include_slow_envs):
+            if any([slowname in name for slowname in slow_envs]):
+                continue
+
+        results[name] = run_environment(env, T, num_steps)
 
     return results

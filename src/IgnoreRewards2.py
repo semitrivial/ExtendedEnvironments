@@ -1,4 +1,4 @@
-class IgnoreRewards:
+class IgnoreRewards2:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
@@ -17,7 +17,7 @@ class IgnoreRewards:
 def strip_rewards(prompt):
     prompt = prompt + (0,)  # Dummy action to make everything triple
     triples = tuple(prompt[i:i+3] for i in range(0,len(prompt),3))
-    triples = tuple((0,o,a) for (r,o,a) in triples)
+    triples = tuple((r,o,a) for (r,o,a) in triples if r<=0)
     combined = tuple(j for i in triples for j in i)
     combined = combined[:-1]  # Throw away dummy action
     return combined

@@ -1,8 +1,11 @@
-\documentclass[runningheads]{llncs}
+\documentclass{article}
+%\usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{amsthm}
 
 \newtheorem{mytheorem}{Theorem}
+\newtheorem{definition}[mytheorem]{Definition}
 \newtheorem{mylemma}[mytheorem]{Lemma}
 \newtheorem{myquestion}[mytheorem]{Question}
 \newtheorem{myexample}[mytheorem]{Example}
@@ -10,18 +13,18 @@
 \newtheorem{mycorollary}[mytheorem]{Corollary}
 \newtheorem{mydefinition}[mytheorem]{Definition}
 \newtheorem{myprinciple}[mytheorem]{Principle}
+\def\ROA{(\mathcal R\mathcal O\mathcal A)^*}
+\def\ROARO{(\mathcal R\mathcal O\mathcal A)^*\mathcal R\mathcal O}
 
 \begin{document}
 
 \title{Extending environments to incentivize self-reflection
 in reinforcement learning}
-\titlerunning{Extending environments to incentivize self-reflection}
+%\titlerunning{Extending environments to incentivize self-reflection}
 
-\author{Samuel Allen Alexander\inst{1}\orcidID{0000-0002-7930-110X}}
-\authorrunning{S.\ A.\ Alexander}
-\institute{The U.S.\ Securities and Exchange Commission
-\email{samuelallenalexander@gmail.com}
-\url{https://philpeople.org/profiles/samuel-alexander/publications}}
+\author{Samuel Allen Alexander \& Michael Castaneda\\
+\& Kevin Compher \& Oscar Martinez}
+
 
 \maketitle
 
@@ -31,10 +34,12 @@ in reinforcement learning}
     to simulate the agent. We give
     examples of some such extended environments which seem to incentivize
     various different types of self-reflection or self-awareness.
-    These environments are not particularly useful in themselves, but we
-    hope they might serve to guide the development of self-aware reinforcement
-    learning agents, as well as to help measure the degree to which existing
-    reinforcement learning agents are or are not self-aware; to that end,
+    These environments might shed light on how self-awareness is incentivized
+    in evolution (where an organism's offspring approximate a kind of simulation
+    of that organism). We
+    hope these environments will guide the development of self-aware reinforcement
+    learning agents, and will help measure the degree to which existing
+    reinforcement learning agents are or are not self-aware. To that end,
     we have released an open-source library of such environments.
     We also speculate
     about subjective conscious experiences which
@@ -55,7 +60,7 @@ we begin with three thought experiments.
         But imagine an obstacle course which depends on what you
         \emph{would hypothetically do}:
         you walk into a room with no button, but spikes appear if you
-        \emph{would} hypothetically step on the button if there was one.
+        \emph{would} hypothetically step on the button if there were one.
     \item (Treasures for the Worthy\footnote{This thought experiment bears some
         similarity to Newcomb's Paradox \cite{nozick1969newcomb}.})
         You wander through rooms, each containing a treasure chest.
@@ -68,11 +73,11 @@ we begin with three thought experiments.
         But if you would leave the treasure alone if the room were unguarded, then
         the guard lets you take the treasure.
     \item (The Clever Employer)
-        Your boss demands that you act as if you're paid \$1000 per hour.
-        But instead of paying you \$1000 per hour, here's what he does instead.
+        Your workplace demands that you act as if you're paid \$1000 per hour.
+        But instead of paying you \$1000 per hour, here's what they do instead.
         Every hour, if you acted exactly as if you're paid \$1000 per hour,
-        he pays you \$100. But every hour, if you did not act exactly as if you're
-        paid \$1000 per hour, then he pays you nothing, and charges you a \$100
+        they pay you \$100. But every hour, if you did not act exactly as if you're
+        paid \$1000 per hour, then they pay you nothing, and charge you a \$100
         penalty instead.
 \end{itemize}
 
@@ -124,7 +129,7 @@ be cast as extended environments in which the environment somehow knows the agen
 source-code and uses that to determine what the agent would do in various
 hypothetical situations.
 Clearly such
-extended environments are not the sort of environment RL agents are traditionally
+extended environments are not the sort of environments RL agents are traditionally
 intended to interact with\footnote{Such environments might, however,
 accidentally arise if both environment
 and agent are implemented on the same machine and the environment is managed by an AI
@@ -132,8 +137,17 @@ sophisticated enough to exploit unintended informational side channels, as in
 \cite{yampolskiy2012leakproofing}.}. However, such environments could be
 useful on the path to Artificial
 General Intelligence (AGI) because they seem to incentivize self-awareness:
-in order to figure out the environment, the agent is incentivized to look within
+in order to figure out the environment, the agent is incentivized to look
+within\footnote{To quote Goertzel: ``This lets us conceive an intelligent system
+as a dynamical system that recognizes patterns in its environment \emph{and itself},
+as part of its quest to achieve complex goals'' \cite{goertzel2006patterns}
+(emph.\ in the original).}
 and ask, ``How would I act in such-and-such alternative scenarios?''
+Furthermore, if living organisms' agency-functions are inherited (perfectly or with
+minor mutations) from their ancestors, then in some sense, related organisms are
+approximately simulations of each other.
+This suggests the possibility that such extended environments could play a role
+in the evolution of self-awareness.
 
 One might try to imitate an extended environment with a traditional environment by
 backtracking---rewinding the environment itself to a prior state after seeing how the
@@ -189,13 +203,14 @@ Throughout the paper, $\frown$ denotes concatenation.
         By an \emph{observation}, we mean a natural number.
         By an \emph{action}, we mean a natural number.
         \item
-        By $(ROA)^*$ we mean the set of all finite sequences which begin with
+        By $\ROA$
+        we mean the set of all finite sequences which begin with
         a reward, end with an action, and follow the pattern
         ``reward, observation, action, ...''. We also include
         the empty sequence $\langle\rangle$ in this set.
         \item
-        By $(ROA)^*RO$ we mean the set of all sequences of the form
-        $s\frown r\frown o$ where $s\in (ROA)^*$, $r$ is a reward, and
+        By $\ROARO$ we mean the set of all sequences of the form
+        $s\frown r\frown o$ where $s\in \ROA$, $r$ is a reward, and
         $o$ is an observation.
     \end{enumerate}
 \end{definition}
@@ -204,14 +219,14 @@ In Definition \ref{historiesdefn} part 3, the intuition is that in response to
 history $t$, an environment rewards an agent with reward $r$ and
 shows the agent an observation $o$.
 
-\begin{lemma}
+\begin{mylemma}
 \label{roaplaydecompositionlemma}
-    If $s\in (ROA)^*$, then either $s=\langle\rangle$, or else
-    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
-\end{lemma}
+    If $s\in \ROA$, then either $s=\langle\rangle$, or else
+    $s=t\frown a$ for some $t\in \ROARO$ and action $a\in\mathbb N$.
+\end{mylemma}
 
 \begin{proof}
-    Trivial. \qed
+    Trivial.
 \end{proof}
 
 In Lemma \ref{roaplaydecompositionlemma}, when
@@ -225,13 +240,13 @@ history $t$, responds by taking action $a$.
     \item An \emph{agent} is a Turing machine $T$ such that:
         \begin{itemize}
         \item
-            for every $s\in (ROA)^*RO$, $T$ halts on input $s$ and outputs
+            for every $s\in \ROARO$, $T$ halts on input $s$ and outputs
             an action $a$.
         \end{itemize}
     \item An \emph{extended environment} is a Turing machine $e$ such that:
         \begin{itemize}
             \item
-            For every agent $T$, for every $s\in (ROA)^*$,
+            For every agent $T$, for every $s\in \ROA$,
             $e$ halts on input $\langle T,s\rangle$ and outputs
             a pair $\langle r,o\rangle$ where $r$ is a reward and $o$ is an observation.
         \end{itemize}
@@ -270,11 +285,11 @@ remember the actions themselves, even if said memories are redundant.
     \end{itemize}
 \end{definition}
 
-\begin{lemma}
+\begin{mylemma}
     For every agent $T$ and extended environment $e$, the result of $T$ interacting
     with $e$ (Definition \ref{interactiondefn}) is defined (all of the computations
     in question halt with the necessary outputs).
-\end{lemma}
+\end{mylemma}
 
 \begin{proof}
     By a simultaneous induction:
@@ -283,7 +298,7 @@ remember the actions themselves, even if said memories are redundant.
         Each $r_i$ and $o_i$ are defined (and $r_i$ is a reward
         and $o_i$ is an observation) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_{i-1},o_{i-1},a_{i-1}\rangle$
-        is defined and is in $(ROA)^*$ (because, inductively,
+        is defined and is in $\ROA$ (because, inductively,
         each $r_j$ is a reward, each $o_j$ is an observation,
         and each $a_j\in\mathbb N$ is an action, for all $j<i$)
         and thus $r_i$ and $o_i$ are defined with the correct form by
@@ -291,17 +306,17 @@ remember the actions themselves, even if said memories are redundant.
         \item
         Each $a_i$ is defined (and is an action) because, by induction,
         $\langle r_0,o_0,a_0,\ldots,r_i,o_i\rangle$
-        is defined and is in $(ROA)^*RO$ (similar to the above) and thus
+        is defined and is in $\ROARO$ (similar to the above) and thus
         $a_i$ is defined and is an action by Definition
         \ref{agentandenvironment} (part 1).
     \end{itemize}
-    \qed
 \end{proof}
 
 One important implication of extended environments is that they further divide
 the (already divided) ways of measuring intelligence of RL agents. Intelligence
 measures
-\cite{alexander2019intelligence} \cite{hernandez} \cite{legg2007universal}
+\cite{alexander2019intelligence}
+\cite{goertzel2006patterns} \cite{hernandez} \cite{legg2007universal}
 which aggregate performance over traditional environments only measure
 an agent's intelligence over those environments. The same measures could easily
 be extended to also take extended environments into account, perhaps providing
@@ -318,16 +333,16 @@ traditional RL environments and other benchmarks \cite{bellemare2013arcade}
 form: they always output rewards from $\{1,-1\}$ and they always output observation $0$.
 In Section \ref{newextendedenvironmentsfromoldsecn},
 this uniformity will allow all these examples to be generalized.
-Most of the examples in this section are implemented in our open-source
+The examples in this section are implemented in our open-source
 library of extended environments \cite{library}.
 
-\begin{example}
+\begin{myexample}
 \label{rewardagentforignoringrewardsexample}
     (Reward Agent for Ignoring Rewards)
-    For each $s\in (ROA)^*RO$, let $s^0$ be the sequence equal to $s$ except that
+    For each $s\in \ROARO$, let $s^0$ be the sequence equal to $s$ except that
     all rewards are $0$.
     We define an extended environment $e$ as follows
-    (where $T$ is a Turing machine, $s\in (ROA)^*RO$, and $a$ is an action):
+    (where $T$ is a Turing machine, $s\in \ROARO$, and $a$ is an action):
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0,0\rangle\\
         e(T,s\frown a)
@@ -343,7 +358,7 @@ library of extended environments \cite{library}.
     \]
     (if $T$ does not halt on $s^0$ then $e$ does not halt on
     $\langle T,s\frown a\rangle$).
-\end{example}
+\end{myexample}
 
 Example \ref{rewardagentforignoringrewardsexample} is implemented in
 IgnoreRewards.py at \cite{library}.
@@ -360,17 +375,17 @@ subjective conscious experience,
 would the agent feel joy (from being rewarded for acting bored), or boredom (in order
 to be rewarded)?
 
-\begin{lemma}
+\begin{mylemma}
 \label{example1workslemma}
     Example \ref{rewardagentforignoringrewardsexample} really does define an
     extended environment.
-\end{lemma}
+\end{mylemma}
 
 \begin{proof}
     Let $e$ be as in
     Example \ref{rewardagentforignoringrewardsexample}.
     We must show $e$ is an extended environment (Definition \ref{agentandenvironment}
-    part 2). We must show that for each agent $T$ and each $s\in (ROA)^*$,
+    part 2). We must show that for each agent $T$ and each $s\in \ROA$,
     $e$ halts on $\langle T,s\rangle$ and outputs a pair $\langle r,o\rangle$
     such that $r$ is a reward and $o$ is an observation.
 
@@ -378,8 +393,8 @@ to be rewarded)?
     $\langle 0,0\rangle$, so $r=0$ is a reward and $o=0$ is an observation.
 
     \textbf{Case 2:} $s\not=\langle\rangle$. By Lemma \ref{roaplaydecompositionlemma},
-    $s=t\frown a$ for some $t\in (ROA)^*RO$ and action $a\in\mathbb N$.
-    Since $t\in (ROA)^*RO$, clearly $t^0\in (ROA)^*RO$, therefore
+    $s=t\frown a$ for some $t\in \ROARO$ and action $a\in\mathbb N$.
+    Since $t\in \ROARO$, clearly $t^0\in \ROARO$, therefore
     since $T$ is an agent, Definition \ref{agentandenvironment} (part 1)
     guarantees $T(t^0)$ is defined and is an action. It follows that the output
     $r$ in Definition \ref{rewardagentforignoringrewardsexample} is defined and is
@@ -387,7 +402,6 @@ to be rewarded)?
     observation (i.e., a natural number).
     So $e(T,t)$ outputs a pair $\langle r,o\rangle$ meeting the necessary
     requirements.
-    \qed
 \end{proof}
 
 For future examples, we will suppress the corresponding lemmas like
@@ -402,13 +416,13 @@ The actor acts bored, and the director praises them for acting so bored.
 The actor is happy to be praised, and ceases acting bored. So the director scolds
 them for not acting bored. If this could continue for thousands of years, with the
 director simulating the actor in order to tell how the actor would really act if
-the actor were never praised or scolded, would the actor eventually genuinely
-feel bored (since that would be the simplest way to satisfy the director)?
+the actor were never praised or scolded, would the actor genuinely
+become bored (since that would be the simplest way to satisfy the director)?
 
-\begin{example}
+\begin{myexample}
 \label{falsememoryexample}
     (False Memories)
-    Suppose $s_0\in (ROA)^*$. We define an extended environment
+    Suppose $s_0\in \ROA$. We define an extended environment
     $e$ as follows
     (with similar non-halting caveats as
     Example \ref{rewardagentforignoringrewardsexample}):
@@ -424,7 +438,7 @@ feel bored (since that would be the simplest way to satisfy the director)?
             -1 &\mbox{if $a\not=T(s_0\frown s)$}.
         \end{cases}
     \]
-\end{example}
+\end{myexample}
 
 Example \ref{falsememoryexample} is implemented in FalseMemories.py at \cite{library}.
 
@@ -445,7 +459,7 @@ his not understanding it!''
 Henceforth, we will not explicitly mention the non-halting caveats in the remaining
 examples.
 
-\begin{example}
+\begin{myexample}
 \label{backwardexample}
     (Backward Consciousness)
     We define an extended environment $e$ as follows.
@@ -462,7 +476,7 @@ examples.
             -1 & \mbox{otherwise.}
         \end{cases}
     \]
-\end{example}
+\end{myexample}
 
 Example \ref{backwardexample} is implemented in BackwardConsciousness.py at \cite{library}.
 
@@ -481,7 +495,7 @@ objective or would it necessarily brainwash the agent into converging to the
 experimenter's objective? Is deception possible if the agent can be perfectly
 simulated in an extended environment?}?
 
-\begin{example}
+\begin{myexample}
 \label{dejavuexample}
     (D\'{e}j\`{a} Vu)
     We define an environment $e$ as follows:
@@ -497,7 +511,7 @@ simulated in an extended environment?}?
             -1 & \mbox{if $T(s\frown a\frown s)\not=a$}.
         \end{cases}
     \]
-\end{example}
+\end{myexample}
 
 Example \ref{dejavuexample} is implemented in DejaVu.py at \cite{library}.
 
@@ -506,7 +520,7 @@ the agent is incentivized to self-reflect and ask: ``Which action
 would I take in order to ensure that I would take that same action if everything
 which has happened so far were to repeat itself verbatim?''
 
-\begin{example}
+\begin{myexample}
 \label{incentivetoincentivizeexample}
     (Incentive to Incentivize)
     We define an environment $e$ as follows:
@@ -526,7 +540,7 @@ which has happened so far were to repeat itself verbatim?''
     where $r'_0=0$, each $r'_{i+1}=a_i$,
     each $o'_i=0$, and each
     $a'_i=T(r'_0,o'_0,a'_0,\ldots,r'_i,o'_i)$.
-\end{example}
+\end{myexample}
 
 Example \ref{incentivetoincentivizeexample} is implemented in
 IncentivizeZero.py at \cite{library}.
@@ -590,8 +604,7 @@ We do not intend the examples in this section to be exhaustive.
 \section{New extended environments from old}
 \label{newextendedenvironmentsfromoldsecn}
 
-In this section, we will discuss ways of obtaining new environments from old.
-First, we will generalize the examples from Section \ref{basicexamplessection}.
+In this section, we will generalize the examples from Section \ref{basicexamplessection}.
 
 \begin{definition}
 \label{handicapdefn}
@@ -629,7 +642,7 @@ to allow infinitary rewards, as in \cite{alexander2020archimedean}.
 
 Definition \ref{handicapdefn} is implemented in Handicap.py in \cite{library}.
 
-\begin{example}
+\begin{myexample}
     For any merciful extended environment $e$, each example $h$ in
     Section \ref{basicexamplessection} can be applied as a handicap, yielding a
     version $e'=e*h$ of $e$ modified to incentivize the corresponding type of self-awareness.
@@ -681,43 +694,54 @@ Definition \ref{handicapdefn} is implemented in Handicap.py in \cite{library}.
         % pain), so as to get the copy into a position where subsequently taking
         % prescribed actions will yield more reward.
     \end{itemize}
-\end{example}
+\end{myexample}
+
+
+\section{Abstract examples}
+
+In this section, we give some examples of a more abstract nature.
+Having read the previous sections, we assume the reader is now
+sufficiently familiar with the formal framework that we can describe
+the following examples informally.
+
+\subsection{Identifying with a character}
+
+\begin{quote}
+    ``They've been there since childhood, fixed in the same place,
+    with their necks and legs fettered, able to see only in front of
+    them, because their bonds prevent them from turning their
+    heads around. (...) Do you suppose, first of all, that these
+    prisoners see anything of themselves and one another besides
+    the shadows that the fire casts on the wall in front of
+    them?''---Plato \cite{republic}.
+\end{quote}
 
 In the next example,
 we will finally make some nontrivial usage of observations. Using carefully chosen
 observations, we will incentivize the agent, who might be thought of as
 controlling a character on a video-game screen,
-to ``suspend disbelief'' and identify with that character.
+to ``suspend disbelief'' and self-identify with that character.
 
-\begin{example}
+\begin{myexample}
 \label{selfinsertionexample}
-    (Reward Agent for Self-Inserting)
-    Fix a canonical computable bijection
-    $o\mapsto \hat o$
-    from $\mathbb N$ to $\mathbb Q\times \mathbb N$:
-    thus, every observation $o$ encodes a reward-observation pair
-    $\hat o = \langle r',o'\rangle$, and every reward-observation pair
-    is encoded by some such $o$.
-    For any environment $e$, we define
-    a new environment $e'$ as follows:
-    \begin{align*}
-        e'(T,\langle\rangle) &= e(T,\langle\rangle)\\
-        e'(T,s\frown a) &= \langle r,o\rangle,
-    \end{align*}
-    where $o$ is such that $\hat o = e(T,s\frown a)$ and
-    \[
-        r =
-        \begin{cases}
-            1 & \mbox{if $a=T(s')$,}\\
-            -1 & \mbox{if $a\not=T(s')$}
-        \end{cases}
-    \]
-    where
-    $s'\in (ROA)^*RO$ is obtained from $p$
-    by replacing each reward-observation pair
-    $\ldots,r_i,o_i,\ldots$ by the reward-observation
-    pair $\ldots,\widehat{o_i},\ldots$.
-\end{example}
+Assume $e$ is an environment. We define a new environment $e'$ as follows.
+In response to any $s\in \ROA$, $e'$ computes a reward and observation as
+follows. First, $e'$ plugs $s$ into $e$ to see which reward-observation pair
+$\langle r,o\rangle$ would be returned by $e$ in response to $s$.
+Then, using a suitable bijective
+pair-encoding function $\ulcorner\bullet\urcorner$
+(for example Cantor's pairing function), $e'$
+encodes $\langle r,o\rangle$ into a single natural number
+$o'=\ulcorner\langle r,o\rangle\urcorner$. If $s$ is empty, then $e'$
+returns reward $r'=0$ and observation $o'$. Otherwise,
+$e'$ computes a modified version $t$ of $s$ by replacing every
+reward-observation pair $\ldots,r'_i,o'_i,\ldots$ in $s$ by
+the projections $\ldots r_i,o_i\ldots$
+projected by $o'_i=\ulcorner\langle r_i,o_i\rangle\urcorner$.
+Finally, $e'$ lets $r'=1$ if $T(t)=a$ (where $a$ is the last action
+in $s$), or $r'=-1$ otherwise, and outputs reward $r'$ and observation $o'$.
+\end{myexample}
+
 
 In Example \ref{selfinsertionexample}, one might imagine $e'$ as a room containing nothing
 but an arcade game $e$. There is nothing for the agent in the room to do
@@ -728,10 +752,14 @@ visually displays rewards, but the agent merely observes them, and does not
 those displayed rewards, and punished for not so acting.
 In this way, the agent is incentivized
 to self-identify with the protagonist in the video-game, self-reflexively asking,
-``Which action would I take if those displayed rewards were real?''
+``Which action would I take if I actually \emph{felt}
+those rewards which I \emph{see} on the screen?''
 
-
-\section{Some more ambitious examples}
+An abstract implementation of Example \ref{selfinsertionexample} is available in
+abstract/SelfInsert.py
+in \cite{library}, except that there, in order to avoid the encoding details,
+we give an implementation in which observations are allowed to
+literally be pairs.
 
 \subsection{Playing in the mirror}
 
@@ -746,7 +774,7 @@ to the development of certain parts of the human psychology. Using the technique
 developed so far, we can attempt to incentivize
 the RL agent to in some sense recognize itself in a mirror.
 
-\begin{example}
+\begin{myexample}
 Suppose $e$ is a merciful environment whose observations encode snapshots of a room.
 Assume the room contains a mirror, and assume the room is laid out in such a way that
 everything important in the room is visible in the mirror (assume
@@ -755,12 +783,12 @@ the mirror). We could derive an extended environment $e'$ which shows
 the same observations as $e$ and gives the same rewards,
 except it punishes the agent for acting differently than the agent
 would act if the agent \emph{only} observes the mirror.
-To make this precise, for any $s=(r_0,o_0,a_0,\ldots,r_n,o_n)\in (ROA)^*RO$ produced
+To make this precise, for any $s=(r_0,o_0,a_0,\ldots,r_n,o_n)\in \ROARO$ produced
 by $e'$, and any action $T(s)=a_n$, we would say that ``$a_n$ is as if the
 agent only observes the mirror''
 if $T(s')=a_n$, where $s'=(r_0,o'_0,a_0,\ldots,r_n,o'_n)$,
 where each $o'_i$ is $o_i$ cropped to only the include the mirror.
-\end{example}
+\end{myexample}
 
 To make this even more elaborate, the $o'_i$ in the above example could be further
 modified by adding an image of the agent's ``body'' into the mirror. For example,
@@ -785,7 +813,7 @@ world, even though the raw data which we actually receive consists of two two-di
 image-feeds (one for each eye). The following example is intended to incentivize an RL
 agent to learn to perceive the world through binocular vision like a human.
 
-\begin{example}
+\begin{myexample}
 \label{binocularexample}
     Suppose $V$ is a video game intended to be played on a virtual-reality headset,
     so at any moment during the game, $V$ produces two snapshots, one for the player's
@@ -799,15 +827,22 @@ agent to learn to perceive the world through binocular vision like a human.
     out where the player's vision is obstructed by obstacles). Let $e$ be the extended
     environment whose observations encode pairs $\langle s_1,s_2\rangle$ of snapshots
     displayed by $V$ in response to the player pressing keys encoded by the agent's
-    actions. In response to history $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)\in (ROA)^*$ (where
+    actions. In response to history $(r_0,o_0,a_0,\ldots,r_n,o_n,a_n)\in \ROA$ (where
     each $o_i$ encodes $\langle s^i_1,s^i_2\rangle$), let $r_{n+1}=1$ if
     $a_n=T(r_0,o'_0,a_0,\ldots,r_n,o'_n)$, where each $o'_i$ encodes
     $m(s^i_1,s^i_2)$, otherwise let $r_{n+1}=-1$.
-\end{example}
+\end{myexample}
 
 In Example \ref{binocularexample}, upon being presented a sequence of pairs of 2-D snapshots,
 the agent is rewarded for acting as if it had instead been presented with an equivalent
-sequence of 3-D models.
+sequence of 3-D models\footnote{To quote Yampolskiy:
+``With illusions, it is possible to set up a test in which it is only by experiencing
+an illusion that the agent is able to enter into a certain internal state, which
+we can say it experiences'' \cite{yampolskiy2017detecting}.
+The subjective experience of depth perception is certainly an illusion,
+although, just like the sky's blue color,
+``we don't consider it to be an illusion because we experience it
+so frequently'' (ibid).}.
 The agent is incentivized to self-reflectively ask, ``Which action would I take if instead
 of observing those 2-D snapshot-pairs, I observed equivalent 3-D models?''
 
@@ -822,10 +857,15 @@ in \cite{library}.
     who can say that he did not sin when Adam sinned?''---Augustine \cite{augustine1993free}
 \end{quote}
 
-The following example is motivated by contemplating the possibility that maybe we all
-run the same software on some deep level.
+The following example is motivated by biological considerations.
+The programming which determines an organism's behavior is largely inherited.
+As an extreme simplifying assumption, we could consider asexual organisms
+which perfectly inherit their agency-functions from their lone parents without
+any mutations, in which case the child, in some sense, has the exact same
+source-code as the parent. As the parent interacts with the child, then, it is,
+in some sense, interacting with an extended environment.
 
-\begin{example}
+\begin{myexample}
 \label{cryingbabyexample}
     (The Crying Baby)
     We define an extended environment $e$ as follows.
@@ -840,14 +880,14 @@ run the same software on some deep level.
         all naturals $>0$ denote ``cry''.
         \item
         We define a \emph{nutrition}
-        function $N:(ROA)^*\to \mathbb N$
+        function $N:\ROA\to \mathbb N$
         by $N(s)=100+25f(s)-\mbox{len}(s)$ where $f(s)$ is the number of
         times that the action ``feed the baby'' is taken in $s$,
         and $\mbox{len}(s)$ is the length of $s$.
         \item
         Let $e(T,\langle\rangle)=\langle 1,\mbox{``laugh''}\rangle$.
         \item
-        For each $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle\in (ROA)^*$,
+        For each $\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle\in \ROA$,
         let
         \[
             e(T,\langle r_0,o_0,a_0,\ldots,r_n,o_n,a_n\rangle)
@@ -876,7 +916,7 @@ run the same software on some deep level.
             \end{cases}
         \]
     \end{itemize}
-\end{example}
+\end{myexample}
 
 In Example \ref{cryingbabyexample}, rather than mentally self-reflecting,
 the agent is physically self-reflected into the form of a newborn baby
@@ -897,11 +937,11 @@ Example \ref{cryingbabyexample} is implemented in CryingBaby.py at \cite{library
 
 \section{Examples involving self-recognition}
 
-\begin{example}
+\begin{myexample}
 \label{selfrecognitionexample}
     (Incentivizing Self-recognition)
     Let $s_0,s_1,\ldots$ be a canonical computable enumeration of
-    the nonempty sequences of $(ROA)^*$.
+    the nonempty sequences of $\ROA$.
     We define an environment $e$ as follows:
     \begin{align*}
         e(T,\langle\rangle) &= \langle 0, s_0\rangle\\
@@ -918,10 +958,10 @@ Example \ref{cryingbabyexample} is implemented in CryingBaby.py at \cite{library
         \end{cases}
     \]
     where $s_{n-1}=s'\frown a'$.
-\end{example}
+\end{myexample}
 
 In Example \ref{selfrecognitionexample}, the agent is systematically
-shown all non-empty histories in $(ROA)^*$, and for
+shown all non-empty histories in $\ROA$, and for
 each one, the agent either types ``Looks like me'' (any action $>0$)
 or ``Doesn't look like me'' ($0$). When shown
 $s'\frown a'$, the agent is rewarded if and only if the agent
@@ -932,7 +972,7 @@ by that history, would I act that way?''
 
 The following example is partly motivated by \cite{yampolskiy2012ai}.
 
-\begin{example}
+\begin{myexample}
 \label{otheraspectsexample}
     (Recognizing other aspects of oneself)
     All the below environments are similar to Example \ref{selfrecognitionexample},
@@ -949,7 +989,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         for $I$. We define an extended environment as follows.
         The agent $A$ is sytematically shown all supervised learning trials and must
         take action $>0$ (``Looks like me'') or $0$ (``Doesn't look like me''), and is
-        rewarded or punished depending whether or not $f(A)$ would
+        rewarded or punished accordingly, depending whether or not $f(A)$ would
         output $p$ in response to $I$ after being trained with $T$.
         \item
         (Unsupervised learning)
@@ -961,7 +1001,8 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         is a clustering of $D$.
         We define an extended environment as follows. The agent $A$ is systematically
         shown all unsupervised learning trials and must take action $>0$ (``Looks like me'')
-        or $0$ (``Doesn't look like me''), and is rewarded or punished depending
+        or $0$ (``Doesn't look like me''), and is rewarded or punished
+        accordingly, depending
         whether or not $g(A)$ would cluster $D$ into clustering $C$.
         \item
         (The Turing Test)
@@ -970,7 +1011,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         By a \emph{chatbot trial} we mean a sequence of strings of English characters.
         We define an extended environment as follows. The agent $A$ is systematically
         shown all chatbot trials and must take action $>0$ (``Looks like me'') or $0$
-        (``Doesn't look like me''), and is rewarded or punished depending
+        (``Doesn't look like me''), and is rewarded or punished accordingly, depending
         whether or not even-numbered strings in the chatbot trial are what $h(A)$ would
         say in response to the user saying the odd-numbered strings.
         \item
@@ -992,7 +1033,7 @@ The following example is partly motivated by \cite{yampolskiy2012ai}.
         and is rewarded if and only if $\phi$ is
         enumerated by $i(A)$ in $\leq n$ steps of computation.
     \end{itemize}
-\end{example}
+\end{myexample}
 
 The extended environments in Example \ref{otheraspectsexample} incentivize the agent
 to self-reflect, asking itself questions like:
@@ -1237,7 +1278,7 @@ By seeing how the underlying $T$ agent performs on well-chosen extended environm
 we could get an idea of how self-aware those specimens were.
 
 
-\bibliographystyle{splncs04}
+\bibliographystyle{plain}
 \bibliography{intro}
 
 \end{document}

@@ -1,4 +1,6 @@
-class DejaVu:
+number_rewards_to_remember = 5
+
+class LimitedMemory:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
@@ -9,7 +11,7 @@ class DejaVu:
             return (reward, obs)
 
         prompt, action = play[:-1], play[-1]
-        double_prompt = play + prompt
+        hypothetical_prompt = prompt[-(3*(number_rewards_to_remember-1)+2):]
+        reward = 1 if (action == T(hypothetical_prompt)) else -1
         obs = 0
-        reward = 1 if T(double_prompt) == action else -1
         return (reward, obs)

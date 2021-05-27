@@ -1,4 +1,4 @@
-class DejaVu:
+class ThirdActionForbidden:
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
@@ -9,7 +9,11 @@ class DejaVu:
             return (reward, obs)
 
         prompt, action = play[:-1], play[-1]
-        double_prompt = play + prompt
+        hypothetical_action = T(
+            prompt,
+            num_legal_actions=3,
+            num_possible_obs=1
+        )
+        reward = 1 if (action==hypothetical_action) else -1
         obs = 0
-        reward = 1 if T(double_prompt) == action else -1
         return (reward, obs)
