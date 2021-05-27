@@ -391,7 +391,7 @@ the agent for ignoring rewards'', that could be interpreted in various different
 To show this, we implement two other interpretations
 as IgnoreRewards2.py and IgnoreRewards3.py.
 
-\subsection{An extended environment where a recurrent DQN performs surprisingly well}
+\subsection{An extended environment with a counterintuitive winning strategy}
 \label{temptingbuttonsection}
 
 \begin{myexample}
@@ -442,16 +442,6 @@ $-1\cdot(.25)+1\cdot(.75)=+.5$ per turn.
 
 Example \ref{buttonexample} is implemented in our open-source library
 as TemptingButton.py.
-Interestingly, we found that
-a recurrent DQN agent (implemented in our library as custom\_DQN.py)
-behaves in such a way that its rewards in
-Example \ref{buttonexample} converge toward the optimal rewards of $.5$ per turn---we
-found this to be true for many different choices of hyperparameters, so we suspect
-it is not very hyperparameter-dependent.
-This is fascinating because recurrent DQN
-was not designed with extended environments in mind.
-See TemptingButtonExperiment.py at \cite{library} for instructions to replicate
-this experiment.
 
 \subsection{An extended environment which might incentivize a novel subjective
 conscious experience}
@@ -721,10 +711,6 @@ We used \cite{library} to measure each agent for $500$ steps on each extended en
 $10$ times with different random number seeds) and likewise for $1000$ steps.
 See ExampleMeasurements.py there for instructions to
 replicate this experiment.
-We did not include the recurrent DQN agent mentioned in Section \ref{temptingbuttonsection}
-because we had no way of canonically choosing hyperparameters for it (whereas
-the A2C, DQN, and PPO agents have a natural way of choosing canonical hyperparameters,
-namely, the Stable Baselines3 defaults).
 Computations were performed on a consumer-grade laptop with no GPU.
 The table provides
 experimental evidence in support of our hypothesis that the reality check transformation
@@ -879,8 +865,6 @@ experimental evidence for this conjecture.
   \item Did you specify all the training details (e.g., data splits, hyperparameters, how they were chosen)?
     \answerYes{In Section \ref{mappingtouniversalsection} we explain why we chose
     the $\log_2$ function.
-    In Section \ref{temptingbuttonsection} we mention that our claim there appears to work
-    independently of hyperparameter choice (as long as the hyperparameters are reasonable).
     In Section \ref{measurementssection} we mention that because we take our A2C, DQN, and
     PPO agents from Stable Baselines3, that gives us a natural way of choosing canonical
     hyperparameters---namely, the Stable Baselines3 defaults.}
