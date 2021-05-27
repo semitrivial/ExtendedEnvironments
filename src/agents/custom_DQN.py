@@ -36,6 +36,23 @@ class DummyEnv:
 cache_custom_DQN = {}
 
 @memoize
+def pretrained_agent(train_on, meta, **kwargs):
+    rewards = [train_on[i+0] for i in range(0, len(train_on), 3)]
+    observs = [train_on[i+1] for i in range(0, len(train_on), 3)]
+    dummy_env = DummyEnv()
+    dummy_env.set_meta(*meta)
+    dummy_env.set_rewards_and_observs(rewards, observs)
+
+    A = RecurrentAgent(
+        network=TreasureGRUNet,
+        game_env=dummy_env,
+        **kwargs
+    )
+
+    A.train_on_history(train_prompt=train_on)
+    return A
+
+@memoize
 def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
     meta = (num_legal_actions, num_possible_obs)
     num_observs = (len(prompt)+1)/3
@@ -45,23 +62,7 @@ def custom_DQN_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
     if not('lookback' in kwargs):
         kwargs['lookback'] = 10
 
-    if not((train_on, meta) in cache_custom_DQN):
-        rewards = [train_on[i+0] for i in range(0,train_on_len,3)]
-        observs = [train_on[i+1] for i in range(0,train_on_len,3)]
-        dummy_env = DummyEnv()
-        dummy_env.set_meta(num_legal_actions, num_possible_obs)
-        dummy_env.set_rewards_and_observs(rewards, observs)
-
-        A = RecurrentAgent(
-            network=TreasureGRUNet,
-            game_env=dummy_env,
-            **kwargs
-        )
-
-        A.train_on_history(train_prompt=train_on)
-        cache_custom_DQN[(train_on, meta)] = A
-    else:
-        A = cache_custom_DQN[(train_on, meta)]
+    A = pretrained_agent(train_on, meta, **kwargs)
 
     state_obs = [prompt[-1]]
     filled_prompt = [0]*(3*kwargs['lookback']) + list(prompt[1:-1])
