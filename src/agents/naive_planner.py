@@ -7,7 +7,7 @@ def naive_planner(A):
 
         if len(prompt) < 3:
             true_reward, true_obs = prompt
-            h = (reward,)
+            h = (true_reward,)
             for obs in range(n_possible_obs):
                 h += (obs,)
                 h += (A(h, *meta, **kwargs), 0)
@@ -18,8 +18,7 @@ def naive_planner(A):
         true_action, true_reward, true_obs = prompt[-3:]
 
         h = hallucinate(prev, *meta, **kwargs)
-        h += (A(h, *meta, **kwargs))
-        h += (true_reward,)
+        h += (A(h, *meta, **kwargs), true_reward)
 
         for obs in range(n_possible_obs):
             h += (obs,)
