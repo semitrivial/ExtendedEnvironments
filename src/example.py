@@ -5,6 +5,7 @@ from collections import deque
 import numpy as np
 import torch
 
+from agents.misc_agents import random_agent, constant_agent
 from agents.naive_learner import naive_learner
 from agents.SBL3_agents import (
     agent_A2C, agent_DQN, agent_PPO,
@@ -31,13 +32,6 @@ print("Testing agents with seed="+str(seed)+", n_steps="+str(n_steps))
 np.random.seed(seed)
 random.seed(seed)
 torch.manual_seed(seed)
-
-@memoize
-def random_agent(prompt, num_legal_actions, num_possible_obs):
-    return int(random.random() * num_legal_actions)
-
-def constant_agent(prompt, num_legal_actions, num_possible_obs):
-    return 0
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
