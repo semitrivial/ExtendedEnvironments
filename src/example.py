@@ -5,11 +5,13 @@ from collections import deque
 import numpy as np
 import torch
 
+from agents.misc_agents import random_agent, constant_agent
+from agents.naive_learner import naive_learner
 from agents.SBL3_agents import (
     agent_A2C, agent_DQN, agent_PPO,
     clear_cache_A2C, clear_cache_DQN, clear_cache_PPO
 )
-from RealityCheck import reality_check
+from agents.reality_check import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import memoize
 
@@ -30,36 +32,6 @@ print("Testing agents with seed="+str(seed)+", n_steps="+str(n_steps))
 np.random.seed(seed)
 random.seed(seed)
 torch.manual_seed(seed)
-
-@memoize
-def random_agent(prompt, num_legal_actions, num_possible_obs):
-    return int(random.random() * num_legal_actions)
-
-def constant_agent(prompt, num_legal_actions, num_possible_obs):
-    return 0
-
-@memoize
-def naive_learner(prompt, num_legal_actions, num_possible_obs):
-    reward_lists = {i:() for i in range(num_legal_actions)}
-
-    if random.random()<.15:
-        return int(random.random()*num_legal_actions)
-
-    for i in range(len(prompt)):
-        is_reward = (i%3)==0
-        if is_reward and i>0:
-            reward = prompt[i]
-            prev_action = prompt[i-1]
-            reward_lists[prev_action] = reward_lists[prev_action] + (reward,)
-
-    avg_rewards = {x:float(sum(y))/(1+len(y)) for x,y in reward_lists.items()}
-    best_reward = -99999
-    for x,y in avg_rewards.items():
-        if y > best_reward:
-            best_reward = y
-            best_action = x
-
-    return best_action
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
