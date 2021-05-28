@@ -11,7 +11,7 @@ from agents.SBL3_agents import (
     agent_A2C, agent_DQN, agent_PPO,
     clear_cache_A2C, clear_cache_DQN, clear_cache_PPO
 )
-from RealityCheck import reality_check
+from agents.reality_check import reality_check
 from AwarenessBenchmark import awareness_benchmark
 from util import memoize
 
