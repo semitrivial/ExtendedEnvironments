@@ -34,3 +34,13 @@
 # library's prerequisite, Stable Baselines3. See README.md for details about
 # how to do this.
 #
+import os
+
+print("Deleting result_table.csv (if it exists)...")
+os.system("rm result_table.csv")
+
+for n_steps in [500, 1000]:
+    for seed in range(10):
+        os.system("python example.py steps "+str(n_steps)+" seed "+str(seed))
+
+print("Done.")

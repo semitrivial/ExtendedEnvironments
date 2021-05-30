@@ -41,7 +41,7 @@ def measure_agent(name, agent):
         fp = open("result_table.csv", "r")
         fp.close()
     except Exception:
-        print("Initiating results_table.csv")
+        print("Initiating result_table.csv")
         fp = open("result_table.csv", "w")
         fp.write("agent,env,seed,nsteps,reward\n")
         fp.close()
