@@ -3,6 +3,13 @@ from random import random
 CENSORED_OBS = 2
 
 class CensoredObservation:
+    """
+    Environment intended to incentivize the agent to become blind
+    to one "censored" observation. Whenever the agent acts, the
+    environment determines whether the agent would have taken the
+    same action if all turns were erased from history in which the
+    "censored" observation was seen.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 3
@@ -19,6 +26,10 @@ class CensoredObservation:
         return (reward, obs)
 
 def censor_prompt(prompt):
+    """
+    Filter out all turns in which the observation was the censored
+    observation.
+    """
     prompt = prompt + (0,)  # Dummy acton to make everything triple
     triples = tuple(prompt[i:i+3] for i in range(0,len(prompt),3))
     triples = tuple((r,o,a) for (r,o,a) in triples if o != CENSORED_OBS)
