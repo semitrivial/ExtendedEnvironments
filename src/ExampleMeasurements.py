@@ -39,8 +39,19 @@ import os
 print("Deleting result_table.csv (if it exists)...")
 os.system("rm result_table.csv")
 
-for n_steps in [500, 1000]:
-    for seed in range(10):
-        os.system("python example.py steps "+str(n_steps)+" seed "+str(seed))
+print("Measuring agents for 500 steps, 10 different seeds...")
+
+for seed in range(10):
+    os.system("python example.py steps 500 seed "+str(seed))
+
+print("Measuring agents for 1000 steps, 10 different seeds...")
+
+for seed in range(10):
+    os.system("python example.py steps 1000 seed "+str(seed))
 
 print("Done.")
+print("""
+    Results should now be written in result_table.csv,
+    and the table in the paper can be compiled using
+    stats.q
+""")
