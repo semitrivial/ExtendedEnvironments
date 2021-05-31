@@ -9,7 +9,7 @@
 # an environment is the environment which results by multiplying all rewards
 # by -1).
 #
-# Code for measuring these agents is in example.py. Commandline arguments
+# Code for measuring these agents is in experiment.py. Commandline arguments
 # can be used to specify a random seed and a number of steps. Each agent
 # is run in each environment for the specified number of steps, and the
 # results are appended to result_table.csv. This CSV file comes already
@@ -37,17 +37,17 @@
 import os
 
 print("Deleting result_table.csv (if it exists)...")
-os.system("rm result_table.csv")
+os.system("rm experiments/result_table.csv")
 
 print("Measuring agents for 500 steps, 10 different seeds...")
 
 for seed in range(10):
-    os.system("python example.py steps 500 seed "+str(seed))
+    os.system("python -m experiments.experiment steps 500 seed "+str(seed))
 
 print("Measuring agents for 1000 steps, 10 different seeds...")
 
 for seed in range(10):
-    os.system("python example.py steps 1000 seed "+str(seed))
+    os.system("python -m experiments.experiment steps 1000 seed "+str(seed))
 
 print("Done.")
 print("""

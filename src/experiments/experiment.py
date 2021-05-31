@@ -44,17 +44,17 @@ def measure_agent(name, agent):
     # If result_table.csv does not already exist, then create it and
     # write headers to it.
     try:
-        fp = open("result_table.csv", "r")
+        fp = open("experiments/result_table.csv", "r")
         fp.close()
     except Exception:
         print("Initiating result_table.csv")
-        fp = open("result_table.csv", "w")
+        fp = open("experiments/result_table.csv", "w")
         fp.write("agent,env,seed,nsteps,reward\n")
         fp.close()
 
     # Append rows to result_table.csv, one row per environment, indicating
     # how the given agent performed in those environments.
-    fp = open("result_table.csv", "a")
+    fp = open("experiments/result_table.csv", "a")
     for env in result.keys():
         reward = result[env]['total_reward']
         line = ",".join([name, env, str(seed), str(n_steps), str(reward)])
