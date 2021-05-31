@@ -9,7 +9,7 @@ for env_name, env in environments.items():
     name = 'minus_rewards('+env_name+')'
     envs[name] = minus_rewards(env)
 
-def awareness_benchmark(T, num_steps, include_slow_envs=False):
+def selfreflection_benchmark(T, num_steps, include_slow_envs=False):
     results = {}
     for name, env in envs.items():
         if not(include_slow_envs):
