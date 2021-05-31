@@ -32,7 +32,9 @@
 # the above measurements for you. In order for the script to work, you will
 # need to have first followed the installation instructions to activate the
 # library's prerequisite, Stable Baselines3. See README.md for details about
-# how to do this.
+# how to do this. Assuming the prerequisite is installed, to run this script
+# you should go to the src directory and type:
+#   python -m experiments.ExampleMeasurements
 #
 import os
 
