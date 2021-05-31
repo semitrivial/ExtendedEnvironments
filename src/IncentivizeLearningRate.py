@@ -1,4 +1,12 @@
 class IncentivizeLearningRate:
+    """
+    Environment which incentivizes the agent to learn with learning_rate=1.
+    Whenever the agent takes an action, the environment determines: would
+    the agent take the same action on the same prompt if the agent were set
+    to have learning_rate=1? If so, give the agent +1 reward, otherwise,
+    give the agent -1 reward. If the agent does not accept "learning_rate"
+    as a valid parameter, then give the agent -1 reward.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
