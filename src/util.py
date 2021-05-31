@@ -1,5 +1,4 @@
 from functools import lru_cache
-from pdb import Pdb
 
 import numpy as np
 
@@ -76,6 +75,11 @@ def eval_and_count_steps(str, local_vars):
     # Returns both the result of the underlying code being executed, and
     # the number of steps the execution required.
     stepcount = [0]
+
+    # import pdb here instead of at the top of util.py, so that users who
+    # do not use the RuntimeInspector environment will no depend on Pdb
+    from pdb import Pdb
+
 
     # Mock a pdb interface in which the "user" blindly always chooses to
     # "take 1 step" and all outputs from pdb are ignored.
