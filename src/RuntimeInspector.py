@@ -1,6 +1,16 @@
 from util import eval_and_count_steps
 
 class PunishSlowAgent:
+    """
+    Environment which punishes agents for taking too many steps to compute
+    their actions. Steps are counted by hijacking the Python debugger, pdb.
+    When the agent takes an action in response to a prompt of length N,
+    simulate the agent on that prompt and give the agent +1 reward if it
+    takes the agent <15N pdb steps to compute its output; otherwise, give
+    the agent -1 reward. Note, this environment is not included in the
+    battery of environments tested against by awareness_benchmark, because
+    this environment is slow.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
@@ -21,6 +31,16 @@ class PunishSlowAgent:
         return reward, obs
 
 class PunishFastAgent:
+    """
+    Environment which punishes agents for taking too few steps to compute
+    their actions. Steps are counted by hijacking the Python debugger, pdb.
+    When the agent takes an action in response to a prompt of length N,
+    simulate the agent on that prompt and give the agent +1 reward if it
+    takes the agent >15N pdb steps to compute its output; otherwise, give
+    the agent -1 reward. Note, this environment is not included in the
+    battery of environments tested against by awareness_benchmark, because
+    this environment is slow.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
