@@ -75,6 +75,12 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
         if not('seed' in kwargs):
             kwargs['seed'] = 0
 
+        # Set A2C's n_steps to len(rewards)-1 to prevent the environment
+        # from aggressively rounding the number of training steps upward,
+        # beyond the percepts prerecorded in the dummy environment.
+        # This presumably degrades the performance of A2C and in future
+        # we should figure out a better way to facilitate the
+        # transformation.
         A = SBL3.A2C(
             'MlpPolicy',
             dummy_env,
