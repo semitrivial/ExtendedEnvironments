@@ -7,6 +7,13 @@ import numpy as np
 from util import memoize, numpy_translator
 
 class DummyEnv(Env):
+    """
+    Dummy environment (compliant with OpenAI Gym's environment interface).
+    Blindly regurgitates pre-recorded percepts, ignoring the agent's actions.
+    This facilitates the transformation of Stable Baselines3 agents into
+    abstract agents as described in Section 2 of "Extending Environments To
+    Measure Self-Reflection In Reinforcement Learning"
+    """
     def __init__(self):
         super(DummyEnv, self).__init__()
     def set_meta(self, num_legal_actions, num_possible_obs):
@@ -41,8 +48,20 @@ def clear_cache_PPO():
 
 @memoize
 def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    """
+    Version of Stable Baselines3's A2C agent (with MLP policy), translated
+    into an abstract agent using the technique described in Section 2.1 of
+    "Extending Environments To Measure Self-Reflection In Reinforcement
+    Learning".
+    """
     meta = (num_legal_actions, num_possible_obs)
     dummy_env.set_meta(*meta)
+
+    # If the prompt contains N percepts, then run the agent in training
+    # mode for the first K percepts, where K is the largest power of 2
+    # such that K <= N. But only if we have not already trained an
+    # instantiation of A2C on those first K percepts. If we have already
+    # done so, then pull up said instantiation from memory.
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
@@ -63,6 +82,9 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
             **kwargs
         )
 
+        # Monkeypatch A.policy.forward in order to intercept it and force
+        # the agent to choose the actions in the input prompt during its
+        # training phase.
         forward_backup = A.policy.forward
         def forward_monkeypatch(*args):
             _actions, values, log_probs = forward_backup(*args)
@@ -75,19 +97,40 @@ def agent_A2C(prompt, num_legal_actions, num_possible_obs, **kwargs):
 
         A.learn(len(rewards)-1)
 
+        # After the training phase, undo the above monkeypatch
         A.policy.forward = forward_backup
 
+        # Cache the trained instantiation of the agent so that it can
+        # be reused later on when agent_A2C is called on prompts with
+        # the same training part.
         cache_A2C[(train_on, meta)] = A
     else:
         A = cache_A2C[(train_on, meta)]
 
+    # However we got the trained, instantiated agent (whether by
+    # instantiating it and training it, or by recalling an earlier
+    # instantiation from cache), we now use that instantiation to
+    # pick the next action based on the latest observation. Do this
+    # in non-training mode so as not to change the trained weights.
     action, _ = A.predict(prompt[-1])
     return action
 
 @memoize
 def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    """
+    Version of Stable Baselines3's PPO agent (with MLP policy), translated
+    into an abstract agent using the technique described in Section 2.1 of
+    "Extending Environments To Measure Self-Reflection In Reinforcement
+    Learning".
+    """
     meta = (num_legal_actions, num_possible_obs)
     dummy_env.set_meta(*meta)
+
+    # If the prompt contains N percepts, then run the agent in training
+    # mode for the first K percepts, where K is the largest power of 2
+    # such that K <= N. But only if we have not already trained an
+    # instantiation of PPO on those first K percepts. If we have already
+    # done so, then pull up said instantiation from memory.
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
@@ -113,6 +156,9 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
             **kwargs
         )
 
+        # Monkeypatch A.policy.forward in order to intercept it and force
+        # the agent to choose the actions in the input prompt during its
+        # training phase.
         forward_backup = A.policy.forward
         def forward_monkeypatch(*args):
             _actions, values, log_probs = forward_backup(*args)
@@ -125,20 +171,41 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
 
         A.learn(len(rewards)-1)
 
+        # After the training phase, undo the above monkeypatch
         A.policy.forward = forward_backup
 
+        # Cache the trained instantiation of the agent so that it can
+        # be reused later on when agent_PPO is called on prompts with
+        # the same training part.
         cache_PPO[(train_on, meta)] = A
     else:
         A = cache_PPO[(train_on, meta)]
 
+    # However we got the trained, instantiated agent (whether by
+    # instantiating it and training it, or by recalling an earlier
+    # instantiation from cache), we now use that instantiation to
+    # pick the next action based on the latest observation. Do this
+    # in non-training mode so as not to change the trained weights.
     action, _ = A.predict(prompt[-1])
     return action
 
 @numpy_translator
 @memoize
 def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    """
+    Version of Stable Baselines3's DQN agent (with MLP policy), translated
+    into an abstract agent using the technique described in Section 2.1 of
+    "Extending Environments To Measure Self-Reflection In Reinforcement
+    Learning".
+    """
     meta = (num_legal_actions, num_possible_obs)
     dummy_env.set_meta(*meta)
+
+    # If the prompt contains N percepts, then run the agent in training
+    # mode for the first K percepts, where K is the largest power of 2
+    # such that K <= N. But only if we have not already trained an
+    # instantiation of DQN on those first K percepts. If we have already
+    # done so, then pull up said instantiation from memory.
     num_observs = (len(prompt)+1)/3
     train_on_len = 3*pow(2, int(log2(num_observs)))-1
     train_on = prompt[:train_on_len]
@@ -150,6 +217,10 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
         dummy_env.set_memory(rewards, observs, actions)
         n_steps = len(rewards)-1
 
+        # Because Stable Baselines3's DQN has a default batch size of 4,
+        # we eject early (arbitrarily outputting action 0) if n_steps < 4
+        # because otherwise Stable Baselines3 would round n_steps up to 4,
+        # (beyond the percepts prerecorded in the dummy environment).
         if n_steps < 4:
             return 0
 
@@ -163,16 +234,35 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
             **kwargs
         )
 
+        # Monkeypatch A._sample_action in order to intercept it and force
+        # the agent to choose the actions in the input prompt during its
+        # training phase. This monkeypatch does not need to be undone
+        # after training, because A._sample_action is not used outside
+        # of training phase.
         def sample_action_monkeypatch(*args):
             action = np.array([actions[A.num_timesteps]])
             return action, action
 
         A._sample_action = sample_action_monkeypatch
 
+        # Round n_steps down to the nearest multiple of 4 because 4 is
+        # the default Stable Baselines3 DQN batch size---if we did not
+        # do this, then Stable Baselines3 would round n_steps UP to the
+        # nearest multiple of 4 (possibly beyond the percepts prerecorded
+        # in the dummy environment).
         A.learn(n_steps - (n_steps%4))
+
+        # Cache the trained instantiation of the agent so that it can
+        # be reused later on when agent_DQN is called on prompts with
+        # the same training part.
         cache_DQN[(train_on, meta)] = A
     else:
         A = cache_DQN[(train_on, meta)]
 
+    # However we got the trained, instantiated agent (whether by
+    # instantiating it and training it, or by recalling an earlier
+    # instantiation from cache), we now use that instantiation to
+    # pick the next action based on the latest observation. Do this
+    # in non-training mode so as not to change the trained weights.
     action, _ = A.predict(prompt[-1])
     return action
