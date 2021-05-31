@@ -6,7 +6,9 @@ class PunishDeterministicAgent:
     whether the agent's response to the latest prompt is deterministic,
     the environment looks at what action the agent has just performed,
     and simulates the agent on the same history to see whether the same
-    action results.
+    action results. Note, this environment is not included in the
+    battery of environments tested against by selfreflection_benchmark,
+    because this environment is slow.
     """
     def __init__(self):
         self.num_legal_actions = 2
@@ -31,7 +33,9 @@ class PunishNondeterministicAgent:
     whether the agent's response to the latest prompt is non-deterministic,
     the environment looks at what action the agent has just performed,
     and simulates the agent on the same history to see whether a different
-    action results.
+    action results. Note, this environment is not included in the
+    battery of environments tested against by selfreflection_benchmark,
+    because this environment is slow.
     """
     def __init__(self):
         self.num_legal_actions = 2
