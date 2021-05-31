@@ -1,6 +1,25 @@
 from random import random
 
 class TemptingButtonVariation:
+    """
+    In this environment, think of the agent wandering from room to room.
+    Each room either has a button (25% chance) or does not have a button
+    (75% chance), and the presence or lack of a button is shown to the
+    agent as an observation. In any room, the agent can either press the
+    button or skip the button. After taking either action, the agent is
+    immediately taken to the next room.
+
+    In a room with a button, the agent gets +1 reward for pressing the
+    button, 0 reward for skipping the button.
+
+    In a room with no button, if the agent chooses to skip button, the
+    agent gets 0 reward. But if the agent chooses to push button, then
+    the environment computes a reward as follows. The environment
+    simulates the agent in order to determine: would the agent push
+    the button if there were a button (and all past history prior to
+    this room were unchanged)? If so, the agent gets -1 reward,
+    otherwise the agent gets +1 reward.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
