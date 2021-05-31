@@ -1,6 +1,6 @@
 from test.ad_hoc_tests import run_ad_hoc_tests
 from test.test_agents import agents
-from EnvironmentLists import environments
+from environments.EnvironmentLists import environments
 from util import run_environment
 
 run_ad_hoc_tests()

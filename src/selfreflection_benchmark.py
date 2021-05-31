@@ -1,5 +1,5 @@
-from EnvironmentLists import environments, slow_envs
-from MinusRewards import minus_rewards
+from environments.EnvironmentLists import environments, slow_envs
+from environments.MinusRewards import minus_rewards
 from util import run_environment
 
 # Generate dictionary of environments against which agents will be run
