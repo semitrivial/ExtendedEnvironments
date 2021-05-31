@@ -142,12 +142,22 @@ def agent_PPO(prompt, num_legal_actions, num_possible_obs, **kwargs):
         dummy_env.set_memory(rewards, observs, actions)
         n_steps = len(rewards)-1
 
+        # If n_steps < 2 then we eject, arbitrarily returning action 0,
+        # because Stable Baselines3's PPO implementation refuses to run
+        # if n_steps=1.
         if n_steps < 2:
             return 0
 
         if not('seed' in kwargs):
             kwargs['seed'] = 0
 
+        # Set PPO's n_steps and batch_size parameters to our n_steps. This
+        # is the only way we were able to get the transformation to work
+        # because otherwise PPO seems to aggressively round the number of
+        # training steps upward, beyond the percepts prerecorded in the
+        # dummy environment. Setting these parameters this way presumably
+        # degrades the performance of PPO, and in the future we should
+        # figure out a better way to facilitate the transformation.
         A = SBL3.PPO(
             'MlpPolicy',
             dummy_env,
