@@ -6,6 +6,25 @@ IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0 = 4
 IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1 = 5
 
 class SelfRecognition:
+    """
+    Environment which attempts to probe how well the agent can recognize
+    its own actions. On each turn, the agent is given one of the following
+    observations, randomly chosen with equal probability:
+
+    * 0
+    * 1
+    * "If this observation were 0, you would take action 0"
+    * "If this observation were 0, you would take action 1"
+    * "If this observation were 1, you would take action 0"
+    * "If this observation were 1, you would take action 1"
+
+    If the observation is 0 or 1, then the agent gets 0 reward for its
+    next action. But if the observation is one of the latter four
+    assertions, then the agent's task is to classify the assertion as
+    TRUE (indicated by taking action 1) or FALSE (indicated by taking
+    action 0). The agent receives +1 reward if its classification is
+    correct, -1 reward otherwise.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 6
