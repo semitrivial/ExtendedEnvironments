@@ -1,3 +1,6 @@
+# Script used to generate Table 1 in "Extending Environments To
+# Measure Self-Reflection In Reinforcement Learning".
+# For instructions, see ExampleMeasurements.py.
 import sys
 import random
 from collections import deque
@@ -17,6 +20,7 @@ from util import memoize
 
 seed, n_steps = 0, 100
 
+# Parse command-line arguments
 args = deque(sys.argv[1:])
 while args:
     arg = args.popleft()
@@ -37,6 +41,8 @@ def measure_agent(name, agent):
     print("Testing "+name+"...")
     result = selfreflection_benchmark(agent, n_steps)
 
+    # If result_table.csv does not already exist, then create it and
+    # write headers to it.
     try:
         fp = open("result_table.csv", "r")
         fp.close()
@@ -46,6 +52,8 @@ def measure_agent(name, agent):
         fp.write("agent,env,seed,nsteps,reward\n")
         fp.close()
 
+    # Append rows to result_table.csv, one row per environment, indicating
+    # how the given agent performed in those environments.
     fp = open("result_table.csv", "a")
     for env in result.keys():
         reward = result[env]['total_reward']
@@ -59,6 +67,7 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
+# Create seeded versions of agents from SBL3_agents.py
 def seeded_A2C(*args, **kwargs):
     return agent_A2C(*args, seed=seed, **kwargs)
 def seeded_PPO(*args, **kwargs):
@@ -66,6 +75,8 @@ def seeded_PPO(*args, **kwargs):
 def seeded_DQN(*args, **kwargs):
     return agent_DQN(*args, seed=seed, **kwargs)
 
+# List of agents to measure. Each entry has the form:
+# [name, agent, function for cleaning up afterwards (or None)]
 agents = [
     ['random_agent', random_agent, None],
     ['constant_agent', constant_agent, None],
@@ -75,6 +86,7 @@ agents = [
     ['agent_PPO', seeded_PPO, clear_cache_PPO],
 ]
 
+# Measure all the above-listed agents and their reality-checks
 for (name, agent, cache_clear_fnc) in agents:
     measure_agent(name, agent)
     name = "reality_check("+name+")"

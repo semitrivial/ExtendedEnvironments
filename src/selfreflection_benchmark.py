@@ -2,6 +2,7 @@ from EnvironmentLists import environments, slow_envs
 from MinusRewards import minus_rewards
 from util import run_environment
 
+# Generate dictionary of environments against which agents will be run
 envs = {}
 for env_name, env in environments.items():
     envs[env_name] = env
@@ -10,6 +11,12 @@ for env_name, env in environments.items():
     envs[name] = minus_rewards(env)
 
 def selfreflection_benchmark(T, num_steps, include_slow_envs=False):
+    """
+    Measure the self-reflection of agent T by running it against a battery
+    of extended environments, for the specified number of steps in each
+    environment. Returns a dictionary with performance data about the agent
+    in each environment.
+    """
     results = {}
     for name, env in envs.items():
         if not(include_slow_envs):

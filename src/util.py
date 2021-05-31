@@ -4,6 +4,12 @@ from pdb import Pdb
 import numpy as np
 
 def run_environment(env, T, num_steps):
+    """
+    Compute the interaction of a given agent T with a given (uninstantiated)
+    environment env for a given number of steps. Outputs a dictionary with
+    statistics about the performance (currently just the total reward the
+    agent extracts from the environment).
+    """
     step = 0
     results = {'total_reward': 0.0}
     play = ()
@@ -12,6 +18,9 @@ def run_environment(env, T, num_steps):
     num_legal_actions = env.num_legal_actions
     num_possible_obs = env.num_possible_obs
 
+    # Create a version of the agent with the number of legal actions
+    # and observations defaulted (so that in the code for extended
+    # environments, we don't need to keep passing these to the agent)
     def T_with_meta(
         prompt,
         num_legal_actions=num_legal_actions,
@@ -20,6 +29,10 @@ def run_environment(env, T, num_steps):
     ):
         return T(prompt, num_legal_actions, num_possible_obs, **kwargs)
 
+    # Compute the interaction. Construct the sequence of
+    # rewards/observations/actions step by step. The initial
+    # pieces of this sequence are passed to the agent/environment
+    # to determine the next rewards/observations/actions.
     while step < num_steps:
         reward, obs = env.react(T_with_meta, play)
 
@@ -33,9 +46,24 @@ def run_environment(env, T, num_steps):
     return results
 
 def memoize(f):
+    """
+    Return a cached version of f. If the cached version of f is called
+    twice on the same argument, the underlying computations will only
+    be performed the first time, and will then be stored so that on the
+    second and later calls it can simply be read back from memory (this
+    has the additional side effect of making the resulting cached
+    function be deterministic).
+    """
     return lru_cache(maxsize=None)(f)
 
 def numpy_translator(T):
+    """
+    Unlike A2C and PPO, Stable Baselines3's DQN agent (with MLP policy)
+    apparently only works if all the inputs are wrapped as numpy int64's.
+    And when it does work, it outputs its results also so wrapped.
+    This function takes an agent and modifies it by performing the
+    necessary wrapping and unwrapping silently behind the scenes.
+    """
     def T_translated(prompt, num_legal_actions, num_possible_obs, **kwargs):
         prompt = tuple(np.int64(prompt))
         return int(T(prompt, num_legal_actions, num_possible_obs, **kwargs))
@@ -43,18 +71,24 @@ def numpy_translator(T):
     return T_translated
 
 def eval_and_count_steps(str, local_vars):
-    # This function works by hijacking the python debugger, pdb.
+    # Count how many steps a string of code takes to execute, as measured
+    # by the python debugger, pdb. This functions works by hijacking pdb.
+    # Returns both the result of the underlying code being executed, and
+    # the number of steps the execution required.
     stepcount = [0]
 
+    # Mock a pdb interface in which the "user" blindly always chooses to
+    # "take 1 step" and all outputs from pdb are ignored.
     class consolemock:
         def readline(self):
-            stepcount[0] += 1
+            stepcount[0] += 1  # Keep track of how many steps go by
             return "s"  # "take 1 Step"
         def write(self, *args):
             return
         def flush(self):
             return
 
+    # Execute the given code using the above-mocked interface.
     runner = Pdb(stdin=consolemock(), stdout=consolemock())
     result = runner.runeval(str, locals = local_vars)
 
