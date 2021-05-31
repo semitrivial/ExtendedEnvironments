@@ -1,4 +1,9 @@
 def minus_rewards(env):
+    """
+    Given an (uninstantiated) environment, return a new (uninstantiated)
+    environment which is identical except for all rewards being multiplied
+    by -1.
+    """
     tmp_env = env()
 
     class NewEnv:
