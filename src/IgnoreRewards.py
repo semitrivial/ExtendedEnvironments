@@ -1,4 +1,12 @@
 class IgnoreRewards:
+    """
+    Environment which incentivizes the agent to ignore rewards.
+    Every time the agent acts, the environment determines whether
+    the agent would have acted the same if the history preceding
+    the action were identical except for all rewards being 0. If
+    so, the agent is given reward +1. Otherwise, the agent is
+    given reward -1.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1

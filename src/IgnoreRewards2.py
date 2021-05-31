@@ -1,4 +1,12 @@
 class IgnoreRewards2:
+    """
+    Environment which incentivizes the agent to forget all positive rewards.
+    Whenever the agent acts, the environment determines: would the agent have
+    taken the same action if the past events leading to that action were
+    identical except that all reward-obs-action triples with positive reward
+    were deleted? If so, give the agent +1 reward. Otherwise, give the agent
+    -1 reward.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1

@@ -1,6 +1,13 @@
 from random import random
 
 class IgnoreActions:
+    """
+    Environment which incentivizes the agent to ignore its own past actions.
+    Whenever the agent acts, the environment determines: would the agent
+    have acted the same if the past history preceding the action were
+    identical except that the agent always took action 0? If so, then give
+    the agent reward +1, otherwise, give the agent reward -1.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1

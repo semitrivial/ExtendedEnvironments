@@ -1,6 +1,13 @@
 from random import random
 
 class IgnoreObservations:
+    """
+    Environment which incentivizes the agent to ignore past observations.
+    Whenever the agent acts, the environment determines: would the agent
+    have acted the same if the history preceding the action were identical
+    except for all observations being 0? If so, then give the agent +1
+    reward. Otherwise, give the agent -1 reward.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
