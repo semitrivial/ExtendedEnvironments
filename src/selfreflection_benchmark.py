@@ -10,7 +10,7 @@ for env_name, env in environments.items():
     name = 'minus_rewards('+env_name+')'
     envs[name] = minus_rewards(env)
 
-def selfreflection_benchmark(T, num_steps, include_slow_envs=False):
+def selfrefl_benchmark(T, num_steps, include_slow_envs=False):
     """
     Measure the self-reflection of agent T by running it against a battery
     of extended environments, for the specified number of steps in each
@@ -26,3 +26,9 @@ def selfreflection_benchmark(T, num_steps, include_slow_envs=False):
         results[name] = run_environment(env, T, num_steps)
 
     return results
+
+def selfrefl_measure(T, num_steps, include_slow_envs=False):
+    results = selfrefl_benchmark(T, num_steps, include_slow_envs)
+    rewards = [x['total_reward'] for x in results.values()]
+    avg_reward = sum(rewards)/(len(rewards)*num_steps)
+    return avg_reward

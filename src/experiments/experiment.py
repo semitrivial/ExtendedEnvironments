@@ -15,7 +15,7 @@ from agents.SBL3_agents import (
     clear_cache_A2C, clear_cache_DQN, clear_cache_PPO
 )
 from agents.reality_check import reality_check
-from selfreflection_benchmark import selfreflection_benchmark
+from selfreflection_benchmark import selfrefl_benchmark
 from util import memoize
 
 seed, n_steps = 0, 100
@@ -39,7 +39,7 @@ torch.manual_seed(seed)
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
-    result = selfreflection_benchmark(agent, n_steps)
+    result = selfrefl_benchmark(agent, n_steps)
 
     # If result_table.csv does not already exist, then create it and
     # write headers to it.

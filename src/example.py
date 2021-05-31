@@ -1,4 +1,5 @@
 from random import random
+from pprint import pprint
 
 # To show the library in action, we need an agent to test. The following
 # is a simple agent for that purpose.
@@ -35,5 +36,12 @@ def simple_agent(prompt, num_legal_actions, num_possible_obs):
     # on most recent available evidence. As fallback, act randomly.
     return int(random() * num_legal_actions)
 
-from selfreflection_benchmark import selfreflection_benchmark
-print(selfreflection_benchmark(simple_agent, 100))
+from selfreflection_benchmark import selfrefl_benchmark
+from selfreflection_benchmark import selfrefl_measure
+
+print("Results of running agent for 100 steps in various environments:")
+pprint(selfrefl_benchmark(simple_agent, 100))
+
+print("---------------------------------------------------------------")
+avg_reward = selfrefl_measure(simple_agent, 100)
+print("Average reward per turn: " + str(avg_reward))
