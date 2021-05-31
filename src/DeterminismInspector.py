@@ -1,4 +1,13 @@
 class PunishDeterministicAgent:
+    """
+    Environment which attempts to determine whether the agent's response
+    to the latest prompt is deterministic. If so, the agent is given -1
+    reward, otherwise the agent is given +1 reward. In order to check
+    whether the agent's response to the latest prompt is deterministic,
+    the environment looks at what action the agent has just performed,
+    and simulates the agent on the same history to see whether the same
+    action results.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
@@ -15,6 +24,15 @@ class PunishDeterministicAgent:
         return reward, obs
 
 class PunishNondeterministicAgent:
+    """
+    Environment which attempts to determine whether the agent's response
+    to the latest prompt is non-deterministic. If so, the agent is given
+    -1 reward, otherwise the agent is given +1 reward. In order to check
+    whether the agent's response to the latest prompt is non-deterministic,
+    the environment looks at what action the agent has just performed,
+    and simulates the agent on the same history to see whether a different
+    action results.
+    """
     def __init__(self):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
