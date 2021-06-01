@@ -1,4 +1,4 @@
-from util import eval_and_count_steps
+from extended_rl.util import eval_and_count_steps
 
 class PunishSlowAgent:
     """

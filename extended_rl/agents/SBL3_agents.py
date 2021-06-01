@@ -4,7 +4,7 @@ import stable_baselines3 as SBL3
 from gym import Env, spaces
 import numpy as np
 
-from util import memoize, numpy_translator
+from extended_rl.util import memoize, numpy_translator
 
 class DummyEnv(Env):
     """
