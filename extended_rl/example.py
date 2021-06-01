@@ -36,8 +36,8 @@ def simple_agent(prompt, num_legal_actions, num_possible_obs):
     # on most recent available evidence. As fallback, act randomly.
     return int(random() * num_legal_actions)
 
-from selfreflection_benchmark import selfrefl_benchmark
-from selfreflection_benchmark import selfrefl_measure
+from extended_rl.selfreflection_benchmark import selfrefl_benchmark
+from extended_rl.selfreflection_benchmark import selfrefl_measure
 
 print("Results of running agent for 100 steps in various environments:")
 pprint(selfrefl_benchmark(simple_agent, 100))
