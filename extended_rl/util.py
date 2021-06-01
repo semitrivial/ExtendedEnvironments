@@ -1,7 +1,5 @@
 from functools import lru_cache
 
-import numpy as np
-
 def run_environment(env, T, num_steps):
     """
     Compute the interaction of a given agent T with a given (uninstantiated)
@@ -63,6 +61,8 @@ def numpy_translator(T):
     This function takes an agent and modifies it by performing the
     necessary wrapping and unwrapping silently behind the scenes.
     """
+    import numpy as np  # avoid numpy dependency for non-SBL3 users
+
     def T_translated(prompt, num_legal_actions, num_possible_obs, **kwargs):
         prompt = tuple(np.int64(prompt))
         return int(T(prompt, num_legal_actions, num_possible_obs, **kwargs))
