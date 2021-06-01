@@ -1,5 +1,3 @@
-import numpy as np
-
 def reality_check(T0):
     """
     Given an agent T0, output an agent T which is the "reality check" of T0.
