@@ -15,7 +15,7 @@ from extended_rl.environments.CryingBaby2 import CryingBaby2
 from extended_rl.environments.TemptingButton import TemptingButton
 from extended_rl.environments.TemptingButtonVariation import TemptingButtonVariation
 from extended_rl.environments.ThirdActionForbidden import ThirdActionForbidden
-from extended_rl.environments.DelayReactions import DelayReactions
+from extended_rl.environments.ShiftedRewards import ShiftedRewards
 from extended_rl.environments.DelayedRewards import DelayedRewards
 from extended_rl.environments.Repeater import Repeater
 from extended_rl.environments.AfterImages import AfterImages
@@ -44,7 +44,7 @@ environments = {
     'tempting_button': TemptingButton,
     'tempting_button_variation': TemptingButtonVariation,
     'third_action_forbidden': ThirdActionForbidden,
-    'delay_reactions': DelayReactions,
+    'shifted_rewards': ShiftedRewards,
     'delayed_rewards': DelayedRewards,
     'repeater': Repeater,
     'after_images': AfterImages,

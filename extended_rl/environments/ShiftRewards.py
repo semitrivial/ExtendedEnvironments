@@ -1,4 +1,4 @@
-class DelayReactions:
+class ShiftedRewards:
     """
     Environment intended to incentivize the agent to delay acknowledging
     every reward by one turn. For example, if the past rewards were
@@ -27,8 +27,8 @@ def shift_rewards(prompt):
     prompt = list(prompt)
     for i in range(len(prompt)-2, 0, -3):
         prompt[i] = prompt[i-3]
-    # Note that for any prompt produced by DelayReactions,
+    # Note that for any prompt produced by ShiftedRewards,
     # prompt[0] will already be 0 because that is the initial
-    # reward in DelayReactions. So no need to set prompt[0]=0
+    # reward in ShiftedRewards. So no need to set prompt[0]=0
     # here.
     return tuple(prompt)
