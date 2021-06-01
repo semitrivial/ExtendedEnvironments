@@ -26,7 +26,7 @@
 # for 500 steps, repeated 10 times with random seeds 0,1,...,9. The agents
 # were also run against the environments for 1000 steps, repeated 10 times
 # with random seeds 0,1,...,9. From the resulting result_table.csv, we
-# compiled the table in the paper using the script "stats.q".
+# compiled the table in the paper using the script "stats.py".
 #
 # If you wish, you can run this file you're reading now and have it perform
 # the above measurements for you. In order for the script to work, you will
@@ -55,5 +55,5 @@ print("Done.")
 print("""
     Results should now be written in result_table.csv,
     and the table in the paper can be compiled using
-    stats.q
+    stats.py
 """)
