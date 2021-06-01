@@ -1,4 +1,3 @@
 *.pyc
 .DS_STore
-openai/key.dat
 *.egg-info
