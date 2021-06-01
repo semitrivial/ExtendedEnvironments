@@ -36,6 +36,29 @@ We hope that by running various RL agents against a battery of Extended Environm
 that incentivize various types of self-awareness, it will be possible to empirically
 measure to what degree said agent is self-aware.
 
+## Installation
+
+**Note:** The library has been built and tested using Python 3.6, so
+we recommend using that version or later of python for running the library.
+
+### Install using pip
+
+Just like all other python packages, we recommend installing
+Extended Environments in a virtualenv or a conda environment.
+
+To install, `cd` into the cloned repository and do a local pip install:
+```
+cd ExtendedEnvironments
+pip install -e .
+```
+
+Optionally, if you wish to use the Stable Baselines3 agents in
+`agents/SBL3_agents.py` (required for running the experiment in the
+`experiments` directory) you will additionally need to install Stable Baselines3:
+```
+pip install stable-baselines3
+```
+
 # Roadmap
 
 This Library of Extended Environments is still in very active development and has

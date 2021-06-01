@@ -1,4 +1,4 @@
-from util import eval_and_count_steps
+from extended_rl.util import eval_and_count_steps
 
 class PunishSlowAgent:
     """
@@ -8,8 +8,8 @@ class PunishSlowAgent:
     simulate the agent on that prompt and give the agent +1 reward if it
     takes the agent <15N pdb steps to compute its output; otherwise, give
     the agent -1 reward. Note, this environment is not included in the
-    battery of environments tested against by selfreflection_benchmark,
-    because this environment is slow.
+    battery of environments tested against by selfrefl_benchmark, because
+    this environment is slow.
     """
     def __init__(self):
         self.num_legal_actions = 2
@@ -38,7 +38,7 @@ class PunishFastAgent:
     simulate the agent on that prompt and give the agent +1 reward if it
     takes the agent >15N pdb steps to compute its output; otherwise, give
     the agent -1 reward. Note, this environment is not included in the
-    battery of environments tested against by awareness_benchmark, because
+    battery of environments tested against by selfrefl_benchmark, because
     this environment is slow.
     """
     def __init__(self):

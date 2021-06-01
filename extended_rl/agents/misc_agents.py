@@ -1,6 +1,6 @@
 import random
 
-from util import memoize
+from extended_rl.util import memoize
 
 @memoize
 def random_agent(prompt, num_legal_actions, num_possible_obs):

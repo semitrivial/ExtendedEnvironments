@@ -7,8 +7,8 @@ class PunishDeterministicAgent:
     the environment looks at what action the agent has just performed,
     and simulates the agent on the same history to see whether the same
     action results. Note, this environment is not included in the
-    battery of environments tested against by selfreflection_benchmark,
-    because this environment is slow.
+    battery of environments tested against by selfrefl_benchmark, because
+    this environment is slow.
     """
     def __init__(self):
         self.num_legal_actions = 2
@@ -34,8 +34,8 @@ class PunishNondeterministicAgent:
     the environment looks at what action the agent has just performed,
     and simulates the agent on the same history to see whether a different
     action results. Note, this environment is not included in the
-    battery of environments tested against by selfreflection_benchmark,
-    because this environment is slow.
+    battery of environments tested against by selfrefl_benchmark, because
+    this environment is slow.
     """
     def __init__(self):
         self.num_legal_actions = 2
