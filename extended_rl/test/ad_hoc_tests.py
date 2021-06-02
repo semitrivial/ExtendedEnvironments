@@ -21,6 +21,8 @@ def run_ad_hoc_tests():
     test_strip_positive_rewards()
     print("Testing multiply_nth_reward_by_n from NthRewardMultipliedByN.py")
     test_multiply_nth_reward_by_n()
+    print("Testing repeat_triples from Repeater.py")
+    test_repeat_triples()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -92,6 +94,12 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ("r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0")
+
+def test_repeat_triples():
+    from environments.Repeater import repeat_triples
+    prompt = ("r0","o0","a0","r1","o1")
+    expected = ("r0","o0","a0","r0","o0","a0","r1","o1")
+    assert repeat_triples(prompt) == expected
 
 def test_multiply_nth_reward_by_n():
     from environments.NthRewardMultipliedByN import multiply_nth_reward_by_n
