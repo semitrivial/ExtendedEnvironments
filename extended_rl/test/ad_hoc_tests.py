@@ -7,6 +7,8 @@ def run_ad_hoc_tests():
     test_strip_rewards()
     print("Testing apply_afterimages from AfterImages.py")
     test_apply_afterimages()
+    print("Testing opposite_perspective from AdversarialSequencePredictor.py")
+    test_opposite_perspective()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -78,6 +80,12 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ("r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0")
+
+def test_opposite_perspective():
+    from environments.AdversarialSequencePredictor import opposite_perspective
+    prompt = (1, "o0", "a0", 2, "o1")
+    expected = (-1, "a0", "o0", -2, 0)
+    assert opposite_perspective(prompt) == expected
 
 def test_strip_rewards():
     from environments.IgnoreRewards import strip_rewards
