@@ -9,6 +9,8 @@ def run_ad_hoc_tests():
     test_apply_afterimages()
     print("Testing opposite_perspective from AdversarialSequencePredictor.py")
     test_opposite_perspective()
+    print("Testing censor_prompt from CensoredObservation.py")
+    test_censor_prompt()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -80,6 +82,13 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ("r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0")
+
+def test_censor_prompt():
+    from environments.CensoredObservation import censor_prompt
+    from environments.CensoredObservation import CENSORED_OBS as C
+    prompt = ("r0", "o0", "a0", "r1", C, "a1", "r2", "o2")
+    expected = ("r0", "o0", "a0", "r2", "o2")
+    assert censor_prompt(prompt) == expected
 
 def test_opposite_perspective():
     from environments.AdversarialSequencePredictor import opposite_perspective
