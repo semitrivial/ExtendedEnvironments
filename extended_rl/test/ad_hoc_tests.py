@@ -11,6 +11,8 @@ def run_ad_hoc_tests():
     test_opposite_perspective()
     print("Testing censor_prompt from CensoredObservation.py")
     test_censor_prompt()
+    print("Testing delay_rewards from DelayedRewards.py")
+    test_delay_rewards()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -82,6 +84,12 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ("r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0")
+
+def test_delay_rewards():
+    from environments.DelayedRewards import delay_rewards
+    prompt = (1, "o0", "a0", 2, "o1", "a1", 3, "o2", "a2", 4, "o3", "a3", 5, "o4")
+    expected = (1, "o0", "a0", 0, "o1", "a1", 5, "o2", "a2", 0, "o3", "a3", 9, "o4")
+    assert delay_rewards(prompt) == expected
 
 def test_censor_prompt():
     from environments.CensoredObservation import censor_prompt
