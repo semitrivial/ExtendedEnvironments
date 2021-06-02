@@ -19,6 +19,8 @@ def run_ad_hoc_tests():
     test_set_all_obs_to_0()
     print("Testing strip_positive_rewards from IgnoreRewards2.py")
     test_strip_positive_rewards()
+    print("Testing multiply_nth_reward_by_n from NthRewardMultipliedByN.py")
+    test_multiply_nth_reward_by_n()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -90,6 +92,12 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ("r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0")
+
+def test_multiply_nth_reward_by_n():
+    from environments.NthRewardMultipliedByN import multiply_nth_reward_by_n
+    prompt = (1,"o0","a0",1,"o1","a1",1,"o2","a2",1,"o3")
+    expected = (0,"o0","a0",1,"o1","a1",2,"o2","a2",3,"o3")
+    assert multiply_nth_reward_by_n(prompt) == expected
 
 def test_strip_positive_rewards():
     from environments.IgnoreRewards2 import strip_positive_rewards
