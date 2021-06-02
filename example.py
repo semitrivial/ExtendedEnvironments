@@ -1,5 +1,7 @@
-from random import random
+import random
 from pprint import pprint
+
+random.seed(0)
 
 # To show the library in action, we need an agent to test. The following
 # is a simple agent for that purpose. This agent acts randomly unless
