@@ -160,5 +160,9 @@ class E:
 If `E().react(T, play)==(reward, obs)` then the semantic interpretation is as follows:
 * In response to the history recorded in `play` (which says that the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, etc.), the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`.
 
+**Note:** When calling `T` within `E().react(T, play)`, it is only necessary to pass the
+`prompt` argument to `T`. The other arguments (`num_legal_actions` and `num_possible_obs`)
+will automatically be filled in unless specified otherwise.
+
 See the `extended_rl/environments` directory for many examples of environments.
 
