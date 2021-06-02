@@ -86,7 +86,7 @@ def A(prompt, num_legal_actions, num_possible_obs, **kwargs):
 ...where:
 * `num_legal_actions` is the number of actions the agent may take
 * `num_possible_obs` is the number of observations possible in the environment
-* `prompt` is an sequence of one of the following two forms:
+* `prompt` is a tuple of one of the following two forms:
     * (The initial percept) `reward_0`, `observation_0`
     * `reward_0`, `observation_0`, `action_0`, ..., `reward_n`, `observation_n`
 * Each `reward_i` is a number
@@ -95,9 +95,9 @@ def A(prompt, num_legal_actions, num_possible_obs, **kwargs):
 * `action` is an integer between `0` and `num_legal_actions-1` inclusive
 * `**kwargs` denotes optional keyword arguments (such as `learning_rate`)
 
-If `A(prompt, num_legal_actions, num_possible_obs)=action`, then the
+If `A(prompt, num_legal_actions, num_possible_obs)==action`, then the
 semantic interpretation is as follows:
-* In response to the history encoded in `prompt` (which says that the agent initially gave the agent `reward_0` and `observation_0`, to which the agent responded with `action_0`, to which the environment responded with `reward_1` and `observation_1`, to which the agent responded with `action_1`, etc.), the agent responds with `action`.
+* In response to the history encoded in `prompt` (which says that the environment initially gave the agent `reward_0` and `observation_0`, to which the agent responded with `action_0`, to which the environment responded with `reward_1` and `observation_1`, to which the agent responded with `action_1`, etc.), the agent responds with `action`.
 
 For example, here is the code for an agent who plays randomly, except that it always takes
 action `0` in response to reward `0` or observation `0`:
@@ -106,4 +106,38 @@ def example_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
     last_reward, last_obs = prompt[-2:]
     return 0 if (last_reward==0 or last_obs==0) else random.randrange(num_legal_actions)
 ```
+
+See Section 2.1 of "Extending Environments To Measure Self-Reflection In Reinforcement
+Learning" for instructions on how practical RL agents can be converted into this abstract
+form.
+
+#### Environments
+
+An *environment* is a class of the following form:
+```
+class E:
+    def __init__(self):
+        self.num_legal_actions = M
+        self.num_possible_obs = N
+
+    def react(self, T, play):
+        ...
+        return (reward, obs)
+```
+...where:
+* `M` and `N` are positive integers
+* `T` is an agent
+* `play` is a tuple of one of the following two forms:
+    * The empty tuple
+    * `reward_0`, `observation_0`, `action_0`, ..., `reward_n`, `observation_n`, `action_n`
+* Each `reward_i` is a number
+* Each `observation_i` is an integer between `0` and `num_possible_obs-1` inclusive
+* Each `action_i` is an integer between `0` and `num_legal_actions-1` inclusive
+* `reward` is a number
+* `obs` is an integer between `0` and `num_possible_obs-1` inclusive
+
+If `E().react(T, play)==(reward, obs)` then the semantic interpretation is as follows:
+* In response to the history recorded in `play` (which says that the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, etc.), the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`.
+
+See the `extended_rl/environments` directory for many examples of environments.
 
