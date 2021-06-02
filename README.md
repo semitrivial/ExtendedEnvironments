@@ -29,7 +29,7 @@ scenario. But if we have the source-code of an AI participant, then we **can**
 determine what that participant would do in hypothetical situations, and so we
 **can** put AI participants into such obstacle courses.
 
-An "Extended Environment" is a reinforcement learning environment which is aware of
+An *extended environment* is a reinforcement learning environment which is aware of
 the source-code of whatever agent is interacting with it. This enables the
 environment to simulate the agent and use the results when it determines which
 rewards and observations to send to the agent. Although this is a departure from
@@ -49,7 +49,7 @@ self-reflective an agent is.
 ## Installation
 
 **Note:** The library has been built and tested using Python 3.6, so
-we recommend using that version or later of python for running the library.
+we recommend using that version or later for running the library.
 
 ### Install using pip
 
@@ -68,5 +68,42 @@ Optionally, if you wish to use the Stable Baselines3 agents in
 Stable Baselines3:
 ```
 pip install stable-baselines3
+```
+
+### Documentation
+
+See `example.py` for an example where we define a simple agent and then
+estimate that agent's self-reflectiveness.
+
+#### Agents
+
+An *agent* is a function of the following form:
+```
+def A(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    ...
+    return action
+```
+...where:
+* `num_legal_actions` is the number of actions the agent may take
+* `num_possible_obs` is the number of observations possible in the environment
+* `prompt` is an sequence of one of the following two forms:
+    * (The initial percept) `reward_0`, `observation_0`
+    * `reward_0`, `observation_0`, `action_0`, ..., `reward_n`, `observation_n`
+* Each `reward_i` is a number
+* Each `observation_i` is an integer between `0` and `num_possible_obs-1`
+* Each `action_i` is an integer between `0` and `num_legal_actions-1`
+* `action` is an integer between `0` and `num_legal_actions-1` inclusive
+* `**kwargs` denotes optional keyword arguments (such as `learning_rate`)
+
+If `A(prompt, num_legal_actions, num_possible_obs)=action`, then the
+semantic interpretation is as follows:
+* In response to the history encoded in `prompt` (which says that the agent initially gave the agent `reward_0` and `observation_0`, to which the agent responded with `action_0`, to which the environment responded with `reward_1` and `observation_1`, to which the agent responded with `action_1`, etc.), the agent responds with `action`.
+
+For example, here is the code for an agent who plays randomly, except that it always takes
+action `0` in response to reward `0` or observation `0`:
+```
+def example_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
+    last_reward, last_obs = prompt[-2:]
+    return 0 if (last_reward==0 or last_obs==0) else random.randrange(num_legal_actions)
 ```
 
