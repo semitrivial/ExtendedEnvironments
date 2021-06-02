@@ -41,7 +41,7 @@ in ways that traditional RL environments cannot.
 If an agent does not self-reflect about its own actions, then an extended
 environment might be difficult for the agent to figure out.
 Therefore, our thesis is that self-reflection is needed for an agent to
-achieve good performance averaged over a battery of suitably chosen extended
+achieve good performance on average over a battery of suitably chosen extended
 environments. This would imply that by measuring how an agent performs across
 such a battery of environments, it is possible to empirically estimate how
 self-reflective an agent is.
@@ -113,7 +113,7 @@ def A(prompt, num_legal_actions, num_possible_obs, **kwargs):
 * Each `reward_i` is a number
 * Each `observation_i` is an integer between `0` and `num_possible_obs-1`
 * Each `action_i` is an integer between `0` and `num_legal_actions-1`
-* `action` is an integer between `0` and `num_legal_actions-1` inclusive
+* `action` is an integer between `0` and `num_legal_actions-1`
 * `**kwargs` denotes optional keyword arguments (such as `learning_rate`)
 
 If `A(prompt, num_legal_actions, num_possible_obs)==action`, then the
@@ -152,10 +152,10 @@ class E:
     * The empty tuple
     * `reward_0`, `observation_0`, `action_0`, ..., `reward_n`, `observation_n`, `action_n`
 * Each `reward_i` is a number
-* Each `observation_i` is an integer between `0` and `num_possible_obs-1` inclusive
-* Each `action_i` is an integer between `0` and `num_legal_actions-1` inclusive
+* Each `observation_i` is an integer between `0` and `num_possible_obs-1`
+* Each `action_i` is an integer between `0` and `num_legal_actions-1`
 * `reward` is a number
-* `obs` is an integer between `0` and `num_possible_obs-1` inclusive
+* `obs` is an integer between `0` and `num_possible_obs-1`
 
 If `E().react(T, play)==(reward, obs)` then the semantic interpretation is as follows:
 * In response to the history recorded in `play` (which says that the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, etc.), the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`.
