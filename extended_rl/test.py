@@ -1,3 +1,7 @@
+# The purpose of this file is to test the library to make sure
+# it works. End-users who are not working on contributing code
+# to the library do not need to worry about this.
+
 from test.ad_hoc_tests import run_ad_hoc_tests
 from test.test_agents import agents
 from environments.EnvironmentLists import environments
