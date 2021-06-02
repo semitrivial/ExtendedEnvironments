@@ -75,6 +75,27 @@ pip install stable-baselines3
 See `example.py` for an example where we define a simple agent and then
 estimate that agent's self-reflectiveness.
 
+#### selfrefl_measure
+
+The library's main function is:
+```
+from extended_rl import selfrefl_measure
+selfrefl_measure(agent, num_steps)
+```
+...where:
+* `agent` is an agent (see below)
+* `num_steps` is the number of steps to run the agent in each environment for
+
+This function returns the average reward-per-turn after running `agent` in
+25 extended environments and their opposites, running it for `num_steps` steps in
+each environment. (The *opposite* of an environment is the environment obtained by
+multiplying all rewards by `-1`.)
+
+For finer-grain details about the average reward-per-turn on each environment,
+call `selfrefl_benchmark` instead (it has the same signature as `selfrefl_measure`
+but returns a dictionary telling what average reward-per-turn the agent achieved
+on each environment).
+
 #### Agents
 
 An *agent* is a function of the following form:
