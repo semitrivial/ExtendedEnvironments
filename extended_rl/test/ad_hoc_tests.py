@@ -17,6 +17,8 @@ def run_ad_hoc_tests():
     test_set_all_actions_to_0()
     print("Testing set_all_obs_to_0 from IgnoreObservations.py")
     test_set_all_obs_to_0()
+    print("Testing strip_positive_rewards from IgnoreRewards2.py")
+    test_strip_positive_rewards()
     print("Testing adhoc edge-cases for BackwardConsciousness.py")
     test_backward_consciousness_edgecases()
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -88,6 +90,12 @@ def test_reverse_prompt():
     play = ["r0", "o0", "a0", "r1", "o1", "a1", "r2", "o2", "a2"]
     prompt = reverse_prompt(play)
     assert prompt == ("r2", "o2", "a1", "r1", "o1", "a0", "r0", "o0")
+
+def test_strip_positive_rewards():
+    from environments.IgnoreRewards2 import strip_positive_rewards
+    prompt = (1,"o0","a0",-1,"o1","a1",0,"o2")
+    expected = (-1,"o1","a1",0,"o2")
+    assert strip_positive_rewards(prompt) == expected
 
 def test_set_all_actions_to_0():
     from environments.IgnoreActions import set_all_actions_to_0
