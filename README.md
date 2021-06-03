@@ -1,4 +1,4 @@
-<img align="right" width="201" height="195" src="ee_logo.png">
+<img align="right" width="201" height="195" src="logo.png">
 
 # Extended Environments
 
