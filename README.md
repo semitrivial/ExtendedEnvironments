@@ -54,7 +54,7 @@ we recommend using that version or later for running the library.
 ### Install using pip
 
 Just like all other python packages, we recommend installing
-Extended Environments in a virtualenv or a conda environment.
+ExtendedEnvironments in a virtualenv or a conda environment.
 
 To install, `cd` into the cloned repository and do a local pip install:
 ```
@@ -63,8 +63,8 @@ pip install -e .
 ```
 
 Optionally, if you wish to use the Stable Baselines3 agents in
-`agents/SBL3_agents.py` (required for running the experiment in the
-`experiments` directory) you will additionally need to install
+`extended_rl/agents/SBL3_agents.py` (required for running the experiment in the
+`extended_rl/experiments` directory) you will additionally need to install
 Stable Baselines3:
 ```
 pip install stable-baselines3
