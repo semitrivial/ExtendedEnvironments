@@ -22,11 +22,13 @@ def test_run_environment():
             self.num_legal_actions = 1
             self.num_possible_obs = 1
         def react(self, T, play):
+            assert len(play) == 3*num_env_calls[0]
             num_env_calls[0] += 1
             reward, obs = 0, 0
             return (reward, obs)
 
     def mock_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
+        assert len(prompt) == 2 + 3*num_agent_calls[0]
         num_agent_calls[0] += 1
         return 0
 
@@ -46,7 +48,11 @@ def test_run_environment():
             T((0,0))
             return (0,0)
 
-    run_environment(MockEnv2, mock_agent, 100)
+    def mock_agent2(prompt, num_legal_actions, num_possible_obs, **kwargs):
+        num_agent_calls[0] += 1
+        return 0
+
+    run_environment(MockEnv2, mock_agent2, 100)
     assert num_env_calls[0] == 100
     assert num_agent_calls[0] == 200
 
