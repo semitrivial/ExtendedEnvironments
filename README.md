@@ -119,9 +119,14 @@ semantic interpretation is as follows:
 For example, here is the code for an agent who plays randomly, except that it always takes
 action `0` in response to reward `0` or observation `0`:
 ```
+import random
+
 def example_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
     last_reward, last_obs = prompt[-2:]
-    return 0 if (last_reward==0 or last_obs==0) else random.randrange(num_legal_actions)
+    if last_reward==0 or last_obs==0:
+        return 0
+    else:
+        return random.randrange(num_legal_actions)
 ```
 
 See Section 2.1 of "Extending Environments To Measure Self-Reflection In Reinforcement
