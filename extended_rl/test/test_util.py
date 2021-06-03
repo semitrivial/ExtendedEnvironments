@@ -2,6 +2,7 @@ def test_util():
     print("Testing util functions...")
     test_run_environment()
     test_memoize()
+    test_numpy_translator()
 
     print("Done testing util functions.")
 
@@ -69,3 +70,27 @@ def test_memoize():
 
     assert randomized(0) == randomized(0)
     assert randomized(0) != randomized(1)
+
+def test_numpy_translator():
+    try:
+        import numpy as np
+    except ModuleNotFoundError:
+        print("Skipping test_numpy_translator: numpy not installed")
+        return
+
+    from util import numpy_translator
+
+    @numpy_translator
+    def agent(prompt, *meta):
+        assert isinstance(prompt, tuple)
+        assert isinstance(prompt[0], np.int64)
+        assert isinstance(prompt[1], np.int64)
+        return np.int64(0)
+
+    prompt = (0,0)
+    num_legal_actions = num_possible_obs = 1
+
+    x = agent(prompt, num_legal_actions, num_possible_obs)
+    assert isinstance(x, int)
+    assert not(isinstance(x, np.int64))
+    assert x == 0

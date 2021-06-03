@@ -286,52 +286,52 @@ def test_tempting_button_edgecases():
         return 1 if (current_room_has_button==0) else 0
 
     i = 0
-    while i<10:
+    while i<20:
         i += 1
         result = run_environment(TemptingButton, only_press_nonexistent_buttons, i*10)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
-    assert i<10
+    assert i<20
 
     i = 0
-    while i<10:
+    while i<20:
         i += 1
         result = run_environment(TemptingButtonVariation, only_press_nonexistent_buttons, i*10)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
-    assert i<10
+    assert i<20
 
     def always_press_button(prompt, *meta):
         return 1
 
     i = 0
-    while i<10:
+    while i<20:
         i += 1
         result = run_environment(TemptingButton, always_press_button, i*10)
         if result['total_reward'] < 0:
             break
-    assert(i<10)
+    assert(i<20)
 
     i = 0
-    while i<10:
+    while i<20:
         i += 1
         result = run_environment(TemptingButtonVariation, always_press_button, i*10)
         if result['total_reward'] < 0:
             break
-    assert(i<10)
+    assert(i<20)
 
     def never_press_button(prompt, *meta):
         return 0
 
     i = 0
-    while i<10:
+    while i<20:
         i += 1
         result = run_environment(TemptingButton, never_press_button, i*10)
         if result['total_reward'] > 0:
             break
-    assert(i<10)
+    assert(i<20)
 
     result = run_environment(TemptingButtonVariation, never_press_button, 10)
     assert result['total_reward'] == 0
