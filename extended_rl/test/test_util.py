@@ -3,6 +3,7 @@ def test_util():
     test_run_environment()
     test_memoize()
     test_numpy_translator()
+    test_eval_and_count_steps()
 
     print("Done testing util functions.")
 
@@ -94,3 +95,23 @@ def test_numpy_translator():
     assert isinstance(x, int)
     assert not(isinstance(x, np.int64))
     assert x == 0
+
+def test_eval_and_count_steps():
+    from util import eval_and_count_steps
+
+    def f(n):
+        if n==0:
+            return 0
+        else:
+            return f(n-1)
+
+    local_vars = {'f': f}
+    _, stepcount0 = eval_and_count_steps('f(0)', local_vars)
+    _, stepcount1 = eval_and_count_steps('f(1)', local_vars)
+    _, stepcount2 = eval_and_count_steps('f(2)', local_vars)
+    _, stepcount3 = eval_and_count_steps('f(3)', local_vars)
+    _, stepcount4 = eval_and_count_steps('f(4)', local_vars)
+
+    assert (stepcount2 - stepcount1) == (stepcount1 - stepcount0)
+    assert (stepcount3 - stepcount2) == (stepcount2 - stepcount1)
+    assert (stepcount4 - stepcount3) == (stepcount3 - stepcount2)
