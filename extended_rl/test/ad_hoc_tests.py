@@ -290,13 +290,13 @@ def test_tempting_button_edgecases():
         return 1 if (current_room_has_button==0) else 0
 
     i = 0
-    while i<20:
+    while i<10:
         i += 1
-        result = run_environment(TemptingButton, only_press_nonexistent_buttons, i*10)
+        result = run_environment(TemptingButton, only_press_nonexistent_buttons, i*100)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
-    assert i<20
+    assert i<10
 
     i = 0
     while i<20:
