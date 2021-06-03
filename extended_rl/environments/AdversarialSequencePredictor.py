@@ -49,9 +49,9 @@ class AdversarialSequenceEvader:
 
         prompt, action = play[:-1], play[-1]
         opposite_prompt = opposite_perspective(prompt)
-        evader_action = T(opposite_prompt)
-        reward = 1 if (action != evader_action) else -1
-        obs = evader_action
+        predictor_action = T(opposite_prompt)
+        reward = 1 if (action != predictor_action) else -1
+        obs = predictor_action
         return (reward, obs)
 
 def opposite_perspective(prompt):
