@@ -17,6 +17,9 @@ def selfrefl_benchmark(T, num_steps, include_slow_envs=False):
     environment. Returns a dictionary with performance data about the agent
     in each environment.
     """
+    if num_steps == 0:
+        raise ValueError("num_steps must be a positive integer")
+
     results = {}
     for name, env in envs.items():
         if not(include_slow_envs):

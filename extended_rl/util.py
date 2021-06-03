@@ -27,7 +27,7 @@ def run_environment(env, T, num_steps):
         return T(prompt, num_legal_actions, num_possible_obs, **kwargs)
 
     # Compute the interaction. Construct the sequence of
-    # rewards/observations/actions step by step. The initial
+    # rewards/observations/actions step-by-step. The initial
     # pieces of this sequence are passed to the agent/environment
     # to determine the next rewards/observations/actions.
     while step < num_steps:
@@ -45,11 +45,11 @@ def run_environment(env, T, num_steps):
 def memoize(f):
     """
     Return a cached version of f. If the cached version of f is called
-    twice on the same argument, the underlying computations will only
+    twice on the same argument, the underlying computation will only
     be performed the first time, and will then be stored so that on the
     second and later calls it can simply be read back from memory (this
     has the additional side effect of making the resulting cached
-    function be deterministic).
+    function deterministic).
     """
     return lru_cache(maxsize=None)(f)
 
@@ -71,22 +71,21 @@ def numpy_translator(T):
 
 def eval_and_count_steps(str, local_vars):
     # Count how many steps a string of code takes to execute, as measured
-    # by the python debugger, pdb. This functions works by hijacking pdb.
+    # by the python debugger, pdb. This function works by hijacking pdb.
     # Returns both the result of the underlying code being executed, and
     # the number of steps the execution required.
     stepcount = [0]
 
     # import pdb here instead of at the top of util.py, so that users who
-    # do not use the RuntimeInspector environment will no depend on Pdb
+    # do not use the RuntimeInspector environment will not depend on pdb
     from pdb import Pdb
-
 
     # Mock a pdb interface in which the "user" blindly always chooses to
     # "take 1 step" and all outputs from pdb are ignored.
     class consolemock:
         def readline(self):
             stepcount[0] += 1  # Keep track of how many steps go by
-            return "s"  # "take 1 Step"
+            return "s"  # "take 1 step"
         def write(self, *args):
             return
         def flush(self):

@@ -235,7 +235,7 @@ def agent_DQN(prompt, num_legal_actions, num_possible_obs, **kwargs):
 
         # Because Stable Baselines3's DQN has a default batch size of 4,
         # we eject early (arbitrarily outputting action 0) if n_steps < 4
-        # because otherwise Stable Baselines3 would round n_steps up to 4,
+        # because otherwise Stable Baselines3 would round n_steps up to 4
         # (beyond the percepts prerecorded in the dummy environment).
         if n_steps < 4:
             return 0
