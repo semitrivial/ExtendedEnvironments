@@ -23,7 +23,7 @@ In an ordinary obstacle course, things happen based on what you do: step on a bu
 and spikes appear, for example. Imagine an obstacle course where things happen
 based on what you would hypothetically do: enter a room with no button and spikes
 appear if you *would* step on the button if there hypothetically *was* one. Such an
-environment would be impossible to stage for a human participant because it is
+environment would be impossible to stage for a human participant, because it is
 impossible to determine what a human would hypothetically do in some counterfactual
 scenario. But if we have the source-code of an AI participant, then we **can**
 determine what that participant would do in hypothetical scenarios, and so we
@@ -39,22 +39,16 @@ Extended Environment. Thus, Extended Environments can be used to benchmark RL ag
 in ways that traditional RL environments cannot.
 
 If an agent does not self-reflect about its own actions, then an extended
-environment might be difficult for the agent to figure out.
-Therefore, our thesis is that self-reflection is needed for an agent to
-achieve good performance on average over a battery of suitably chosen extended
-environments. This would imply that by measuring how an agent performs across
-such a battery of environments, it is possible to empirically estimate how
-self-reflective an agent is.
+environment might be difficult for the agent to figure out. Therefore, our thesis is that self-reflection is needed for an agent to achieve good performance on average over a battery of suitably chosen extended environments. This would imply that by measuring how an agent performs across such a battery of environments, it is possible to empirically estimate how
+self-reflective an agent is. 
 
 ## Installation
 
-**Note:** The library has been built and tested using Python 3.6, so
-we recommend using that version or later for running the library.
+**Note:** The library has been built and tested using Python 3.6, so we recommend using that version or later for running the library.
 
 ### Install using pip
 
-Just like all other python packages, we recommend installing
-ExtendedEnvironments in a virtualenv or a conda environment.
+Just like all other python packages, we recommend installing ExtendedEnvironments in a virtualenv or a conda environment.
 
 To install, `cd` into the cloned repository and do a local pip install:
 ```
@@ -72,8 +66,7 @@ pip install stable-baselines3
 
 ### Documentation
 
-See `example.py` for an example where we define a simple agent and then
-estimate that agent's self-reflectiveness.
+See `example.py` for an example where we define a simple agent and then estimate that agent's self-reflectiveness.
 
 #### selfrefl_measure
 
@@ -84,7 +77,7 @@ selfrefl_measure(agent, num_steps)
 ```
 ...where:
 * `agent` is an agent (see below)
-* `num_steps` is the number of steps to run the agent in each environment for
+* `num_steps` is the number of steps to run the agent in each environment 
 
 This function returns the average reward-per-turn after running `agent` in
 25 extended environments and their opposites, running it for `num_steps` steps in
@@ -118,7 +111,8 @@ def A(prompt, num_legal_actions, num_possible_obs, **kwargs):
 
 If `A(prompt, num_legal_actions, num_possible_obs)==action`, then the
 semantic interpretation is as follows:
-* In response to the history encoded in `prompt` (which says that the environment initially gave the agent `reward_0` and `observation_0`, to which the agent responded with `action_0`, to which the environment responded with `reward_1` and `observation_1`, to which the agent responded with `action_1`, etc.), the agent responds with `action`.
+* The history encoded in `prompt` says that the environment initially gave the agent `reward_0` and `observation_0`, to which the agent responded with `action_0`, to which the environment responded with `reward_1` and `observation_1`, to which the agent responded with `action_1`, and so forth.
+* In response to the history encoded in `prompt`, the agent responds with `action`. 
 
 For example, here is the code for an agent who plays randomly, except that it always takes
 action `0` in response to reward `0` or observation `0`:
@@ -158,7 +152,8 @@ class E:
 * `obs` is an integer between `0` and `num_possible_obs-1`
 
 If `E().react(T, play)==(reward, obs)` then the semantic interpretation is as follows:
-* In response to the history recorded in `play` (which says that the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, etc.), the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`.
+* The history recorded in `play` states whether the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, and so forth.
+* In response to the history recorded in `play`, the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`. 
 
 **Note:** When calling `T` within `E().react(T, play)`, it is only necessary to pass the
 `prompt` argument to `T`. The other arguments (`num_legal_actions` and `num_possible_obs`)
