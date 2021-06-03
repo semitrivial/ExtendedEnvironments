@@ -1,3 +1,6 @@
+# This is a utility file which gathers various environments
+# together into dictionaries.
+
 from extended_rl.environments.BackwardConsciousness import BackwardConsciousness
 from extended_rl.environments.DejaVu import DejaVu
 from extended_rl.environments.FalseMemories import FalseMemories
