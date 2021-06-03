@@ -152,7 +152,7 @@ class E:
 * `obs` is an integer between `0` and `num_possible_obs-1`
 
 If `E().react(T, play)==(reward, obs)` then the semantic interpretation is as follows:
-* The history recorded in `play` states whether the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, and so forth.
+* The history recorded in `play` states that the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, and so forth.
 * In response to the history recorded in `play`, the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`. 
 
 **Note:** When calling `T` within `E().react(T, play)`, it is only necessary to pass the
