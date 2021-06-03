@@ -1,4 +1,5 @@
-<img align="right" width="403" height="391" src="ee_logo.png">
+<!--- <img align="right" width="403" height="391" src="ee_logo.png"> --->
+<img align="right" width="403" height="391" src="ee_logo_small.png">
 
 # Extended Environments
 
