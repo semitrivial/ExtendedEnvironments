@@ -60,3 +60,12 @@ def test_memoize():
     assert counter[0] == 2
     f(2)
     assert counter[0] == 2
+
+    from random import random
+
+    @memoize
+    def randomized(x):
+        return random()
+
+    assert randomized(0) == randomized(0)
+    assert randomized(0) != randomized(1)
