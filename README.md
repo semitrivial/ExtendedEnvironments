@@ -1,3 +1,6 @@
+<!--- <img align="right" width="403" height="391" src="ee_logo.png"> --->
+<img align="right" width="201" height="195" src="ee_logo.png">
+
 # Extended Environments
 
 Empirically estimate how self-reflective a reinforcement learning agent is.
