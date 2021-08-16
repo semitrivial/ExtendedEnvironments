@@ -7,13 +7,12 @@ class IgnoreRewards:
     so, the agent is given reward +1. Otherwise, the agent is
     given reward -1.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
-        self.sim = None
+        self.sim = A(self)
 
-    def start(self, A):
-        self.sim = A()
+    def start(self):
         obs = 0
         return obs
 

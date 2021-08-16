@@ -5,14 +5,11 @@ def fast_run_env(env, A, num_steps):
     step = 0
     results = {'total_reward': 0.0}
 
-    env = env()
-
-    def A_with_env(A=A, **kwargs):
-        return A(env=env, **kwargs)
+    env = env(A)
 
     A = A(env=env)
 
-    o = env.start(A_with_env)
+    o = env.start()
     while step < num_steps:
         action = A.act(obs=o)
         reward, o_next = env.step(action)
