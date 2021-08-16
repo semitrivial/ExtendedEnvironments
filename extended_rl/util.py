@@ -1,5 +1,29 @@
 from functools import lru_cache
 
+def fast_run_env(env, A, num_steps):
+    step = 0
+    results = {'total_reward': 0.0}
+
+    env = env()
+    num_legal_actions = env.num_legal_actions
+    num_possible_obs = env.num_possible_obs
+
+    def A_with_env(**kwargs):
+        return A(env=env, **kwargs)
+
+    A = A(env=env)
+
+    curr_obs = env.start(A_with_env)
+    while step < num_steps:
+        action = A.act(obs=curr_obs)
+        reward, obs = env.step(action)
+        A.train(prev_obs=curr_obs, act=action, next_obs=obs, reward=reward)
+        curr_obs = obs
+        results['total_reward'] += reward
+
+    return results
+
+
 def run_environment(env, T, num_steps):
     """
     Compute the interaction of a given agent T with a given (uninstantiated)
