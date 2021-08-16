@@ -25,6 +25,7 @@ def Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9):
 
     def train(self, o_prev, act, R, o_next):
       qtable, actions, gamma = self.qtable, self.actions, self.gamma
+      maybe_add_obs_to_qtable(qtable, actions, o_prev)
       maybe_add_obs_to_qtable(qtable, actions, o_next)
       qtarget = R + gamma * max([qtable[o_next,a] for a in actions])
       qpredict = qtable[o_prev, act]
