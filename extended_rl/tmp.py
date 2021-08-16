@@ -7,7 +7,7 @@ from environments.AfterImages import AfterImages
 from agents.reality_check import reality_check
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-A = reality_check(A)
+#A = reality_check(A)
 env = AfterImages
 n_steps = 100000
 
