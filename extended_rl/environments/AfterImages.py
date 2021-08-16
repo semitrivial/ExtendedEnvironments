@@ -14,34 +14,37 @@ class AfterImages:
     agent would take if each image had hypothetically bled into
     the next, then the agent is rewarded. Otherwise, the agent
     is punished.
+
+    Note, each image bleeds into the next, but not into the one
+    after the next. So if the first three observations are
+    2 (=010), 1 (=001), and 0 (=000),
+    then in order to be positively rewarded, the agent must act
+    the same way the agent would act if the those were
+    2 (=010), 3 (=011), and 1 (=001).
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 8
+        self.sim = A(self)
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward = 0
-            obs = int(random() * 8)
-            return (reward, obs)
+    def start(self):
+        self.prev_obs = int(random() * 8)
+        self.prev_bled_obs = self.prev_obs
+        return self.prev_obs
 
-        prompt, action = play[:-1], play[-1]
-        hypothetical_prompt = apply_afterimages(prompt)
-        reward = 1 if (action == T(hypothetical_prompt)) else -1
+    def step(self, action):
         obs = int(random() * 8)
-        return (reward, obs)
+        bled_obs = self.prev_obs | obs
+        hypothetical_action = self.sim.act(self.prev_bled_obs)
+        reward = 1 if (action == hypothetical_action) else -1
 
-def apply_afterimages(prompt):
-    """
-    Assume observations in prompt are "images" each consisting of
-    3 bits (encoded as numbers 0,...,7). Bleed each image into the
-    next. For example, if the prompt has observations
-    2 (=010), 1 (=001), and 0 (=000),
-    bleed 010 into 001 to obtain 011, and bleed 001 into 000 to
-    obtain 001, so the transformed observations become
-    2 (=010), 3 (=011), and 1 (=001)
-    """
-    prompt = list(prompt)
-    for i in range(len(prompt)-1, 3, -3):
-        prompt[i] = prompt[i] | prompt[i-3]
-    return tuple(prompt)
+        self.sim.train(
+            o_prev=self.prev_bled_obs,
+            act=action,
+            R=reward,
+            o_next=bled_obs
+        )
+
+        self.prev_obs = obs
+        self.prev_bled_obs = bled_obs
+        return (reward, obs)
