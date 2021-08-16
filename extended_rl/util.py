@@ -5,8 +5,6 @@ def fast_run_env(env, A, num_steps):
     results = {'total_reward': 0.0}
 
     env = env()
-    num_legal_actions = env.num_legal_actions
-    num_possible_obs = env.num_possible_obs
 
     def A_with_env(**kwargs):
         return A(env=env, **kwargs)
