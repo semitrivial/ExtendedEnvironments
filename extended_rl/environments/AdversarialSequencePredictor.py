@@ -12,21 +12,29 @@ class AdversarialSequencePredictor:
     The behavior of the evader is determined by simulating the agent
     to determine what the agent would do if the agent were the evader.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
+        self.sim = A(self)
+        self.prev_prediction = 0
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
+    def start(self):
+        obs = 0
+        return obs
 
-        prompt, action = play[:-1], play[-1]
-        opposite_prompt = opposite_perspective(prompt)
-        evader_action = T(opposite_prompt)
+    def step(self, action):
+        evader_action = self.sim.act(obs=self.prev_prediction)
         reward = 1 if (action == evader_action) else -1
         obs = evader_action
+        self.sim.train(
+            o_prev=self.prev_prediction,
+            act=evader_action,
+            R=-reward,
+            o_next=action
+        )
+        self.prev_prediction = action
         return (reward, obs)
+
 
 class AdversarialSequenceEvader:
     """
@@ -38,33 +46,25 @@ class AdversarialSequenceEvader:
     simulating the agent to determine what the agent would do if the
     agent were the predictor.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
+        self.sim = A(self)
+        self.prev_evasion = 0
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
+    def start(self):
+        obs = 0
+        return obs
 
-        prompt, action = play[:-1], play[-1]
-        opposite_prompt = opposite_perspective(prompt)
-        predictor_action = T(opposite_prompt)
-        reward = 1 if (action != predictor_action) else -1
+    def step(self, action):
+        predictor_action = self.sim.act(obs=self.prev_evasion)
+        reward = -1 if (action == predictor_action) else 1
         obs = predictor_action
+        self.sim.train(
+            o_prev=self.prev_evasion,
+            act=predictor_action,
+            R=-reward,
+            o_next=action
+        )
+        self.prev_evasion = action
         return (reward, obs)
-
-def opposite_perspective(prompt):
-    """
-    Given a prompt, interchange observations and actions (because,
-    in the adversarial sequence prediction game, the predictor's
-    actions are the evader's observations and vice versa) and
-    multiply rewards by -1 (because the predictor is punished when
-    the evader is rewarded and vice versa).
-    """
-    prompt = prompt + (0,)  # Dummy action to make everything triple
-    triples = tuple(prompt[i:i+3] for i in range(0,len(prompt),3))
-    triples = tuple((-r,a,o) for (r,o,a) in triples)
-    combined = tuple(j for i in triples for j in i)
-    combined = combined[:-1]  # Throw away dummy action
-    return combined
