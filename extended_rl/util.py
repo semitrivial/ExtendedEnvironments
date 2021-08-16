@@ -1,23 +1,25 @@
 from functools import lru_cache
 
+
 def fast_run_env(env, A, num_steps):
     step = 0
     results = {'total_reward': 0.0}
 
     env = env()
 
-    def A_with_env(**kwargs):
+    def A_with_env(A=A, **kwargs):
         return A(env=env, **kwargs)
 
     A = A(env=env)
 
-    curr_obs = env.start(A_with_env)
+    o = env.start(A_with_env)
     while step < num_steps:
-        action = A.act(obs=curr_obs)
-        reward, obs = env.step(action)
-        A.train(prev_obs=curr_obs, act=action, next_obs=obs, reward=reward)
-        curr_obs = obs
+        action = A.act(obs=o)
+        reward, o_next = env.step(action)
+        A.train(o_prev=o, act=action, R=reward, o_next=o_next)
+        o = o_next
         results['total_reward'] += reward
+        step += 1
 
     return results
 
