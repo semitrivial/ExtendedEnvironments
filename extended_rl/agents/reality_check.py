@@ -1,22 +1,28 @@
-def reality_check(T0):
-    """
-    Given an agent T0, output an agent T which is the "reality check" of T0.
-    What this means is, on any given prompt, T will first inspect the prompt
-    and see whether any actions taken in the prompt are NOT the actions which
-    T0 would take in those situations. If so, then T freezes up from there
-    on, always repeating the first action it took. But if all actions in the
-    prompt are actions which T0 would have taken in those situations, then T
-    acts as T0 would act.
-    """
-    def T(prompt, num_legal_actions, num_possible_obs):
-        for i in range(len(prompt)//3):
-            subprompt = prompt[:3*i+2]
-            subaction = prompt[3*i+2]
-            expected = T0(subprompt, num_legal_actions, num_possible_obs)
+def reality_check(A0):
+  class A0_RC:
+    def __init__(self, env):
+      self.underlying = A0(env)
+      self.first_action = None
+      self.expected_training_action = None
+      self.found_unexpected_action = False
 
-            if expected != subaction:
-                return T(prompt[:2], num_legal_actions, num_possible_obs)
+    def act(self, obs):
+      if self.found_unexpected_action:
+        return self.first_action
 
-        return T0(prompt, num_legal_actions, num_possible_obs)
+      if self.first_action is None:
+        self.first_action = self.underlying.act(obs)
+        self.expected_training_action = self.first_action
+        return self.first_action
 
-    return T
+      self.expected_training_action = self.underlying.act(obs)
+      return self.expected_training_action
+
+    def train(self, o_prev, act, R, o_next):
+      if not self.found_unexpected_action:
+        if act == self.expected_training_action:
+          self.underlying.train(o_prev, act, R, o_next)
+        else:
+          self.found_unexpected_action = True
+
+  return A0_RC
