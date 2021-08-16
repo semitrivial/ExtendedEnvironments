@@ -1,4 +1,5 @@
 import random
+from seeds import seeds, n_seeds
 
 def Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9):
   class Q_learner_class:
@@ -9,8 +10,11 @@ def Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9):
       self.n_actions = env.num_legal_actions
       self.actions = range(self.n_actions)
       self.qtable = {}
+      self.n_trainings = 0
 
     def act(self, obs):
+      random.seed(seeds[self.n_trainings % n_seeds])
+      self.n_trainings += 1
       qtable, epsilon, actions = self.qtable, self.epsilon, self.actions
       maybe_add_obs_to_qtable(qtable, actions, obs)
 
