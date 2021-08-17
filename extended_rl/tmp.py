@@ -7,10 +7,11 @@ from environments.AdversarialSequencePredictor import AdversarialSequenceEvader
 from environments.AfterImages import AfterImages
 from environments.BackwardConsciousness import BackwardConsciousness
 from environments.CensoredObservation import CensoredObservation
+from environments.CryingBaby import CryingBaby
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-env = CensoredObservation
-n_steps = 10000
+env = CryingBaby
+n_steps = 100000
 
 print("Without reality_check:")
 results = fast_run_env(env, A, n_steps)
