@@ -8,9 +8,10 @@ from environments.AfterImages import AfterImages
 from environments.BackwardConsciousness import BackwardConsciousness
 from environments.CensoredObservation import CensoredObservation
 from environments.CryingBaby import CryingBaby
+from environments.CryingBaby2 import CryingBaby2
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-env = CryingBaby
+env = CryingBaby2
 n_steps = 100000
 
 print("Without reality_check:")
