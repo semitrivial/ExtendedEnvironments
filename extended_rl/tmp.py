@@ -12,10 +12,10 @@ from environments.IncentivizeZero import IncentivizeZero
 from environments.LimitedMemory import LimitedMemory
 from environments.Repeater import Repeater
 from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
-from environments.SelfRecognition import SelfRecognition
+from environments.ShiftedRewards import ShiftedRewards
 
 A = Q_learner
-env = SelfRecognition
+env = ShiftedRewards
 n_steps = 10000
 
 print("Without reality_check:")

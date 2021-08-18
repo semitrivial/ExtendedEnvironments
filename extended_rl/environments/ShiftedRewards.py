@@ -8,27 +8,20 @@ class ShiftedRewards:
     rewards had been so shifted. If so, the agent is given reward +1,
     otherwise the agent is given reward -1.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.sim = A(self)
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
-
-        prompt, action = play[:-1], play[-1]
-        hypothetical_prompt = shift_rewards(prompt)
-        reward = 1 if (action == T(hypothetical_prompt)) else -1
+    def start(self):
+        self.prev_reward = 0
         obs = 0
-        return (reward, obs)
+        return obs
 
-def shift_rewards(prompt):
-    prompt = list(prompt)
-    for i in range(len(prompt)-2, 0, -3):
-        prompt[i] = prompt[i-3]
-    # Note that for any prompt produced by ShiftedRewards,
-    # prompt[0] will already be 0 because that is the initial
-    # reward in ShiftedRewards. So no need to set prompt[0]=0
-    # here.
-    return tuple(prompt)
+    def step(self, action):
+        hypothetical_action = self.sim.act(obs=0)
+        reward = 1 if (action == hypothetical_action) else -1
+        obs = 0
+        self.sim.train(o_prev=0, act=action, R=self.prev_reward, o_next=0)
+        self.prev_reward = reward
+        return (reward, obs)
