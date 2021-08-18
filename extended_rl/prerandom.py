@@ -21,7 +21,7 @@ class _AgentRandom:
     @staticmethod
     def random(stepcnt):
         return agent_randoms[stepcnt % num_randoms]
-        
+
     @staticmethod
     def randrange(n, stepcnt):
         return int(agent_randoms[stepcnt % num_randoms] * n)
