@@ -4,15 +4,17 @@ def minus_rewards(env):
     environment which is identical except for all rewards being multiplied
     by -1.
     """
-    tmp_env = env()
-
     class NewEnv:
-        def __init__(self):
-            self.num_legal_actions = tmp_env.num_legal_actions
-            self.num_possible_obs = tmp_env.num_possible_obs
+        def __init__(self, A, **kwargs):
+            self.underlying = env(A, **kwargs)
+            self.num_legal_actions = self.underlying.num_legal_actions
+            self.num_possible_obs = self.underlying.num_possible_obs
 
-        def react(self, T, play):
-            reward, obs = tmp_env.react(T, play)
-            return -reward, obs
+        def start(self):
+            return self.underlying.start()
+
+        def step(self, action):
+            reward, obs = self.underlying.step(action)
+            return (-reward, obs)
 
     return NewEnv
