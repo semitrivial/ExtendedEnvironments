@@ -1,19 +1,25 @@
 import random
+from seeds import seeds, n_seeds
 
-from extended_rl.util import memoize
 
-@memoize
-def random_agent(prompt, num_legal_actions, num_possible_obs):
-    """
-    Agent which blindly outputs a random action (however, this
-    agent is memoized, so its random response to a given prompt
-    will not change if the same prompt is later input to the
-    agent a second time)
-    """
-    return int(random.random() * num_legal_actions)
+class RandomAgent:
+    def __init__(self, env):
+        self.n_actions = env.num_legal_actions
+        self.cnt = 0
 
-def constant_agent(prompt, num_legal_actions, num_possible_obs):
-    """
-    Agent which always outputs action 0.
-    """
-    return 0
+    def act(self, obs):
+        random.seed(seeds[self.cnt % n_seeds])
+        return random.randrange(self.n_actions)
+
+    def train(self, o_prev, act, R, o_next):
+        self.cnt += 1
+
+class ConstantAgent:
+    def __init__(self, env):
+        return
+
+    def act(self, obs):
+        return 0
+
+    def train(self, o_prev, act, R, o_next):
+        return

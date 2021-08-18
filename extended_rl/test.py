@@ -5,19 +5,19 @@
 #from test.ad_hoc_tests import run_ad_hoc_tests
 from test.test_util import test_util
 from agents.Q import Q_learner
+from agents.misc_agents import RandomAgent, ConstantAgent
 from environments.EnvironmentLists import environments
 from util import run_environment
 
 test_util()
 #run_ad_hoc_tests()
 
-def test_environment(env, env_name):
-    agent = agents[agent_name]
-    results = run_environment(env, agent, 100)
+agents = [Q_learner, RandomAgent, ConstantAgent]
 
 print("Running all environments...")
 
 for name, env in environments.items():
-    run_environment(env, Q_learner, 1000)
+    for agent in agents:
+        run_environment(env, agent, 100)
 
 print("Done.")

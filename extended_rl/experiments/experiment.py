@@ -8,6 +8,7 @@ from collections import deque
 import numpy as np
 import torch
 
+from agents.Q import Q_learner
 from agents.misc_agents import random_agent, constant_agent
 from agents.naive_learner import naive_learner
 from agents.SBL3_agents import (
