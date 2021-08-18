@@ -2,11 +2,12 @@ from util import fast_run_env
 from agents.Q import Q_learner
 from agents.reality_check import reality_check
 from environments.IgnoreRewards import IgnoreRewards
+from environments.IgnoreRewards2 import IgnoreRewards2
 from environments.IgnoreActions import IgnoreActions
 from environments.IgnoreObservations import IgnoreObservations
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-env = IgnoreObservations
+env = IgnoreRewards2
 n_steps = 10000
 
 print("Without reality_check:")
