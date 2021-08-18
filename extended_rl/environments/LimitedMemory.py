@@ -9,17 +9,35 @@ class LimitedMemory:
     five most recent turns? If so, give the agent +1 reward, otherwise
     give the agent -1 reward.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.A = A
+        self.transitionbuf = tuple()
+        self.sims = {}
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
-
-        prompt, action = play[:-1], play[-1]
-        hypothetical_prompt = prompt[-(3*(number_rewards_to_remember-1)+2):]
-        reward = 1 if (action == T(hypothetical_prompt)) else -1
+    def start(self):
         obs = 0
+        return obs
+
+    def step(self, action):
+        if self.transitionbuf in self.sims:
+            sim = self.sims[self.transitionbuf]
+        else:
+            sim = self.A(self)
+            for transition in self.transitionbuf:
+                act, R = transition
+                sim.train(o_prev=0, act=act, R=R, o_next=0)
+            self.sims[self.transitionbuf] = sim
+
+        hypothetical_action = sim.act(obs=0)
+        reward = 1 if (action == hypothetical_action) else -1
+        obs = 0
+        transition = (action, reward)
+
+        if len(self.transitionbuf) >= 5:
+            self.transitionbuf = self.transitionbuf[-4:] + (transition,)
+        else:
+            self.transitionbuf += (transition,)
+
         return (reward, obs)
