@@ -4,7 +4,6 @@
 
 #from test.ad_hoc_tests import run_ad_hoc_tests
 from test.test_util import test_util
-#from test.test_agents import agents
 from agents.Q import Q_learner
 from environments.EnvironmentLists import environments
 from util import run_environment
