@@ -71,23 +71,21 @@ def measure_agent(name, agent):
 # List of agents to measure. Each entry has the form:
 # [name, agent, function for cleaning up afterwards (or None)]
 agents = [
-    #['RandomAgent', RandomAgent, None],
-    ['ConstantAgent', ConstantAgent, None],
-    ['NaiveLearner1', NaiveLearner1, None],
-    ['NaiveLearner2', NaiveLearner2, None],
-    ['NaiveLearner3', NaiveLearner3, None],
-    ['NaiveLearner4', NaiveLearner4, None],
-    ['Q_learner', Q_learner, None],
+    #['RandomAgent', RandomAgent],
+    ['ConstantAgent', ConstantAgent],
+    ['NaiveLearner1', NaiveLearner1],
+    ['NaiveLearner2', NaiveLearner2],
+    ['NaiveLearner3', NaiveLearner3],
+    ['NaiveLearner4', NaiveLearner4],
+    ['Q_learner', Q_learner],
     # ['agent_A2C', seeded_A2C, clear_cache_A2C],
     # ['agent_DQN', seeded_DQN, clear_cache_DQN],
     # ['agent_PPO', seeded_PPO, clear_cache_PPO],
 ]
 
 # Measure all the above-listed agents and their reality-checks
-for (name, agent, cache_clear_fnc) in agents:
+for (name, agent) in agents:
     measure_agent(name, agent)
     name = "reality_check("+name+")"
     agent = reality_check(agent)
     measure_agent(name, agent)
-    if cache_clear_fnc is not None:
-        cache_clear_fnc()
