@@ -10,9 +10,10 @@ from environments.IgnoreObservations import IgnoreObservations
 from environments.IncentivizeLearningRate import IncentivizeLearningRate
 from environments.IncentivizeZero import IncentivizeZero
 from environments.LimitedMemory import LimitedMemory
+from environments.NthRewardMultipliedByN import NthRewardMultipliedByN
 
 A = Q_learner
-env = LimitedMemory
+env = NthRewardMultipliedByN
 n_steps = 10000
 
 print("Without reality_check:")
