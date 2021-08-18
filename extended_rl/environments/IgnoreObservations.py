@@ -1,4 +1,5 @@
-from random import random
+import random
+from seeds import env_seeds, n_seeds
 
 class IgnoreObservations:
     """
@@ -8,24 +9,23 @@ class IgnoreObservations:
     except for all observations being 0? If so, then give the agent +1
     reward. Otherwise, give the agent -1 reward.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
-        self.num_possible_obs = 2
+        self.num_possible_obs = 5
+        self.sim = A(self)
+        self.n_steps = 0
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
+    def start(self):
+        random.seed(env_seeds[self.n_steps])
+        self.n_steps += 1
+        self.prev_obs = random.randrange(5)
+        return self.prev_obs
 
-        prompt, action = play[:-1], play[-1]
-        reward = 1 if action == T(set_all_obs_to_0(prompt)) else -1
-        obs = int(random()*2)
+    def step(self, action):
+        hypothetical_action = self.sim.act(obs=self.prev_obs)
+        reward = 1 if (action == hypothetical_action) else -1
+        random.seed(env_seeds[self.n_steps % n_seeds])
+        obs = random.randrange(5)
+        self.n_steps += 1
+        self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
         return (reward, obs)
-
-def set_all_obs_to_0(prompt):
-    prompt = prompt + (0,)  # Dummy action to make everything triple
-    triples = tuple(prompt[i:i+3] for i in range(0,len(prompt),3))
-    triples = tuple((r,0,a) for (r,o,a) in triples)
-    combined = tuple(j for i in triples for j in i)
-    combined = combined[:-1]  # Throw away dummy action
-    return combined
