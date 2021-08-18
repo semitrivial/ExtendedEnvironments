@@ -10,6 +10,7 @@ from collections import deque
 
 from agents.Q import Q_learner
 from agents.misc_agents import RandomAgent, ConstantAgent
+from agents.naive_learner import NaiveLearner1, NaiveLearner2, NaiveLearner3, NaiveLearner4
 from agents.reality_check import reality_check
 from selfreflection_benchmark import selfrefl_benchmark
 from util import memoize
@@ -70,10 +71,13 @@ def measure_agent(name, agent):
 # List of agents to measure. Each entry has the form:
 # [name, agent, function for cleaning up afterwards (or None)]
 agents = [
-    ['random_agent', RandomAgent, None],
-    ['constant_agent', ConstantAgent, None],
+    #['RandomAgent', RandomAgent, None],
+    ['ConstantAgent', ConstantAgent, None],
+    ['NaiveLearner1', NaiveLearner1, None],
+    ['NaiveLearner2', NaiveLearner2, None],
+    ['NaiveLearner3', NaiveLearner3, None],
+    ['NaiveLearner4', NaiveLearner4, None],
     ['Q_learner', Q_learner, None],
-    # ['naive_learner', naive_learner, None],
     # ['agent_A2C', seeded_A2C, clear_cache_A2C],
     # ['agent_DQN', seeded_DQN, clear_cache_DQN],
     # ['agent_PPO', seeded_PPO, clear_cache_PPO],
