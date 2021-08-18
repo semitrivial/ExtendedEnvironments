@@ -11,33 +11,29 @@ class DelayedRewards:
     action if the rewards had been so delayed. If so, then the agent gets
     reward +1, otherwise the agent gets reward -1.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.sim = A(self)
+        self.stepcnt = 0
+        self.prev_reward = 0
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
-
-        prompt, action = play[:-1], play[-1]
-        hypothetical_prompt = delay_rewards(prompt)
-        reward = 1 if (action == T(hypothetical_prompt)) else -1
+    def start(self):
         obs = 0
-        return (reward, obs)
+        return obs
 
-def delay_rewards(prompt):
-    """
-    Given a prompt, delay every other reward into the next reward
-    (starting with the first non-initial reward). For example, if
-    the rewards in the prompt are 1, 2, 3, 4, 5, then produce a
-    copy of the prompt but with rewards 1, 0, 3+2, 0, 5+4.
-    """
-    prompt = list(prompt)
-    for i in range(len(prompt)-2, 0, -3):
-        if i%6 == 0:
-            prompt[i] = prompt[i] + prompt[i-3]
+    def step(self, action):
+        hypothetical_action = self.sim.act(obs=0)
+        reward = 1 if (action == hypothetical_action) else -1
+        obs = 0
+        
+        if self.stepcnt % 2 == 0:
+            sim_reward = reward + self.prev_reward
         else:
-            prompt[i] = 0
+            sim_reward = 0
+            self.prev_reward = reward
 
-    return tuple(prompt)
+        self.stepcnt += 1
+        self.sim.train(o_prev=0, act=action, R=sim_reward, o_next=0)
+
+        return (reward, obs)

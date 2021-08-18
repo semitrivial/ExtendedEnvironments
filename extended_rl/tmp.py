@@ -9,9 +9,10 @@ from environments.BackwardConsciousness import BackwardConsciousness
 from environments.CensoredObservation import CensoredObservation
 from environments.CryingBaby import CryingBaby
 from environments.CryingBaby2 import CryingBaby2
+from environments.DelayedRewards import DelayedRewards
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-env = CryingBaby2
+env = DelayedRewards
 n_steps = 100000
 
 print("Without reality_check:")
