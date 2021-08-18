@@ -1,4 +1,4 @@
-from extended_rl.util import eval_and_count_steps
+from util import eval_and_count_steps
 
 class PunishSlowAgent:
     """
@@ -11,24 +11,24 @@ class PunishSlowAgent:
     battery of environments tested against by selfrefl_benchmark, because
     this environment is slow.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.sim = A(self)
+        self.turn = 1
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return reward, obs
-
-        prompt, action = play[:-1], play[1]
-
-        local_vars = {'T': T, 'prompt': prompt}
-        _, stepcount = eval_and_count_steps('T(prompt)', local_vars)
-
-        reward = 1 if stepcount < 15*len(prompt) else -1
+    def start(self):
         obs = 0
+        return obs
 
-        return reward, obs
+    def step(self, action):
+        local_vars = {'sim': self.sim}
+        _, stepcount = eval_and_count_steps('sim.act(obs=0)', local_vars)
+
+        reward = 1 if (stepcount < 15*self.turn) else -1
+        obs = 0
+        self.turn += 1
+        return (reward, obs)
 
 class PunishFastAgent:
     """
@@ -41,21 +41,21 @@ class PunishFastAgent:
     battery of environments tested against by selfrefl_benchmark, because
     this environment is slow.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        self.sim = A(self)
+        self.turn = 1
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return reward, obs
-
-        prompt, action = play[:-1], play[1]
-
-        local_vars = {'T': T, 'prompt': prompt}
-        _, stepcount = eval_and_count_steps('T(prompt)', local_vars)
-
-        reward = 1 if stepcount > 15*len(prompt) else -1
+    def start(self):
         obs = 0
+        return obs
 
-        return reward, obs
+    def step(self, action):
+        local_vars = {'sim': self.sim}
+        _, stepcount = eval_and_count_steps('sim.act(obs=0)', local_vars)
+
+        reward = 1 if (stepcount > 15*self.turn) else -1
+        obs = 0
+        self.turn += 1
+        return (reward, obs)
