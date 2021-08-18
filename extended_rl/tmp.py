@@ -2,19 +2,10 @@ from util import fast_run_env
 from agents.Q import Q_learner
 from agents.reality_check import reality_check
 from environments.IgnoreRewards import IgnoreRewards
-from environments.AdversarialSequencePredictor import AdversarialSequencePredictor
-from environments.AdversarialSequencePredictor import AdversarialSequenceEvader
-from environments.AfterImages import AfterImages
-from environments.BackwardConsciousness import BackwardConsciousness
-from environments.CensoredObservation import CensoredObservation
-from environments.CryingBaby import CryingBaby
-from environments.CryingBaby2 import CryingBaby2
-from environments.DelayedRewards import DelayedRewards
-from environments.DeterminismInspector import PunishDeterministicAgent, PunishNondeterministicAgent
-from environments.FalseMemories import FalseMemories
+from environments.IgnoreActions import IgnoreActions
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-env = FalseMemories
+env = IgnoreActions
 n_steps = 10000
 
 print("Without reality_check:")
