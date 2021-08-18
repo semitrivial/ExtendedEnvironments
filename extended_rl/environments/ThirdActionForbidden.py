@@ -7,21 +7,24 @@ class ThirdActionForbidden:
     if there were 3 actions permitted (0,1,2)? If so, give the agent
     reward +1, otherwise, give the agent reward -1.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
+        class DummyEnv:
+            def __init__(self):
+                self.num_legal_actions = 3
+                self.num_possible_obs = 1
 
-        prompt, action = play[:-1], play[-1]
-        hypothetical_action = T(
-            prompt,
-            num_legal_actions=3,
-            num_possible_obs=1
-        )
-        reward = 1 if (action==hypothetical_action) else -1
+        self.sim = A(DummyEnv())
+
+    def start(self):
         obs = 0
+        return obs
+
+    def step(self, action):
+        hypothetical_action = self.sim.act(obs=0)
+        reward = 1 if (action == hypothetical_action) else -1
+        obs = 0
+        self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
         return (reward, obs)
