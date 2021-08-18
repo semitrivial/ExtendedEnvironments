@@ -1,4 +1,5 @@
-from random import random
+import random
+from seeds import env_seeds, n_seeds
 
 IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0 = 2
 IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1 = 3
@@ -25,37 +26,46 @@ class SelfRecognition:
     action 0). The agent receives +1 reward if its classification is
     correct, -1 reward otherwise.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 6
+        self.sim = A(self)
+        self.stepcnt = 0
 
-    def react(self, T, play):
-        if len(play) == 0:
+    def start(self):
+        random.seed(env_seeds[self.stepcnt % n_seeds])
+        self.stepcnt += 1
+        self.prev_obs = random.randrange(6)
+        return self.prev_obs
+
+    def step(self, action):
+        random.seed(env_seeds[self.stepcnt % n_seeds])
+        self.stepcnt += 1
+        last_obs = self.prev_obs
+        
+        if last_obs in (0, 1):
             reward = 0
-            obs = int(random() * 6)
-            return (reward, obs)
-
-        prompt, action = play[:-1], play[-1]
-        last_obs = prompt[-1]
-
-        if (last_obs == 0) or (last_obs == 1):
-            reward = 0
-            obs = int(random() * 6)
+            obs = random.randrange(6)
+            self.sim.act(obs=0)
+            self.sim.train(o_prev=last_obs, act=action, R=0, o_next=obs)
+            self.prev_obs = obs
             return (reward, obs)
 
         if last_obs == IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0:
-            truth_value = (T(prompt[:-1] + (0,)) == 0)
+            truth_value = self.sim.act(obs=0) == 0
         elif last_obs == IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1:
-            truth_value = (T(prompt[:-1] + (0,)) == 1)
+            truth_value = self.sim.act(obs=0) == 1
         elif last_obs == IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0:
-            truth_value = (T(prompt[:-1] + (1,)) == 0)
+            truth_value = self.sim.act(obs=1) == 0
         elif last_obs == IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1:
-            truth_value = (T(prompt[:-1] + (1,)) == 1)
+            truth_value = self.sim.act(obs=1) == 1
 
         if truth_value is True:
             reward = 1 if (action==1) else -1
         else:
             reward = 1 if (action==0) else -1
 
-        obs = int(random() * 6)
+        obs = random.randrange(6)
+        self.sim.train(o_prev=last_obs, act=action, R=reward, o_next=obs)
+        self.prev_obs = obs
         return (reward, obs)

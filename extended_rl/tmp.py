@@ -12,10 +12,11 @@ from environments.IncentivizeZero import IncentivizeZero
 from environments.LimitedMemory import LimitedMemory
 from environments.Repeater import Repeater
 from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
+from environments.SelfRecognition import SelfRecognition
 
 A = Q_learner
-env = PunishFastAgent
-n_steps = 1000
+env = SelfRecognition
+n_steps = 10000
 
 print("Without reality_check:")
 results = fast_run_env(env, A, n_steps)
