@@ -11,10 +11,11 @@ from environments.CryingBaby import CryingBaby
 from environments.CryingBaby2 import CryingBaby2
 from environments.DelayedRewards import DelayedRewards
 from environments.DeterminismInspector import PunishDeterministicAgent, PunishNondeterministicAgent
+from environments.FalseMemories import FalseMemories
 
 A = Q_learner(epsilon=0.9, alpha=0.1, gamma=0.9)
-env = PunishDeterministicAgent
-n_steps = 100000
+env = FalseMemories
+n_steps = 10000
 
 print("Without reality_check:")
 results = fast_run_env(env, A, n_steps)
