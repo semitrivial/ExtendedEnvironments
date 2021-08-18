@@ -23,6 +23,8 @@ def reality_check(A0):
         if act == self.expected_training_action:
           self.underlying.train(o_prev, act, R, o_next)
         else:
+          if self.first_action is None:
+            raise ValueError('Realitycheck agent trained before ever acting')
           self.found_unexpected_action = True
 
   return A0_RC
