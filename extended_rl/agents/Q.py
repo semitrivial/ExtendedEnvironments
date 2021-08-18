@@ -1,5 +1,6 @@
 import random
-from seeds import seeds, n_seeds
+
+from prerandom import agentrandom
 
 class Q_learner:
   def __init__(self, env, epsilon=0.9, alpha=0.1, gamma=0.9):
@@ -9,16 +10,16 @@ class Q_learner:
     self.n_actions = env.num_legal_actions
     self.actions = range(self.n_actions)
     self.qtable = {}
-    self.n_trainings = 0
+    self.rand_counter = 0
 
   def act(self, obs):
-    random.seed(seeds[self.n_trainings % n_seeds])
-    self.n_trainings += 1
     qtable, epsilon, actions = self.qtable, self.epsilon, self.actions
     maybe_add_obs_to_qtable(qtable, actions, obs)
 
-    if random.random() > epsilon or all(qtable[obs,a]==0 for a in actions):
-      return random.randrange(self.n_actions)
+    if agentrandom.random(self.rand_counter) > epsilon:
+      return agentrandom.randrange(self.n_actions, self.rand_counter+1)
+    elif all(qtable[obs,a]==0 for a in actions):
+      return agentrandom.randrange(self.n_actions, self.rand_counter)
     else:
       return max(actions, key=lambda a: qtable[obs,a])
 
@@ -29,6 +30,7 @@ class Q_learner:
     qtarget = R + gamma * max([qtable[o_next,a] for a in actions])
     qpredict = qtable[o_prev, act]
     qtable[o_prev, act] += self.alpha * (qtarget - qpredict)
+    self.rand_counter += 1
 
 def maybe_add_obs_to_qtable(qtable, actions, obs):
   if not((obs, 0) in qtable):
