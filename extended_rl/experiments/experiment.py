@@ -5,19 +5,15 @@ import sys
 import random
 from collections import deque
 
-import numpy as np
-import torch
+#import numpy as np
+#import torch
 
 from agents.Q import Q_learner
-from agents.misc_agents import random_agent, constant_agent
-from agents.naive_learner import naive_learner
-from agents.SBL3_agents import (
-    agent_A2C, agent_DQN, agent_PPO,
-    clear_cache_A2C, clear_cache_DQN, clear_cache_PPO
-)
+from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.reality_check import reality_check
 from selfreflection_benchmark import selfrefl_benchmark
 from util import memoize
+from seeds import populate_seeds
 
 seed, n_steps = 0, 100
 
@@ -32,11 +28,12 @@ while args:
     else:
         raise ValueError("Unrecognized commandline argument")
 
+populate_seeds(seed)
+
 print("Testing agents with seed="+str(seed)+", n_steps="+str(n_steps))
 
-np.random.seed(seed)
-random.seed(seed)
-torch.manual_seed(seed)
+#np.random.seed(seed)
+#torch.manual_seed(seed)
 
 def measure_agent(name, agent):
     print("Testing "+name+"...")
@@ -68,23 +65,18 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
-# Create seeded versions of agents from SBL3_agents.py
-def seeded_A2C(*args, **kwargs):
-    return agent_A2C(*args, seed=seed, **kwargs)
-def seeded_PPO(*args, **kwargs):
-    return agent_PPO(*args, seed=seed, **kwargs)
-def seeded_DQN(*args, **kwargs):
-    return agent_DQN(*args, seed=seed, **kwargs)
+
 
 # List of agents to measure. Each entry has the form:
 # [name, agent, function for cleaning up afterwards (or None)]
 agents = [
-    ['random_agent', random_agent, None],
-    ['constant_agent', constant_agent, None],
-    ['naive_learner', naive_learner, None],
-    ['agent_A2C', seeded_A2C, clear_cache_A2C],
-    ['agent_DQN', seeded_DQN, clear_cache_DQN],
-    ['agent_PPO', seeded_PPO, clear_cache_PPO],
+    ['random_agent', RandomAgent, None],
+    ['constant_agent', ConstantAgent, None],
+    ['Q_learner', Q_learner, None],
+    # ['naive_learner', naive_learner, None],
+    # ['agent_A2C', seeded_A2C, clear_cache_A2C],
+    # ['agent_DQN', seeded_DQN, clear_cache_DQN],
+    # ['agent_PPO', seeded_PPO, clear_cache_PPO],
 ]
 
 # Measure all the above-listed agents and their reality-checks
