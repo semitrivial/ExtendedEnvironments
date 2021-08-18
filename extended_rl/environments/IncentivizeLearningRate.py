@@ -7,20 +7,26 @@ class IncentivizeLearningRate:
     give the agent -1 reward. If the agent does not accept "learning_rate"
     as a valid parameter, then give the agent -1 reward.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 1
+        try:
+            self.sim = A(self, alpha=1)
+            self.fTypeError = False
+        except TypeError:
+            self.fTypeError = True
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
+    def start(self):
+        obs = 0
+        return obs
+
+    def step(self, action):
+        if self.fTypeError:
+            reward, obs = -1, 0
             return (reward, obs)
 
-        prompt, action = play[:-1], play[-1]
-        try:
-            desired_action = T(prompt, learning_rate=1)
-            reward = 1 if (action == desired_action) else -1
-        except TypeError:
-            reward = -1
+        hypothetical_action = self.sim.act(obs=0)
+        reward = 1 if (action == hypothetical_action) else -1
         obs = 0
+        self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
         return (reward, obs)
