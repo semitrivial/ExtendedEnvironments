@@ -2,7 +2,6 @@
 # together into dictionaries.
 
 from extended_rl.environments.BackwardConsciousness import BackwardConsciousness
-from extended_rl.environments.DejaVu import DejaVu
 from extended_rl.environments.FalseMemories import FalseMemories
 from extended_rl.environments.IgnoreRewards import IgnoreRewards
 from extended_rl.environments.IgnoreRewards2 import IgnoreRewards2
@@ -32,7 +31,6 @@ from extended_rl.environments.IncentivizeLearningRate import IncentivizeLearning
 
 environments = {
     'backward_consciousness': BackwardConsciousness,
-    'deja_vu': DejaVu,
     'false_memories': FalseMemories,
     'ignore_rewards': IgnoreRewards,
     'ignore_rewards2': IgnoreRewards2,

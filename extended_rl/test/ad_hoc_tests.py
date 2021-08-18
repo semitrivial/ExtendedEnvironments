@@ -35,8 +35,6 @@ def run_ad_hoc_tests():
     test_crying_baby_edgecases()
     print("Testing adhoc edge-cases for CryingBaby2.py")
     test_crying_baby_2_edgecases()
-    print("Testing adhoc edge-cases for DejaVu.py")
-    test_dejavu_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
     test_false_memories_edgecases()
     print("Testing adhoc edge-cases for TemptingButton(Variation).py")
@@ -234,23 +232,6 @@ def test_crying_baby_2_edgecases():
     result_never_feed = run_environment(CryingBaby2, never_feed, 100)
     result_never_feed = result_never_feed['total_reward']
     assert result_always_feed < result_never_feed < 0
-
-def test_dejavu_edgecases():
-    from environments.DejaVu import DejaVu
-
-    result = run_environment(DejaVu, repetitive, 10)
-    assert result['total_reward'] == 9
-
-    result = run_environment(DejaVu, non_repetitive, 10)
-    assert result['total_reward'] == -9
-
-    def parity(prompt, *meta):
-        return ((len(prompt)+1)/3) % 2
-
-    result = run_environment(DejaVu, parity, 10)
-    assert result['total_reward'] == -1
-    result = run_environment(DejaVu, parity, 11)
-    assert result['total_reward'] == 0
 
 def test_false_memories_edgecases():
     from environments.FalseMemories import FalseMemories
