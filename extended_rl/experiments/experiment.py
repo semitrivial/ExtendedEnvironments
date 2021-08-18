@@ -14,7 +14,7 @@ from agents.naive_learner import NaiveLearner1, NaiveLearner2, NaiveLearner3, Na
 from agents.reality_check import reality_check
 from selfreflection_benchmark import selfrefl_benchmark
 from util import memoize
-from seeds import populate_seeds
+from prerandom import populate_randoms
 
 seed, n_steps = 0, 100
 
@@ -29,7 +29,7 @@ while args:
     else:
         raise ValueError("Unrecognized commandline argument")
 
-populate_seeds(seed)
+populate_randoms(seed)
 
 print("Testing agents with seed="+str(seed)+", n_steps="+str(n_steps))
 
@@ -67,7 +67,7 @@ def measure_agent(name, agent):
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
 agents = [
-    #['RandomAgent', RandomAgent],
+    ['RandomAgent', RandomAgent],
     ['ConstantAgent', ConstantAgent],
     ['NaiveLearner1', NaiveLearner1],
     ['NaiveLearner2', NaiveLearner2],

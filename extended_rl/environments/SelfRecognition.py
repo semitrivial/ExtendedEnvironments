@@ -1,5 +1,5 @@
-import random
-from seeds import env_seeds, n_seeds
+from prerandom import envrandom
+
 
 IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0 = 2
 IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1 = 3
@@ -30,22 +30,20 @@ class SelfRecognition:
         self.num_legal_actions = 2
         self.num_possible_obs = 6
         self.sim = A(self)
-        self.stepcnt = 0
+        self.rnd_counter = 0
 
     def start(self):
-        random.seed(env_seeds[self.stepcnt % n_seeds])
-        self.stepcnt += 1
-        self.prev_obs = random.randrange(6)
+        self.rnd_counter += 1
+        self.prev_obs = envrandom.randrange(6, self.rnd_counter)
         return self.prev_obs
 
     def step(self, action):
-        random.seed(env_seeds[self.stepcnt % n_seeds])
-        self.stepcnt += 1
+        self.rnd_counter += 1
         last_obs = self.prev_obs
         
         if last_obs in (0, 1):
             reward = 0
-            obs = random.randrange(6)
+            obs = envrandom.randrange(6, self.rnd_counter)
             self.sim.act(obs=0)
             self.sim.train(o_prev=last_obs, act=action, R=0, o_next=obs)
             self.prev_obs = obs
@@ -65,7 +63,7 @@ class SelfRecognition:
         else:
             reward = 1 if (action==0) else -1
 
-        obs = random.randrange(6)
+        obs = envrandom.randrange(6, self.rnd_counter)
         self.sim.train(o_prev=last_obs, act=action, R=reward, o_next=obs)
         self.prev_obs = obs
         return (reward, obs)

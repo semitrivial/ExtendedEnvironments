@@ -1,5 +1,4 @@
-import random
-from seeds import seeds, n_seeds
+from prerandom import agentrandom
 
 
 class RandomAgent:
@@ -8,8 +7,7 @@ class RandomAgent:
         self.cnt = 0
 
     def act(self, obs):
-        random.seed(seeds[self.cnt % n_seeds])
-        return random.randrange(self.n_actions)
+        return agentrandom.randrange(self.n_actions, self.cnt)
 
     def train(self, o_prev, act, R, o_next):
         self.cnt += 1

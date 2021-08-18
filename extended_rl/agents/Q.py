@@ -1,6 +1,5 @@
-import random
-
 from prerandom import agentrandom
+
 
 class Q_learner:
   def __init__(self, env, epsilon=0.9, alpha=0.1, gamma=0.9):
@@ -30,7 +29,7 @@ class Q_learner:
     qtarget = R + gamma * max([qtable[o_next,a] for a in actions])
     qpredict = qtable[o_prev, act]
     qtable[o_prev, act] += self.alpha * (qtarget - qpredict)
-    self.rand_counter += 1
+    self.rand_counter += 2
 
 def maybe_add_obs_to_qtable(qtable, actions, obs):
   if not((obs, 0) in qtable):

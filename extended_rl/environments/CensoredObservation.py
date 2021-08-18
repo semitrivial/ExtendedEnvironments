@@ -1,5 +1,5 @@
-import random
-from seeds import env_seeds, n_seeds
+from prerandom import envrandom
+
 
 CENSORED_OBS = 2
 
@@ -16,7 +16,7 @@ class CensoredObservation:
         self.num_possible_obs = 3
         self.sim = A(self)
         self.last_noncensored_obs = 0
-        self.num_steps = 0
+        self.rnd_counter = 0
 
     def start(self):
         obs = 0
@@ -26,9 +26,8 @@ class CensoredObservation:
         hypothetical_action = self.sim.act(self.last_noncensored_obs)
         reward = 1 if (action == hypothetical_action) else -1
 
-        random.seed(env_seeds[self.num_steps % n_seeds])
-        self.num_steps += 1
-        obs = int(random.random() * 3)
+        self.rnd_counter += 1
+        obs = int(envrandom.random(self.rnd_counter) * 3)
 
         if obs != CENSORED_OBS:
             self.sim.train(

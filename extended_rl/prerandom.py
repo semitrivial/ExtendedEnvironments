@@ -18,16 +18,22 @@ def populate_randoms(initial_seed=None):
 populate_randoms()
 
 class _AgentRandom:
+    @staticmethod
     def random(stepcnt):
         return agent_randoms[stepcnt % num_randoms]
+        
+    @staticmethod
     def randrange(n, stepcnt):
         return int(agent_randoms[stepcnt % num_randoms] * n)
 
 agentrandom = _AgentRandom()
 
 class _EnvRandom:
+    @staticmethod
     def random(stepcnt):
         return env_randoms[stepcnt % num_randoms]
+
+    @staticmethod
     def randrange(n, stepcnt):
         return int(env_randoms[stepcnt % num_randoms] * n)
 

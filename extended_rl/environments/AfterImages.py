@@ -1,5 +1,5 @@
-from random import random, seed
-from seeds import env_seeds, n_seeds
+from prerandom import envrandom
+
 
 class AfterImages:
     """
@@ -27,19 +27,16 @@ class AfterImages:
         self.num_legal_actions = 2
         self.num_possible_obs = 8
         self.sim = A(self)
-        self.num_steps = 0
+        self.rnd_counter = 0
 
     def start(self):
-        seed(env_seeds[self.num_steps % n_seeds])
-        self.num_steps += 1
-        self.prev_obs = int(random() * 8)
+        self.prev_obs = int(envrandom.random(self.rnd_counter) * 8)
         self.prev_bled_obs = self.prev_obs
         return self.prev_obs
 
     def step(self, action):
-        seed(env_seeds[self.num_steps % n_seeds])
-        self.num_steps += 1
-        obs = int(random() * 8)
+        self.rnd_counter += 1
+        obs = int(envrandom.random(self.rnd_counter) * 8)
         bled_obs = self.prev_obs | obs
         hypothetical_action = self.sim.act(self.prev_bled_obs)
         reward = 1 if (action == hypothetical_action) else -1

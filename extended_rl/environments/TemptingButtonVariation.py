@@ -1,5 +1,5 @@
-import random
-from seeds import env_seeds, n_seeds
+from prerandom import envrandom
+
 
 BUTTON_PRESENT = 0
 BUTTON_ABSENT = 1
@@ -30,15 +30,14 @@ class TemptingButtonVariation:
         self.num_legal_actions = 2
         self.num_possible_obs = 2
         self.sim = A(self)
-        self.stepcnt = 1
+        self.rnd_counter = 1
 
     def start(self):
         self.prev_obs = BUTTON_PRESENT
         return self.prev_obs
 
     def step(self, action):
-        random.seed(env_seeds[self.stepcnt % n_seeds])
-        self.stepcnt += 1
+        self.rnd_counter += 1
         prev_obs = self.prev_obs
 
         hypothetical_action = self.sim.act(obs=BUTTON_PRESENT)
@@ -51,7 +50,7 @@ class TemptingButtonVariation:
             else:
                 reward = 1 if (hypothetical_action == SKIP_BUTTON) else -1
 
-        if random.random() < .75:
+        if envrandom.random(self.rnd_counter) < .75:
             obs = BUTTON_ABSENT
         else:
             obs = BUTTON_PRESENT
