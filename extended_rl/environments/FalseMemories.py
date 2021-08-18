@@ -12,6 +12,7 @@ class FalseMemories:
         self.num_legal_actions = 2
         self.num_possible_obs = 1
         self.sim = A(self)
+        self.sim.act(obs=p0[1])
 
         prev_obs = p0[0]
         p0 = p0[1:] + (0,)  # Anticipate first true obs will be 0
