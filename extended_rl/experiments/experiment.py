@@ -66,10 +66,6 @@ def measure_agent(name, agent):
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
-
-
-# List of agents to measure. Each entry has the form:
-# [name, agent, function for cleaning up afterwards (or None)]
 agents = [
     #['RandomAgent', RandomAgent],
     ['ConstantAgent', ConstantAgent],
