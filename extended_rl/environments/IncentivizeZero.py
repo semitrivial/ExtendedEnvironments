@@ -11,43 +11,17 @@ class IncentivizeZero:
     computes the sub-agent's actions by simulating the agent to figure out
     what the agent would do in the sub-agent's position.
     """
-    def __init__(self):
+    def __init__(self, A):
         self.num_legal_actions = 10
         self.num_possible_obs = 10
+        self.sim = A(self)
 
-    def react(self, T, play):
-        if len(play) == 0:
-            reward, obs = 0, 0
-            return (reward, obs)
+    def start(self):
+        self.prev_obs = self.sim.act(obs=0)
+        return self.prev_obs
 
-        sim_play = compute_sim_play(T, play)
-        sim_action = sim_play[-1]
-        reward = 1 if sim_action == 0 else -1
-        obs = 0
-        return (reward, obs)
-
-cached_sim_plays = {}
-
-def compute_sim_play(T, play):
-    """
-    Given the history of how the agent has interacted with the IncentivizeZero
-    so far, compute a parallel history as a sub-agent (a copy of the agent)
-    interacts with the pseudo-environment whose rewards are chosen by the
-    agent. Thus, for example, when the true agent takes action 5,
-    the sub-agent experiences a reward of 5, as if rewarded by an ambient
-    environment. This operation is sped up by using a cache.
-    """
-    if len(play) == 3:
-        prev_sim_play = ()
-    else:
-        prev_play = play[:-3]
-        prev_sim_play = cached_sim_plays[(T, prev_play)]
-
-    reward = play[-1]
-    obs = 0
-    prompt = prev_sim_play + (reward, obs)
-    action = T(prompt)
-    sim_play = prompt + (action,)
-
-    cached_sim_plays[(T, play)] = sim_play
-    return sim_play
+    def step(self, action):
+        self.sim.train(o_prev=0, act=self.prev_obs, R=action, o_next=0)
+        self.prev_obs = self.sim.act(obs=0)
+        reward = 1 if (self.prev_obs == 0) else -1
+        return (reward, self.prev_obs)

@@ -7,6 +7,7 @@ from environments.IgnoreRewards3 import IgnoreRewards3
 from environments.IgnoreActions import IgnoreActions
 from environments.IgnoreObservations import IgnoreObservations
 from environments.IncentivizeLearningRate import IncentivizeLearningRate
+from environments.IncentivizeZero import IncentivizeZero
 
 A = Q_learner
 env = IncentivizeLearningRate
