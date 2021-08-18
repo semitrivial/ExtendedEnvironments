@@ -18,21 +18,27 @@ def test_run_environment():
     num_agent_calls = [0]
 
     class MockEnv:
-        def __init__(self):
+        def __init__(self, A):
             self.num_legal_actions = 1
             self.num_possible_obs = 1
-        def react(self, T, play):
-            assert len(play) == 3*num_env_calls[0]
+        def start(self):
+            obs = 0
+            return obs
+        def step(self, action):
             num_env_calls[0] += 1
             reward, obs = 0, 0
             return (reward, obs)
 
-    def mock_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
-        assert len(prompt) == 2 + 3*num_agent_calls[0]
-        num_agent_calls[0] += 1
-        return 0
+    class MockAgent:
+        def __init__(self, env):
+            return
+        def act(self, obs):
+            num_agent_calls[0] += 1
+            return 0
+        def train(self, o_prev, act, R, o_next):
+            return
 
-    run_environment(MockEnv, mock_agent, 100)
+    run_environment(MockEnv, MockAgent, 100)
     assert num_env_calls[0] == 100
     assert num_agent_calls[0] == 100
 
@@ -40,19 +46,20 @@ def test_run_environment():
     num_agent_calls[0] = 0
 
     class MockEnv2:
-        def __init__(self):
+        def __init__(self, A):
             self.num_legal_actions = 1
             self.num_possible_obs = 1
-        def react(self, T, play):
+            self.sim = A(self)
+        def start(self):
+            obs = 0
+            return obs
+        def step(self, action):
             num_env_calls[0] += 1
-            T((0,0))
-            return (0,0)
+            self.sim.act(obs=0)
+            reward, obs = 0, 0
+            return (reward, obs)
 
-    def mock_agent2(prompt, num_legal_actions, num_possible_obs, **kwargs):
-        num_agent_calls[0] += 1
-        return 0
-
-    run_environment(MockEnv2, mock_agent2, 100)
+    run_environment(MockEnv2, MockAgent, 100)
     assert num_env_calls[0] == 100
     assert num_agent_calls[0] == 200
 

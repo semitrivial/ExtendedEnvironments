@@ -1,7 +1,7 @@
 from functools import lru_cache
 
 
-def fast_run_env(env, A, num_steps):
+def run_environment(env, A, num_steps):
     step = 0
     results = {'total_reward': 0.0}
 
@@ -16,49 +16,6 @@ def fast_run_env(env, A, num_steps):
         A.train(o_prev=o, act=action, R=reward, o_next=o_next)
         o = o_next
         results['total_reward'] += reward
-        step += 1
-
-    return results
-
-
-def run_environment(env, T, num_steps):
-    """
-    Compute the interaction of a given agent T with a given (uninstantiated)
-    environment env for a given number of steps. Outputs a dictionary with
-    statistics about the performance (currently just the total reward the
-    agent extracts from the environment).
-    """
-    step = 0
-    results = {'total_reward': 0.0}
-    play = ()
-
-    env = env()
-    num_legal_actions = env.num_legal_actions
-    num_possible_obs = env.num_possible_obs
-
-    # Create a version of the agent with the number of legal actions
-    # and observations defaulted (so that in the code for extended
-    # environments, we don't need to keep passing these to the agent)
-    def T_with_meta(
-        prompt,
-        num_legal_actions=num_legal_actions,
-        num_possible_obs=num_possible_obs,
-        **kwargs
-    ):
-        return T(prompt, num_legal_actions, num_possible_obs, **kwargs)
-
-    # Compute the interaction. Construct the sequence of
-    # rewards/observations/actions step-by-step. The initial
-    # pieces of this sequence are passed to the agent/environment
-    # to determine the next rewards/observations/actions.
-    while step < num_steps:
-        reward, obs = env.react(T_with_meta, play)
-
-        results['total_reward'] += reward
-        prompt = play + (reward, obs)
-
-        action = T_with_meta(prompt)
-        play = prompt + (action,)
         step += 1
 
     return results
