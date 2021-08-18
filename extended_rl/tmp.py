@@ -12,10 +12,10 @@ from environments.IncentivizeZero import IncentivizeZero
 from environments.LimitedMemory import LimitedMemory
 from environments.Repeater import Repeater
 from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
-from environments.TemptingButton import TemptingButton
+from environments.TemptingButtonVariation import TemptingButtonVariation
 
 A = Q_learner
-env = TemptingButton
+env = TemptingButtonVariation
 n_steps = 1000
 
 print("Without reality_check:")
