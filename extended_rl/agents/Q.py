@@ -18,7 +18,7 @@ class Q_learner:
     if agentrandom.random(self.rand_counter) > epsilon:
       return agentrandom.randrange(self.n_actions, self.rand_counter+1)
     elif all(qtable[obs,a]==0 for a in actions):
-      return agentrandom.randrange(self.n_actions, self.rand_counter)
+      return agentrandom.randrange(self.n_actions, self.rand_counter+1)
     else:
       return max(actions, key=lambda a: qtable[obs,a])
 
