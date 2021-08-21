@@ -32,7 +32,7 @@ class TestEnv:
 
 A = DQN_learner
 env = TestEnv
-n_steps = 1000
+n_steps = 10000
 
 print("Without reality_check:")
 results = run_environment(env, A, n_steps)

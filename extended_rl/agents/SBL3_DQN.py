@@ -20,7 +20,7 @@ class DQN_learner:
 
     def act(self, obs):
         action, _ = self.worker.predict(np.int64(obs))
-        return action
+        return int(action)
 
     def train(self, o_prev, act, R, o_next):
         if not self.fInitialObs:
