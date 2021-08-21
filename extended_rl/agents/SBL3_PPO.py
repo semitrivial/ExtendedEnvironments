@@ -1,7 +1,7 @@
-from stable_baselines3 import A2C as PPO_factory
+from stable_baselines3 import PPO as PPO_factory
 from gym import Env, spaces
 
-NSTEPS=5
+NSTEPS=2048
 
 class DummyGymEnv(Env):
     def __init__(self):
@@ -22,12 +22,10 @@ class DummyGymEnv(Env):
         return self.initial_obs
 
     def step(self, action):
-        try:
-            assert action == self.history[3*self.i]
-        except Exception:
-            import pdb; pdb.set_trace()
+        assert action == self.history[3*self.i]
         reward = self.history[1+3*self.i]
         obs = self.history[2+3*self.i]
+        self.i += 1
         new_episode_flag = False
         misc_info = {}
         return (obs, reward, new_episode_flag, misc_info)
