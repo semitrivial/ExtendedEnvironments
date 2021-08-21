@@ -10,7 +10,12 @@ class DQN_learner:
     def __init__(self, env, **kwargs):
         self.gym = DummyGymEnv()
         self.gym.set_meta(env.num_legal_actions, env.num_possible_obs)
-        self.worker = DQN_factory('MlpPolicy', self.gym, **kwargs)
+        self.worker = DQN_factory(
+            'MlpPolicy',
+            self.gym,
+            learning_starts=1,
+            **kwargs
+        )
         self.worker_sample = self.worker._sample_action
         self.actions = []
         self.history = []
