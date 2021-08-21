@@ -1,34 +1,9 @@
 from stable_baselines3 import PPO as PPO_factory
-from gym import Env, spaces
 
-NSTEPS=2048
+from agents.SBL3_util import DummyGymEnv, create_fwd_monkeypatch
 
-class DummyGymEnv(Env):
-    def __init__(self):
-        super(DummyGymEnv, self).__init__()
 
-    def set_meta(self, num_legal_actions, num_possible_obs):
-        self.action_space = spaces.Discrete(num_legal_actions)
-        self.observation_space = spaces.Discrete(num_possible_obs)
-
-    def set_history(self, history):
-        self.history = history
-        self.i = 0
-
-    def set_initial_obs(self, initial_obs):
-        self.initial_obs = initial_obs
-
-    def reset(self):
-        return self.initial_obs
-
-    def step(self, action):
-        assert action == self.history[3*self.i]
-        reward = self.history[1+3*self.i]
-        obs = self.history[2+3*self.i]
-        self.i += 1
-        new_episode_flag = False
-        misc_info = {}
-        return (obs, reward, new_episode_flag, misc_info)
+NSTEPS=2048  # SBL3's default n_steps for PPO
 
 class PPO_learner:
     def __init__(self, env, **kwargs):
@@ -38,7 +13,7 @@ class PPO_learner:
         self.worker_forward = self.worker.policy.forward
         self.actions = []
         self.history = []
-        self.monkeypatch = create_forward_monkeypatch(self)
+        self.monkeypatch = create_fwd_monkeypatch(self, NSTEPS)
         self.fInitialObs = False
         self.training_cnt = 0
 
@@ -63,13 +38,3 @@ class PPO_learner:
             self.worker.policy.forward = self.worker_forward
             self.history = []
             self.actions = []            
-
-def create_forward_monkeypatch(A):
-    def forward_monkeypatch(*args):
-        _actions, values, log_probs = A.worker_forward(*args)
-        assert len(_actions) == 1
-        _actions[0] = A.actions[A.worker.num_timesteps % NSTEPS]
-        return _actions, values, log_probs
-
-    return forward_monkeypatch
-
