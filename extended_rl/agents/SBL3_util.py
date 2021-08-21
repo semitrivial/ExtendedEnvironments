@@ -1,3 +1,4 @@
+import numpy as np
 from gym import Env, spaces
 
 
@@ -20,7 +21,10 @@ class DummyGymEnv(Env):
         return self.initial_obs
 
     def step(self, action):
-        assert action == self.history[3*self.i]
+        try:
+            assert action == self.history[3*self.i]
+        except Exception:
+            import pdb; pdb.set_trace()
         reward = self.history[1+3*self.i]
         obs = self.history[2+3*self.i]
         self.i += 1
@@ -36,3 +40,10 @@ def create_fwd_monkeypatch(A, n_steps):
         return _actions, values, log_probs
 
     return forward_monkeypatch
+
+def create_sample_monkeypatch(A, n_steps):
+    def sample_monkeypatch(*args):
+        action = np.array([A.actions[A.worker.num_timesteps % n_steps]])
+        return action, action
+
+    return sample_monkeypatch
