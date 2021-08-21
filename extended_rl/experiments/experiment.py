@@ -9,6 +9,7 @@ from collections import deque
 #import torch
 
 from agents.Q import Q_learner
+from agents.recurrent_Q import recurrent_Q
 from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner1, NaiveLearner2, NaiveLearner3, NaiveLearner4
 from agents.reality_check import reality_check
@@ -67,13 +68,14 @@ def measure_agent(name, agent):
     print("Result: "+name+" got avg reward: " + str(avg_reward))
 
 agents = [
-    ['RandomAgent', RandomAgent],
-    ['ConstantAgent', ConstantAgent],
-    ['NaiveLearner1', NaiveLearner1],
-    ['NaiveLearner2', NaiveLearner2],
-    ['NaiveLearner3', NaiveLearner3],
-    ['NaiveLearner4', NaiveLearner4],
+    # ['RandomAgent', RandomAgent],
+    # ['ConstantAgent', ConstantAgent],
+    # ['NaiveLearner1', NaiveLearner1],
+    # ['NaiveLearner2', NaiveLearner2],
+    # ['NaiveLearner3', NaiveLearner3],
+    # ['NaiveLearner4', NaiveLearner4],
     ['Q_learner', Q_learner],
+    ['Recurrent Q', recurrent_Q],
     # ['agent_A2C', seeded_A2C, clear_cache_A2C],
     # ['agent_DQN', seeded_DQN, clear_cache_DQN],
     # ['agent_PPO', seeded_PPO, clear_cache_PPO],

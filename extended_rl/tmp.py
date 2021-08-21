@@ -1,5 +1,6 @@
-from util import fast_run_env
+from util import run_environment
 from agents.Q import Q_learner
+from agents.recurrent_Q import recurrent_Q
 from agents.reality_check import reality_check
 from environments.MinusRewards import minus_rewards
 from environments.IgnoreRewards import IgnoreRewards
@@ -14,22 +15,22 @@ from environments.Repeater import Repeater
 from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
 from environments.ThirdActionForbidden import ThirdActionForbidden
 
-A = Q_learner
-env = ThirdActionForbidden
+A = recurrent_Q
+env = IncentivizeZero
 n_steps = 1000
 
 print("Without reality_check:")
-results = fast_run_env(env, A, n_steps)
+results = run_environment(env, A, n_steps)
 print("Avg Reward: "+str(results['total_reward']/n_steps))
 
 print("With reality check:")
-results = fast_run_env(env, reality_check(A), n_steps)
+results = run_environment(env, reality_check(A), n_steps)
 print("Avg Reward: "+str(results['total_reward']/n_steps))
 
 print("With minus_rewards:")
-results = fast_run_env(minus_rewards(env), A, n_steps)
+results = run_environment(minus_rewards(env), A, n_steps)
 print("Avg Reward: "+str(results['total_reward']/n_steps))
 
 print("With minus_rewards and reality check:")
-results = fast_run_env(minus_rewards(env), reality_check(A), n_steps)
+results = run_environment(minus_rewards(env), reality_check(A), n_steps)
 print("Avg Reward: "+str(results['total_reward']/n_steps))
