@@ -1,7 +1,7 @@
 from agents.Q import Q_learner
 
 class recurrent_Q:
-    def __init__(self, env, n=5, epsilon=0.9, alpha=0.1, gamma=0.9):
+    def __init__(self, env, n=3, epsilon=0.9, alpha=0.1, gamma=0.9):
         self.underlying = Q_learner(env, epsilon, alpha, gamma)
         self.history = tuple()
         self.n = n
