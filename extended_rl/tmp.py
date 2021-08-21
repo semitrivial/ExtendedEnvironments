@@ -3,6 +3,7 @@ from agents.Q import Q_learner
 from agents.recurrent_Q import recurrent_Q
 from agents.reality_check import reality_check
 from agents.SBL3_PPO import PPO_learner
+from agents.SBL3_A2C import A2C_learner
 from environments.MinusRewards import minus_rewards
 from environments.IgnoreRewards import IgnoreRewards
 from environments.IgnoreRewards2 import IgnoreRewards2
@@ -28,9 +29,9 @@ class TestEnv:
         reward = 1 if action==0 else -1
         return (reward, 0)
 
-A = PPO_learner
+A = A2C_learner
 env = TestEnv
-n_steps = 10000
+n_steps = 1000
 
 print("Without reality_check:")
 results = run_environment(env, A, n_steps)
