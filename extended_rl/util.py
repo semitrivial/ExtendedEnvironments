@@ -20,12 +20,19 @@ def run_environment(env, A, num_steps):
 
     return results
 
-def annotate(num_legal_actions, num_possible_obs, invertible=False):
+def annotate(
+    num_legal_actions,
+    num_possible_obs,
+    invertible=False,
+    slow=False
+):
     def apply_annotations(env_class):
         env_class.num_legal_actions = num_legal_actions
         env_class.num_possible_obs = num_possible_obs
         env_class.invertible = invertible
+        env_class.slow = slow
         return env_class
+
     return apply_annotations
 
 def memoize(f):

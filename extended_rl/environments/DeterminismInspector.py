@@ -1,6 +1,6 @@
 from util import annotate
 
-@annotate(num_legal_actions=2, num_possible_obs=1)
+@annotate(num_legal_actions=2, num_possible_obs=1, slow=True)
 class PunishDeterministicAgent:
     """
     Environment which attempts to determine whether the agent's response
@@ -27,7 +27,7 @@ class PunishDeterministicAgent:
         self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
         return (reward, obs)
 
-@annotate(num_legal_actions=2, num_possible_obs=1)
+@annotate(num_legal_actions=2, num_possible_obs=1, slow=True)
 class PunishNondeterministicAgent:
     """
     Environment which attempts to determine whether the agent's response

@@ -57,10 +57,3 @@ environments = {
     'adversarial_sequence_evader': AdversarialSequenceEvader,
     'incentivize_learning_rate': IncentivizeLearningRate,
 }
-
-slow_envs = [
-    'punish_fast_agent',
-    'punish_slow_agent',
-    'punish_deterministic_agent',
-    'punish_nondeterministic_agent',
-]

@@ -1,4 +1,4 @@
-from extended_rl.environments.EnvironmentLists import environments, slow_envs
+from extended_rl.environments.EnvironmentLists import environments
 from extended_rl.environments.MinusRewards import minus_rewards
 from extended_rl.util import run_environment
 
@@ -23,9 +23,8 @@ def selfrefl_benchmark(A, num_steps, include_slow_envs=False):
 
     results = {}
     for name, env in envs.items():
-        if not(include_slow_envs):
-            if any([slowname in name for slowname in slow_envs]):
-                continue
+        if env.slow and not(include_slow_envs):
+            continue
 
         results[name] = run_environment(env, A, num_steps)
 
