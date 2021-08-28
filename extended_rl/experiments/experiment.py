@@ -10,6 +10,9 @@ from collections import deque
 
 from agents.Q import Q_learner
 from agents.recurrent_Q import recurrent_Q
+from agents.SBL3_DQN import DQN_learner
+from agents.SBL3_A2C import A2C_learner
+from agents.SBL3_PPO import PPO_learner
 from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner1, NaiveLearner2, NaiveLearner3, NaiveLearner4
 from agents.reality_check import reality_check
@@ -76,6 +79,9 @@ agents = [
     # ['NaiveLearner4', NaiveLearner4],
     ['Q_learner', Q_learner],
     ['Recurrent Q', recurrent_Q],
+    ['DQN', DQN_learner],
+    ['PPO', PPO_learner],
+    ['A2C', A2C_learner],
     # ['agent_A2C', seeded_A2C, clear_cache_A2C],
     # ['agent_DQN', seeded_DQN, clear_cache_DQN],
     # ['agent_PPO', seeded_PPO, clear_cache_PPO],
