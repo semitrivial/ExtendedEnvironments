@@ -1,7 +1,17 @@
+from util import annotate
+
+
 def reality_check(A0):
   class A0_RC:
     def __init__(self, **kwargs):
-      self.underlying = A0(**kwargs)
+      @annotate(
+        num_legal_actions = self.num_legal_actions,
+        num_possible_obs = self.num_possible_obs
+      )
+      class A0_with_meta(A0):
+        pass
+
+      self.underlying = A0_with_meta(**kwargs)
       self.first_action = None
       self.expected_training_action = None
       self.found_unexpected_action = False
