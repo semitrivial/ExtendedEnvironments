@@ -5,7 +5,6 @@ def apply_handicap(env, handicap):
         def __init__(self, A):
             self.orig_env = env()
             tmp = instantiate_tmp_env(handicap, A)
-            tmp = handicap(A)
             self.curr_obs = 0
             self.prev_obs = 0
 
