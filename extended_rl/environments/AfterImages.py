@@ -25,7 +25,7 @@ class AfterImages:
     2 (=010), 3 (=011), and 1 (=001).
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.rnd_counter = 0
 
     def start(self):

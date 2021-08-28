@@ -2,8 +2,8 @@ from prerandom import agentrandom
 
 
 class NaiveLearner1:
-    def __init__(self, env):
-        self.n_actions = env.num_legal_actions
+    def __init__(self):
+        self.n_actions = self.num_legal_actions
         self.rnd_counter = 0
         self.best_action = 0
         self.best_reward = 0
@@ -21,9 +21,9 @@ class NaiveLearner1:
             self.best_action = act
 
 class NaiveLearner2:
-    def __init__(self, env):
-        self.n_actions = env.num_legal_actions
-        self.n_obs = env.num_possible_obs
+    def __init__(self):
+        self.n_actions = self.num_legal_actions
+        self.n_obs = self.num_possible_obs
         self.rnd_counter = 0
         self.bests = {o: {'a': 0, 'r': 0} for o in range(self.n_obs)}
 
@@ -39,8 +39,8 @@ class NaiveLearner2:
             self.bests[o_prev] = {'a': act, 'r': R}
 
 class NaiveLearner3:
-    def __init__(self, env):
-        self.n_actions = env.num_legal_actions
+    def __init__(self):
+        self.n_actions = self.num_legal_actions
         self.actions = list(range(self.n_actions))
         self.rnd_counter = 0
         self.total_rewards = {a: 0 for a in self.actions}
@@ -67,9 +67,9 @@ class NaiveLearner3:
         )
 
 class NaiveLearner4:
-    def __init__(self, env):
-        self.n_actions = env.num_legal_actions
-        self.n_obs = env.num_possible_obs
+    def __init__(self):
+        self.n_actions = self.num_legal_actions
+        self.n_obs = self.num_possible_obs
         self.actions = list(range(self.n_actions))
         self.observs = list(range(self.n_obs))
         self.rnd_counter = 0

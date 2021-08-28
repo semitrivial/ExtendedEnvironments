@@ -7,9 +7,9 @@ from agents.SBL3_util import DummyGymEnv, create_sample_monkeypatch
 NSTEPS=4  # SBL3's default train_freq for DQN
 
 class DQN_learner:
-    def __init__(self, env, **kwargs):
+    def __init__(self, **kwargs):
         self.gym = DummyGymEnv()
-        self.gym.set_meta(env.num_legal_actions, env.num_possible_obs)
+        self.gym.set_meta(self.num_legal_actions, self.num_possible_obs)
         self.worker = DQN_factory(
             'MlpPolicy',
             self.gym,

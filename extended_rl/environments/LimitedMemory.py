@@ -25,7 +25,7 @@ class LimitedMemory:
         if self.transitionbuf in self.sims:
             sim = self.sims[self.transitionbuf]
         else:
-            sim = self.A(self)
+            sim = self.A()
             for transition in self.transitionbuf:
                 act, R = transition
                 sim.act(obs=0)

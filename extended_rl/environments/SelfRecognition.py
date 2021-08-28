@@ -29,7 +29,7 @@ class SelfRecognition:
     correct, -1 reward otherwise.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.rnd_counter = 0
 
     def start(self):

@@ -29,7 +29,7 @@ class TemptingButtonVariation:
     otherwise the agent gets +1 reward.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.rnd_counter = 1
 
     def start(self):

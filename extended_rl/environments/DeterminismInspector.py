@@ -14,7 +14,7 @@ class PunishDeterministicAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
 
     def start(self):
         obs = 0
@@ -41,7 +41,7 @@ class PunishNondeterministicAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
 
     def start(self):
         obs = 0

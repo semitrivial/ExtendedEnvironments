@@ -15,7 +15,7 @@ class DelayedRewards:
     reward +1, otherwise the agent gets reward -1.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.stepcnt = 0
         self.prev_reward = 0
 

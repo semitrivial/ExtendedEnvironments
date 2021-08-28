@@ -17,7 +17,7 @@ class CryingBaby:
     the agent to see what the agent would do in the baby's position.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.nutrition = 100
         self.prev_action = FEED
 

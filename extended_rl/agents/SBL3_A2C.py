@@ -6,9 +6,9 @@ from agents.SBL3_util import DummyGymEnv, create_fwd_monkeypatch
 NSTEPS=5  # SBL3's default n_steps for A2C
 
 class A2C_learner:
-    def __init__(self, env, **kwargs):
+    def __init__(self, **kwargs):
         self.gym = DummyGymEnv()
-        self.gym.set_meta(env.num_legal_actions, env.num_possible_obs)
+        self.gym.set_meta(self.num_legal_actions, self.num_possible_obs)
         self.worker = A2C_factory('MlpPolicy', self.gym, **kwargs)
         self.worker_forward = self.worker.policy.forward
         self.actions = []

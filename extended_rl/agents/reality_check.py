@@ -1,7 +1,7 @@
 def reality_check(A0):
   class A0_RC:
-    def __init__(self, env, **kwargs):
-      self.underlying = A0(env, **kwargs)
+    def __init__(self, **kwargs):
+      self.underlying = A0(**kwargs)
       self.first_action = None
       self.expected_training_action = None
       self.found_unexpected_action = False

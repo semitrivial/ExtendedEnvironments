@@ -16,7 +16,7 @@ class AdversarialSequencePredictor:
     to determine what the agent would do if the agent were the evader.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.prev_prediction = 0
 
     def start(self):
@@ -50,7 +50,7 @@ class AdversarialSequenceEvader:
     def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 2
-        self.sim = A(self)
+        self.sim = A()
         self.prev_evasion = 0
 
     def start(self):

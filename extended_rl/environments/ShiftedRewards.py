@@ -12,7 +12,7 @@ class ShiftedRewards:
     otherwise the agent is given reward -1.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
 
     def start(self):
         self.prev_reward = 0

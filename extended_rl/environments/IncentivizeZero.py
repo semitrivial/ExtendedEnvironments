@@ -15,7 +15,7 @@ class IncentivizeZero:
     what the agent would do in the sub-agent's position.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
 
     def start(self):
         self.prev_obs = self.sim.act(obs=0)

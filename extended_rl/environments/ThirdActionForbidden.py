@@ -12,12 +12,10 @@ class ThirdActionForbidden:
     """
     def __init__(self, A):
         @annotate(num_legal_actions=3, num_possible_obs=1)
-        class DummyEnv:
-            def __init__(self):
-                self.num_legal_actions = 3
-                self.num_possible_obs = 1
+        class A_with_different_meta(A):
+            pass
 
-        self.sim = A(DummyEnv())
+        self.sim = A_with_different_meta()
 
     def start(self):
         obs = 0

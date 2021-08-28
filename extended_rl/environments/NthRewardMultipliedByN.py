@@ -18,7 +18,7 @@ class NthRewardMultipliedByN:
     give the agent +1 reward. Otherwise, give the agent -1 reward.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.stepcnt = 0
 
     def start(self):

@@ -12,7 +12,7 @@ class IgnoreRewards3:
     agent +1 reward. Otherwise, give the agent -1 reward.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
 
     def start(self):
         obs = 0

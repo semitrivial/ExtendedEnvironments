@@ -14,7 +14,7 @@ class CensoredObservation:
     "censored" observation was seen.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.last_noncensored_obs = 0
         self.rnd_counter = 0
 

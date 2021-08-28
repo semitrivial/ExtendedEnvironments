@@ -16,15 +16,7 @@ def apply_handicap(env, handicap):
 
             class A_proxy:
                 def __init__(self, envmnt, parent=self, **kwargs):
-                    @annotate(
-                        num_legal_actions=env.num_legal_actions * handicap.num_legal_actions,
-                        num_possible_obs=env.num_possible_obs * handicap.num_possible_obs
-                    )
-                    class Mock:
-                        def __init__(self):
-                            pass
-
-                    self.agent = A(Mock(), **kwargs)
+                    self.agent = A(**kwargs)
                     self.parent = parent
                 def act(self, obs):
                     max_obs = self.parent.num_handicap_obs-1

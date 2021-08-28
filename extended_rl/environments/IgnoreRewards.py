@@ -11,7 +11,7 @@ class IgnoreRewards:
     given reward -1.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
 
     def start(self):
         obs = 0

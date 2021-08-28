@@ -13,7 +13,7 @@ class PunishSlowAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.turn = 1
 
     def start(self):
@@ -42,7 +42,7 @@ class PunishFastAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.turn = 1
 
     def start(self):

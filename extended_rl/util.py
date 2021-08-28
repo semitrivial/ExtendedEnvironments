@@ -5,15 +5,22 @@ def run_environment(env, A, num_steps):
     step = 0
     results = {'total_reward': 0.0}
 
-    env = env(A)
+    @annotate(
+        num_legal_actions=env.num_legal_actions,
+        num_possible_obs=env.num_possible_obs
+    )
+    class A_with_meta(A):
+        pass
 
-    A = A(env=env)
+    env = env(A_with_meta)
+
+    A_instance = A_with_meta()
 
     o = env.start()
     while step < num_steps:
-        action = A.act(obs=o)
+        action = A_instance.act(obs=o)
         reward, o_next = env.step(action)
-        A.train(o_prev=o, act=action, R=reward, o_next=o_next)
+        A_instance.train(o_prev=o, act=action, R=reward, o_next=o_next)
         o = o_next
         results['total_reward'] += reward
         step += 1

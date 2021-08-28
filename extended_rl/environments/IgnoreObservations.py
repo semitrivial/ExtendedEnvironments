@@ -11,7 +11,7 @@ class IgnoreObservations:
     reward. Otherwise, give the agent -1 reward.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.rnd_counter = 0
 
     def start(self):

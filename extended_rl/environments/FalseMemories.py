@@ -12,7 +12,7 @@ class FalseMemories:
     p0 (default is obs,action,reward,obs,action,reward=0,0,0,0,0,0).
     """
     def __init__(self, A, p0=(0,0,0,0,0,0)):
-        self.sim = A(self)
+        self.sim = A()
         self.sim.act(obs=p0[1])
 
         prev_obs = p0[0]

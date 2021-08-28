@@ -14,7 +14,7 @@ class BackwardConsciousness:
     def __init__(self, A):
         self.num_legal_actions = 2
         self.num_possible_obs = 10
-        self.sim = A(self)
+        self.sim = A()
         self.rnd_counter = 0
 
     def start(self):

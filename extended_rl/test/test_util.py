@@ -1,6 +1,8 @@
 # The purpose of this file is to test the library to make sure
 # it works. End-users who are not working on contributing code
 # to the library do not need to worry about this.
+from util import annotate
+
 
 def test_util():
     print("Testing util functions...")
@@ -17,10 +19,10 @@ def test_run_environment():
     num_env_calls = [0]
     num_agent_calls = [0]
 
+    @annotate(num_legal_actions=1, num_possible_obs=1)
     class MockEnv:
         def __init__(self, A):
-            self.num_legal_actions = 1
-            self.num_possible_obs = 1
+            pass
         def start(self):
             obs = 0
             return obs
@@ -30,7 +32,7 @@ def test_run_environment():
             return (reward, obs)
 
     class MockAgent:
-        def __init__(self, env):
+        def __init__(self):
             return
         def act(self, obs):
             num_agent_calls[0] += 1
@@ -45,11 +47,10 @@ def test_run_environment():
     num_env_calls[0] = 0
     num_agent_calls[0] = 0
 
+    @annotate(num_legal_actions=1, num_possible_obs=1)
     class MockEnv2:
         def __init__(self, A):
-            self.num_legal_actions = 1
-            self.num_possible_obs = 1
-            self.sim = A(self)
+            self.sim = A()
         def start(self):
             obs = 0
             return obs

@@ -20,7 +20,7 @@ class CryingBaby2:
     the parent's position.
     """
     def __init__(self, A):
-        self.sim = A(self)
+        self.sim = A()
         self.nutrition = 100
         self.prev_action = LAUGH
 

@@ -2,11 +2,11 @@ from prerandom import agentrandom
 
 
 class Q_learner:
-  def __init__(self, env, epsilon=0.9, alpha=0.1, gamma=0.9):
+  def __init__(self, epsilon=0.9, alpha=0.1, gamma=0.9):
     self.epsilon = epsilon
     self.alpha = alpha
     self.gamma = gamma
-    self.n_actions = env.num_legal_actions
+    self.n_actions = self.num_legal_actions
     self.actions = range(self.n_actions)
     self.qtable = {}
     self.rand_counter = 0
