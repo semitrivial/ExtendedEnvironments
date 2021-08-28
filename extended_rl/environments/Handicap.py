@@ -15,7 +15,7 @@ def apply_handicap(env, handicap):
             self.num_handicap_obs = handicap.num_possible_obs
 
             class A_proxy:
-                def __init__(self, envmnt, parent=self, **kwargs):
+                def __init__(self, parent=self, **kwargs):
                     self.agent = A(**kwargs)
                     self.parent = parent
                 def act(self, obs):
