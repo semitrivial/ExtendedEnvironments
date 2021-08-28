@@ -30,8 +30,8 @@ def apply_handicap(env, handicap):
 
         def start(self):
             obs = self.orig_env.start()
-            obs_handicap = self.handicap_env.start()
             self.curr_obs = obs
+            obs_handicap = self.handicap_env.start()
             return encode_pair(obs, obs_handicap, self.num_handicap_obs-1)
 
         def step(self, action):

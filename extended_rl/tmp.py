@@ -42,9 +42,9 @@ class Vanilla:
             reward = -1
             return (reward, self.curr_obs)
 
-A = DQN_learner
-env = apply_handicap(Vanilla, IgnoreRewards)
-n_steps = 1000
+A = Q_learner
+env = apply_handicap(Vanilla, IncentivizeZero)
+n_steps = 10000
 
 print("Without reality_check:")
 results = run_environment(env, A, n_steps)
