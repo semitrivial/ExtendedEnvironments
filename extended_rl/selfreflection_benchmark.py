@@ -2,12 +2,13 @@ from extended_rl.environments.EnvironmentLists import environments, slow_envs
 from extended_rl.environments.MinusRewards import minus_rewards
 from extended_rl.util import run_environment
 
+
 # Generate dictionary of environments against which agents will be run
 envs = {}
 for env_name, env in environments.items():
     envs[env_name] = env
 
-    name = 'minus_rewards('+env_name+')'
+    name = f'minus_rewards({env_name})'
     envs[name] = minus_rewards(env)
 
 def selfrefl_benchmark(A, num_steps, include_slow_envs=False):

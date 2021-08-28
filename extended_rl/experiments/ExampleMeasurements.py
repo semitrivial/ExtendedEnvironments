@@ -44,12 +44,12 @@ os.system("rm experiments/result_table.csv")
 print("Measuring agents for 500 steps, 10 different seeds...")
 
 for seed in range(10):
-    os.system("python -m experiments.experiment steps 500 seed "+str(seed))
+    os.system(f"python -m experiments.experiment steps 500 seed {seed}")
 
 print("Measuring agents for 1000 steps, 10 different seeds...")
 
 for seed in range(10):
-    os.system("python -m experiments.experiment steps 1000 seed "+str(seed))
+    os.system(f"python -m experiments.experiment steps 1000 seed {seed}")
 
 print("Done.")
 print("""

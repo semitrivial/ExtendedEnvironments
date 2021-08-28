@@ -35,13 +35,13 @@ while args:
 
 populate_randoms(seed)
 
-print("Testing agents with seed="+str(seed)+", n_steps="+str(n_steps))
+print(f"Testing agents with seed={seed}, n_steps={n_steps}")
 
 #np.random.seed(seed)
 #torch.manual_seed(seed)
 
 def measure_agent(name, agent):
-    print("Testing "+name+"...")
+    print(f"Testing {name}...")
     result = selfrefl_benchmark(agent, n_steps)
 
     # If result_table.csv does not already exist, then create it and
@@ -68,7 +68,7 @@ def measure_agent(name, agent):
     values = result.values()
     rewards = [x['total_reward'] for x in values]
     avg_reward = sum(rewards)/(len(rewards)*n_steps)
-    print("Result: "+name+" got avg reward: " + str(avg_reward))
+    print(f"Result: {name} got avg reward: {avg_reward}")
 
 agents = [
     # ['RandomAgent', RandomAgent],
@@ -90,6 +90,6 @@ agents = [
 # Measure all the above-listed agents and their reality-checks
 for (name, agent) in agents:
     measure_agent(name, agent)
-    name = "reality_check("+name+")"
+    name = f"reality_check({name})"
     agent = reality_check(agent)
     measure_agent(name, agent)

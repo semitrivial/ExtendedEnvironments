@@ -77,4 +77,4 @@ for agent in agents:
         svar = (len(avgs)*var)/(len(avgs)-1)
         sdev = sqrt(svar)
         stderr = sdev/len(avgs)
-        print(agent+" ("+stepcnt+" steps): measure "+str(avg)+", stderr: "+str(stderr))
+        print(f"{agent} ({stepcnt} steps): measure {avg}, stderr: {stderr}")
