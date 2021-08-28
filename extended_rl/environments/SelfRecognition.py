@@ -1,4 +1,5 @@
 from prerandom import envrandom
+from util import annotate
 
 
 IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0 = 2
@@ -6,6 +7,7 @@ IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1 = 3
 IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0 = 4
 IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1 = 5
 
+@annotate(num_legal_actions=2, num_possible_obs=6)
 class SelfRecognition:
     """
     Environment which attempts to probe how well the agent can recognize
@@ -27,8 +29,6 @@ class SelfRecognition:
     correct, -1 reward otherwise.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 6
         self.sim = A(self)
         self.rnd_counter = 0
 

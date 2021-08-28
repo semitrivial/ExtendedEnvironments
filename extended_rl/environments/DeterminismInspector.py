@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class PunishDeterministicAgent:
     """
     Environment which attempts to determine whether the agent's response
@@ -11,8 +14,6 @@ class PunishDeterministicAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
 
     def start(self):
@@ -26,6 +27,7 @@ class PunishDeterministicAgent:
         self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
         return (reward, obs)
 
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class PunishNondeterministicAgent:
     """
     Environment which attempts to determine whether the agent's response
@@ -39,8 +41,6 @@ class PunishNondeterministicAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
 
     def start(self):

@@ -1,5 +1,6 @@
-from util import eval_and_count_steps
+from util import annotate, eval_and_count_steps
 
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class PunishSlowAgent:
     """
     Environment which punishes agents for taking too many steps to compute
@@ -12,8 +13,6 @@ class PunishSlowAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
         self.turn = 1
 
@@ -30,6 +29,7 @@ class PunishSlowAgent:
         self.turn += 1
         return (reward, obs)
 
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class PunishFastAgent:
     """
     Environment which punishes agents for taking too few steps to compute
@@ -42,8 +42,6 @@ class PunishFastAgent:
     this environment is slow.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
         self.turn = 1
 

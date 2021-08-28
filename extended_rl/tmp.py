@@ -19,31 +19,10 @@ from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
 from environments.TemptingButtonVariation import TemptingButtonVariation
 from environments.TemptingButton import TemptingButton
 from environments.Handicap import apply_handicap
-
-class Vanilla:
-    def __init__(self):
-        self.num_legal_actions = 3
-        self.num_possible_obs = 3
-    def start(self):
-        self.curr_obs = 0
-        return 0
-    def step(self, action):
-        if action == self.curr_obs:
-            if self.curr_obs == 2:
-                self.curr_obs = 0
-                reward = 3
-                return (reward, self.curr_obs)
-            else:
-                self.curr_obs += 1
-                reward = 0
-                return (reward, self.curr_obs)
-        else:
-            self.curr_obs = 0
-            reward = -1
-            return (reward, self.curr_obs)
+from environments.Handicaps import Trap
 
 A = Q_learner
-env = apply_handicap(Vanilla, IncentivizeZero)
+env = apply_handicap(Trap, IncentivizeZero)
 n_steps = 10000
 
 print("Without reality_check:")

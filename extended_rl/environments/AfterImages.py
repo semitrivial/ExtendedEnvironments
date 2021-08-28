@@ -1,6 +1,7 @@
 from prerandom import envrandom
+from util import annotate
 
-
+@annotate(num_legal_actions=2, num_possible_obs=8, invertible=True)
 class AfterImages:
     """
     Environment intended to incentivize subjective experience of
@@ -24,8 +25,6 @@ class AfterImages:
     2 (=010), 3 (=011), and 1 (=001).
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 8
         self.sim = A(self)
         self.rnd_counter = 0
 

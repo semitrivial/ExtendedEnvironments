@@ -1,5 +1,8 @@
+from util import annotate
+
 number_rewards_to_remember = 5
 
+@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class LimitedMemory:
     """
     Environment which incentivizes the agent to act as if it can only
@@ -10,8 +13,6 @@ class LimitedMemory:
     give the agent -1 reward.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.A = A
         self.transitionbuf = tuple()
         self.sims = {}

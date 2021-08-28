@@ -1,26 +1,28 @@
-from functools import lru_cache
+from util import annotate
 
 def apply_handicap(env, handicap):
+    @annotate(
+        num_legal_actions=env.num_legal_actions * handicap.num_legal_actions,
+        num_possible_obs=env.num_possible_obs * handicap.num_possible_obs
+    )
     class Handicapped:
         def __init__(self, A):
             self.orig_env = env()
-            tmp = instantiate_tmp_env(handicap, A)
             self.curr_obs = 0
             self.prev_obs = 0
 
-            self.num_legal_actions = tmp.num_legal_actions
-            self.num_handicap_acts = tmp.num_legal_actions
-            self.num_legal_actions *= self.orig_env.num_legal_actions
-            self.num_handicap_obs = tmp.num_possible_obs
-            self.num_possible_obs = tmp.num_possible_obs
-            self.num_possible_obs *= self.orig_env.num_possible_obs
+            self.num_handicap_acts = handicap.num_legal_actions
+            self.num_handicap_obs = handicap.num_possible_obs
 
             class A_proxy:
                 def __init__(self, envmnt, parent=self, **kwargs):
+                    @annotate(
+                        num_legal_actions=env.num_legal_actions * handicap.num_legal_actions,
+                        num_possible_obs=env.num_possible_obs * handicap.num_possible_obs
+                    )
                     class Mock:
                         def __init__(self):
-                            self.num_legal_actions = tmp.num_legal_actions
-                            self.num_possible_obs = parent.num_possible_obs
+                            pass
 
                     self.agent = A(Mock(), **kwargs)
                     self.parent = parent
@@ -63,7 +65,3 @@ def encode_pair(a, b, b_max):
 
 def decode_pair(x, b_max):
     return (x // (b_max+1), x % (b_max+1))
-
-@lru_cache(maxsize=None)
-def instantiate_tmp_env(env, A):
-    return env(A)

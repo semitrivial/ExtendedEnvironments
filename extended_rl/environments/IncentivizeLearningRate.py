@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class IncentivizeLearningRate:
     """
     Environment which incentivizes the agent to learn with learning_rate=1.
@@ -8,8 +11,6 @@ class IncentivizeLearningRate:
     as a valid parameter, then give the agent -1 reward.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         try:
             self.sim = A(self, alpha=1)
             self.fTypeError = False

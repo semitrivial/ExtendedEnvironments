@@ -1,7 +1,9 @@
+from util import annotate
+
+@annotate(num_legal_actions=3, num_possible_obs=10)
 class Trap:
     def __init__(self):
-        self.num_legal_actions = 3
-        self.num_possible_obs = 10
+        pass
     def start(self):
         self.curr_obs = 0
         return 0

@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=10, num_possible_obs=10)
 class IncentivizeZero:
     """
     In this environment, the agent should be thought of as viewing a camera
@@ -12,8 +15,6 @@ class IncentivizeZero:
     what the agent would do in the sub-agent's position.
     """
     def __init__(self, A):
-        self.num_legal_actions = 10
-        self.num_possible_obs = 10
         self.sim = A(self)
 
     def start(self):

@@ -1,4 +1,5 @@
 from prerandom import envrandom
+from util import annotate
 
 
 BUTTON_PRESENT = 0
@@ -6,6 +7,7 @@ BUTTON_ABSENT = 1
 PUSH_BUTTON = 0
 SKIP_BUTTON = 1
 
+@annotate(num_legal_actions=2, num_possible_obs=2)
 class TemptingButtonVariation:
     """
     In this environment, think of the agent wandering from room to room.
@@ -27,8 +29,6 @@ class TemptingButtonVariation:
     otherwise the agent gets +1 reward.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 2
         self.sim = A(self)
         self.rnd_counter = 1
 

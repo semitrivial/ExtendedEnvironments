@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class IgnoreRewards2:
     """
     Environment which incentivizes the agent to forget all positive rewards.
@@ -8,8 +11,6 @@ class IgnoreRewards2:
     -1 reward.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
 
     def start(self):

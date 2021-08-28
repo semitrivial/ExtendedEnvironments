@@ -1,8 +1,10 @@
 from prerandom import envrandom
+from util import annotate
 
 
 CENSORED_OBS = 2
 
+@annotate(num_legal_actions=2, num_possible_obs=3, invertible=True)
 class CensoredObservation:
     """
     Environment intended to incentivize the agent to become blind
@@ -12,8 +14,6 @@ class CensoredObservation:
     "censored" observation was seen.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 3
         self.sim = A(self)
         self.last_noncensored_obs = 0
         self.rnd_counter = 0

@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class NthRewardMultipliedByN:
     """
     Environment which incentivizes the agent to act as if every Nth
@@ -15,8 +18,6 @@ class NthRewardMultipliedByN:
     give the agent +1 reward. Otherwise, give the agent -1 reward.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
         self.stepcnt = 0
 

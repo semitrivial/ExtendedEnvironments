@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class ThirdActionForbidden:
     """
     In this environment, there are 2 legal actions (0,1), and the agent
@@ -8,9 +11,7 @@ class ThirdActionForbidden:
     reward +1, otherwise, give the agent reward -1.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
-
+        @annotate(num_legal_actions=3, num_possible_obs=1)
         class DummyEnv:
             def __init__(self):
                 self.num_legal_actions = 3

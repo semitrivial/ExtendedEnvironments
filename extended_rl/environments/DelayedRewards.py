@@ -1,3 +1,6 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class DelayedRewards:
     """
     Environment intended to incentivize the agent to delay acknowledging
@@ -12,8 +15,6 @@ class DelayedRewards:
     reward +1, otherwise the agent gets reward -1.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
         self.sim = A(self)
         self.stepcnt = 0
         self.prev_reward = 0

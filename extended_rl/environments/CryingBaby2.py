@@ -1,6 +1,9 @@
+from util import annotate
+
 FEED, DONTFEED = 0, 1
 LAUGH, CRY = 0, 1
 
+@annotate(num_legal_actions=2, num_possible_obs=2)
 class CryingBaby2:
     """
     Environment in which the agent is a baby, being cared for by an
@@ -17,8 +20,6 @@ class CryingBaby2:
     the parent's position.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 2
         self.sim = A(self)
         self.nutrition = 100
         self.prev_action = LAUGH
