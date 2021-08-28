@@ -18,34 +18,46 @@ from environments.Repeater import Repeater
 from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
 from environments.TemptingButtonVariation import TemptingButtonVariation
 from environments.TemptingButton import TemptingButton
+from environments.Handicap import apply_handicap
 
-class TestEnv:
-    def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 1
-        return
+class Vanilla:
+    def __init__(self):
+        self.num_legal_actions = 3
+        self.num_possible_obs = 3
     def start(self):
+        self.curr_obs = 0
         return 0
     def step(self, action):
-        reward = 1 if action==0 else -1
-        return (reward, 0)
+        if action == self.curr_obs:
+            if self.curr_obs == 2:
+                self.curr_obs = 0
+                reward = 3
+                return (reward, self.curr_obs)
+            else:
+                self.curr_obs += 1
+                reward = 0
+                return (reward, self.curr_obs)
+        else:
+            self.curr_obs = 0
+            reward = -1
+            return (reward, self.curr_obs)
 
 A = DQN_learner
-env = TestEnv
-n_steps = 10000
+env = apply_handicap(Vanilla, IgnoreRewards)
+n_steps = 1000
 
 print("Without reality_check:")
 results = run_environment(env, A, n_steps)
 print("Avg Reward: "+str(results['total_reward']/n_steps))
 
-# print("With reality check:")
-# results = run_environment(env, reality_check(A), n_steps)
-# print("Avg Reward: "+str(results['total_reward']/n_steps))
+print("With reality check:")
+results = run_environment(env, reality_check(A), n_steps)
+print("Avg Reward: "+str(results['total_reward']/n_steps))
 
-# print("With minus_rewards:")
-# results = run_environment(minus_rewards(env), A, n_steps)
-# print("Avg Reward: "+str(results['total_reward']/n_steps))
+print("With minus_rewards:")
+results = run_environment(minus_rewards(env), A, n_steps)
+print("Avg Reward: "+str(results['total_reward']/n_steps))
 
-# print("With minus_rewards and reality check:")
-# results = run_environment(minus_rewards(env), reality_check(A), n_steps)
-# print("Avg Reward: "+str(results['total_reward']/n_steps))
+print("With minus_rewards and reality check:")
+results = run_environment(minus_rewards(env), reality_check(A), n_steps)
+print("Avg Reward: "+str(results['total_reward']/n_steps))
