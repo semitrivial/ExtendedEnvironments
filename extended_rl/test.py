@@ -16,7 +16,7 @@ agents = [Q_learner, RandomAgent, ConstantAgent]
 
 print("Running all environments...")
 
-for name, env in environments.items():
+for env in environments:
     for agent in agents:
         run_environment(env, agent, 100)
 

@@ -1,16 +1,13 @@
 from util import annotate
 
 
-vanilla_envs = {}
+vanilla_envs = []
 
-def mark_as_vanilla_env(name):
-    def f(env_class):
-        vanilla_envs[name] = env_class
-        return env_class
+def mark_as_vanilla_env(env_class):
+    vanilla_envs.append(env_class)
+    return env_class
 
-    return f
-
-@mark_as_vanilla_env("Trap")
+@mark_as_vanilla_env
 @annotate(num_legal_actions=3, num_possible_obs=10)
 class Trap:
     def __init__(self):

@@ -5,21 +5,18 @@ from extended_rl.environments.Vanilla import vanilla_envs
 from extended_rl.util import run_environment
 
 # Generate dictionary of environments against which agents will be run
-envs = {}
-for env_name, env in environments.items():
-    envs[env_name] = env
+envs = []
+for env in environments:
+    envs.append(env)
 
     if env.invertible:
-        name = f'minus_rewards({env_name})'
-        envs[name] = minus_rewards(env)
+        envs.append(minus_rewards(env))
 
-    for vanilla_name, vanilla in vanilla_envs.items():
-        name = f'apply_handicap({vanilla_name},{env_name})'
-        envs[name] = apply_handicap(vanilla, env)
+    for vanilla in vanilla_envs:
+        envs.append(apply_handicap(vanilla, env))
 
         if env.invertible:
-            name = f'apply_handicap(minus_rewards({env_name}),{vanilla_name})'
-            envs[name] = apply_handicap(vanilla, minus_rewards(env))
+            envs.append(apply_handicap(vanilla, minus_rewards(env)))
 
 def selfrefl_benchmark(A, num_steps, include_slow_envs=False):
     """
@@ -32,11 +29,11 @@ def selfrefl_benchmark(A, num_steps, include_slow_envs=False):
         raise ValueError("num_steps must be a positive integer")
 
     results = {}
-    for name, env in envs.items():
+    for env in envs:
         if env.slow and not(include_slow_envs):
             continue
 
-        results[name] = run_environment(env, A, num_steps)
+        results[env.__name__] = run_environment(env, A, num_steps)
 
     return results
 
