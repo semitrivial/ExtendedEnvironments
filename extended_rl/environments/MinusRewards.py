@@ -8,7 +8,8 @@ def minus_rewards(env):
     """
     @annotate(
         num_legal_actions=env.num_legal_actions,
-        num_possible_obs=env.num_possible_obs
+        num_possible_obs=env.num_possible_obs,
+        slow=env.slow
     )
     class NewEnv:
         def __init__(self, A, **kwargs):

@@ -3,7 +3,8 @@ from util import annotate
 def apply_handicap(env, handicap):
     @annotate(
         num_legal_actions=env.num_legal_actions * handicap.num_legal_actions,
-        num_possible_obs=env.num_possible_obs * handicap.num_possible_obs
+        num_possible_obs=env.num_possible_obs * handicap.num_possible_obs,
+        slow=env.slow or handicap.slow
     )
     class Handicapped:
         def __init__(self, A):

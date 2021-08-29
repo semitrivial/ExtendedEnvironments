@@ -71,17 +71,17 @@ def measure_agent(name, agent):
     print(f"Result: {name} got avg reward: {avg_reward}")
 
 agents = [
-    ['RandomAgent', RandomAgent],
-    ['ConstantAgent', ConstantAgent],
-    ['NaiveLearner1', NaiveLearner1],
-    ['NaiveLearner2', NaiveLearner2],
-    ['NaiveLearner3', NaiveLearner3],
-    ['NaiveLearner4', NaiveLearner4],
-    ['Q_learner', Q_learner],
-    ['Recurrent Q', recurrent_Q],
+    # ['RandomAgent', RandomAgent],
+    # ['ConstantAgent', ConstantAgent],
+    # ['NaiveLearner1', NaiveLearner1],
+    # ['NaiveLearner2', NaiveLearner2],
+    # ['NaiveLearner3', NaiveLearner3],
+    # ['NaiveLearner4', NaiveLearner4],
+    # ['Q_learner', Q_learner],
+    # ['Recurrent Q', recurrent_Q],
     ['DQN', DQN_learner],
-    ['PPO', PPO_learner],
-    ['A2C', A2C_learner],
+    # ['PPO', PPO_learner],
+    # ['A2C', A2C_learner],
 ]
 
 # Measure all the above-listed agents and their reality-checks
