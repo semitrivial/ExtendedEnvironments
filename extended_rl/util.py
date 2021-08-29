@@ -5,12 +5,7 @@ def run_environment(env, A, num_steps):
     step = 0
     results = {'total_reward': 0.0}
 
-    @annotate(
-        num_legal_actions=env.num_legal_actions,
-        num_possible_obs=env.num_possible_obs
-    )
-    class A_with_meta(A):
-        pass
+    A_with_meta = copy_with_meta(A, meta_src=env)
 
     env = env(A_with_meta)
 
@@ -41,6 +36,18 @@ def annotate(
         return env_class
 
     return apply_annotations
+
+def copy_with_meta(class_to_copy, meta_src):
+    @annotate(
+        num_legal_actions=meta_src.num_legal_actions,
+        num_possible_obs=meta_src.num_possible_obs
+    )
+    class result(class_to_copy):
+        pass
+
+    result.__name__ = class_to_copy.__name__
+    result.__qualname__ = class_to_copy.__qualname__
+    return result
 
 def memoize(f):
     """

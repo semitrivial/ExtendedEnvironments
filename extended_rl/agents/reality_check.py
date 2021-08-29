@@ -1,15 +1,10 @@
-from util import annotate
+from util import copy_with_meta
 
 
 def reality_check(A0):
   class A0_RC:
     def __init__(self, **kwargs):
-      @annotate(
-        num_legal_actions = self.num_legal_actions,
-        num_possible_obs = self.num_possible_obs
-      )
-      class A0_with_meta(A0):
-        pass
+      A0_with_meta = copy_with_meta(A0, meta_src=self)
 
       self.underlying = A0_with_meta(**kwargs)
       self.first_action = None
@@ -37,4 +32,6 @@ def reality_check(A0):
             raise ValueError('Realitycheck agent trained before ever acting')
           self.found_unexpected_action = True
 
+  A0_RC.__name__ = f'reality_check({A0.__name__})'
+  A0_RC.__qualname__ = A0_RC.__name__
   return A0_RC

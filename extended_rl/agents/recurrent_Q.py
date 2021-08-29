@@ -1,15 +1,10 @@
 from agents.Q import Q_learner
-from util import annotate
+from util import copy_with_meta
 
 
 class recurrent_Q:
     def __init__(self, n=9, epsilon=0.9, alpha=0.1, gamma=0.9):
-        @annotate(
-            num_legal_actions=self.num_legal_actions,
-            num_possible_obs=self.num_possible_obs
-        )
-        class Q_learner_with_meta(Q_learner):
-            pass
+        Q_learner_with_meta=copy_with_meta(Q_learner, meta_src=self)
 
         self.underlying = Q_learner_with_meta(epsilon, alpha, gamma)
         self.history = tuple()
