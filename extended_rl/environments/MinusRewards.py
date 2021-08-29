@@ -21,4 +21,6 @@ def minus_rewards(env):
             reward, obs = self.underlying.step(action)
             return (-reward, obs)
 
+    NewEnv.__name__ = f'minus_rewards({env.__name__})'
+    NewEnv.__qualname__ = NewEnv.__name__
     return NewEnv

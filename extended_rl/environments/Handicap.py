@@ -50,6 +50,9 @@ def apply_handicap(env, handicap):
             obs_pair = encode_pair(obs, obs_h, self.num_handicap_obs-1)
             return (reward, obs_pair)
 
+    name = f'apply_handicap({env.__name__},{handicap.__name__})'
+    Handicapped.__name__ = name
+    Handicapped.__qualname__ = name
     return Handicapped
 
 def encode_pair(a, b, b_max):
