@@ -62,3 +62,8 @@ def compose_envs(main_env, sub_env):
             self.curr_obs = obs
             reward = self.sub_env_reward_mod(reward)
             return (reward, obs)
+
+    name = f"compose_envs({main_env},{sub_env})"
+    Composed.__name__ = name
+    Composed.__qualname__ = name
+    return Composed
