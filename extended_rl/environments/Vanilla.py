@@ -16,14 +16,14 @@ class SimpleTrap:
         self.curr_obs = 1
         return self.curr_obs
     def step(self, action):
-        if self.curr_obs == 0:
+        if self.curr_obs == SUB_ENV_SIGNAL:
             self.curr_obs = 1
             reward, obs = 0, self.curr_obs
             return (reward, obs)
 
         if action == self.curr_obs:
             if self.curr_obs == self.num_possible_obs-1:
-                self.curr_obs = 0
+                self.curr_obs = SUB_ENV_SIGNAL
                 reward = 0
                 return (reward, self.curr_obs)
             else:
@@ -53,14 +53,14 @@ class NoPainNoGain:
         self.curr_obs = 1
         return self.curr_obs
     def step(self, action):
-        if self.curr_obs == 0:
+        if self.curr_obs == SUB_ENV_SIGNAL:
             self.curr_obs = 1
             reward, obs = 0, self.curr_obs
             return (reward, obs)
 
         if action == self.curr_obs:
             if self.curr_obs == self.num_possible_obs-1:
-                self.curr_obs = 0
+                self.curr_obs = SUB_ENV_SIGNAL
             else:
                 self.curr_obs += 1
 
