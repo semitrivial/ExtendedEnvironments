@@ -2,6 +2,7 @@ import numpy as np
 from stable_baselines3 import DQN as DQN_factory
 
 from agents.SBL3_util import DummyGymEnv, create_sample_monkeypatch
+from agents.SBL3_util import dummy_logger
 
 
 NSTEPS=4  # SBL3's default train_freq for DQN
@@ -16,6 +17,7 @@ class DQN_learner:
             learning_starts=1,
             **kwargs
         )
+        self.worker.set_logger(dummy_logger)
         self.worker_sample = self.worker._sample_action
         self.actions = []
         self.history = []

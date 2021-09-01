@@ -1,12 +1,6 @@
 import numpy as np
 from gym import Env, spaces
-import stable_baselines3.common.utils as SBL3_utils
 
-# Override SBL3's wasteful logging mechanism
-def configure_logger_monkeypatch(*args, **kwargs):
-    import pdb; pdb.set_trace()
-    return
-SBL3_utils.configure_logger = configure_logger_monkeypatch
 
 class DummyGymEnv(Env):
     def __init__(self):
@@ -53,3 +47,9 @@ def create_sample_monkeypatch(A, n_steps):
         return action, action
 
     return sample_monkeypatch
+
+class DummyLogger:
+    def record(self, *args, **kwargs):
+        pass
+
+dummy_logger = DummyLogger()
