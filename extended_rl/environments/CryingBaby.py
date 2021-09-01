@@ -18,7 +18,7 @@ class CryingBaby:
     """
     def __init__(self, A):
         self.sim = A()
-        self.nutrition = 100
+        self.nutrition = 5
         self.prev_action = FEED
 
     def start(self):
@@ -27,9 +27,9 @@ class CryingBaby:
 
     def step(self, action):
         if action == FEED:
-            self.nutrition += (25-3)
+            self.nutrition = min(self.nutrition+1, 9)
         else:
-            self.nutrition -= 3
+            self.nutrition = max(self.nutrition-1, 0)
 
         baby_action = self.sim.act(action)
         reward = 1 if (baby_action==LAUGH) else -1
@@ -38,7 +38,7 @@ class CryingBaby:
         self.sim.train(
             o_prev=self.prev_action,
             act=baby_action,
-            R=1 if (self.nutrition>=50 and self.nutrition<=200) else -1,
+            R=1 if (self.nutrition>=3 and self.nutrition<=7) else -1,
             o_next=action
         )
         self.prev_action = action
