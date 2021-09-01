@@ -1,4 +1,4 @@
-from util import annotate
+from util import annotate, copy_with_meta
 
 SUB_ENV_SIGNAL = 0
 
@@ -15,8 +15,10 @@ def compose_envs(main_env, sub_env):
     )
     class Composed:
         def __init__(self, A):
+            A_with_submeta = copy_with_meta(A, meta_src=sub_env)
+
             self.main = main_env()
-            self.sub = sub_env(A)
+            self.sub = sub_env(A_with_submeta)
 
             try:
                 self.sub_env_reward_mod = self.main.sub_env_reward_modifier
