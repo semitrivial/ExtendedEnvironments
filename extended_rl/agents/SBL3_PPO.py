@@ -1,6 +1,7 @@
 from stable_baselines3 import PPO as PPO_factory
 
 from agents.SBL3_util import DummyGymEnv, create_fwd_monkeypatch
+from agents.SBL3_util import dummy_logger
 
 
 NSTEPS=2048  # SBL3's default n_steps for PPO
@@ -10,6 +11,7 @@ class PPO_learner:
         self.gym = DummyGymEnv()
         self.gym.set_meta(self.num_legal_actions, self.num_possible_obs)
         self.worker = PPO_factory('MlpPolicy', self.gym, **kwargs)
+        self.worker.set_logger(dummy_logger)
         self.worker_forward = self.worker.policy.forward
         self.actions = []
         self.history = []
