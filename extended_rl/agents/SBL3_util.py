@@ -49,7 +49,11 @@ def create_sample_monkeypatch(A, n_steps):
     return sample_monkeypatch
 
 class DummyLogger:
-    def record(self, *args, **kwargs):
+    @staticmethod
+    def record(*args, **kwargs):
+        pass
+    @staticmethod
+    def dump(*args, **kwargs):
         pass
 
 dummy_logger = DummyLogger()
