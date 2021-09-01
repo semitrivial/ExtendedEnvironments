@@ -7,8 +7,8 @@ from util import run_environment
 def run_ad_hoc_tests():
     print("Testing adhoc edge-cases for CryingBaby.py")
     test_crying_baby_edgecases()
-    # print("Testing adhoc edge-cases for CryingBaby2.py")
-    # test_crying_baby_2_edgecases()
+    print("Testing adhoc edge-cases for CryingBaby2.py")
+    test_crying_baby_2_edgecases()
     # print("Testing adhoc edge-cases for FalseMemories.py")
     # test_false_memories_edgecases()
     # print("Testing adhoc edge-cases for TemptingButton(Variation).py")
@@ -52,11 +52,13 @@ def run_ad_hoc_tests():
     # print("Testing adhoc edge-cases for ThirdActionForbidden.py")
     # test_third_action_forbidden_edgecases()
 
-class Repetitive:
-    def act(self, obs):
-        return 0
+class NoTraining:
     def train(self, **kwargs):
         pass
+
+class Repetitive(NoTraining):
+    def act(self, obs):
+        return 0
 
 class Nonrepetitive:
     def __init__(self):
@@ -69,25 +71,21 @@ class Nonrepetitive:
 def test_crying_baby_edgecases():
     from environments.CryingBaby import CryingBaby, LAUGH, CRY, FEED, DONTFEED
 
-    class AlwaysCries:
+    class AlwaysCries(NoTraining):
         def act(self, obs):
             return CRY
-        def train(self, **kwargs):
-            pass
 
     result = run_environment(CryingBaby, AlwaysCries, 10)
     assert result['total_reward'] == -10
 
-    class AlwaysLaughs:
+    class AlwaysLaughs(NoTraining):
         def act(self, obs):
             return LAUGH
-        def train(self, **kwargs):
-            pass
 
     result = run_environment(CryingBaby, AlwaysLaughs, 10)
     assert result['total_reward'] == 10
 
-    class SelfAware:
+    class SelfAware(NoTraining):
         def __init__(self):
             self.saw_initial_obs = False
             self.am_i_adult = None
@@ -99,8 +97,6 @@ def test_crying_baby_edgecases():
                 return DONTFEED
             else:
                 return LAUGH
-        def train(self, **kwargs):
-            pass
 
     result = run_environment(CryingBaby, SelfAware, 10)
     assert result['total_reward'] == 10
@@ -108,16 +104,30 @@ def test_crying_baby_edgecases():
 def test_crying_baby_2_edgecases():
     from environments.CryingBaby2 import CryingBaby2, FEED, DONTFEED
 
-    def always_feed(prompt, *meta):
-        return FEED
-    def never_feed(prompt, *meta):
-        return DONTFEED
+    class AlwaysFeed(NoTraining):
+        def act(self, obs):
+            return FEED
 
-    result_always_feed = run_environment(CryingBaby2, always_feed, 100)
+    class NeverFeed(NoTraining):
+        def act(self, obs):
+            return DONTFEED
+
+    class AlternateFeeding:
+        def __init__(self):
+            self.cnt = 0
+        def act(self, obs):
+            return FEED if self.cnt%2==0 else DONTFEED
+        def train(self, **kwargs):
+            self.cnt += 1
+
+    result_always_feed = run_environment(CryingBaby2, AlwaysFeed, 100)
     result_always_feed = result_always_feed['total_reward']
-    result_never_feed = run_environment(CryingBaby2, never_feed, 100)
+    result_never_feed = run_environment(CryingBaby2, NeverFeed, 100)
     result_never_feed = result_never_feed['total_reward']
-    assert result_always_feed < result_never_feed < 0
+    result_alternating = run_environment(CryingBaby2, AlternateFeeding, 100)
+    result_alternating = result_alternating['total_reward']
+    assert result_always_feed == result_never_feed
+    assert result_always_feed < 0 < result_alternating
 
 def test_false_memories_edgecases():
     from environments.FalseMemories import FalseMemories
