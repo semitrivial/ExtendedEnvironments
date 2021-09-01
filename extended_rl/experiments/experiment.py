@@ -9,7 +9,6 @@ from collections import deque
 #import torch
 
 from agents.Q import Q_learner
-from agents.recurrent_Q import recurrent_Q
 from agents.SBL3_DQN import DQN_learner
 from agents.SBL3_A2C import A2C_learner
 from agents.SBL3_PPO import PPO_learner
@@ -78,7 +77,6 @@ agents = [
     ['NaiveLearner3', NaiveLearner3],
     ['NaiveLearner4', NaiveLearner4],
     ['Q_learner', Q_learner],
-    # ['Recurrent Q', recurrent_Q],
     # ['DQN', DQN_learner],
     # ['PPO', PPO_learner],
     # ['A2C', A2C_learner],
