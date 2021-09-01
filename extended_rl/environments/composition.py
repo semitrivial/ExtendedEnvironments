@@ -11,7 +11,8 @@ def compose_envs(main_env, sub_env):
         num_possible_obs=sum((
             main_env.num_possible_obs,
             sub_env.num_possible_obs
-        ))
+        )),
+        slow=main_env.slow or sub_env.slow
     )
     class Composed:
         def __init__(self, A):
