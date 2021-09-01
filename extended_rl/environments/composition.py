@@ -64,7 +64,7 @@ def compose_envs(main_env, sub_env):
             reward = self.sub_env_reward_mod(reward)
             return (reward, SUB_ENV_SIGNAL)
 
-    name = f"compose_envs({main_env},{sub_env})"
+    name = f"compose_envs({main_env.__name__},{sub_env.__name__})"
     Composed.__name__ = name
     Composed.__qualname__ = name
     return Composed
