@@ -1,6 +1,8 @@
 from util import annotate
 
 number_rewards_to_remember = 5
+sims_dicts = {}
+simcount = [0]
 
 @annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class LimitedMemory:
@@ -15,7 +17,7 @@ class LimitedMemory:
     def __init__(self, A):
         self.A = A
         self.transitionbuf = tuple()
-        self.sims = {}
+        self.sims = sims_dicts.setdefault(A, {})
 
     def start(self):
         obs = 0
@@ -25,6 +27,8 @@ class LimitedMemory:
         if self.transitionbuf in self.sims:
             sim = self.sims[self.transitionbuf]
         else:
+            simcount[0] += 1
+            print(f"Generating new sim {simcount[0]} {self.transitionbuf}")
             sim = self.A()
             for transition in self.transitionbuf:
                 act, R = transition
