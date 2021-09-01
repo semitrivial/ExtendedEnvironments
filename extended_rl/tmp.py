@@ -22,7 +22,7 @@ from environments.composition import compose_envs
 from environments.Vanilla import SimplePath
 
 A = Q_learner
-env = compose_envs(SimplePath, IgnoreRewards)
+env = compose_envs(SimplePath, IgnoreObservations)
 n_steps = 100000
 
 print("Without reality_check:")

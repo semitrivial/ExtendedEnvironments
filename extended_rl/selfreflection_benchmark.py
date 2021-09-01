@@ -1,6 +1,6 @@
 from extended_rl.environments.EnvironmentLists import environments
 from extended_rl.environments.MinusRewards import minus_rewards
-from extended_rl.environments.Handicap import compose_envs
+from extended_rl.environments.composition import compose_envs
 from extended_rl.environments.Vanilla import vanilla_envs
 from extended_rl.util import run_environment
 
