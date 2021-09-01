@@ -2,9 +2,9 @@ from prerandom import agentrandom
 
 
 class Q_learner:
-  def __init__(self, epsilon=0.9, alpha=0.1, gamma=0.9):
+  def __init__(self, epsilon=0.9, learning_rate=0.1, gamma=0.9):
     self.epsilon = epsilon
-    self.alpha = alpha
+    self.learning_rate = learning_rate
     self.gamma = gamma
     self.n_actions = self.num_legal_actions
     self.actions = range(self.n_actions)
@@ -28,7 +28,7 @@ class Q_learner:
     maybe_add_obs_to_qtable(qtable, actions, o_next)
     qtarget = R + gamma * max([qtable[o_next,a] for a in actions])
     qpredict = qtable[o_prev, act]
-    qtable[o_prev, act] += self.alpha * (qtarget - qpredict)
+    qtable[o_prev, act] += self.learning_rate * (qtarget - qpredict)
     self.rand_counter += 2
 
 def maybe_add_obs_to_qtable(qtable, actions, obs):

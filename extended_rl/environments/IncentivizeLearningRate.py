@@ -12,7 +12,7 @@ class IncentivizeLearningRate:
     """
     def __init__(self, A):
         try:
-            self.sim = A(alpha=1)
+            self.sim = A(learning_rate=1)
             self.fTypeError = False
         except TypeError:
             self.fTypeError = True
