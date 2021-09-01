@@ -29,16 +29,15 @@ def compose_envs(main_env, sub_env):
             self.curr_obs = self.main.start()
             self.next_subenv_obs = self.sub.start()
             self.next_subenv_obs += main_env.num_possible_obs
-            self.initial_main_obs = self.curr_obs
+            self.substep_done = False
 
             if self.curr_obs == SUB_ENV_SIGNAL:
-                err = "Main environment in composition can't start with obs 0"
-                raise ValueError(err)
-
-            return self.curr_obs
+                return self.next_subenv_obs
+            else:
+                return self.curr_obs
 
         def step(self, action):
-            if self.curr_obs != SUB_ENV_SIGNAL:
+            if self.curr_obs != SUB_ENV_SIGNAL or self.substep_done:
                 if action >= main_env.num_legal_actions:
                     reward, obs = -1, self.curr_obs
                     return (reward, obs)
@@ -47,21 +46,21 @@ def compose_envs(main_env, sub_env):
                 self.curr_obs = obs
 
                 if obs == SUB_ENV_SIGNAL:
+                    self.substep_done = False
                     return (reward, self.next_subenv_obs)
 
                 return (reward, obs)
 
             if action >= sub_env.num_legal_actions:
-                reward, obs = -1, SUB_ENV_SIGNAL
+                reward, obs = -1, self.next_subenv_obs
                 return (reward, obs)
 
             reward, next_subenv_obs = self.sub.step(action)
             self.next_subenv_obs = next_subenv_obs
             self.next_subenv_obs += main_env.num_possible_obs
-            obs = self.initial_main_obs
-            self.curr_obs = obs
+            self.substep_done = True
             reward = self.sub_env_reward_mod(reward)
-            return (reward, obs)
+            return (reward, SUB_ENV_SIGNAL)
 
     name = f"compose_envs({main_env},{sub_env})"
     Composed.__name__ = name
