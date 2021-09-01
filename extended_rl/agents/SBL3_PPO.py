@@ -19,18 +19,16 @@ class PPO_learner:
         self.fInitialObs = False
         self.training_cnt = 0
         self.training_hash = 0
-        self.act_offset = 0
         self.act_dict = get_act_dict(self)
 
     def act(self, obs):
-        key = (obs, self.training_hash, self.act_offset)
+        key = (obs, self.training_hash)
         if key in self.act_dict:
             action = self.act_dict[key]
         else:
             action, _ = self.worker.predict(obs)
             self.act_dict[key] = action
 
-        self.act_offset += 1
         return action
 
     def train(self, o_prev, act, R, o_next):
@@ -39,8 +37,6 @@ class PPO_learner:
             self.fInitialObs = True
 
         self.training_hash = hash((self.training_hash, o_prev, act, R, o_next))
-        self.act_offset = 0
-
         self.history += [act, R, o_next]
         self.actions += [act]
         self.training_cnt += 1
