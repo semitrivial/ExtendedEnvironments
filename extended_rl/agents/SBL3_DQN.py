@@ -2,7 +2,7 @@ import numpy as np
 from stable_baselines3 import DQN as DQN_factory
 
 from agents.SBL3_util import DummyGymEnv, create_sample_monkeypatch
-from agents.SBL3_util import dummy_logger
+from agents.SBL3_util import dummy_logger, get_act_dict
 
 
 NSTEPS=4  # SBL3's default train_freq for DQN
@@ -24,15 +24,29 @@ class DQN_learner:
         self.monkeypatch = create_sample_monkeypatch(self, NSTEPS)
         self.fInitialObs = False
         self.training_cnt = 0
+        self.training_hash = 0
+        self.act_offset = 0
+        self.act_dict = get_act_dict(self)
 
     def act(self, obs):
-        action, _ = self.worker.predict(np.int64(obs))
-        return int(action)
+        key = (obs, self.training_hash, self.act_offset)
+        if key in self.act_dict:
+            action = self.act_dict[key]
+        else:
+            action, _ = self.worker.predict(np.int64(obs))
+            action = int(action)
+            self.act_dict[key] = action
+
+        self.act_offset += 1
+        return action
 
     def train(self, o_prev, act, R, o_next):
         if not self.fInitialObs:
             self.gym.set_initial_obs(o_prev)
             self.fInitialObs = True
+
+        self.training_hash = hash((self.training_hash, o_prev, act, R, o_next))
+        self.act_offset = 0
 
         self.history += [act, R, o_next]
         self.actions += [act]
@@ -46,4 +60,4 @@ class DQN_learner:
             self.worker.learn(NSTEPS)
             self.worker._sample_action = self.worker_sample
             self.history = []
-            self.actions = []            
+            self.actions = []

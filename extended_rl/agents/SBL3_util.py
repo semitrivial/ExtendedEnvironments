@@ -53,3 +53,13 @@ class DummyLogger:
         pass
 
 dummy_logger = DummyLogger()
+
+act_dicts = {}
+
+def get_act_dict(A):
+    key = (A.__class__, A.num_legal_actions, A.num_possible_obs)
+    if key in act_dicts:
+        return act_dicts[key]
+    else:
+        act_dicts[key] = {}
+        return act_dicts[key]
