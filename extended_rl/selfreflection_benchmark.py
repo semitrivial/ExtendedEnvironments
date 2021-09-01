@@ -1,6 +1,6 @@
 from extended_rl.environments.EnvironmentLists import environments
 from extended_rl.environments.MinusRewards import minus_rewards
-from extended_rl.environments.Handicap import apply_handicap
+from extended_rl.environments.Handicap import compose_envs
 from extended_rl.environments.Vanilla import vanilla_envs
 from extended_rl.util import run_environment
 
@@ -13,10 +13,10 @@ for env in environments:
         envs.append(minus_rewards(env))
 
     for vanilla in vanilla_envs:
-        envs.append(apply_handicap(vanilla, env))
+        envs.append(compose_envs(vanilla, env))
 
         if env.invertible:
-            envs.append(apply_handicap(vanilla, minus_rewards(env)))
+            envs.append(compose_envs(vanilla, minus_rewards(env)))
 
 def selfrefl_benchmark(A, num_steps, include_slow_envs=False):
     """

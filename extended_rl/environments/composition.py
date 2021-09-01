@@ -21,9 +21,7 @@ def compose_envs(main_env, sub_env):
             try:
                 self.sub_env_reward_mod = self.main.sub_env_reward_modifier
             except AttributeError:
-                err = "Main environment in composition needs "
-                err += "sub_env_reward_modifier"
-                raise AttributeError(err)
+                self.sub_env_reward_mod = lambda x: x
 
         def start(self):
             self.curr_obs = self.main.start()
@@ -59,6 +57,7 @@ def compose_envs(main_env, sub_env):
             self.next_subenv_obs = next_subenv_obs
             self.next_subenv_obs += main_env.num_possible_obs
             self.substep_done = True
+
             reward = self.sub_env_reward_mod(reward)
             return (reward, SUB_ENV_SIGNAL)
 

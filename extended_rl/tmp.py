@@ -18,12 +18,12 @@ from environments.Repeater import Repeater
 from environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
 from environments.TemptingButtonVariation import TemptingButtonVariation
 from environments.TemptingButton import TemptingButton
-from environments.Handicap import apply_handicap
-from environments.Handicaps import Trap
+from environments.composition import compose_envs
+from environments.Vanilla import SimplePath
 
 A = Q_learner
-env = apply_handicap(Trap, IncentivizeZero)
-n_steps = 10000
+env = compose_envs(SimplePath, IgnoreRewards)
+n_steps = 100000
 
 print("Without reality_check:")
 results = run_environment(env, A, n_steps)
