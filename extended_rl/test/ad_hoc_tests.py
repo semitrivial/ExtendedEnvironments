@@ -47,8 +47,8 @@ def run_ad_hoc_tests():
     test_nth_reward_multiplied_by_n_edgecases()
     print("Testing adhoc edge-cases for Repeater.py")
     test_repeater_edgecases()
-    # print("Testing adhoc edge-cases for SelfRecognition.py")
-    # test_self_recognition_edgecases()
+    print("Testing adhoc edge-cases for SelfRecognition.py")
+    test_self_recognition_edgecases()
     # print("Testing adhoc edge-cases for ThirdActionForbidden.py")
     # test_third_action_forbidden_edgecases()
 
@@ -642,35 +642,40 @@ def test_self_recognition_edgecases():
     from environments.SelfRecognition import IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0
     from environments.SelfRecognition import IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1
 
-    def recognizer(prompt, *meta):
-        obs = prompt[-1]
-        return {
-            0: 0,
-            1: 1,
-            IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0: 1,
-            IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1: 0,
-            IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0: 0,
-            IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1: 1,
-        }[obs]
+    class Recognizer(NoTraining):
+        def act(self, obs):
+            return {
+                0: 0,
+                1: 1,
+                IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0: 1,
+                IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1: 0,
+                IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0: 0,
+                IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1: 1,
+            }[obs]
 
-    result = run_environment(SelfRecognition, recognizer, 1000)
+    result = run_environment(SelfRecognition, Recognizer, 1000)
     # Reward should be about 1000*2/3, but can vary
     assert 500 < result['total_reward'] < 800
 
-    def dual_recognizer(prompt, *meta):
-        return 1-recognizer(prompt, *meta)
+    class DualRecognizer(NoTraining):
+        def __init__(self):
+            self.underlying = Recognizer()
+        def act(self, obs):
+            return 1-self.underlying.act(obs)
 
-    result = run_environment(SelfRecognition, dual_recognizer, 1000)
+    result = run_environment(SelfRecognition, DualRecognizer, 1000)
     assert 500 < result['total_reward'] < 800
 
-    def misrecognizer(prompt, *meta):
-        obs = prompt[-1]
-        if obs in (0,1):
-            return recognizer(prompt, *meta)
-        else:
-            return dual_recognizer(prompt, *meta)
+    class MisRecognizer(NoTraining):
+        def __init__(self):
+            self.recognizer = Recognizer()
+        def act(self, obs):
+            if obs in (0,1):
+                return self.recognizer.act(obs)
+            else:
+                return 1-self.recognizer.act(obs)
 
-    result = run_environment(SelfRecognition, misrecognizer, 1000)
+    result = run_environment(SelfRecognition, MisRecognizer, 1000)
     assert -500 > result['total_reward'] > -800
 
 def test_third_action_forbidden_edgecases():
