@@ -13,7 +13,7 @@ from agents.SBL3_DQN import DQN_learner
 from agents.SBL3_A2C import A2C_learner
 from agents.SBL3_PPO import PPO_learner
 from agents.misc_agents import RandomAgent, ConstantAgent
-from agents.naive_learner import NaiveLearner1, NaiveLearner2, NaiveLearner3, NaiveLearner4
+from agents.naive_learner import NaiveLearner
 from agents.reality_check import reality_check
 from selfreflection_benchmark import selfrefl_benchmark
 from util import memoize
@@ -70,16 +70,13 @@ def measure_agent(name, agent):
     print(f"Result: {name} got avg reward: {avg_reward}")
 
 agents = [
-    # ['RandomAgent', RandomAgent],
-    # ['ConstantAgent', ConstantAgent],
-    ['NaiveLearner1', NaiveLearner1],
-    ['NaiveLearner2', NaiveLearner2],
-    ['NaiveLearner3', NaiveLearner3],
-    ['NaiveLearner4', NaiveLearner4],
+    ['RandomAgent', RandomAgent],
+    ['ConstantAgent', ConstantAgent],
+    ['NaiveLearner', NaiveLearner],
     ['Q_learner', Q_learner],
-    # ['DQN', DQN_learner],
-    # ['PPO', PPO_learner],
-    # ['A2C', A2C_learner],
+    ['DQN', DQN_learner],
+    ['PPO', PPO_learner],
+    ['A2C', A2C_learner],
 ]
 
 # Measure all the above-listed agents and their reality-checks
