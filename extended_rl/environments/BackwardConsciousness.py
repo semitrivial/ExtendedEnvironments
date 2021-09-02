@@ -1,7 +1,7 @@
 from prerandom import envrandom
 from util import annotate
 
-@annotate(num_legal_actions=2, num_possible_obs=2, invertible=True)
+@annotate(num_legal_actions=2, num_possible_obs=2)
 class BackwardConsciousness:
     """
     Environment intended to incentivize subjective experience of

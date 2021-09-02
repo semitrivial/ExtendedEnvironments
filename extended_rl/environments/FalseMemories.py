@@ -1,6 +1,6 @@
 from util import annotate
 
-@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class FalseMemories:
     """
     Environment which is intended to incentivize the agent to subjectively

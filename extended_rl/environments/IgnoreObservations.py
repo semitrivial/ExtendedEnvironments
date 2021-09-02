@@ -1,7 +1,7 @@
 from prerandom import envrandom
 from util import annotate
 
-@annotate(num_legal_actions=2, num_possible_obs=5, invertible=True)
+@annotate(num_legal_actions=2, num_possible_obs=5)
 class IgnoreObservations:
     """
     Environment which incentivizes the agent to ignore past observations.

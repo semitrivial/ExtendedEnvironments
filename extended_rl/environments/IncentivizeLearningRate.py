@@ -1,6 +1,6 @@
 from util import annotate
 
-@annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
+@annotate(num_legal_actions=2, num_possible_obs=1)
 class IncentivizeLearningRate:
     """
     Environment which incentivizes the agent to learn with learning_rate=1.
