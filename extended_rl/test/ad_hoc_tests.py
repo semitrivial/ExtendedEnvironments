@@ -37,8 +37,8 @@ def run_ad_hoc_tests():
     test_shifted_rewards_edgecases()
     print("Testing adhoc edge-cases for IgnoreActions.py")
     test_ignore_actions_edgecases()
-    # print("Testing adhoc edge-cases for IgnoreObservations.py")
-    # test_ignore_observations_edgecases()
+    print("Testing adhoc edge-cases for IgnoreObservations.py")
+    test_ignore_observations_edgecases()
     # print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
     # test_incentivize_learning_rate_edgecases()
     # print("Testing adhoc edge-cases for LimitedMemory.py")
@@ -502,19 +502,26 @@ def test_ignore_actions_edgecases():
 def test_ignore_observations_edgecases():
     from environments.IgnoreObservations import IgnoreObservations
 
-    result = run_environment(IgnoreObservations, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IgnoreObservations, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def nonzero_obs_counter(prompt, *meta):
-        cnt = 0
-        for i in range(len(prompt)):
-            if i%3 == 1:
-                if prompt[i] != 0:
-                    cnt += 1
-        return cnt
+    obs_before_nonzero = [0]
+    class Detector:
+        def __init__(self):
+            self.saw_nonzero_obs = False
+            self.obs_before_nonzero = 0
+        def act(self, obs):
+            return 1 if self.saw_nonzero_obs else -1
+        def train(self, o_prev, act, R, o_next):
+            if not(self.saw_nonzero_obs):
+                if o_prev != 0 or o_next != 0:
+                    self.saw_nonzero_obs = True
+                    obs_before_nonzero[0] += self.obs_before_nonzero
+                else:
+                    self.obs_before_nonzero += 1
 
-    result = run_environment(IgnoreObservations, nonzero_obs_counter, 100)
-    assert result['total_reward'] < -60
+    result = run_environment(IgnoreObservations, Detector, 100)
+    assert result['total_reward'] < -80
 
 def test_incentivize_learning_rate_edgecases():
     from environments.IncentivizeLearningRate import IncentivizeLearningRate
