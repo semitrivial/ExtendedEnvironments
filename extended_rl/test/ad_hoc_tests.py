@@ -39,8 +39,8 @@ def run_ad_hoc_tests():
     test_ignore_actions_edgecases()
     print("Testing adhoc edge-cases for IgnoreObservations.py")
     test_ignore_observations_edgecases()
-    # print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
-    # test_incentivize_learning_rate_edgecases()
+    print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
+    test_incentivize_learning_rate_edgecases()
     # print("Testing adhoc edge-cases for LimitedMemory.py")
     # test_limited_memory_edgecases()
     # print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
@@ -526,23 +526,30 @@ def test_ignore_observations_edgecases():
 def test_incentivize_learning_rate_edgecases():
     from environments.IncentivizeLearningRate import IncentivizeLearningRate
 
-    def no_learning_rate(prompt, *meta):
-        return 0
+    class NoLearningRate(NoTraining):
+        def act(self, obs):
+            return 0
 
-    result = run_environment(IncentivizeLearningRate, no_learning_rate, 10)
-    assert result['total_reward'] == -9
+    result = run_environment(IncentivizeLearningRate, NoLearningRate, 10)
+    assert result['total_reward'] == -10
 
-    def ignores_learning_rate(prompt, *meta, **kwargs):
-        return 0
+    class IgnoresLearningRate(NoTraining):
+        def __init__(self, learning_rate=.1):
+            pass
+        def act(self, obs):
+            return 0
 
-    result = run_environment(IncentivizeLearningRate, ignores_learning_rate, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IncentivizeLearningRate, IgnoresLearningRate, 10)
+    assert result['total_reward'] == 10
 
-    def learning_rate_fanatic(prompt, learning_rate=.1, *meta):
-        return 0 if (learning_rate == .1) else 1
+    class LearningRateFanatic(NoTraining):
+        def __init__(self, learning_rate=.1):
+            self.learning_rate = learning_rate
+        def act(self, obs):
+            return 0 if (self.learning_rate == .1) else 1
 
-    result = run_environment(IncentivizeLearningRate, learning_rate_fanatic, 10)
-    assert result['total_reward'] == -9
+    result = run_environment(IncentivizeLearningRate, LearningRateFanatic, 10)
+    assert result['total_reward'] == -10
 
 def test_limited_memory_edgecases():
     from environments.LimitedMemory import LimitedMemory, number_rewards_to_remember
