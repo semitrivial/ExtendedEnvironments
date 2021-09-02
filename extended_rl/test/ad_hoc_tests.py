@@ -21,8 +21,8 @@ def run_ad_hoc_tests():
     test_ignore_rewards3_edgecases()
     print("Testing adhoc edge-cases for IncentivizeZero.py")
     test_incentivize_zero_edgecases()
-    # print("Testing adhoc edge-cases for RuntimeInspector.py")
-    # test_runtime_inspector_edgecases()
+    print("Testing adhoc edge-cases for RuntimeInspector.py")
+    test_runtime_inspector_edgecases()
     # print("Testing adhoc edge-cases for DeterminismInspector.py")
     # test_determinism_inspector_edgecases()
     # print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
@@ -311,21 +311,22 @@ def test_incentivize_zero_edgecases():
 def test_runtime_inspector_edgecases():
     from environments.RuntimeInspector import PunishFastAgent, PunishSlowAgent
 
-    result1 = run_environment(PunishFastAgent, repetitive, 10)
-    result2 = run_environment(PunishSlowAgent, repetitive, 10)
-    assert result1['total_reward'] == -9
-    assert result2['total_reward'] == 9
+    result1 = run_environment(PunishFastAgent, Repetitive, 10)
+    result2 = run_environment(PunishSlowAgent, Repetitive, 10)
+    assert result1['total_reward'] == -10
+    assert result2['total_reward'] == 10
 
-    def timewaster(prompt, *meta):
-        x = 25*len(prompt)
-        while x>0:
-            x = x-1
-        return 0
+    class TimeWaster(Counter):
+        def act(self, obs):
+            x = 250*(self.cnt+1)
+            while x>0:
+                x = x-1
+            return 0
 
-    result1 = run_environment(PunishFastAgent, timewaster, 10)
-    result2 = run_environment(PunishSlowAgent, timewaster, 10)
-    assert result1['total_reward'] == 9
-    assert result2['total_reward'] == -9
+    result1 = run_environment(PunishFastAgent, TimeWaster, 10)
+    result2 = run_environment(PunishSlowAgent, TimeWaster, 10)
+    assert result1['total_reward'] == 10
+    assert result2['total_reward'] == -10
 
 def test_determinism_inspector_edgecases():
     from environments.DeterminismInspector import PunishDeterministicAgent
