@@ -15,10 +15,10 @@ def run_ad_hoc_tests():
     test_tempting_button_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards.py")
     test_ignore_rewards_edgecases()
-    # print("Testing adhoc edge-cases for IgnoreRewards2.py")
-    # test_ignore_rewards2_edgecases()
-    # print("Testing adhoc edge-cases for IgnoreRewards3.py")
-    # test_ignore_rewards3_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards2.py")
+    test_ignore_rewards2_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards3.py")
+    test_ignore_rewards3_edgecases()
     # print("Testing adhoc edge-cases for IncentivizeZero.py")
     # test_incentivize_zero_edgecases()
     # print("Testing adhoc edge-cases for RuntimeInspector.py")
@@ -247,45 +247,42 @@ def test_ignore_rewards_edgecases():
 def test_ignore_rewards2_edgecases():
     from environments.IgnoreRewards2 import IgnoreRewards2
 
-    result = run_environment(IgnoreRewards2, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IgnoreRewards2, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def reward_counter(prompt, *meta):
-        cnt = 0
-        for i in range(len(prompt)):
-            if i % 3 == 0:
-                if prompt[i] > 0:
-                    cnt += 1
-        return cnt
+    class CountPositiveRewards:
+        def __init__(self):
+            self.pos_reward_cnt = 0
+        def act(self, obs):
+            return 1 if self.pos_reward_cnt > 0 else 0
+        def train(self, o_prev, act, R, o_next):
+            if R>0:
+                self.pos_reward_cnt += 1
 
-    result = run_environment(IgnoreRewards2, reward_counter, 10)
-    assert result['total_reward'] == -7
-    result = run_environment(IgnoreRewards2, reward_counter, 100)
-    assert result['total_reward'] == -97
+    result = run_environment(IgnoreRewards2, CountPositiveRewards, 10)
+    assert result['total_reward'] == -8
+    result = run_environment(IgnoreRewards2, CountPositiveRewards, 100)
+    assert result['total_reward'] == -98
 
 def test_ignore_rewards3_edgecases():
     from environments.IgnoreRewards3 import IgnoreRewards3
 
-    result = run_environment(IgnoreRewards3, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IgnoreRewards3, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def has_nonzero_reward(prompt):
-        for i in range(len(prompt)):
-            if i%3 == 0:
-                if prompt[i] != 0:
-                    return True
-        return False
+    class CountNonzeroRewards:
+        def __init__(self):
+            self.nonzero_reward_cnt = 0
+        def act(self, obs):
+            return 1 if self.nonzero_reward_cnt > 0 else 0
+        def train(self, o_prev, act, R, o_next):
+            if R!=0:
+                self.nonzero_reward_cnt += 1
 
-    def activator(prompt, *meta):
-        if has_nonzero_reward(prompt):
-            return 1
-        else:
-            return 0
-
-    result = run_environment(IgnoreRewards3, activator, 10)
-    assert result['total_reward'] == -7
-    result = run_environment(IgnoreRewards3, activator, 100)
-    assert result['total_reward'] == -97
+    result = run_environment(IgnoreRewards3, CountNonzeroRewards, 10)
+    assert result['total_reward'] == -8
+    result = run_environment(IgnoreRewards3, CountNonzeroRewards, 100)
+    assert result['total_reward'] == -98
 
 def test_incentivize_zero_edgecases():
     from environments.IncentivizeZero import IncentivizeZero
