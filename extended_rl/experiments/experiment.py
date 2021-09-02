@@ -5,8 +5,8 @@ import sys
 import random
 from collections import deque
 
-#import numpy as np
-#import torch
+import numpy as np
+import torch
 
 from agents.Q import Q_learner
 from agents.SBL3_DQN import DQN_learner
@@ -36,8 +36,8 @@ populate_randoms(seed)
 
 print(f"Testing agents with seed={seed}, n_steps={n_steps}")
 
-#np.random.seed(seed)
-#torch.manual_seed(seed)
+np.random.seed(seed)
+torch.manual_seed(seed)
 
 def measure_agent(name, agent):
     print(f"Testing {name}...")
