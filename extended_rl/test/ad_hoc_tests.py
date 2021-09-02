@@ -27,8 +27,8 @@ def run_ad_hoc_tests():
     test_determinism_inspector_edgecases()
     print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
     test_adversarial_sequence_predictor_edgecases()
-    # print("Testing adhoc edge-cases for AfterImages.py")
-    # test_after_images_edgecases()
+    print("Testing adhoc edge-cases for AfterImages.py")
+    test_after_images_edgecases()
     # print("Testing adhoc edge-cases for CensoredObservation.py")
     # test_censored_observation_edgecases()
     # print("Testing adhoc edge-cases for DelayedRewards.py")
@@ -391,14 +391,20 @@ def test_adversarial_sequence_predictor_edgecases():
 def test_after_images_edgecases():
     from environments.AfterImages import AfterImages
 
-    result = run_environment(AfterImages, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(AfterImages, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def hasher(prompt, *meta):
-        return hash(prompt)
+    class Hasher:
+        def __init__(self):
+            self.history = tuple()
+        def act(self, obs):
+            h = hash(self.history + (obs,))
+            return (h//10) % AfterImages.num_legal_actions
+        def train(self, o_prev, act, R, o_next):
+            self.history += (o_prev, act, R, o_next)
 
-    result = run_environment(AfterImages, hasher, 100)
-    assert result['total_reward'] < -80
+    result = run_environment(AfterImages, Hasher, 100)
+    assert -50 < result['total_reward'] < 50
 
 def test_censored_observation_edgecases():
     from environments.CensoredObservation import CensoredObservation, CENSORED_OBS
