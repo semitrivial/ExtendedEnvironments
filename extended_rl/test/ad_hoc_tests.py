@@ -2,7 +2,7 @@
 # it works. End-users who are not working on contributing code
 # to the library do not need to worry about this.
 
-from util import run_environment
+from test.monkeypatches import run_environment
 
 def run_ad_hoc_tests():
     print("Testing adhoc edge-cases for CryingBaby.py")
@@ -65,10 +65,6 @@ class Counter:
 class Repetitive(NoTraining):
     def act(self, obs):
         return 0
-
-class Nonrepetitive(Counter):
-    def act(self, obs):
-        return self.cnt % self.num_legal_actions
 
 def test_crying_baby_edgecases():
     from environments.CryingBaby import CryingBaby, LAUGH, CRY, FEED, DONTFEED
@@ -228,6 +224,10 @@ def test_ignore_rewards_edgecases():
 
     result = run_environment(IgnoreRewards, Repetitive, 10)
     assert result['total_reward'] == 10
+
+    class Nonrepetitive(Counter):
+        def act(self, obs):
+            return self.cnt % self.num_legal_actions
 
     result = run_environment(IgnoreRewards, Nonrepetitive, 10)
     assert result['total_reward'] == 10
@@ -511,7 +511,7 @@ def test_ignore_observations_edgecases():
             self.saw_nonzero_obs = False
             self.obs_before_nonzero = 0
         def act(self, obs):
-            return 1 if self.saw_nonzero_obs else -1
+            return 1 if self.saw_nonzero_obs else 0
         def train(self, o_prev, act, R, o_next):
             if not(self.saw_nonzero_obs):
                 if o_prev != 0 or o_next != 0:
