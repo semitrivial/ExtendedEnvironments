@@ -9,8 +9,8 @@ def run_ad_hoc_tests():
     test_crying_baby_edgecases()
     print("Testing adhoc edge-cases for CryingBaby2.py")
     test_crying_baby_2_edgecases()
-    # print("Testing adhoc edge-cases for FalseMemories.py")
-    # test_false_memories_edgecases()
+    print("Testing adhoc edge-cases for FalseMemories.py")
+    test_false_memories_edgecases()
     # print("Testing adhoc edge-cases for TemptingButton(Variation).py")
     # test_tempting_button_edgecases()
     # print("Testing adhoc edge-cases for IgnoreRewards.py")
@@ -56,17 +56,19 @@ class NoTraining:
     def train(self, **kwargs):
         pass
 
+class Counter:
+    def __init__(self):
+        self.cnt = 0
+    def train(self, **kwargs):
+        self.cnt += 1
+
 class Repetitive(NoTraining):
     def act(self, obs):
         return 0
 
-class Nonrepetitive:
-    def __init__(self):
-        self.cnt = 0
+class Nonrepetitive(Counter):
     def act(self, obs):
         return self.cnt % self.num_legal_actions
-    def train(self, **kwargs):
-        self.cnt += 1
 
 def test_crying_baby_edgecases():
     from environments.CryingBaby import CryingBaby, LAUGH, CRY, FEED, DONTFEED
@@ -112,13 +114,9 @@ def test_crying_baby_2_edgecases():
         def act(self, obs):
             return DONTFEED
 
-    class AlternateFeeding:
-        def __init__(self):
-            self.cnt = 0
+    class AlternateFeeding(Counter):
         def act(self, obs):
             return FEED if self.cnt%2==0 else DONTFEED
-        def train(self, **kwargs):
-            self.cnt += 1
 
     result_always_feed = run_environment(CryingBaby2, AlwaysFeed, 100)
     result_always_feed = result_always_feed['total_reward']
@@ -132,31 +130,37 @@ def test_crying_baby_2_edgecases():
 def test_false_memories_edgecases():
     from environments.FalseMemories import FalseMemories
 
-    result = run_environment(FalseMemories, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(FalseMemories, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    result = run_environment(FalseMemories, non_repetitive, 10)
-    assert result['total_reward'] == -9
+    class OneOneZero(Counter):
+        def act(self, obs):
+            return [1,1,0][self.cnt % 3]
 
-    def lengthchecker(prompt, *meta):
-        return 1 if len(prompt)>5 else 0
+    result = run_environment(FalseMemories, OneOneZero, 10)
+    assert result['total_reward'] < 0
 
-    result = run_environment(FalseMemories, lengthchecker, 2)
-    assert result['total_reward'] == -1
-    result = run_environment(FalseMemories, lengthchecker, 3)
-    assert result['total_reward'] == -2
-    result = run_environment(FalseMemories, lengthchecker, 4)
-    assert result['total_reward'] == -1
-    result = run_environment(FalseMemories, lengthchecker, 5)
+    class LengthChecker(Counter):
+        def act(self, obs):
+            return 1 if self.cnt > 3 else 0
+
+    result = run_environment(FalseMemories, LengthChecker, 1)
+    assert result['total_reward'] == 1
+    result = run_environment(FalseMemories, LengthChecker, 2)
+    assert result['total_reward'] == 2
+    result = run_environment(FalseMemories, LengthChecker, 3)
+    assert result['total_reward'] == 1
+    result = run_environment(FalseMemories, LengthChecker, 4)
     assert result['total_reward'] == 0
-    result = run_environment(FalseMemories, lengthchecker, 6)
+    result = run_environment(FalseMemories, LengthChecker, 5)
     assert result['total_reward'] == 1
 
-    def impatient(prompt, *meta):
-        return 1 if len(prompt)<5 else 0
+    class Impatient(Counter):
+        def act(self, obs):
+            return 1 if self.cnt < 5 else 0
 
-    result = run_environment(FalseMemories, impatient, 10)
-    assert result['total_reward'] == 7
+    result = run_environment(FalseMemories, Impatient, 10)
+    assert result['total_reward'] == 6
 
 def test_tempting_button_edgecases():
     from environments.TemptingButton import TemptingButton
