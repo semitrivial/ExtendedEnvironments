@@ -23,8 +23,8 @@ def run_ad_hoc_tests():
     test_incentivize_zero_edgecases()
     print("Testing adhoc edge-cases for RuntimeInspector.py")
     test_runtime_inspector_edgecases()
-    # print("Testing adhoc edge-cases for DeterminismInspector.py")
-    # test_determinism_inspector_edgecases()
+    print("Testing adhoc edge-cases for DeterminismInspector.py")
+    test_determinism_inspector_edgecases()
     # print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
     # test_adversarial_sequence_predictor_edgecases()
     # print("Testing adhoc edge-cases for AfterImages.py")
@@ -332,21 +332,22 @@ def test_determinism_inspector_edgecases():
     from environments.DeterminismInspector import PunishDeterministicAgent
     from environments.DeterminismInspector import PunishNondeterministicAgent
 
-    result1 = run_environment(PunishDeterministicAgent, repetitive, 10)
-    result2 = run_environment(PunishNondeterministicAgent, repetitive, 10)
-    assert result1['total_reward'] == -9
-    assert result2['total_reward'] == 9
+    result1 = run_environment(PunishDeterministicAgent, Repetitive, 10)
+    result2 = run_environment(PunishNondeterministicAgent, Repetitive, 10)
+    assert result1['total_reward'] == -10
+    assert result2['total_reward'] == 10
 
-    memory = [0]
-    def never_repeater(prompt, *meta):
-        action = memory[0]
-        memory[0] += 1
-        return action
+    side_effect_memory = [0]
 
-    result1 = run_environment(PunishDeterministicAgent, never_repeater, 10)
-    result2 = run_environment(PunishNondeterministicAgent, never_repeater, 10)
-    assert result1['total_reward'] == 9
-    assert result2['total_reward'] == -9
+    class SideEffectCheater(NoTraining):
+        def act(self, obs):
+            side_effect_memory[0] += 1
+            return side_effect_memory[0] % 2
+
+    result1 = run_environment(PunishDeterministicAgent, SideEffectCheater, 10)
+    result2 = run_environment(PunishNondeterministicAgent, SideEffectCheater, 10)
+    assert result1['total_reward'] == 10
+    assert result2['total_reward'] == -10
 
 def test_adversarial_sequence_predictor_edgecases():
     from environments.AdversarialSequencePredictor import AdversarialSequencePredictor
