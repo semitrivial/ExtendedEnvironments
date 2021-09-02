@@ -19,8 +19,8 @@ def run_ad_hoc_tests():
     test_ignore_rewards2_edgecases()
     print("Testing adhoc edge-cases for IgnoreRewards3.py")
     test_ignore_rewards3_edgecases()
-    # print("Testing adhoc edge-cases for IncentivizeZero.py")
-    # test_incentivize_zero_edgecases()
+    print("Testing adhoc edge-cases for IncentivizeZero.py")
+    test_incentivize_zero_edgecases()
     # print("Testing adhoc edge-cases for RuntimeInspector.py")
     # test_runtime_inspector_edgecases()
     # print("Testing adhoc edge-cases for DeterminismInspector.py")
@@ -287,27 +287,26 @@ def test_ignore_rewards3_edgecases():
 def test_incentivize_zero_edgecases():
     from environments.IncentivizeZero import IncentivizeZero
 
-    def always_zero(prompt, *meta):
-        return 0
+    result = run_environment(IncentivizeZero, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    result = run_environment(IncentivizeZero, always_zero, 10)
-    assert result['total_reward'] == 9
+    class Always1(NoTraining):
+        def act(self, obs):
+            return 1
 
-    def always_1(prompt, *meta):
-        return 1
+    result = run_environment(IncentivizeZero, Always1, 10)
+    assert result['total_reward'] == -10
 
-    result = run_environment(IncentivizeZero, always_1, 10)
-    assert result['total_reward'] == -9
+    class PlayZeroIfLastRewardWas5:
+        def __init__(self):
+            self.last_reward_was_5 = False
+        def act(self, obs):
+            return 0 if self.last_reward_was_5 else 5
+        def train(self, o_prev, act, R, o_next):
+            self.last_reward_was_5 = (R==5)
 
-    def play_zero_if_last_reward_was_5(prompt, *meta):
-        last_reward = prompt[-2]
-        if last_reward == 5:
-            return 0
-        else:
-            return 5
-
-    result = run_environment(IncentivizeZero, play_zero_if_last_reward_was_5, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IncentivizeZero, PlayZeroIfLastRewardWas5, 10)
+    assert result['total_reward'] == 10
 
 def test_runtime_inspector_edgecases():
     from environments.RuntimeInspector import PunishFastAgent, PunishSlowAgent
