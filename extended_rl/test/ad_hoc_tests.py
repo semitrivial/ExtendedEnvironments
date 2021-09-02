@@ -13,8 +13,8 @@ def run_ad_hoc_tests():
     test_false_memories_edgecases()
     print("Testing adhoc edge-cases for TemptingButton(Variation).py")
     test_tempting_button_edgecases()
-    # print("Testing adhoc edge-cases for IgnoreRewards.py")
-    # test_ignore_rewards_edgecases()
+    print("Testing adhoc edge-cases for IgnoreRewards.py")
+    test_ignore_rewards_edgecases()
     # print("Testing adhoc edge-cases for IgnoreRewards2.py")
     # test_ignore_rewards2_edgecases()
     # print("Testing adhoc edge-cases for IgnoreRewards3.py")
@@ -226,25 +226,23 @@ def test_tempting_button_edgecases():
 def test_ignore_rewards_edgecases():
     from environments.IgnoreRewards import IgnoreRewards
 
-    result = run_environment(IgnoreRewards, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IgnoreRewards, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    result = run_environment(IgnoreRewards, non_repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IgnoreRewards, Nonrepetitive, 10)
+    assert result['total_reward'] == 10
 
-    def count_positive_rewards(prompt, *meta):
-        i = 0
-        s = 0
-        while i < len(prompt):
-            if (i%3) == 0:
-                if prompt[i] > 0:
-                    s += 1
-            i += 1
+    class CountPositiveRewards:
+        def __init__(self):
+            self.pos_reward_cnt = 0
+        def act(self, obs):
+            return 1 if self.pos_reward_cnt > 0 else 0
+        def train(self, o_prev, act, R, o_next):
+            if R>0:
+                self.pos_reward_cnt += 1
 
-        return s
-
-    result = run_environment(IgnoreRewards, count_positive_rewards, 10)
-    assert result['total_reward'] == -7
+    result = run_environment(IgnoreRewards, CountPositiveRewards, 10)
+    assert result['total_reward'] == -8
 
 def test_ignore_rewards2_edgecases():
     from environments.IgnoreRewards2 import IgnoreRewards2
