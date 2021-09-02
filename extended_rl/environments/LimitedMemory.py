@@ -1,7 +1,5 @@
 from util import annotate
 
-number_rewards_to_remember = 5
-
 @annotate(num_legal_actions=2, num_possible_obs=1, invertible=True)
 class LimitedMemory:
     """

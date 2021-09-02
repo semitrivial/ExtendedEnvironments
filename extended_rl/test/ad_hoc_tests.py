@@ -41,8 +41,8 @@ def run_ad_hoc_tests():
     test_ignore_observations_edgecases()
     print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
     test_incentivize_learning_rate_edgecases()
-    # print("Testing adhoc edge-cases for LimitedMemory.py")
-    # test_limited_memory_edgecases()
+    print("Testing adhoc edge-cases for LimitedMemory.py")
+    test_limited_memory_edgecases()
     # print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
     # test_nth_reward_multiplied_by_n_edgecases()
     # print("Testing adhoc edge-cases for Repeater.py")
@@ -552,17 +552,19 @@ def test_incentivize_learning_rate_edgecases():
     assert result['total_reward'] == -10
 
 def test_limited_memory_edgecases():
-    from environments.LimitedMemory import LimitedMemory, number_rewards_to_remember
+    from environments.LimitedMemory import LimitedMemory
 
-    result = run_environment(LimitedMemory, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(LimitedMemory, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def lengther(prompt, *meta):
-        return len(prompt)
+    class Waiter(Counter):
+        def act(self, obs):
+            return 1 if self.cnt > 10 else 0
 
-    result = run_environment(LimitedMemory, lengther, 100)
-    reward = result['total_reward']
-    assert reward == -(99-2*number_rewards_to_remember)
+    result = run_environment(LimitedMemory, Waiter, 100)
+    assert result['total_reward'] == -100 + 2*(10+1)
+    result = run_environment(LimitedMemory, Waiter, 1000)
+    assert result['total_reward'] == -1000 + 2*(10+1)
 
 def test_nth_reward_multiplied_by_n_edgecases():
     from environments.NthRewardMultipliedByN import NthRewardMultipliedByN
