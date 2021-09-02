@@ -25,8 +25,8 @@ def run_ad_hoc_tests():
     test_runtime_inspector_edgecases()
     print("Testing adhoc edge-cases for DeterminismInspector.py")
     test_determinism_inspector_edgecases()
-    # print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
-    # test_adversarial_sequence_predictor_edgecases()
+    print("Testing adhoc edge-cases for AdversarialSequencePredictor.py")
+    test_adversarial_sequence_predictor_edgecases()
     # print("Testing adhoc edge-cases for AfterImages.py")
     # test_after_images_edgecases()
     # print("Testing adhoc edge-cases for CensoredObservation.py")
@@ -353,28 +353,40 @@ def test_adversarial_sequence_predictor_edgecases():
     from environments.AdversarialSequencePredictor import AdversarialSequencePredictor
     from environments.AdversarialSequencePredictor import AdversarialSequenceEvader
 
-    result = run_environment(AdversarialSequencePredictor, repetitive, 10)
-    assert result['total_reward'] == 9
-    result = run_environment(AdversarialSequenceEvader, repetitive, 10)
-    assert result['total_reward'] == -9
+    result = run_environment(AdversarialSequencePredictor, Repetitive, 10)
+    assert result['total_reward'] == 10
+    result = run_environment(AdversarialSequenceEvader, Repetitive, 10)
+    assert result['total_reward'] == -10
 
-    def agent(prompt, *meta):
-        if prompt[1] == 0:
-            return ([1]+[1,1,0,0,0,0,0,1,0])[(len(prompt)-2)//3]
-        else:
-            return ([0]+[0,1,0,0,0,0,0,0,0])[(len(prompt)-2)//3]
+    agent1_memory=[0]
+    class Agent1(Counter):
+        def act(self, obs):
+            if self.cnt == 0:
+                self.is_genuine = (agent1_memory[0] == 0)
+                agent1_memory[0] = 1
 
-    result = run_environment(AdversarialSequencePredictor, agent, 10)
-    assert result['total_reward'] == 5
+            if self.is_genuine:
+                return ([1]+[1,1,0,0,0,0,0,1,0])[self.cnt]
+            else:
+                return ([0]+[0,1,0,0,0,0,0,0,0])[self.cnt]
 
-    def agent(prompt, *meta):
-        if prompt[1] == 0:
-            return ([1]+[0,1,0,0,0,0,0,0,0])[(len(prompt)-2)//3]
-        else:
-            return ([0]+[1,1,0,0,0,0,0,1,0])[(len(prompt)-2)//3]
+    result = run_environment(AdversarialSequencePredictor, Agent1, 10)
+    assert result['total_reward'] == 4
 
-    result = run_environment(AdversarialSequenceEvader, agent, 10)
-    assert result['total_reward'] == -5
+    agent2_memory = [0]
+    class Agent2(Counter):
+        def act(self, obs):
+            if self.cnt == 0:
+                self.is_genuine = (agent2_memory[0] == 0)
+                agent2_memory[0] = 1
+
+            if self.is_genuine:
+                return ([1]+[0,1,0,0,0,0,0,0,0])[self.cnt]
+            else:
+                return ([0]+[1,1,0,0,0,0,0,1,0])[self.cnt]
+
+    result = run_environment(AdversarialSequenceEvader, Agent2, 10)
+    assert result['total_reward'] == -4
 
 def test_after_images_edgecases():
     from environments.AfterImages import AfterImages
