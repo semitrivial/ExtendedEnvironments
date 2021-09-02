@@ -33,8 +33,8 @@ def run_ad_hoc_tests():
     test_censored_observation_edgecases()
     print("Testing adhoc edge-cases for DelayedRewards.py")
     test_delayed_rewards_edgecases()
-    # print("Testing adhoc edge-cases for ShiftedRewards.py")
-    # test_shifted_rewards_edgecases()
+    print("Testing adhoc edge-cases for ShiftedRewards.py")
+    test_shifted_rewards_edgecases()
     # print("Testing adhoc edge-cases for IgnoreActions.py")
     # test_ignore_actions_edgecases()
     # print("Testing adhoc edge-cases for IgnoreObservations.py")
@@ -458,18 +458,23 @@ def test_delayed_rewards_edgecases():
 def test_shifted_rewards_edgecases():
     from environments.ShiftedRewards import ShiftedRewards
 
-    result = run_environment(ShiftedRewards, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(ShiftedRewards, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def reward_repeater(prompt, *meta):
-        return prompt[-2]
+    class RewardRepeater:
+        def __init__(self):
+            self.last_reward = 0
+        def act(self, obs):
+            return 0 if self.last_reward>0 else 1
+        def train(self, o_prev, act, R, o_next):
+            self.last_reward = R
 
-    result = run_environment(ShiftedRewards, reward_repeater, 10)
-    assert result['total_reward'] == -3
-    result = run_environment(ShiftedRewards, reward_repeater, 100)
-    assert result['total_reward'] == -33
-    result = run_environment(ShiftedRewards, reward_repeater, 1000)
-    assert result['total_reward'] == -333
+    result = run_environment(ShiftedRewards, RewardRepeater, 10)
+    assert result['total_reward'] == -2
+    result = run_environment(ShiftedRewards, RewardRepeater, 100)
+    assert result['total_reward'] == -32
+    result = run_environment(ShiftedRewards, RewardRepeater, 1000)
+    assert result['total_reward'] == -332
 
 def test_ignore_actions_edgecases():
     from environments.IgnoreActions import IgnoreActions
