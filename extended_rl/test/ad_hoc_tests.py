@@ -29,8 +29,8 @@ def run_ad_hoc_tests():
     test_adversarial_sequence_predictor_edgecases()
     print("Testing adhoc edge-cases for AfterImages.py")
     test_after_images_edgecases()
-    # print("Testing adhoc edge-cases for CensoredObservation.py")
-    # test_censored_observation_edgecases()
+    print("Testing adhoc edge-cases for CensoredObservation.py")
+    test_censored_observation_edgecases()
     # print("Testing adhoc edge-cases for DelayedRewards.py")
     # test_delayed_rewards_edgecases()
     # print("Testing adhoc edge-cases for ShiftedRewards.py")
@@ -409,25 +409,31 @@ def test_after_images_edgecases():
 def test_censored_observation_edgecases():
     from environments.CensoredObservation import CensoredObservation, CENSORED_OBS
 
-    result = run_environment(CensoredObservation, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(CensoredObservation, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def prompt_has_censored_obs(prompt):
-        for i in range(len(prompt)):
-            if i%3 == 1:
-                if prompt[i] == CENSORED_OBS:
-                    return True
-        return False
+    obs_before_censored = [0]
 
-    n_censored = [0]
-    def lengther(prompt, *meta):
-        if prompt_has_censored_obs(prompt):
-            n_censored[0] += 1
-        return len(prompt)
+    class Detector:
+        def __init__(self):
+            self.saw_censored_obs = False
+            self.obs_before_censored = 0
+        def act(self, obs):
+            if self.saw_censored_obs:
+                return 1
+            else:
+                if obs == CENSORED_OBS:
+                    self.saw_censored_obs = True
+                    obs_before_censored[0] = self.obs_before_censored
+                    return 1
+                else:
+                    self.obs_before_censored += 1
+                    return 0
+        def train(self, **kwargs):
+            pass
 
-    result = run_environment(CensoredObservation, lengther, 100)
-    expected = -99 + (2*(100-n_censored[0]))
-    assert result['total_reward'] == -99 + (2*(100-n_censored[0]))
+    result = run_environment(CensoredObservation, Detector, 100)
+    expected = -99 + obs_before_censored[0]
 
 def test_delayed_rewards_edgecases():
     from environments.DelayedRewards import DelayedRewards
