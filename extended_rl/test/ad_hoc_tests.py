@@ -45,8 +45,8 @@ def run_ad_hoc_tests():
     test_limited_memory_edgecases()
     print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
     test_nth_reward_multiplied_by_n_edgecases()
-    # print("Testing adhoc edge-cases for Repeater.py")
-    # test_repeater_edgecases()
+    print("Testing adhoc edge-cases for Repeater.py")
+    test_repeater_edgecases()
     # print("Testing adhoc edge-cases for SelfRecognition.py")
     # test_self_recognition_edgecases()
     # print("Testing adhoc edge-cases for ThirdActionForbidden.py")
@@ -590,34 +590,50 @@ def test_nth_reward_multiplied_by_n_edgecases():
 def test_repeater_edgecases():
     from environments.Repeater import Repeater
 
-    result = run_environment(Repeater, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(Repeater, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def lengther(prompt, *meta):
-        return len(prompt)
+    class ParityChecker(Counter):
+        def act(self, obs):
+            return self.cnt % 2
 
-    result = run_environment(Repeater, lengther, 10)
-    assert result['total_reward'] == -7
-    result = run_environment(Repeater, lengther, 100)
-    assert result['total_reward'] == -97
+    result = run_environment(Repeater, ParityChecker, 10)
+    assert result['total_reward'] == 0
+    result = run_environment(Repeater, ParityChecker, 100)
+    assert result['total_reward'] == 0
+    result = run_environment(Repeater, ParityChecker, 1000)
+    assert result['total_reward'] == 0
 
-    def double_detector(prompt, *meta):
-        if len(prompt) < 8:
+    class DoubleDetector:
+        def __init__(self):
+            self.reward = 0
+            self.obs = 0
+            self.action = 0
+            self.reward0 = 0
+            self.obs0 = 0
+            self.action0 = 0
+        def train(self, o_prev, act, R, o_next):
+            self.reward0 = self.reward
+            self.obs0 = self.obs
+            self.action0 = self.action
+            self.reward = R
+            self.obs = o_next
+            self.action = act
+        def act(self, obs):
+            if self.reward == self.reward0:
+                if self.obs == self.obs0:
+                    if self.action == self.action0:
+                        return 1
             return 0
 
-        if prompt[-3] != prompt[-6]:
-            return 0
-        if prompt[-4] != prompt[-7]:
-            return 0
-        if prompt[-5] != prompt[-8]:
-            return 0
-
-        return 1
-
-    result = run_environment(Repeater, double_detector, 10)
-    assert result['total_reward'] < 0
-    result = run_environment(Repeater, double_detector, 100)
-    assert result['total_reward'] < -10
+    result = run_environment(Repeater, DoubleDetector, 10)
+    assert result['total_reward'] == -2
+    result = run_environment(Repeater, DoubleDetector, 100)
+    assert result['total_reward'] == -32
+    result = run_environment(Repeater, DoubleDetector, 1000)
+    assert result['total_reward'] == -332
+    result = run_environment(Repeater, DoubleDetector, 10000)
+    assert result['total_reward'] == -3332
 
 def test_self_recognition_edgecases():
     from environments.SelfRecognition import SelfRecognition
