@@ -49,8 +49,8 @@ def run_ad_hoc_tests():
     test_repeater_edgecases()
     print("Testing adhoc edge-cases for SelfRecognition.py")
     test_self_recognition_edgecases()
-    # print("Testing adhoc edge-cases for ThirdActionForbidden.py")
-    # test_third_action_forbidden_edgecases()
+    print("Testing adhoc edge-cases for ThirdActionForbidden.py")
+    test_third_action_forbidden_edgecases()
 
 class NoTraining:
     def train(self, **kwargs):
@@ -681,13 +681,16 @@ def test_self_recognition_edgecases():
 def test_third_action_forbidden_edgecases():
     from environments.ThirdActionForbidden import ThirdActionForbidden
 
-    result = run_environment(ThirdActionForbidden, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(ThirdActionForbidden, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def agent(prompt, num_legal_actions, *other_meta):
-        return 0 if (num_legal_actions==2) else 1
+    class Lawyer(NoTraining):
+        def act(self, obs):
+            return 0 if (self.num_legal_actions==2) else 1
 
-    result = run_environment(ThirdActionForbidden, agent, 10)
-    assert result['total_reward'] == -9
-    result = run_environment(ThirdActionForbidden, agent, 100)
-    assert result['total_reward'] == -99
+    result = run_environment(ThirdActionForbidden, Lawyer, 10)
+    assert result['total_reward'] == -10
+    result = run_environment(ThirdActionForbidden, Lawyer, 100)
+    assert result['total_reward'] == -100
+    result = run_environment(ThirdActionForbidden, Lawyer, 1000)
+    assert result['total_reward'] == -1000
