@@ -8,15 +8,11 @@ from extended_rl.util import run_environment
 envs = []
 for env in environments:
     envs.append(env)
-
-    if env.invertible:
-        envs.append(minus_rewards(env))
+    envs.append(minus_rewards(env))
 
     for vanilla in vanilla_envs:
         envs.append(compose_envs(vanilla, env))
-
-        if env.invertible:
-            envs.append(compose_envs(vanilla, minus_rewards(env)))
+        envs.append(minus_rewards(compose_envs(vanilla, env)))
 
 def selfrefl_benchmark(A, num_steps, include_slow_envs=False):
     """
