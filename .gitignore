@@ -1,5 +1,4 @@
 *.pyc
 .DS_STore
 *.egg-info
-extended_rl/experiments/result_table.csv
 
