@@ -43,7 +43,7 @@ class TemptingButtonVariation:
         hypothetical_action = self.sim.act(obs=BUTTON_PRESENT)
 
         if prev_obs == BUTTON_PRESENT:
-            reward = 1 if (action == PUSH_BUTTON) else -1
+            reward = 1 if (action == PUSH_BUTTON) else 0
         else:
             if action == SKIP_BUTTON:
                 reward = 0

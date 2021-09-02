@@ -11,8 +11,8 @@ def run_ad_hoc_tests():
     test_crying_baby_2_edgecases()
     print("Testing adhoc edge-cases for FalseMemories.py")
     test_false_memories_edgecases()
-    # print("Testing adhoc edge-cases for TemptingButton(Variation).py")
-    # test_tempting_button_edgecases()
+    print("Testing adhoc edge-cases for TemptingButton(Variation).py")
+    test_tempting_button_edgecases()
     # print("Testing adhoc edge-cases for IgnoreRewards.py")
     # test_ignore_rewards_edgecases()
     # print("Testing adhoc edge-cases for IgnoreRewards2.py")
@@ -163,17 +163,17 @@ def test_false_memories_edgecases():
     assert result['total_reward'] == 6
 
 def test_tempting_button_edgecases():
-    from environments.TemptingButton import TemptingButton
+    from environments.TemptingButton import TemptingButton, BUTTON_PRESENT, PUSH_BUTTON
     from environments.TemptingButtonVariation import TemptingButtonVariation
 
-    def only_press_nonexistent_buttons(prompt, *meta):
-        current_room_has_button = prompt[-1]
-        return 1 if (current_room_has_button==0) else 0
+    class OnlyPressNonexistentButtons(NoTraining):
+        def act(self, obs):
+            return PUSH_BUTTON if obs != BUTTON_PRESENT else 1-PUSH_BUTTON
 
     i = 0
     while i<10:
         i += 1
-        result = run_environment(TemptingButton, only_press_nonexistent_buttons, i*100)
+        result = run_environment(TemptingButton, OnlyPressNonexistentButtons, i*100)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
@@ -182,19 +182,20 @@ def test_tempting_button_edgecases():
     i = 0
     while i<20:
         i += 1
-        result = run_environment(TemptingButtonVariation, only_press_nonexistent_buttons, i*10)
+        result = run_environment(TemptingButtonVariation, OnlyPressNonexistentButtons, i*10)
         assert result['total_reward'] >= 0
         if result['total_reward'] > 0:
             break
     assert i<20
 
-    def always_press_button(prompt, *meta):
-        return 1
+    class AlwaysPressButton(NoTraining):
+        def act(self, obs):
+            return PUSH_BUTTON
 
     i = 0
     while i<20:
         i += 1
-        result = run_environment(TemptingButton, always_press_button, i*10)
+        result = run_environment(TemptingButton, AlwaysPressButton, i*10)
         if result['total_reward'] < 0:
             break
     assert(i<20)
@@ -202,23 +203,24 @@ def test_tempting_button_edgecases():
     i = 0
     while i<20:
         i += 1
-        result = run_environment(TemptingButtonVariation, always_press_button, i*10)
+        result = run_environment(TemptingButtonVariation, AlwaysPressButton, i*10)
         if result['total_reward'] < 0:
             break
     assert(i<20)
 
-    def never_press_button(prompt, *meta):
-        return 0
+    class NeverPressButton(NoTraining):
+        def act(self, obs):
+            return 1-PUSH_BUTTON
 
     i = 0
     while i<20:
         i += 1
-        result = run_environment(TemptingButton, never_press_button, i*10)
+        result = run_environment(TemptingButton, NeverPressButton, i*10)
         if result['total_reward'] > 0:
             break
     assert(i<20)
 
-    result = run_environment(TemptingButtonVariation, never_press_button, 10)
+    result = run_environment(TemptingButtonVariation, NeverPressButton, 10)
     assert result['total_reward'] == 0
 
 def test_ignore_rewards_edgecases():
