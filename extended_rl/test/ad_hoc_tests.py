@@ -43,8 +43,8 @@ def run_ad_hoc_tests():
     test_incentivize_learning_rate_edgecases()
     print("Testing adhoc edge-cases for LimitedMemory.py")
     test_limited_memory_edgecases()
-    # print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
-    # test_nth_reward_multiplied_by_n_edgecases()
+    print("Testing adhoc edge-cases for NthRewardMultipliedByN.py")
+    test_nth_reward_multiplied_by_n_edgecases()
     # print("Testing adhoc edge-cases for Repeater.py")
     # test_repeater_edgecases()
     # print("Testing adhoc edge-cases for SelfRecognition.py")
@@ -569,16 +569,23 @@ def test_limited_memory_edgecases():
 def test_nth_reward_multiplied_by_n_edgecases():
     from environments.NthRewardMultipliedByN import NthRewardMultipliedByN
 
-    result = run_environment(NthRewardMultipliedByN, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(NthRewardMultipliedByN, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def repeat_reward(prompt, *meta):
-        return prompt[-2]
+    class ConsiderMagnitude:
+        def __init__(self):
+            self.last_reward = 0
+        def act(self, obs):
+            return 1 if abs(self.last_reward) >= 5 else 0
+        def train(self, o_prev, act, R, o_next):
+            self.last_reward = R
 
-    result = run_environment(NthRewardMultipliedByN, repeat_reward, 10)
-    assert result['total_reward'] == -5
-    result = run_environment(NthRewardMultipliedByN, repeat_reward, 100)
-    assert result['total_reward'] == -95
+    result = run_environment(NthRewardMultipliedByN, ConsiderMagnitude, 100)
+    assert result['total_reward'] == -100 + 2*(5+1)
+    result = run_environment(NthRewardMultipliedByN, ConsiderMagnitude, 1000)
+    assert result['total_reward'] == -1000 + 2*(5+1)
+    result = run_environment(NthRewardMultipliedByN, ConsiderMagnitude, 10000)
+    assert result['total_reward'] == -10000 + 2*(5+1)
 
 def test_repeater_edgecases():
     from environments.Repeater import Repeater
