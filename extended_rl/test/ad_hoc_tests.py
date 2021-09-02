@@ -35,8 +35,8 @@ def run_ad_hoc_tests():
     test_delayed_rewards_edgecases()
     print("Testing adhoc edge-cases for ShiftedRewards.py")
     test_shifted_rewards_edgecases()
-    # print("Testing adhoc edge-cases for IgnoreActions.py")
-    # test_ignore_actions_edgecases()
+    print("Testing adhoc edge-cases for IgnoreActions.py")
+    test_ignore_actions_edgecases()
     # print("Testing adhoc edge-cases for IgnoreObservations.py")
     # test_ignore_observations_edgecases()
     # print("Testing adhoc edge-cases for IncentivizeLearningRate.py")
@@ -479,22 +479,25 @@ def test_shifted_rewards_edgecases():
 def test_ignore_actions_edgecases():
     from environments.IgnoreActions import IgnoreActions
 
-    result = run_environment(IgnoreActions, repetitive, 10)
-    assert result['total_reward'] == 9
+    result = run_environment(IgnoreActions, Repetitive, 10)
+    assert result['total_reward'] == 10
 
-    def surrenderer(prompt, *meta):
-        # If any past action was ever 0, then take action 0.
-        # Else, take action 1.
-        for i in range(len(prompt)):
-            if i%3 == 2:
-                if prompt[i] == 0:
-                    return 0
-        return 1
+    class Surrenderer:
+        def __init__(self):
+            self.ever_took_action_0 = False
+        def act(self, obs):
+            return 0 if self.ever_took_action_0 else 1
+        def train(self, o_prev, act, R, o_next):
+            if act == 0:
+                self.ever_took_action_0 = True
 
-    result = run_environment(IgnoreActions, surrenderer, 10)
-    assert result['total_reward'] == -7
-    result = run_environment(IgnoreActions, surrenderer, 100)
-    assert result['total_reward'] == -97
+    result = run_environment(IgnoreActions, Surrenderer, 10)
+    assert result['total_reward'] == -8
+    result = run_environment(IgnoreActions, Surrenderer, 100)
+    assert result['total_reward'] == -98
+    result = run_environment(IgnoreActions, Surrenderer, 1000)
+    assert result['total_reward'] == -998
+
 
 def test_ignore_observations_edgecases():
     from environments.IgnoreObservations import IgnoreObservations
