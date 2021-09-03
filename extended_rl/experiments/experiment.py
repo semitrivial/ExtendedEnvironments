@@ -16,7 +16,7 @@ from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner
 from agents.reality_check import reality_check
 from selfreflection_benchmark import selfrefl_benchmark
-from util import memoize, args_to_agent
+from util import args_to_agent
 from prerandom import populate_randoms
 
 seed, n_steps = 0, 100

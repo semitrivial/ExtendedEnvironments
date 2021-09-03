@@ -47,17 +47,6 @@ def copy_with_meta(class_to_copy, meta_src):
     result.__qualname__ = class_to_copy.__qualname__
     return result
 
-def memoize(f):
-    """
-    Return a cached version of f. If the cached version of f is called
-    twice on the same argument, the underlying computation will only
-    be performed the first time, and will then be stored so that on the
-    second and later calls it can simply be read back from memory (this
-    has the additional side effect of making the resulting cached
-    function deterministic).
-    """
-    return lru_cache(maxsize=None)(f)
-
 def numpy_translator(T):
     """
     Unlike A2C and PPO, Stable Baselines3's DQN agent (with MLP policy)

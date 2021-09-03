@@ -7,7 +7,6 @@ from util import annotate
 def test_util():
     print("Testing util functions...")
     test_run_environment()
-    test_memoize()
     test_numpy_translator()
     test_eval_and_count_steps()
 
@@ -63,32 +62,6 @@ def test_run_environment():
     run_environment(MockEnv2, MockAgent, 100)
     assert num_env_calls[0] == 100
     assert num_agent_calls[0] == 200
-
-def test_memoize():
-    from util import memoize
-
-    counter = [0]
-
-    @memoize
-    def f(x):
-        counter[0] += 1
-        return 0
-
-    (f(1),f(1),f(1),f(1),f(1),f(1))
-    assert counter[0] == 1
-    f(2)
-    assert counter[0] == 2
-    f(2)
-    assert counter[0] == 2
-
-    from random import random
-
-    @memoize
-    def randomized(x):
-        return random()
-
-    assert randomized(0) == randomized(0)
-    assert randomized(0) != randomized(1)
 
 def test_numpy_translator():
     try:
