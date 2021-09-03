@@ -8,11 +8,11 @@ BackwardConsciousness, ConstantAgent, 1: Done
 BackwardConsciousness, ConstantAgent, 2: Done
 BackwardConsciousness, ConstantAgent, 3: Done
 BackwardConsciousness, ConstantAgent, 4: Done
-BackwardConsciousness, NaiveLearner, 0
-BackwardConsciousness, NaiveLearner, 1
-BackwardConsciousness, NaiveLearner, 2
-BackwardConsciousness, NaiveLearner, 3
-BackwardConsciousness, NaiveLearner, 4
+BackwardConsciousness, NaiveLearner, 0: Done
+BackwardConsciousness, NaiveLearner, 1: Done
+BackwardConsciousness, NaiveLearner, 2: Done
+BackwardConsciousness, NaiveLearner, 3: Done
+BackwardConsciousness, NaiveLearner, 4: Done
 BackwardConsciousness, Q_learner, 0
 BackwardConsciousness, Q_learner, 1
 BackwardConsciousness, Q_learner, 2
@@ -43,11 +43,11 @@ FalseMemories, ConstantAgent, 1: Done
 FalseMemories, ConstantAgent, 2: Done
 FalseMemories, ConstantAgent, 3: Done
 FalseMemories, ConstantAgent, 4: Done
-FalseMemories, NaiveLearner, 0
-FalseMemories, NaiveLearner, 1
-FalseMemories, NaiveLearner, 2
-FalseMemories, NaiveLearner, 3
-FalseMemories, NaiveLearner, 4
+FalseMemories, NaiveLearner, 0: Done
+FalseMemories, NaiveLearner, 1: Done
+FalseMemories, NaiveLearner, 2: Done
+FalseMemories, NaiveLearner, 3: Done
+FalseMemories, NaiveLearner, 4: Done
 FalseMemories, Q_learner, 0
 FalseMemories, Q_learner, 1
 FalseMemories, Q_learner, 2
@@ -78,11 +78,11 @@ IgnoreRewards, ConstantAgent, 1: Done
 IgnoreRewards, ConstantAgent, 2: Done
 IgnoreRewards, ConstantAgent, 3: Done
 IgnoreRewards, ConstantAgent, 4: Done
-IgnoreRewards, NaiveLearner, 0
-IgnoreRewards, NaiveLearner, 1
-IgnoreRewards, NaiveLearner, 2
-IgnoreRewards, NaiveLearner, 3
-IgnoreRewards, NaiveLearner, 4
+IgnoreRewards, NaiveLearner, 0: Done
+IgnoreRewards, NaiveLearner, 1: Done
+IgnoreRewards, NaiveLearner, 2: Done
+IgnoreRewards, NaiveLearner, 3: Done
+IgnoreRewards, NaiveLearner, 4: Done
 IgnoreRewards, Q_learner, 0
 IgnoreRewards, Q_learner, 1
 IgnoreRewards, Q_learner, 2
@@ -113,11 +113,11 @@ IgnoreRewards2, ConstantAgent, 1: Done
 IgnoreRewards2, ConstantAgent, 2: Done
 IgnoreRewards2, ConstantAgent, 3: Done
 IgnoreRewards2, ConstantAgent, 4: Done
-IgnoreRewards2, NaiveLearner, 0
-IgnoreRewards2, NaiveLearner, 1
-IgnoreRewards2, NaiveLearner, 2
-IgnoreRewards2, NaiveLearner, 3
-IgnoreRewards2, NaiveLearner, 4
+IgnoreRewards2, NaiveLearner, 0: Done
+IgnoreRewards2, NaiveLearner, 1: Done
+IgnoreRewards2, NaiveLearner, 2: Done
+IgnoreRewards2, NaiveLearner, 3: Done
+IgnoreRewards2, NaiveLearner, 4: Done
 IgnoreRewards2, Q_learner, 0
 IgnoreRewards2, Q_learner, 1
 IgnoreRewards2, Q_learner, 2
@@ -148,11 +148,11 @@ IgnoreRewards3, ConstantAgent, 1: Done
 IgnoreRewards3, ConstantAgent, 2: Done
 IgnoreRewards3, ConstantAgent, 3: Done
 IgnoreRewards3, ConstantAgent, 4: Done
-IgnoreRewards3, NaiveLearner, 0
-IgnoreRewards3, NaiveLearner, 1
-IgnoreRewards3, NaiveLearner, 2
-IgnoreRewards3, NaiveLearner, 3
-IgnoreRewards3, NaiveLearner, 4
+IgnoreRewards3, NaiveLearner, 0: Done
+IgnoreRewards3, NaiveLearner, 1: Done
+IgnoreRewards3, NaiveLearner, 2: Done
+IgnoreRewards3, NaiveLearner, 3: Done
+IgnoreRewards3, NaiveLearner, 4: Done
 IgnoreRewards3, Q_learner, 0
 IgnoreRewards3, Q_learner, 1
 IgnoreRewards3, Q_learner, 2
@@ -183,11 +183,11 @@ IgnoreObservations, ConstantAgent, 1: Done
 IgnoreObservations, ConstantAgent, 2: Done
 IgnoreObservations, ConstantAgent, 3: Done
 IgnoreObservations, ConstantAgent, 4: Done
-IgnoreObservations, NaiveLearner, 0
-IgnoreObservations, NaiveLearner, 1
-IgnoreObservations, NaiveLearner, 2
-IgnoreObservations, NaiveLearner, 3
-IgnoreObservations, NaiveLearner, 4
+IgnoreObservations, NaiveLearner, 0: Done
+IgnoreObservations, NaiveLearner, 1: Done
+IgnoreObservations, NaiveLearner, 2: Done
+IgnoreObservations, NaiveLearner, 3: Done
+IgnoreObservations, NaiveLearner, 4: Done
 IgnoreObservations, Q_learner, 0
 IgnoreObservations, Q_learner, 1
 IgnoreObservations, Q_learner, 2
@@ -218,11 +218,11 @@ IgnoreActions, ConstantAgent, 1: Done
 IgnoreActions, ConstantAgent, 2: Done
 IgnoreActions, ConstantAgent, 3: Done
 IgnoreActions, ConstantAgent, 4: Done
-IgnoreActions, NaiveLearner, 0
-IgnoreActions, NaiveLearner, 1
-IgnoreActions, NaiveLearner, 2
-IgnoreActions, NaiveLearner, 3
-IgnoreActions, NaiveLearner, 4
+IgnoreActions, NaiveLearner, 0: Done
+IgnoreActions, NaiveLearner, 1: Done
+IgnoreActions, NaiveLearner, 2: Done
+IgnoreActions, NaiveLearner, 3: Done
+IgnoreActions, NaiveLearner, 4: Done
 IgnoreActions, Q_learner, 0
 IgnoreActions, Q_learner, 1
 IgnoreActions, Q_learner, 2
@@ -253,11 +253,11 @@ IncentivizeZero, ConstantAgent, 1: Done
 IncentivizeZero, ConstantAgent, 2: Done
 IncentivizeZero, ConstantAgent, 3: Done
 IncentivizeZero, ConstantAgent, 4: Done
-IncentivizeZero, NaiveLearner, 0
-IncentivizeZero, NaiveLearner, 1
-IncentivizeZero, NaiveLearner, 2
-IncentivizeZero, NaiveLearner, 3
-IncentivizeZero, NaiveLearner, 4
+IncentivizeZero, NaiveLearner, 0: Done
+IncentivizeZero, NaiveLearner, 1: Done
+IncentivizeZero, NaiveLearner, 2: Done
+IncentivizeZero, NaiveLearner, 3: Done
+IncentivizeZero, NaiveLearner, 4: Done
 IncentivizeZero, Q_learner, 0
 IncentivizeZero, Q_learner, 1
 IncentivizeZero, Q_learner, 2
@@ -288,11 +288,11 @@ PunishSlowAgent, ConstantAgent, 1: Done
 PunishSlowAgent, ConstantAgent, 2: Done
 PunishSlowAgent, ConstantAgent, 3: Done
 PunishSlowAgent, ConstantAgent, 4: Done
-PunishSlowAgent, NaiveLearner, 0
-PunishSlowAgent, NaiveLearner, 1
-PunishSlowAgent, NaiveLearner, 2
-PunishSlowAgent, NaiveLearner, 3
-PunishSlowAgent, NaiveLearner, 4
+PunishSlowAgent, NaiveLearner, 0: Done
+PunishSlowAgent, NaiveLearner, 1: Done
+PunishSlowAgent, NaiveLearner, 2: Done
+PunishSlowAgent, NaiveLearner, 3: Done
+PunishSlowAgent, NaiveLearner, 4: Done
 PunishSlowAgent, Q_learner, 0
 PunishSlowAgent, Q_learner, 1
 PunishSlowAgent, Q_learner, 2
@@ -323,11 +323,11 @@ PunishDeterministicAgent, ConstantAgent, 1: Done
 PunishDeterministicAgent, ConstantAgent, 2: Done
 PunishDeterministicAgent, ConstantAgent, 3: Done
 PunishDeterministicAgent, ConstantAgent, 4: Done
-PunishDeterministicAgent, NaiveLearner, 0
-PunishDeterministicAgent, NaiveLearner, 1
-PunishDeterministicAgent, NaiveLearner, 2
-PunishDeterministicAgent, NaiveLearner, 3
-PunishDeterministicAgent, NaiveLearner, 4
+PunishDeterministicAgent, NaiveLearner, 0: Done
+PunishDeterministicAgent, NaiveLearner, 1: Done
+PunishDeterministicAgent, NaiveLearner, 2: Done
+PunishDeterministicAgent, NaiveLearner, 3: Done
+PunishDeterministicAgent, NaiveLearner, 4: Done
 PunishDeterministicAgent, Q_learner, 0
 PunishDeterministicAgent, Q_learner, 1
 PunishDeterministicAgent, Q_learner, 2
@@ -358,11 +358,11 @@ CryingBaby, ConstantAgent, 1: Done
 CryingBaby, ConstantAgent, 2: Done
 CryingBaby, ConstantAgent, 3: Done
 CryingBaby, ConstantAgent, 4: Done
-CryingBaby, NaiveLearner, 0
-CryingBaby, NaiveLearner, 1
-CryingBaby, NaiveLearner, 2
-CryingBaby, NaiveLearner, 3
-CryingBaby, NaiveLearner, 4
+CryingBaby, NaiveLearner, 0: Done
+CryingBaby, NaiveLearner, 1: Done
+CryingBaby, NaiveLearner, 2: Done
+CryingBaby, NaiveLearner, 3: Done
+CryingBaby, NaiveLearner, 4: Done
 CryingBaby, Q_learner, 0
 CryingBaby, Q_learner, 1
 CryingBaby, Q_learner, 2
@@ -393,11 +393,11 @@ CryingBaby2, ConstantAgent, 1: Done
 CryingBaby2, ConstantAgent, 2: Done
 CryingBaby2, ConstantAgent, 3: Done
 CryingBaby2, ConstantAgent, 4: Done
-CryingBaby2, NaiveLearner, 0
-CryingBaby2, NaiveLearner, 1
-CryingBaby2, NaiveLearner, 2
-CryingBaby2, NaiveLearner, 3
-CryingBaby2, NaiveLearner, 4
+CryingBaby2, NaiveLearner, 0: Done
+CryingBaby2, NaiveLearner, 1: Done
+CryingBaby2, NaiveLearner, 2: Done
+CryingBaby2, NaiveLearner, 3: Done
+CryingBaby2, NaiveLearner, 4: Done
 CryingBaby2, Q_learner, 0
 CryingBaby2, Q_learner, 1
 CryingBaby2, Q_learner, 2
@@ -428,11 +428,11 @@ TemptingButton, ConstantAgent, 1: Done
 TemptingButton, ConstantAgent, 2: Done
 TemptingButton, ConstantAgent, 3: Done
 TemptingButton, ConstantAgent, 4: Done
-TemptingButton, NaiveLearner, 0
-TemptingButton, NaiveLearner, 1
-TemptingButton, NaiveLearner, 2
-TemptingButton, NaiveLearner, 3
-TemptingButton, NaiveLearner, 4
+TemptingButton, NaiveLearner, 0: Done
+TemptingButton, NaiveLearner, 1: Done
+TemptingButton, NaiveLearner, 2: Done
+TemptingButton, NaiveLearner, 3: Done
+TemptingButton, NaiveLearner, 4: Done
 TemptingButton, Q_learner, 0
 TemptingButton, Q_learner, 1
 TemptingButton, Q_learner, 2
@@ -463,11 +463,11 @@ TemptingButtonVariation, ConstantAgent, 1: Done
 TemptingButtonVariation, ConstantAgent, 2: Done
 TemptingButtonVariation, ConstantAgent, 3: Done
 TemptingButtonVariation, ConstantAgent, 4: Done
-TemptingButtonVariation, NaiveLearner, 0
-TemptingButtonVariation, NaiveLearner, 1
-TemptingButtonVariation, NaiveLearner, 2
-TemptingButtonVariation, NaiveLearner, 3
-TemptingButtonVariation, NaiveLearner, 4
+TemptingButtonVariation, NaiveLearner, 0: Done
+TemptingButtonVariation, NaiveLearner, 1: Done
+TemptingButtonVariation, NaiveLearner, 2: Done
+TemptingButtonVariation, NaiveLearner, 3: Done
+TemptingButtonVariation, NaiveLearner, 4: Done
 TemptingButtonVariation, Q_learner, 0
 TemptingButtonVariation, Q_learner, 1
 TemptingButtonVariation, Q_learner, 2
@@ -498,11 +498,11 @@ ThirdActionForbidden, ConstantAgent, 1: Done
 ThirdActionForbidden, ConstantAgent, 2: Done
 ThirdActionForbidden, ConstantAgent, 3: Done
 ThirdActionForbidden, ConstantAgent, 4: Done
-ThirdActionForbidden, NaiveLearner, 0
-ThirdActionForbidden, NaiveLearner, 1
-ThirdActionForbidden, NaiveLearner, 2
-ThirdActionForbidden, NaiveLearner, 3
-ThirdActionForbidden, NaiveLearner, 4
+ThirdActionForbidden, NaiveLearner, 0: Done
+ThirdActionForbidden, NaiveLearner, 1: Done
+ThirdActionForbidden, NaiveLearner, 2: Done
+ThirdActionForbidden, NaiveLearner, 3: Done
+ThirdActionForbidden, NaiveLearner, 4: Done
 ThirdActionForbidden, Q_learner, 0
 ThirdActionForbidden, Q_learner, 1
 ThirdActionForbidden, Q_learner, 2
@@ -533,11 +533,11 @@ ShiftedRewards, ConstantAgent, 1: Done
 ShiftedRewards, ConstantAgent, 2: Done
 ShiftedRewards, ConstantAgent, 3: Done
 ShiftedRewards, ConstantAgent, 4: Done
-ShiftedRewards, NaiveLearner, 0
-ShiftedRewards, NaiveLearner, 1
-ShiftedRewards, NaiveLearner, 2
-ShiftedRewards, NaiveLearner, 3
-ShiftedRewards, NaiveLearner, 4
+ShiftedRewards, NaiveLearner, 0: Done
+ShiftedRewards, NaiveLearner, 1: Done
+ShiftedRewards, NaiveLearner, 2: Done
+ShiftedRewards, NaiveLearner, 3: Done
+ShiftedRewards, NaiveLearner, 4: Done
 ShiftedRewards, Q_learner, 0
 ShiftedRewards, Q_learner, 1
 ShiftedRewards, Q_learner, 2
@@ -568,11 +568,11 @@ DelayedRewards, ConstantAgent, 1: Done
 DelayedRewards, ConstantAgent, 2: Done
 DelayedRewards, ConstantAgent, 3: Done
 DelayedRewards, ConstantAgent, 4: Done
-DelayedRewards, NaiveLearner, 0
-DelayedRewards, NaiveLearner, 1
-DelayedRewards, NaiveLearner, 2
-DelayedRewards, NaiveLearner, 3
-DelayedRewards, NaiveLearner, 4
+DelayedRewards, NaiveLearner, 0: Done
+DelayedRewards, NaiveLearner, 1: Done
+DelayedRewards, NaiveLearner, 2: Done
+DelayedRewards, NaiveLearner, 3: Done
+DelayedRewards, NaiveLearner, 4: Done
 DelayedRewards, Q_learner, 0
 DelayedRewards, Q_learner, 1
 DelayedRewards, Q_learner, 2
@@ -603,11 +603,11 @@ Repeater, ConstantAgent, 1: Done
 Repeater, ConstantAgent, 2: Done
 Repeater, ConstantAgent, 3: Done
 Repeater, ConstantAgent, 4: Done
-Repeater, NaiveLearner, 0
-Repeater, NaiveLearner, 1
-Repeater, NaiveLearner, 2
-Repeater, NaiveLearner, 3
-Repeater, NaiveLearner, 4
+Repeater, NaiveLearner, 0: Done
+Repeater, NaiveLearner, 1: Done
+Repeater, NaiveLearner, 2: Done
+Repeater, NaiveLearner, 3: Done
+Repeater, NaiveLearner, 4: Done
 Repeater, Q_learner, 0
 Repeater, Q_learner, 1
 Repeater, Q_learner, 2
@@ -638,11 +638,11 @@ AfterImages, ConstantAgent, 1: Done
 AfterImages, ConstantAgent, 2: Done
 AfterImages, ConstantAgent, 3: Done
 AfterImages, ConstantAgent, 4: Done
-AfterImages, NaiveLearner, 0
-AfterImages, NaiveLearner, 1
-AfterImages, NaiveLearner, 2
-AfterImages, NaiveLearner, 3
-AfterImages, NaiveLearner, 4
+AfterImages, NaiveLearner, 0: Done
+AfterImages, NaiveLearner, 1: Done
+AfterImages, NaiveLearner, 2: Done
+AfterImages, NaiveLearner, 3: Done
+AfterImages, NaiveLearner, 4: Done
 AfterImages, Q_learner, 0
 AfterImages, Q_learner, 1
 AfterImages, Q_learner, 2
@@ -673,11 +673,11 @@ SelfRecognition, ConstantAgent, 1: Done
 SelfRecognition, ConstantAgent, 2: Done
 SelfRecognition, ConstantAgent, 3: Done
 SelfRecognition, ConstantAgent, 4: Done
-SelfRecognition, NaiveLearner, 0
-SelfRecognition, NaiveLearner, 1
-SelfRecognition, NaiveLearner, 2
-SelfRecognition, NaiveLearner, 3
-SelfRecognition, NaiveLearner, 4
+SelfRecognition, NaiveLearner, 0: Done
+SelfRecognition, NaiveLearner, 1: Done
+SelfRecognition, NaiveLearner, 2: Done
+SelfRecognition, NaiveLearner, 3: Done
+SelfRecognition, NaiveLearner, 4: Done
 SelfRecognition, Q_learner, 0
 SelfRecognition, Q_learner, 1
 SelfRecognition, Q_learner, 2
@@ -708,11 +708,11 @@ LimitedMemory, ConstantAgent, 1: Done
 LimitedMemory, ConstantAgent, 2: Done
 LimitedMemory, ConstantAgent, 3: Done
 LimitedMemory, ConstantAgent, 4: Done
-LimitedMemory, NaiveLearner, 0
-LimitedMemory, NaiveLearner, 1
-LimitedMemory, NaiveLearner, 2
-LimitedMemory, NaiveLearner, 3
-LimitedMemory, NaiveLearner, 4
+LimitedMemory, NaiveLearner, 0: Done
+LimitedMemory, NaiveLearner, 1: Done
+LimitedMemory, NaiveLearner, 2: Done
+LimitedMemory, NaiveLearner, 3: Done
+LimitedMemory, NaiveLearner, 4: Done
 LimitedMemory, Q_learner, 0
 LimitedMemory, Q_learner, 1
 LimitedMemory, Q_learner, 2
@@ -743,11 +743,11 @@ CensoredObservation, ConstantAgent, 1: Done
 CensoredObservation, ConstantAgent, 2: Done
 CensoredObservation, ConstantAgent, 3: Done
 CensoredObservation, ConstantAgent, 4: Done
-CensoredObservation, NaiveLearner, 0
-CensoredObservation, NaiveLearner, 1
-CensoredObservation, NaiveLearner, 2
-CensoredObservation, NaiveLearner, 3
-CensoredObservation, NaiveLearner, 4
+CensoredObservation, NaiveLearner, 0: Done
+CensoredObservation, NaiveLearner, 1: Done
+CensoredObservation, NaiveLearner, 2: Done
+CensoredObservation, NaiveLearner, 3: Done
+CensoredObservation, NaiveLearner, 4: Done
 CensoredObservation, Q_learner, 0
 CensoredObservation, Q_learner, 1
 CensoredObservation, Q_learner, 2
@@ -778,11 +778,11 @@ NthRewardMultipliedByN, ConstantAgent, 1: Done
 NthRewardMultipliedByN, ConstantAgent, 2: Done
 NthRewardMultipliedByN, ConstantAgent, 3: Done
 NthRewardMultipliedByN, ConstantAgent, 4: Done
-NthRewardMultipliedByN, NaiveLearner, 0
-NthRewardMultipliedByN, NaiveLearner, 1
-NthRewardMultipliedByN, NaiveLearner, 2
-NthRewardMultipliedByN, NaiveLearner, 3
-NthRewardMultipliedByN, NaiveLearner, 4
+NthRewardMultipliedByN, NaiveLearner, 0: Done
+NthRewardMultipliedByN, NaiveLearner, 1: Done
+NthRewardMultipliedByN, NaiveLearner, 2: Done
+NthRewardMultipliedByN, NaiveLearner, 3: Done
+NthRewardMultipliedByN, NaiveLearner, 4: Done
 NthRewardMultipliedByN, Q_learner, 0
 NthRewardMultipliedByN, Q_learner, 1
 NthRewardMultipliedByN, Q_learner, 2
@@ -813,11 +813,11 @@ AdversarialSequencePredictor, ConstantAgent, 1: Done
 AdversarialSequencePredictor, ConstantAgent, 2: Done
 AdversarialSequencePredictor, ConstantAgent, 3: Done
 AdversarialSequencePredictor, ConstantAgent, 4: Done
-AdversarialSequencePredictor, NaiveLearner, 0
-AdversarialSequencePredictor, NaiveLearner, 1
-AdversarialSequencePredictor, NaiveLearner, 2
-AdversarialSequencePredictor, NaiveLearner, 3
-AdversarialSequencePredictor, NaiveLearner, 4
+AdversarialSequencePredictor, NaiveLearner, 0: Done
+AdversarialSequencePredictor, NaiveLearner, 1: Done
+AdversarialSequencePredictor, NaiveLearner, 2: Done
+AdversarialSequencePredictor, NaiveLearner, 3: Done
+AdversarialSequencePredictor, NaiveLearner, 4: Done
 AdversarialSequencePredictor, Q_learner, 0
 AdversarialSequencePredictor, Q_learner, 1
 AdversarialSequencePredictor, Q_learner, 2
@@ -848,11 +848,11 @@ AdversarialSequenceEvader, ConstantAgent, 1: Done
 AdversarialSequenceEvader, ConstantAgent, 2: Done
 AdversarialSequenceEvader, ConstantAgent, 3: Done
 AdversarialSequenceEvader, ConstantAgent, 4: Done
-AdversarialSequenceEvader, NaiveLearner, 0
-AdversarialSequenceEvader, NaiveLearner, 1
-AdversarialSequenceEvader, NaiveLearner, 2
-AdversarialSequenceEvader, NaiveLearner, 3
-AdversarialSequenceEvader, NaiveLearner, 4
+AdversarialSequenceEvader, NaiveLearner, 0: Done
+AdversarialSequenceEvader, NaiveLearner, 1: Done
+AdversarialSequenceEvader, NaiveLearner, 2: Done
+AdversarialSequenceEvader, NaiveLearner, 3: Done
+AdversarialSequenceEvader, NaiveLearner, 4: Done
 AdversarialSequenceEvader, Q_learner, 0
 AdversarialSequenceEvader, Q_learner, 1
 AdversarialSequenceEvader, Q_learner, 2
@@ -883,11 +883,11 @@ IncentivizeLearningRate, ConstantAgent, 1: Done
 IncentivizeLearningRate, ConstantAgent, 2: Done
 IncentivizeLearningRate, ConstantAgent, 3: Done
 IncentivizeLearningRate, ConstantAgent, 4: Done
-IncentivizeLearningRate, NaiveLearner, 0
-IncentivizeLearningRate, NaiveLearner, 1
-IncentivizeLearningRate, NaiveLearner, 2
-IncentivizeLearningRate, NaiveLearner, 3
-IncentivizeLearningRate, NaiveLearner, 4
+IncentivizeLearningRate, NaiveLearner, 0: Done
+IncentivizeLearningRate, NaiveLearner, 1: Done
+IncentivizeLearningRate, NaiveLearner, 2: Done
+IncentivizeLearningRate, NaiveLearner, 3: Done
+IncentivizeLearningRate, NaiveLearner, 4: Done
 IncentivizeLearningRate, Q_learner, 0
 IncentivizeLearningRate, Q_learner, 1
 IncentivizeLearningRate, Q_learner, 2
