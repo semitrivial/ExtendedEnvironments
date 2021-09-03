@@ -16,7 +16,7 @@ from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner
 from agents.reality_check import reality_check
 from selfreflection_benchmark import selfrefl_benchmark
-from util import memoize
+from util import memoize, args_to_agent
 from prerandom import populate_randoms
 
 seed, n_steps = 0, 100
@@ -74,9 +74,9 @@ agents = [
     ['ConstantAgent', ConstantAgent],
     ['NaiveLearner', NaiveLearner],
     ['Q_learner', Q_learner],
-    ['DQN', DQN_learner],
-    ['PPO', PPO_learner],
-    ['A2C', A2C_learner],
+    ['DQN', args_to_agent(DQN_learner, seed=seed)],
+    ['PPO', args_to_agent(PPO_learner, seed=seed)],
+    ['A2C', args_to_agent(A2C_learner, seed=seed)],
 ]
 
 # Measure all the above-listed agents and their reality-checks
