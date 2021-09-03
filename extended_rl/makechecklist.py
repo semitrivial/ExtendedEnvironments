@@ -16,13 +16,18 @@ agents = [
     A2C_learner
 ]
 
-seeds = [0, 1, 2, 3, 4, 5]
+finished = {ConstantAgent: [0,1,2,3,4]}
+
+seeds = [0, 1, 2, 3, 4]
 
 fp = open("experiments/checklist.txt", "w")
 
 for env in environments:
     for agent in agents:
         for seed in seeds:
-            fp.write(f"{env.__name__}, {agent.__name__}, {seed}\n")
+            if agent in finished and seed in finished[agent]:
+                fp.write(f"{env.__name__}, {agent.__name__}, {seed}: Done\n")
+            else:
+                fp.write(f"{env.__name__}, {agent.__name__}, {seed}\n")
 
 fp.close()

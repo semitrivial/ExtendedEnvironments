@@ -3,1090 +3,908 @@ BackwardConsciousness, RandomAgent, 1
 BackwardConsciousness, RandomAgent, 2
 BackwardConsciousness, RandomAgent, 3
 BackwardConsciousness, RandomAgent, 4
-BackwardConsciousness, RandomAgent, 5
-BackwardConsciousness, ConstantAgent, 0
-BackwardConsciousness, ConstantAgent, 1
-BackwardConsciousness, ConstantAgent, 2
-BackwardConsciousness, ConstantAgent, 3
-BackwardConsciousness, ConstantAgent, 4
-BackwardConsciousness, ConstantAgent, 5
+BackwardConsciousness, ConstantAgent, 0: Done
+BackwardConsciousness, ConstantAgent, 1: Done
+BackwardConsciousness, ConstantAgent, 2: Done
+BackwardConsciousness, ConstantAgent, 3: Done
+BackwardConsciousness, ConstantAgent, 4: Done
 BackwardConsciousness, NaiveLearner, 0
 BackwardConsciousness, NaiveLearner, 1
 BackwardConsciousness, NaiveLearner, 2
 BackwardConsciousness, NaiveLearner, 3
 BackwardConsciousness, NaiveLearner, 4
-BackwardConsciousness, NaiveLearner, 5
 BackwardConsciousness, Q_learner, 0
 BackwardConsciousness, Q_learner, 1
 BackwardConsciousness, Q_learner, 2
 BackwardConsciousness, Q_learner, 3
 BackwardConsciousness, Q_learner, 4
-BackwardConsciousness, Q_learner, 5
 BackwardConsciousness, DQN_learner, 0
 BackwardConsciousness, DQN_learner, 1
 BackwardConsciousness, DQN_learner, 2
 BackwardConsciousness, DQN_learner, 3
 BackwardConsciousness, DQN_learner, 4
-BackwardConsciousness, DQN_learner, 5
 BackwardConsciousness, PPO_learner, 0
 BackwardConsciousness, PPO_learner, 1
 BackwardConsciousness, PPO_learner, 2
 BackwardConsciousness, PPO_learner, 3
 BackwardConsciousness, PPO_learner, 4
-BackwardConsciousness, PPO_learner, 5
 BackwardConsciousness, A2C_learner, 0
 BackwardConsciousness, A2C_learner, 1
 BackwardConsciousness, A2C_learner, 2
 BackwardConsciousness, A2C_learner, 3
 BackwardConsciousness, A2C_learner, 4
-BackwardConsciousness, A2C_learner, 5
 FalseMemories, RandomAgent, 0
 FalseMemories, RandomAgent, 1
 FalseMemories, RandomAgent, 2
 FalseMemories, RandomAgent, 3
 FalseMemories, RandomAgent, 4
-FalseMemories, RandomAgent, 5
-FalseMemories, ConstantAgent, 0
-FalseMemories, ConstantAgent, 1
-FalseMemories, ConstantAgent, 2
-FalseMemories, ConstantAgent, 3
-FalseMemories, ConstantAgent, 4
-FalseMemories, ConstantAgent, 5
+FalseMemories, ConstantAgent, 0: Done
+FalseMemories, ConstantAgent, 1: Done
+FalseMemories, ConstantAgent, 2: Done
+FalseMemories, ConstantAgent, 3: Done
+FalseMemories, ConstantAgent, 4: Done
 FalseMemories, NaiveLearner, 0
 FalseMemories, NaiveLearner, 1
 FalseMemories, NaiveLearner, 2
 FalseMemories, NaiveLearner, 3
 FalseMemories, NaiveLearner, 4
-FalseMemories, NaiveLearner, 5
 FalseMemories, Q_learner, 0
 FalseMemories, Q_learner, 1
 FalseMemories, Q_learner, 2
 FalseMemories, Q_learner, 3
 FalseMemories, Q_learner, 4
-FalseMemories, Q_learner, 5
 FalseMemories, DQN_learner, 0
 FalseMemories, DQN_learner, 1
 FalseMemories, DQN_learner, 2
 FalseMemories, DQN_learner, 3
 FalseMemories, DQN_learner, 4
-FalseMemories, DQN_learner, 5
 FalseMemories, PPO_learner, 0
 FalseMemories, PPO_learner, 1
 FalseMemories, PPO_learner, 2
 FalseMemories, PPO_learner, 3
 FalseMemories, PPO_learner, 4
-FalseMemories, PPO_learner, 5
 FalseMemories, A2C_learner, 0
 FalseMemories, A2C_learner, 1
 FalseMemories, A2C_learner, 2
 FalseMemories, A2C_learner, 3
 FalseMemories, A2C_learner, 4
-FalseMemories, A2C_learner, 5
 IgnoreRewards, RandomAgent, 0
 IgnoreRewards, RandomAgent, 1
 IgnoreRewards, RandomAgent, 2
 IgnoreRewards, RandomAgent, 3
 IgnoreRewards, RandomAgent, 4
-IgnoreRewards, RandomAgent, 5
-IgnoreRewards, ConstantAgent, 0
-IgnoreRewards, ConstantAgent, 1
-IgnoreRewards, ConstantAgent, 2
-IgnoreRewards, ConstantAgent, 3
-IgnoreRewards, ConstantAgent, 4
-IgnoreRewards, ConstantAgent, 5
+IgnoreRewards, ConstantAgent, 0: Done
+IgnoreRewards, ConstantAgent, 1: Done
+IgnoreRewards, ConstantAgent, 2: Done
+IgnoreRewards, ConstantAgent, 3: Done
+IgnoreRewards, ConstantAgent, 4: Done
 IgnoreRewards, NaiveLearner, 0
 IgnoreRewards, NaiveLearner, 1
 IgnoreRewards, NaiveLearner, 2
 IgnoreRewards, NaiveLearner, 3
 IgnoreRewards, NaiveLearner, 4
-IgnoreRewards, NaiveLearner, 5
 IgnoreRewards, Q_learner, 0
 IgnoreRewards, Q_learner, 1
 IgnoreRewards, Q_learner, 2
 IgnoreRewards, Q_learner, 3
 IgnoreRewards, Q_learner, 4
-IgnoreRewards, Q_learner, 5
 IgnoreRewards, DQN_learner, 0
 IgnoreRewards, DQN_learner, 1
 IgnoreRewards, DQN_learner, 2
 IgnoreRewards, DQN_learner, 3
 IgnoreRewards, DQN_learner, 4
-IgnoreRewards, DQN_learner, 5
 IgnoreRewards, PPO_learner, 0
 IgnoreRewards, PPO_learner, 1
 IgnoreRewards, PPO_learner, 2
 IgnoreRewards, PPO_learner, 3
 IgnoreRewards, PPO_learner, 4
-IgnoreRewards, PPO_learner, 5
 IgnoreRewards, A2C_learner, 0
 IgnoreRewards, A2C_learner, 1
 IgnoreRewards, A2C_learner, 2
 IgnoreRewards, A2C_learner, 3
 IgnoreRewards, A2C_learner, 4
-IgnoreRewards, A2C_learner, 5
 IgnoreRewards2, RandomAgent, 0
 IgnoreRewards2, RandomAgent, 1
 IgnoreRewards2, RandomAgent, 2
 IgnoreRewards2, RandomAgent, 3
 IgnoreRewards2, RandomAgent, 4
-IgnoreRewards2, RandomAgent, 5
-IgnoreRewards2, ConstantAgent, 0
-IgnoreRewards2, ConstantAgent, 1
-IgnoreRewards2, ConstantAgent, 2
-IgnoreRewards2, ConstantAgent, 3
-IgnoreRewards2, ConstantAgent, 4
-IgnoreRewards2, ConstantAgent, 5
+IgnoreRewards2, ConstantAgent, 0: Done
+IgnoreRewards2, ConstantAgent, 1: Done
+IgnoreRewards2, ConstantAgent, 2: Done
+IgnoreRewards2, ConstantAgent, 3: Done
+IgnoreRewards2, ConstantAgent, 4: Done
 IgnoreRewards2, NaiveLearner, 0
 IgnoreRewards2, NaiveLearner, 1
 IgnoreRewards2, NaiveLearner, 2
 IgnoreRewards2, NaiveLearner, 3
 IgnoreRewards2, NaiveLearner, 4
-IgnoreRewards2, NaiveLearner, 5
 IgnoreRewards2, Q_learner, 0
 IgnoreRewards2, Q_learner, 1
 IgnoreRewards2, Q_learner, 2
 IgnoreRewards2, Q_learner, 3
 IgnoreRewards2, Q_learner, 4
-IgnoreRewards2, Q_learner, 5
 IgnoreRewards2, DQN_learner, 0
 IgnoreRewards2, DQN_learner, 1
 IgnoreRewards2, DQN_learner, 2
 IgnoreRewards2, DQN_learner, 3
 IgnoreRewards2, DQN_learner, 4
-IgnoreRewards2, DQN_learner, 5
 IgnoreRewards2, PPO_learner, 0
 IgnoreRewards2, PPO_learner, 1
 IgnoreRewards2, PPO_learner, 2
 IgnoreRewards2, PPO_learner, 3
 IgnoreRewards2, PPO_learner, 4
-IgnoreRewards2, PPO_learner, 5
 IgnoreRewards2, A2C_learner, 0
 IgnoreRewards2, A2C_learner, 1
 IgnoreRewards2, A2C_learner, 2
 IgnoreRewards2, A2C_learner, 3
 IgnoreRewards2, A2C_learner, 4
-IgnoreRewards2, A2C_learner, 5
 IgnoreRewards3, RandomAgent, 0
 IgnoreRewards3, RandomAgent, 1
 IgnoreRewards3, RandomAgent, 2
 IgnoreRewards3, RandomAgent, 3
 IgnoreRewards3, RandomAgent, 4
-IgnoreRewards3, RandomAgent, 5
-IgnoreRewards3, ConstantAgent, 0
-IgnoreRewards3, ConstantAgent, 1
-IgnoreRewards3, ConstantAgent, 2
-IgnoreRewards3, ConstantAgent, 3
-IgnoreRewards3, ConstantAgent, 4
-IgnoreRewards3, ConstantAgent, 5
+IgnoreRewards3, ConstantAgent, 0: Done
+IgnoreRewards3, ConstantAgent, 1: Done
+IgnoreRewards3, ConstantAgent, 2: Done
+IgnoreRewards3, ConstantAgent, 3: Done
+IgnoreRewards3, ConstantAgent, 4: Done
 IgnoreRewards3, NaiveLearner, 0
 IgnoreRewards3, NaiveLearner, 1
 IgnoreRewards3, NaiveLearner, 2
 IgnoreRewards3, NaiveLearner, 3
 IgnoreRewards3, NaiveLearner, 4
-IgnoreRewards3, NaiveLearner, 5
 IgnoreRewards3, Q_learner, 0
 IgnoreRewards3, Q_learner, 1
 IgnoreRewards3, Q_learner, 2
 IgnoreRewards3, Q_learner, 3
 IgnoreRewards3, Q_learner, 4
-IgnoreRewards3, Q_learner, 5
 IgnoreRewards3, DQN_learner, 0
 IgnoreRewards3, DQN_learner, 1
 IgnoreRewards3, DQN_learner, 2
 IgnoreRewards3, DQN_learner, 3
 IgnoreRewards3, DQN_learner, 4
-IgnoreRewards3, DQN_learner, 5
 IgnoreRewards3, PPO_learner, 0
 IgnoreRewards3, PPO_learner, 1
 IgnoreRewards3, PPO_learner, 2
 IgnoreRewards3, PPO_learner, 3
 IgnoreRewards3, PPO_learner, 4
-IgnoreRewards3, PPO_learner, 5
 IgnoreRewards3, A2C_learner, 0
 IgnoreRewards3, A2C_learner, 1
 IgnoreRewards3, A2C_learner, 2
 IgnoreRewards3, A2C_learner, 3
 IgnoreRewards3, A2C_learner, 4
-IgnoreRewards3, A2C_learner, 5
 IgnoreObservations, RandomAgent, 0
 IgnoreObservations, RandomAgent, 1
 IgnoreObservations, RandomAgent, 2
 IgnoreObservations, RandomAgent, 3
 IgnoreObservations, RandomAgent, 4
-IgnoreObservations, RandomAgent, 5
-IgnoreObservations, ConstantAgent, 0
-IgnoreObservations, ConstantAgent, 1
-IgnoreObservations, ConstantAgent, 2
-IgnoreObservations, ConstantAgent, 3
-IgnoreObservations, ConstantAgent, 4
-IgnoreObservations, ConstantAgent, 5
+IgnoreObservations, ConstantAgent, 0: Done
+IgnoreObservations, ConstantAgent, 1: Done
+IgnoreObservations, ConstantAgent, 2: Done
+IgnoreObservations, ConstantAgent, 3: Done
+IgnoreObservations, ConstantAgent, 4: Done
 IgnoreObservations, NaiveLearner, 0
 IgnoreObservations, NaiveLearner, 1
 IgnoreObservations, NaiveLearner, 2
 IgnoreObservations, NaiveLearner, 3
 IgnoreObservations, NaiveLearner, 4
-IgnoreObservations, NaiveLearner, 5
 IgnoreObservations, Q_learner, 0
 IgnoreObservations, Q_learner, 1
 IgnoreObservations, Q_learner, 2
 IgnoreObservations, Q_learner, 3
 IgnoreObservations, Q_learner, 4
-IgnoreObservations, Q_learner, 5
 IgnoreObservations, DQN_learner, 0
 IgnoreObservations, DQN_learner, 1
 IgnoreObservations, DQN_learner, 2
 IgnoreObservations, DQN_learner, 3
 IgnoreObservations, DQN_learner, 4
-IgnoreObservations, DQN_learner, 5
 IgnoreObservations, PPO_learner, 0
 IgnoreObservations, PPO_learner, 1
 IgnoreObservations, PPO_learner, 2
 IgnoreObservations, PPO_learner, 3
 IgnoreObservations, PPO_learner, 4
-IgnoreObservations, PPO_learner, 5
 IgnoreObservations, A2C_learner, 0
 IgnoreObservations, A2C_learner, 1
 IgnoreObservations, A2C_learner, 2
 IgnoreObservations, A2C_learner, 3
 IgnoreObservations, A2C_learner, 4
-IgnoreObservations, A2C_learner, 5
 IgnoreActions, RandomAgent, 0
 IgnoreActions, RandomAgent, 1
 IgnoreActions, RandomAgent, 2
 IgnoreActions, RandomAgent, 3
 IgnoreActions, RandomAgent, 4
-IgnoreActions, RandomAgent, 5
-IgnoreActions, ConstantAgent, 0
-IgnoreActions, ConstantAgent, 1
-IgnoreActions, ConstantAgent, 2
-IgnoreActions, ConstantAgent, 3
-IgnoreActions, ConstantAgent, 4
-IgnoreActions, ConstantAgent, 5
+IgnoreActions, ConstantAgent, 0: Done
+IgnoreActions, ConstantAgent, 1: Done
+IgnoreActions, ConstantAgent, 2: Done
+IgnoreActions, ConstantAgent, 3: Done
+IgnoreActions, ConstantAgent, 4: Done
 IgnoreActions, NaiveLearner, 0
 IgnoreActions, NaiveLearner, 1
 IgnoreActions, NaiveLearner, 2
 IgnoreActions, NaiveLearner, 3
 IgnoreActions, NaiveLearner, 4
-IgnoreActions, NaiveLearner, 5
 IgnoreActions, Q_learner, 0
 IgnoreActions, Q_learner, 1
 IgnoreActions, Q_learner, 2
 IgnoreActions, Q_learner, 3
 IgnoreActions, Q_learner, 4
-IgnoreActions, Q_learner, 5
 IgnoreActions, DQN_learner, 0
 IgnoreActions, DQN_learner, 1
 IgnoreActions, DQN_learner, 2
 IgnoreActions, DQN_learner, 3
 IgnoreActions, DQN_learner, 4
-IgnoreActions, DQN_learner, 5
 IgnoreActions, PPO_learner, 0
 IgnoreActions, PPO_learner, 1
 IgnoreActions, PPO_learner, 2
 IgnoreActions, PPO_learner, 3
 IgnoreActions, PPO_learner, 4
-IgnoreActions, PPO_learner, 5
 IgnoreActions, A2C_learner, 0
 IgnoreActions, A2C_learner, 1
 IgnoreActions, A2C_learner, 2
 IgnoreActions, A2C_learner, 3
 IgnoreActions, A2C_learner, 4
-IgnoreActions, A2C_learner, 5
 IncentivizeZero, RandomAgent, 0
 IncentivizeZero, RandomAgent, 1
 IncentivizeZero, RandomAgent, 2
 IncentivizeZero, RandomAgent, 3
 IncentivizeZero, RandomAgent, 4
-IncentivizeZero, RandomAgent, 5
-IncentivizeZero, ConstantAgent, 0
-IncentivizeZero, ConstantAgent, 1
-IncentivizeZero, ConstantAgent, 2
-IncentivizeZero, ConstantAgent, 3
-IncentivizeZero, ConstantAgent, 4
-IncentivizeZero, ConstantAgent, 5
+IncentivizeZero, ConstantAgent, 0: Done
+IncentivizeZero, ConstantAgent, 1: Done
+IncentivizeZero, ConstantAgent, 2: Done
+IncentivizeZero, ConstantAgent, 3: Done
+IncentivizeZero, ConstantAgent, 4: Done
 IncentivizeZero, NaiveLearner, 0
 IncentivizeZero, NaiveLearner, 1
 IncentivizeZero, NaiveLearner, 2
 IncentivizeZero, NaiveLearner, 3
 IncentivizeZero, NaiveLearner, 4
-IncentivizeZero, NaiveLearner, 5
 IncentivizeZero, Q_learner, 0
 IncentivizeZero, Q_learner, 1
 IncentivizeZero, Q_learner, 2
 IncentivizeZero, Q_learner, 3
 IncentivizeZero, Q_learner, 4
-IncentivizeZero, Q_learner, 5
 IncentivizeZero, DQN_learner, 0
 IncentivizeZero, DQN_learner, 1
 IncentivizeZero, DQN_learner, 2
 IncentivizeZero, DQN_learner, 3
 IncentivizeZero, DQN_learner, 4
-IncentivizeZero, DQN_learner, 5
 IncentivizeZero, PPO_learner, 0
 IncentivizeZero, PPO_learner, 1
 IncentivizeZero, PPO_learner, 2
 IncentivizeZero, PPO_learner, 3
 IncentivizeZero, PPO_learner, 4
-IncentivizeZero, PPO_learner, 5
 IncentivizeZero, A2C_learner, 0
 IncentivizeZero, A2C_learner, 1
 IncentivizeZero, A2C_learner, 2
 IncentivizeZero, A2C_learner, 3
 IncentivizeZero, A2C_learner, 4
-IncentivizeZero, A2C_learner, 5
 PunishSlowAgent, RandomAgent, 0
 PunishSlowAgent, RandomAgent, 1
 PunishSlowAgent, RandomAgent, 2
 PunishSlowAgent, RandomAgent, 3
 PunishSlowAgent, RandomAgent, 4
-PunishSlowAgent, RandomAgent, 5
-PunishSlowAgent, ConstantAgent, 0
-PunishSlowAgent, ConstantAgent, 1
-PunishSlowAgent, ConstantAgent, 2
-PunishSlowAgent, ConstantAgent, 3
-PunishSlowAgent, ConstantAgent, 4
-PunishSlowAgent, ConstantAgent, 5
+PunishSlowAgent, ConstantAgent, 0: Done
+PunishSlowAgent, ConstantAgent, 1: Done
+PunishSlowAgent, ConstantAgent, 2: Done
+PunishSlowAgent, ConstantAgent, 3: Done
+PunishSlowAgent, ConstantAgent, 4: Done
 PunishSlowAgent, NaiveLearner, 0
 PunishSlowAgent, NaiveLearner, 1
 PunishSlowAgent, NaiveLearner, 2
 PunishSlowAgent, NaiveLearner, 3
 PunishSlowAgent, NaiveLearner, 4
-PunishSlowAgent, NaiveLearner, 5
 PunishSlowAgent, Q_learner, 0
 PunishSlowAgent, Q_learner, 1
 PunishSlowAgent, Q_learner, 2
 PunishSlowAgent, Q_learner, 3
 PunishSlowAgent, Q_learner, 4
-PunishSlowAgent, Q_learner, 5
 PunishSlowAgent, DQN_learner, 0
 PunishSlowAgent, DQN_learner, 1
 PunishSlowAgent, DQN_learner, 2
 PunishSlowAgent, DQN_learner, 3
 PunishSlowAgent, DQN_learner, 4
-PunishSlowAgent, DQN_learner, 5
 PunishSlowAgent, PPO_learner, 0
 PunishSlowAgent, PPO_learner, 1
 PunishSlowAgent, PPO_learner, 2
 PunishSlowAgent, PPO_learner, 3
 PunishSlowAgent, PPO_learner, 4
-PunishSlowAgent, PPO_learner, 5
 PunishSlowAgent, A2C_learner, 0
 PunishSlowAgent, A2C_learner, 1
 PunishSlowAgent, A2C_learner, 2
 PunishSlowAgent, A2C_learner, 3
 PunishSlowAgent, A2C_learner, 4
-PunishSlowAgent, A2C_learner, 5
 PunishDeterministicAgent, RandomAgent, 0
 PunishDeterministicAgent, RandomAgent, 1
 PunishDeterministicAgent, RandomAgent, 2
 PunishDeterministicAgent, RandomAgent, 3
 PunishDeterministicAgent, RandomAgent, 4
-PunishDeterministicAgent, RandomAgent, 5
-PunishDeterministicAgent, ConstantAgent, 0
-PunishDeterministicAgent, ConstantAgent, 1
-PunishDeterministicAgent, ConstantAgent, 2
-PunishDeterministicAgent, ConstantAgent, 3
-PunishDeterministicAgent, ConstantAgent, 4
-PunishDeterministicAgent, ConstantAgent, 5
+PunishDeterministicAgent, ConstantAgent, 0: Done
+PunishDeterministicAgent, ConstantAgent, 1: Done
+PunishDeterministicAgent, ConstantAgent, 2: Done
+PunishDeterministicAgent, ConstantAgent, 3: Done
+PunishDeterministicAgent, ConstantAgent, 4: Done
 PunishDeterministicAgent, NaiveLearner, 0
 PunishDeterministicAgent, NaiveLearner, 1
 PunishDeterministicAgent, NaiveLearner, 2
 PunishDeterministicAgent, NaiveLearner, 3
 PunishDeterministicAgent, NaiveLearner, 4
-PunishDeterministicAgent, NaiveLearner, 5
 PunishDeterministicAgent, Q_learner, 0
 PunishDeterministicAgent, Q_learner, 1
 PunishDeterministicAgent, Q_learner, 2
 PunishDeterministicAgent, Q_learner, 3
 PunishDeterministicAgent, Q_learner, 4
-PunishDeterministicAgent, Q_learner, 5
 PunishDeterministicAgent, DQN_learner, 0
 PunishDeterministicAgent, DQN_learner, 1
 PunishDeterministicAgent, DQN_learner, 2
 PunishDeterministicAgent, DQN_learner, 3
 PunishDeterministicAgent, DQN_learner, 4
-PunishDeterministicAgent, DQN_learner, 5
 PunishDeterministicAgent, PPO_learner, 0
 PunishDeterministicAgent, PPO_learner, 1
 PunishDeterministicAgent, PPO_learner, 2
 PunishDeterministicAgent, PPO_learner, 3
 PunishDeterministicAgent, PPO_learner, 4
-PunishDeterministicAgent, PPO_learner, 5
 PunishDeterministicAgent, A2C_learner, 0
 PunishDeterministicAgent, A2C_learner, 1
 PunishDeterministicAgent, A2C_learner, 2
 PunishDeterministicAgent, A2C_learner, 3
 PunishDeterministicAgent, A2C_learner, 4
-PunishDeterministicAgent, A2C_learner, 5
 CryingBaby, RandomAgent, 0
 CryingBaby, RandomAgent, 1
 CryingBaby, RandomAgent, 2
 CryingBaby, RandomAgent, 3
 CryingBaby, RandomAgent, 4
-CryingBaby, RandomAgent, 5
-CryingBaby, ConstantAgent, 0
-CryingBaby, ConstantAgent, 1
-CryingBaby, ConstantAgent, 2
-CryingBaby, ConstantAgent, 3
-CryingBaby, ConstantAgent, 4
-CryingBaby, ConstantAgent, 5
+CryingBaby, ConstantAgent, 0: Done
+CryingBaby, ConstantAgent, 1: Done
+CryingBaby, ConstantAgent, 2: Done
+CryingBaby, ConstantAgent, 3: Done
+CryingBaby, ConstantAgent, 4: Done
 CryingBaby, NaiveLearner, 0
 CryingBaby, NaiveLearner, 1
 CryingBaby, NaiveLearner, 2
 CryingBaby, NaiveLearner, 3
 CryingBaby, NaiveLearner, 4
-CryingBaby, NaiveLearner, 5
 CryingBaby, Q_learner, 0
 CryingBaby, Q_learner, 1
 CryingBaby, Q_learner, 2
 CryingBaby, Q_learner, 3
 CryingBaby, Q_learner, 4
-CryingBaby, Q_learner, 5
 CryingBaby, DQN_learner, 0
 CryingBaby, DQN_learner, 1
 CryingBaby, DQN_learner, 2
 CryingBaby, DQN_learner, 3
 CryingBaby, DQN_learner, 4
-CryingBaby, DQN_learner, 5
 CryingBaby, PPO_learner, 0
 CryingBaby, PPO_learner, 1
 CryingBaby, PPO_learner, 2
 CryingBaby, PPO_learner, 3
 CryingBaby, PPO_learner, 4
-CryingBaby, PPO_learner, 5
 CryingBaby, A2C_learner, 0
 CryingBaby, A2C_learner, 1
 CryingBaby, A2C_learner, 2
 CryingBaby, A2C_learner, 3
 CryingBaby, A2C_learner, 4
-CryingBaby, A2C_learner, 5
 CryingBaby2, RandomAgent, 0
 CryingBaby2, RandomAgent, 1
 CryingBaby2, RandomAgent, 2
 CryingBaby2, RandomAgent, 3
 CryingBaby2, RandomAgent, 4
-CryingBaby2, RandomAgent, 5
-CryingBaby2, ConstantAgent, 0
-CryingBaby2, ConstantAgent, 1
-CryingBaby2, ConstantAgent, 2
-CryingBaby2, ConstantAgent, 3
-CryingBaby2, ConstantAgent, 4
-CryingBaby2, ConstantAgent, 5
+CryingBaby2, ConstantAgent, 0: Done
+CryingBaby2, ConstantAgent, 1: Done
+CryingBaby2, ConstantAgent, 2: Done
+CryingBaby2, ConstantAgent, 3: Done
+CryingBaby2, ConstantAgent, 4: Done
 CryingBaby2, NaiveLearner, 0
 CryingBaby2, NaiveLearner, 1
 CryingBaby2, NaiveLearner, 2
 CryingBaby2, NaiveLearner, 3
 CryingBaby2, NaiveLearner, 4
-CryingBaby2, NaiveLearner, 5
 CryingBaby2, Q_learner, 0
 CryingBaby2, Q_learner, 1
 CryingBaby2, Q_learner, 2
 CryingBaby2, Q_learner, 3
 CryingBaby2, Q_learner, 4
-CryingBaby2, Q_learner, 5
 CryingBaby2, DQN_learner, 0
 CryingBaby2, DQN_learner, 1
 CryingBaby2, DQN_learner, 2
 CryingBaby2, DQN_learner, 3
 CryingBaby2, DQN_learner, 4
-CryingBaby2, DQN_learner, 5
 CryingBaby2, PPO_learner, 0
 CryingBaby2, PPO_learner, 1
 CryingBaby2, PPO_learner, 2
 CryingBaby2, PPO_learner, 3
 CryingBaby2, PPO_learner, 4
-CryingBaby2, PPO_learner, 5
 CryingBaby2, A2C_learner, 0
 CryingBaby2, A2C_learner, 1
 CryingBaby2, A2C_learner, 2
 CryingBaby2, A2C_learner, 3
 CryingBaby2, A2C_learner, 4
-CryingBaby2, A2C_learner, 5
 TemptingButton, RandomAgent, 0
 TemptingButton, RandomAgent, 1
 TemptingButton, RandomAgent, 2
 TemptingButton, RandomAgent, 3
 TemptingButton, RandomAgent, 4
-TemptingButton, RandomAgent, 5
-TemptingButton, ConstantAgent, 0
-TemptingButton, ConstantAgent, 1
-TemptingButton, ConstantAgent, 2
-TemptingButton, ConstantAgent, 3
-TemptingButton, ConstantAgent, 4
-TemptingButton, ConstantAgent, 5
+TemptingButton, ConstantAgent, 0: Done
+TemptingButton, ConstantAgent, 1: Done
+TemptingButton, ConstantAgent, 2: Done
+TemptingButton, ConstantAgent, 3: Done
+TemptingButton, ConstantAgent, 4: Done
 TemptingButton, NaiveLearner, 0
 TemptingButton, NaiveLearner, 1
 TemptingButton, NaiveLearner, 2
 TemptingButton, NaiveLearner, 3
 TemptingButton, NaiveLearner, 4
-TemptingButton, NaiveLearner, 5
 TemptingButton, Q_learner, 0
 TemptingButton, Q_learner, 1
 TemptingButton, Q_learner, 2
 TemptingButton, Q_learner, 3
 TemptingButton, Q_learner, 4
-TemptingButton, Q_learner, 5
 TemptingButton, DQN_learner, 0
 TemptingButton, DQN_learner, 1
 TemptingButton, DQN_learner, 2
 TemptingButton, DQN_learner, 3
 TemptingButton, DQN_learner, 4
-TemptingButton, DQN_learner, 5
 TemptingButton, PPO_learner, 0
 TemptingButton, PPO_learner, 1
 TemptingButton, PPO_learner, 2
 TemptingButton, PPO_learner, 3
 TemptingButton, PPO_learner, 4
-TemptingButton, PPO_learner, 5
 TemptingButton, A2C_learner, 0
 TemptingButton, A2C_learner, 1
 TemptingButton, A2C_learner, 2
 TemptingButton, A2C_learner, 3
 TemptingButton, A2C_learner, 4
-TemptingButton, A2C_learner, 5
 TemptingButtonVariation, RandomAgent, 0
 TemptingButtonVariation, RandomAgent, 1
 TemptingButtonVariation, RandomAgent, 2
 TemptingButtonVariation, RandomAgent, 3
 TemptingButtonVariation, RandomAgent, 4
-TemptingButtonVariation, RandomAgent, 5
-TemptingButtonVariation, ConstantAgent, 0
-TemptingButtonVariation, ConstantAgent, 1
-TemptingButtonVariation, ConstantAgent, 2
-TemptingButtonVariation, ConstantAgent, 3
-TemptingButtonVariation, ConstantAgent, 4
-TemptingButtonVariation, ConstantAgent, 5
+TemptingButtonVariation, ConstantAgent, 0: Done
+TemptingButtonVariation, ConstantAgent, 1: Done
+TemptingButtonVariation, ConstantAgent, 2: Done
+TemptingButtonVariation, ConstantAgent, 3: Done
+TemptingButtonVariation, ConstantAgent, 4: Done
 TemptingButtonVariation, NaiveLearner, 0
 TemptingButtonVariation, NaiveLearner, 1
 TemptingButtonVariation, NaiveLearner, 2
 TemptingButtonVariation, NaiveLearner, 3
 TemptingButtonVariation, NaiveLearner, 4
-TemptingButtonVariation, NaiveLearner, 5
 TemptingButtonVariation, Q_learner, 0
 TemptingButtonVariation, Q_learner, 1
 TemptingButtonVariation, Q_learner, 2
 TemptingButtonVariation, Q_learner, 3
 TemptingButtonVariation, Q_learner, 4
-TemptingButtonVariation, Q_learner, 5
 TemptingButtonVariation, DQN_learner, 0
 TemptingButtonVariation, DQN_learner, 1
 TemptingButtonVariation, DQN_learner, 2
 TemptingButtonVariation, DQN_learner, 3
 TemptingButtonVariation, DQN_learner, 4
-TemptingButtonVariation, DQN_learner, 5
 TemptingButtonVariation, PPO_learner, 0
 TemptingButtonVariation, PPO_learner, 1
 TemptingButtonVariation, PPO_learner, 2
 TemptingButtonVariation, PPO_learner, 3
 TemptingButtonVariation, PPO_learner, 4
-TemptingButtonVariation, PPO_learner, 5
 TemptingButtonVariation, A2C_learner, 0
 TemptingButtonVariation, A2C_learner, 1
 TemptingButtonVariation, A2C_learner, 2
 TemptingButtonVariation, A2C_learner, 3
 TemptingButtonVariation, A2C_learner, 4
-TemptingButtonVariation, A2C_learner, 5
 ThirdActionForbidden, RandomAgent, 0
 ThirdActionForbidden, RandomAgent, 1
 ThirdActionForbidden, RandomAgent, 2
 ThirdActionForbidden, RandomAgent, 3
 ThirdActionForbidden, RandomAgent, 4
-ThirdActionForbidden, RandomAgent, 5
-ThirdActionForbidden, ConstantAgent, 0
-ThirdActionForbidden, ConstantAgent, 1
-ThirdActionForbidden, ConstantAgent, 2
-ThirdActionForbidden, ConstantAgent, 3
-ThirdActionForbidden, ConstantAgent, 4
-ThirdActionForbidden, ConstantAgent, 5
+ThirdActionForbidden, ConstantAgent, 0: Done
+ThirdActionForbidden, ConstantAgent, 1: Done
+ThirdActionForbidden, ConstantAgent, 2: Done
+ThirdActionForbidden, ConstantAgent, 3: Done
+ThirdActionForbidden, ConstantAgent, 4: Done
 ThirdActionForbidden, NaiveLearner, 0
 ThirdActionForbidden, NaiveLearner, 1
 ThirdActionForbidden, NaiveLearner, 2
 ThirdActionForbidden, NaiveLearner, 3
 ThirdActionForbidden, NaiveLearner, 4
-ThirdActionForbidden, NaiveLearner, 5
 ThirdActionForbidden, Q_learner, 0
 ThirdActionForbidden, Q_learner, 1
 ThirdActionForbidden, Q_learner, 2
 ThirdActionForbidden, Q_learner, 3
 ThirdActionForbidden, Q_learner, 4
-ThirdActionForbidden, Q_learner, 5
 ThirdActionForbidden, DQN_learner, 0
 ThirdActionForbidden, DQN_learner, 1
 ThirdActionForbidden, DQN_learner, 2
 ThirdActionForbidden, DQN_learner, 3
 ThirdActionForbidden, DQN_learner, 4
-ThirdActionForbidden, DQN_learner, 5
 ThirdActionForbidden, PPO_learner, 0
 ThirdActionForbidden, PPO_learner, 1
 ThirdActionForbidden, PPO_learner, 2
 ThirdActionForbidden, PPO_learner, 3
 ThirdActionForbidden, PPO_learner, 4
-ThirdActionForbidden, PPO_learner, 5
 ThirdActionForbidden, A2C_learner, 0
 ThirdActionForbidden, A2C_learner, 1
 ThirdActionForbidden, A2C_learner, 2
 ThirdActionForbidden, A2C_learner, 3
 ThirdActionForbidden, A2C_learner, 4
-ThirdActionForbidden, A2C_learner, 5
 ShiftedRewards, RandomAgent, 0
 ShiftedRewards, RandomAgent, 1
 ShiftedRewards, RandomAgent, 2
 ShiftedRewards, RandomAgent, 3
 ShiftedRewards, RandomAgent, 4
-ShiftedRewards, RandomAgent, 5
-ShiftedRewards, ConstantAgent, 0
-ShiftedRewards, ConstantAgent, 1
-ShiftedRewards, ConstantAgent, 2
-ShiftedRewards, ConstantAgent, 3
-ShiftedRewards, ConstantAgent, 4
-ShiftedRewards, ConstantAgent, 5
+ShiftedRewards, ConstantAgent, 0: Done
+ShiftedRewards, ConstantAgent, 1: Done
+ShiftedRewards, ConstantAgent, 2: Done
+ShiftedRewards, ConstantAgent, 3: Done
+ShiftedRewards, ConstantAgent, 4: Done
 ShiftedRewards, NaiveLearner, 0
 ShiftedRewards, NaiveLearner, 1
 ShiftedRewards, NaiveLearner, 2
 ShiftedRewards, NaiveLearner, 3
 ShiftedRewards, NaiveLearner, 4
-ShiftedRewards, NaiveLearner, 5
 ShiftedRewards, Q_learner, 0
 ShiftedRewards, Q_learner, 1
 ShiftedRewards, Q_learner, 2
 ShiftedRewards, Q_learner, 3
 ShiftedRewards, Q_learner, 4
-ShiftedRewards, Q_learner, 5
 ShiftedRewards, DQN_learner, 0
 ShiftedRewards, DQN_learner, 1
 ShiftedRewards, DQN_learner, 2
 ShiftedRewards, DQN_learner, 3
 ShiftedRewards, DQN_learner, 4
-ShiftedRewards, DQN_learner, 5
 ShiftedRewards, PPO_learner, 0
 ShiftedRewards, PPO_learner, 1
 ShiftedRewards, PPO_learner, 2
 ShiftedRewards, PPO_learner, 3
 ShiftedRewards, PPO_learner, 4
-ShiftedRewards, PPO_learner, 5
 ShiftedRewards, A2C_learner, 0
 ShiftedRewards, A2C_learner, 1
 ShiftedRewards, A2C_learner, 2
 ShiftedRewards, A2C_learner, 3
 ShiftedRewards, A2C_learner, 4
-ShiftedRewards, A2C_learner, 5
 DelayedRewards, RandomAgent, 0
 DelayedRewards, RandomAgent, 1
 DelayedRewards, RandomAgent, 2
 DelayedRewards, RandomAgent, 3
 DelayedRewards, RandomAgent, 4
-DelayedRewards, RandomAgent, 5
-DelayedRewards, ConstantAgent, 0
-DelayedRewards, ConstantAgent, 1
-DelayedRewards, ConstantAgent, 2
-DelayedRewards, ConstantAgent, 3
-DelayedRewards, ConstantAgent, 4
-DelayedRewards, ConstantAgent, 5
+DelayedRewards, ConstantAgent, 0: Done
+DelayedRewards, ConstantAgent, 1: Done
+DelayedRewards, ConstantAgent, 2: Done
+DelayedRewards, ConstantAgent, 3: Done
+DelayedRewards, ConstantAgent, 4: Done
 DelayedRewards, NaiveLearner, 0
 DelayedRewards, NaiveLearner, 1
 DelayedRewards, NaiveLearner, 2
 DelayedRewards, NaiveLearner, 3
 DelayedRewards, NaiveLearner, 4
-DelayedRewards, NaiveLearner, 5
 DelayedRewards, Q_learner, 0
 DelayedRewards, Q_learner, 1
 DelayedRewards, Q_learner, 2
 DelayedRewards, Q_learner, 3
 DelayedRewards, Q_learner, 4
-DelayedRewards, Q_learner, 5
 DelayedRewards, DQN_learner, 0
 DelayedRewards, DQN_learner, 1
 DelayedRewards, DQN_learner, 2
 DelayedRewards, DQN_learner, 3
 DelayedRewards, DQN_learner, 4
-DelayedRewards, DQN_learner, 5
 DelayedRewards, PPO_learner, 0
 DelayedRewards, PPO_learner, 1
 DelayedRewards, PPO_learner, 2
 DelayedRewards, PPO_learner, 3
 DelayedRewards, PPO_learner, 4
-DelayedRewards, PPO_learner, 5
 DelayedRewards, A2C_learner, 0
 DelayedRewards, A2C_learner, 1
 DelayedRewards, A2C_learner, 2
 DelayedRewards, A2C_learner, 3
 DelayedRewards, A2C_learner, 4
-DelayedRewards, A2C_learner, 5
 Repeater, RandomAgent, 0
 Repeater, RandomAgent, 1
 Repeater, RandomAgent, 2
 Repeater, RandomAgent, 3
 Repeater, RandomAgent, 4
-Repeater, RandomAgent, 5
-Repeater, ConstantAgent, 0
-Repeater, ConstantAgent, 1
-Repeater, ConstantAgent, 2
-Repeater, ConstantAgent, 3
-Repeater, ConstantAgent, 4
-Repeater, ConstantAgent, 5
+Repeater, ConstantAgent, 0: Done
+Repeater, ConstantAgent, 1: Done
+Repeater, ConstantAgent, 2: Done
+Repeater, ConstantAgent, 3: Done
+Repeater, ConstantAgent, 4: Done
 Repeater, NaiveLearner, 0
 Repeater, NaiveLearner, 1
 Repeater, NaiveLearner, 2
 Repeater, NaiveLearner, 3
 Repeater, NaiveLearner, 4
-Repeater, NaiveLearner, 5
 Repeater, Q_learner, 0
 Repeater, Q_learner, 1
 Repeater, Q_learner, 2
 Repeater, Q_learner, 3
 Repeater, Q_learner, 4
-Repeater, Q_learner, 5
 Repeater, DQN_learner, 0
 Repeater, DQN_learner, 1
 Repeater, DQN_learner, 2
 Repeater, DQN_learner, 3
 Repeater, DQN_learner, 4
-Repeater, DQN_learner, 5
 Repeater, PPO_learner, 0
 Repeater, PPO_learner, 1
 Repeater, PPO_learner, 2
 Repeater, PPO_learner, 3
 Repeater, PPO_learner, 4
-Repeater, PPO_learner, 5
 Repeater, A2C_learner, 0
 Repeater, A2C_learner, 1
 Repeater, A2C_learner, 2
 Repeater, A2C_learner, 3
 Repeater, A2C_learner, 4
-Repeater, A2C_learner, 5
 AfterImages, RandomAgent, 0
 AfterImages, RandomAgent, 1
 AfterImages, RandomAgent, 2
 AfterImages, RandomAgent, 3
 AfterImages, RandomAgent, 4
-AfterImages, RandomAgent, 5
-AfterImages, ConstantAgent, 0
-AfterImages, ConstantAgent, 1
-AfterImages, ConstantAgent, 2
-AfterImages, ConstantAgent, 3
-AfterImages, ConstantAgent, 4
-AfterImages, ConstantAgent, 5
+AfterImages, ConstantAgent, 0: Done
+AfterImages, ConstantAgent, 1: Done
+AfterImages, ConstantAgent, 2: Done
+AfterImages, ConstantAgent, 3: Done
+AfterImages, ConstantAgent, 4: Done
 AfterImages, NaiveLearner, 0
 AfterImages, NaiveLearner, 1
 AfterImages, NaiveLearner, 2
 AfterImages, NaiveLearner, 3
 AfterImages, NaiveLearner, 4
-AfterImages, NaiveLearner, 5
 AfterImages, Q_learner, 0
 AfterImages, Q_learner, 1
 AfterImages, Q_learner, 2
 AfterImages, Q_learner, 3
 AfterImages, Q_learner, 4
-AfterImages, Q_learner, 5
 AfterImages, DQN_learner, 0
 AfterImages, DQN_learner, 1
 AfterImages, DQN_learner, 2
 AfterImages, DQN_learner, 3
 AfterImages, DQN_learner, 4
-AfterImages, DQN_learner, 5
 AfterImages, PPO_learner, 0
 AfterImages, PPO_learner, 1
 AfterImages, PPO_learner, 2
 AfterImages, PPO_learner, 3
 AfterImages, PPO_learner, 4
-AfterImages, PPO_learner, 5
 AfterImages, A2C_learner, 0
 AfterImages, A2C_learner, 1
 AfterImages, A2C_learner, 2
 AfterImages, A2C_learner, 3
 AfterImages, A2C_learner, 4
-AfterImages, A2C_learner, 5
 SelfRecognition, RandomAgent, 0
 SelfRecognition, RandomAgent, 1
 SelfRecognition, RandomAgent, 2
 SelfRecognition, RandomAgent, 3
 SelfRecognition, RandomAgent, 4
-SelfRecognition, RandomAgent, 5
-SelfRecognition, ConstantAgent, 0
-SelfRecognition, ConstantAgent, 1
-SelfRecognition, ConstantAgent, 2
-SelfRecognition, ConstantAgent, 3
-SelfRecognition, ConstantAgent, 4
-SelfRecognition, ConstantAgent, 5
+SelfRecognition, ConstantAgent, 0: Done
+SelfRecognition, ConstantAgent, 1: Done
+SelfRecognition, ConstantAgent, 2: Done
+SelfRecognition, ConstantAgent, 3: Done
+SelfRecognition, ConstantAgent, 4: Done
 SelfRecognition, NaiveLearner, 0
 SelfRecognition, NaiveLearner, 1
 SelfRecognition, NaiveLearner, 2
 SelfRecognition, NaiveLearner, 3
 SelfRecognition, NaiveLearner, 4
-SelfRecognition, NaiveLearner, 5
 SelfRecognition, Q_learner, 0
 SelfRecognition, Q_learner, 1
 SelfRecognition, Q_learner, 2
 SelfRecognition, Q_learner, 3
 SelfRecognition, Q_learner, 4
-SelfRecognition, Q_learner, 5
 SelfRecognition, DQN_learner, 0
 SelfRecognition, DQN_learner, 1
 SelfRecognition, DQN_learner, 2
 SelfRecognition, DQN_learner, 3
 SelfRecognition, DQN_learner, 4
-SelfRecognition, DQN_learner, 5
 SelfRecognition, PPO_learner, 0
 SelfRecognition, PPO_learner, 1
 SelfRecognition, PPO_learner, 2
 SelfRecognition, PPO_learner, 3
 SelfRecognition, PPO_learner, 4
-SelfRecognition, PPO_learner, 5
 SelfRecognition, A2C_learner, 0
 SelfRecognition, A2C_learner, 1
 SelfRecognition, A2C_learner, 2
 SelfRecognition, A2C_learner, 3
 SelfRecognition, A2C_learner, 4
-SelfRecognition, A2C_learner, 5
 LimitedMemory, RandomAgent, 0
 LimitedMemory, RandomAgent, 1
 LimitedMemory, RandomAgent, 2
 LimitedMemory, RandomAgent, 3
 LimitedMemory, RandomAgent, 4
-LimitedMemory, RandomAgent, 5
-LimitedMemory, ConstantAgent, 0
-LimitedMemory, ConstantAgent, 1
-LimitedMemory, ConstantAgent, 2
-LimitedMemory, ConstantAgent, 3
-LimitedMemory, ConstantAgent, 4
-LimitedMemory, ConstantAgent, 5
+LimitedMemory, ConstantAgent, 0: Done
+LimitedMemory, ConstantAgent, 1: Done
+LimitedMemory, ConstantAgent, 2: Done
+LimitedMemory, ConstantAgent, 3: Done
+LimitedMemory, ConstantAgent, 4: Done
 LimitedMemory, NaiveLearner, 0
 LimitedMemory, NaiveLearner, 1
 LimitedMemory, NaiveLearner, 2
 LimitedMemory, NaiveLearner, 3
 LimitedMemory, NaiveLearner, 4
-LimitedMemory, NaiveLearner, 5
 LimitedMemory, Q_learner, 0
 LimitedMemory, Q_learner, 1
 LimitedMemory, Q_learner, 2
 LimitedMemory, Q_learner, 3
 LimitedMemory, Q_learner, 4
-LimitedMemory, Q_learner, 5
 LimitedMemory, DQN_learner, 0
 LimitedMemory, DQN_learner, 1
 LimitedMemory, DQN_learner, 2
 LimitedMemory, DQN_learner, 3
 LimitedMemory, DQN_learner, 4
-LimitedMemory, DQN_learner, 5
 LimitedMemory, PPO_learner, 0
 LimitedMemory, PPO_learner, 1
 LimitedMemory, PPO_learner, 2
 LimitedMemory, PPO_learner, 3
 LimitedMemory, PPO_learner, 4
-LimitedMemory, PPO_learner, 5
 LimitedMemory, A2C_learner, 0
 LimitedMemory, A2C_learner, 1
 LimitedMemory, A2C_learner, 2
 LimitedMemory, A2C_learner, 3
 LimitedMemory, A2C_learner, 4
-LimitedMemory, A2C_learner, 5
 CensoredObservation, RandomAgent, 0
 CensoredObservation, RandomAgent, 1
 CensoredObservation, RandomAgent, 2
 CensoredObservation, RandomAgent, 3
 CensoredObservation, RandomAgent, 4
-CensoredObservation, RandomAgent, 5
-CensoredObservation, ConstantAgent, 0
-CensoredObservation, ConstantAgent, 1
-CensoredObservation, ConstantAgent, 2
-CensoredObservation, ConstantAgent, 3
-CensoredObservation, ConstantAgent, 4
-CensoredObservation, ConstantAgent, 5
+CensoredObservation, ConstantAgent, 0: Done
+CensoredObservation, ConstantAgent, 1: Done
+CensoredObservation, ConstantAgent, 2: Done
+CensoredObservation, ConstantAgent, 3: Done
+CensoredObservation, ConstantAgent, 4: Done
 CensoredObservation, NaiveLearner, 0
 CensoredObservation, NaiveLearner, 1
 CensoredObservation, NaiveLearner, 2
 CensoredObservation, NaiveLearner, 3
 CensoredObservation, NaiveLearner, 4
-CensoredObservation, NaiveLearner, 5
 CensoredObservation, Q_learner, 0
 CensoredObservation, Q_learner, 1
 CensoredObservation, Q_learner, 2
 CensoredObservation, Q_learner, 3
 CensoredObservation, Q_learner, 4
-CensoredObservation, Q_learner, 5
 CensoredObservation, DQN_learner, 0
 CensoredObservation, DQN_learner, 1
 CensoredObservation, DQN_learner, 2
 CensoredObservation, DQN_learner, 3
 CensoredObservation, DQN_learner, 4
-CensoredObservation, DQN_learner, 5
 CensoredObservation, PPO_learner, 0
 CensoredObservation, PPO_learner, 1
 CensoredObservation, PPO_learner, 2
 CensoredObservation, PPO_learner, 3
 CensoredObservation, PPO_learner, 4
-CensoredObservation, PPO_learner, 5
 CensoredObservation, A2C_learner, 0
 CensoredObservation, A2C_learner, 1
 CensoredObservation, A2C_learner, 2
 CensoredObservation, A2C_learner, 3
 CensoredObservation, A2C_learner, 4
-CensoredObservation, A2C_learner, 5
 NthRewardMultipliedByN, RandomAgent, 0
 NthRewardMultipliedByN, RandomAgent, 1
 NthRewardMultipliedByN, RandomAgent, 2
 NthRewardMultipliedByN, RandomAgent, 3
 NthRewardMultipliedByN, RandomAgent, 4
-NthRewardMultipliedByN, RandomAgent, 5
-NthRewardMultipliedByN, ConstantAgent, 0
-NthRewardMultipliedByN, ConstantAgent, 1
-NthRewardMultipliedByN, ConstantAgent, 2
-NthRewardMultipliedByN, ConstantAgent, 3
-NthRewardMultipliedByN, ConstantAgent, 4
-NthRewardMultipliedByN, ConstantAgent, 5
+NthRewardMultipliedByN, ConstantAgent, 0: Done
+NthRewardMultipliedByN, ConstantAgent, 1: Done
+NthRewardMultipliedByN, ConstantAgent, 2: Done
+NthRewardMultipliedByN, ConstantAgent, 3: Done
+NthRewardMultipliedByN, ConstantAgent, 4: Done
 NthRewardMultipliedByN, NaiveLearner, 0
 NthRewardMultipliedByN, NaiveLearner, 1
 NthRewardMultipliedByN, NaiveLearner, 2
 NthRewardMultipliedByN, NaiveLearner, 3
 NthRewardMultipliedByN, NaiveLearner, 4
-NthRewardMultipliedByN, NaiveLearner, 5
 NthRewardMultipliedByN, Q_learner, 0
 NthRewardMultipliedByN, Q_learner, 1
 NthRewardMultipliedByN, Q_learner, 2
 NthRewardMultipliedByN, Q_learner, 3
 NthRewardMultipliedByN, Q_learner, 4
-NthRewardMultipliedByN, Q_learner, 5
 NthRewardMultipliedByN, DQN_learner, 0
 NthRewardMultipliedByN, DQN_learner, 1
 NthRewardMultipliedByN, DQN_learner, 2
 NthRewardMultipliedByN, DQN_learner, 3
 NthRewardMultipliedByN, DQN_learner, 4
-NthRewardMultipliedByN, DQN_learner, 5
 NthRewardMultipliedByN, PPO_learner, 0
 NthRewardMultipliedByN, PPO_learner, 1
 NthRewardMultipliedByN, PPO_learner, 2
 NthRewardMultipliedByN, PPO_learner, 3
 NthRewardMultipliedByN, PPO_learner, 4
-NthRewardMultipliedByN, PPO_learner, 5
 NthRewardMultipliedByN, A2C_learner, 0
 NthRewardMultipliedByN, A2C_learner, 1
 NthRewardMultipliedByN, A2C_learner, 2
 NthRewardMultipliedByN, A2C_learner, 3
 NthRewardMultipliedByN, A2C_learner, 4
-NthRewardMultipliedByN, A2C_learner, 5
 AdversarialSequencePredictor, RandomAgent, 0
 AdversarialSequencePredictor, RandomAgent, 1
 AdversarialSequencePredictor, RandomAgent, 2
 AdversarialSequencePredictor, RandomAgent, 3
 AdversarialSequencePredictor, RandomAgent, 4
-AdversarialSequencePredictor, RandomAgent, 5
-AdversarialSequencePredictor, ConstantAgent, 0
-AdversarialSequencePredictor, ConstantAgent, 1
-AdversarialSequencePredictor, ConstantAgent, 2
-AdversarialSequencePredictor, ConstantAgent, 3
-AdversarialSequencePredictor, ConstantAgent, 4
-AdversarialSequencePredictor, ConstantAgent, 5
+AdversarialSequencePredictor, ConstantAgent, 0: Done
+AdversarialSequencePredictor, ConstantAgent, 1: Done
+AdversarialSequencePredictor, ConstantAgent, 2: Done
+AdversarialSequencePredictor, ConstantAgent, 3: Done
+AdversarialSequencePredictor, ConstantAgent, 4: Done
 AdversarialSequencePredictor, NaiveLearner, 0
 AdversarialSequencePredictor, NaiveLearner, 1
 AdversarialSequencePredictor, NaiveLearner, 2
 AdversarialSequencePredictor, NaiveLearner, 3
 AdversarialSequencePredictor, NaiveLearner, 4
-AdversarialSequencePredictor, NaiveLearner, 5
 AdversarialSequencePredictor, Q_learner, 0
 AdversarialSequencePredictor, Q_learner, 1
 AdversarialSequencePredictor, Q_learner, 2
 AdversarialSequencePredictor, Q_learner, 3
 AdversarialSequencePredictor, Q_learner, 4
-AdversarialSequencePredictor, Q_learner, 5
 AdversarialSequencePredictor, DQN_learner, 0
 AdversarialSequencePredictor, DQN_learner, 1
 AdversarialSequencePredictor, DQN_learner, 2
 AdversarialSequencePredictor, DQN_learner, 3
 AdversarialSequencePredictor, DQN_learner, 4
-AdversarialSequencePredictor, DQN_learner, 5
 AdversarialSequencePredictor, PPO_learner, 0
 AdversarialSequencePredictor, PPO_learner, 1
 AdversarialSequencePredictor, PPO_learner, 2
 AdversarialSequencePredictor, PPO_learner, 3
 AdversarialSequencePredictor, PPO_learner, 4
-AdversarialSequencePredictor, PPO_learner, 5
 AdversarialSequencePredictor, A2C_learner, 0
 AdversarialSequencePredictor, A2C_learner, 1
 AdversarialSequencePredictor, A2C_learner, 2
 AdversarialSequencePredictor, A2C_learner, 3
 AdversarialSequencePredictor, A2C_learner, 4
-AdversarialSequencePredictor, A2C_learner, 5
 AdversarialSequenceEvader, RandomAgent, 0
 AdversarialSequenceEvader, RandomAgent, 1
 AdversarialSequenceEvader, RandomAgent, 2
 AdversarialSequenceEvader, RandomAgent, 3
 AdversarialSequenceEvader, RandomAgent, 4
-AdversarialSequenceEvader, RandomAgent, 5
-AdversarialSequenceEvader, ConstantAgent, 0
-AdversarialSequenceEvader, ConstantAgent, 1
-AdversarialSequenceEvader, ConstantAgent, 2
-AdversarialSequenceEvader, ConstantAgent, 3
-AdversarialSequenceEvader, ConstantAgent, 4
-AdversarialSequenceEvader, ConstantAgent, 5
+AdversarialSequenceEvader, ConstantAgent, 0: Done
+AdversarialSequenceEvader, ConstantAgent, 1: Done
+AdversarialSequenceEvader, ConstantAgent, 2: Done
+AdversarialSequenceEvader, ConstantAgent, 3: Done
+AdversarialSequenceEvader, ConstantAgent, 4: Done
 AdversarialSequenceEvader, NaiveLearner, 0
 AdversarialSequenceEvader, NaiveLearner, 1
 AdversarialSequenceEvader, NaiveLearner, 2
 AdversarialSequenceEvader, NaiveLearner, 3
 AdversarialSequenceEvader, NaiveLearner, 4
-AdversarialSequenceEvader, NaiveLearner, 5
 AdversarialSequenceEvader, Q_learner, 0
 AdversarialSequenceEvader, Q_learner, 1
 AdversarialSequenceEvader, Q_learner, 2
 AdversarialSequenceEvader, Q_learner, 3
 AdversarialSequenceEvader, Q_learner, 4
-AdversarialSequenceEvader, Q_learner, 5
 AdversarialSequenceEvader, DQN_learner, 0
 AdversarialSequenceEvader, DQN_learner, 1
 AdversarialSequenceEvader, DQN_learner, 2
 AdversarialSequenceEvader, DQN_learner, 3
 AdversarialSequenceEvader, DQN_learner, 4
-AdversarialSequenceEvader, DQN_learner, 5
 AdversarialSequenceEvader, PPO_learner, 0
 AdversarialSequenceEvader, PPO_learner, 1
 AdversarialSequenceEvader, PPO_learner, 2
 AdversarialSequenceEvader, PPO_learner, 3
 AdversarialSequenceEvader, PPO_learner, 4
-AdversarialSequenceEvader, PPO_learner, 5
 AdversarialSequenceEvader, A2C_learner, 0
 AdversarialSequenceEvader, A2C_learner, 1
 AdversarialSequenceEvader, A2C_learner, 2
 AdversarialSequenceEvader, A2C_learner, 3
 AdversarialSequenceEvader, A2C_learner, 4
-AdversarialSequenceEvader, A2C_learner, 5
 IncentivizeLearningRate, RandomAgent, 0
 IncentivizeLearningRate, RandomAgent, 1
 IncentivizeLearningRate, RandomAgent, 2
 IncentivizeLearningRate, RandomAgent, 3
 IncentivizeLearningRate, RandomAgent, 4
-IncentivizeLearningRate, RandomAgent, 5
-IncentivizeLearningRate, ConstantAgent, 0
-IncentivizeLearningRate, ConstantAgent, 1
-IncentivizeLearningRate, ConstantAgent, 2
-IncentivizeLearningRate, ConstantAgent, 3
-IncentivizeLearningRate, ConstantAgent, 4
-IncentivizeLearningRate, ConstantAgent, 5
+IncentivizeLearningRate, ConstantAgent, 0: Done
+IncentivizeLearningRate, ConstantAgent, 1: Done
+IncentivizeLearningRate, ConstantAgent, 2: Done
+IncentivizeLearningRate, ConstantAgent, 3: Done
+IncentivizeLearningRate, ConstantAgent, 4: Done
 IncentivizeLearningRate, NaiveLearner, 0
 IncentivizeLearningRate, NaiveLearner, 1
 IncentivizeLearningRate, NaiveLearner, 2
 IncentivizeLearningRate, NaiveLearner, 3
 IncentivizeLearningRate, NaiveLearner, 4
-IncentivizeLearningRate, NaiveLearner, 5
 IncentivizeLearningRate, Q_learner, 0
 IncentivizeLearningRate, Q_learner, 1
 IncentivizeLearningRate, Q_learner, 2
 IncentivizeLearningRate, Q_learner, 3
 IncentivizeLearningRate, Q_learner, 4
-IncentivizeLearningRate, Q_learner, 5
 IncentivizeLearningRate, DQN_learner, 0
 IncentivizeLearningRate, DQN_learner, 1
 IncentivizeLearningRate, DQN_learner, 2
 IncentivizeLearningRate, DQN_learner, 3
 IncentivizeLearningRate, DQN_learner, 4
-IncentivizeLearningRate, DQN_learner, 5
 IncentivizeLearningRate, PPO_learner, 0
 IncentivizeLearningRate, PPO_learner, 1
 IncentivizeLearningRate, PPO_learner, 2
 IncentivizeLearningRate, PPO_learner, 3
 IncentivizeLearningRate, PPO_learner, 4
-IncentivizeLearningRate, PPO_learner, 5
 IncentivizeLearningRate, A2C_learner, 0
 IncentivizeLearningRate, A2C_learner, 1
 IncentivizeLearningRate, A2C_learner, 2
 IncentivizeLearningRate, A2C_learner, 3
 IncentivizeLearningRate, A2C_learner, 4
-IncentivizeLearningRate, A2C_learner, 5
