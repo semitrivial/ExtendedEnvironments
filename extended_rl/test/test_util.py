@@ -1,7 +1,7 @@
 # The purpose of this file is to test the library to make sure
 # it works. End-users who are not working on contributing code
 # to the library do not need to worry about this.
-from util import annotate
+from util import annotate, copy_with_meta
 
 
 def test_util():
@@ -9,6 +9,7 @@ def test_util():
     test_run_environment()
     test_eval_and_count_steps()
     test_annotate()
+    test_copy_with_meta()
 
     print("Done testing util functions.")
 
@@ -90,3 +91,17 @@ def test_annotate():
 
     assert Foo.num_legal_actions == 99
     assert Foo.num_possible_obs == 5
+
+def test_copy_with_meta():
+    @annotate(num_legal_actions=99, num_possible_obs=5)
+    class Foo:
+        pass
+
+    class Bar:
+        pass
+
+    X = copy_with_meta(Bar, Foo)
+    assert X.num_legal_actions == 99
+    assert X.num_possible_obs == 5
+    assert isinstance(X(), Bar)
+    assert X.__name__ == 'Bar'
