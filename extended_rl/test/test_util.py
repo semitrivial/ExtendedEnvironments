@@ -7,7 +7,6 @@ from util import annotate
 def test_util():
     print("Testing util functions...")
     test_run_environment()
-    test_numpy_translator()
     test_eval_and_count_steps()
 
     print("Done testing util functions.")
@@ -62,30 +61,6 @@ def test_run_environment():
     run_environment(MockEnv2, MockAgent, 100)
     assert num_env_calls[0] == 100
     assert num_agent_calls[0] == 200
-
-def test_numpy_translator():
-    try:
-        import numpy as np
-    except ModuleNotFoundError:
-        print("Skipping test_numpy_translator: numpy not installed")
-        return
-
-    from util import numpy_translator
-
-    @numpy_translator
-    def agent(prompt, *meta):
-        assert isinstance(prompt, tuple)
-        assert isinstance(prompt[0], np.int64)
-        assert isinstance(prompt[1], np.int64)
-        return np.int64(0)
-
-    prompt = (0,0)
-    num_legal_actions = num_possible_obs = 1
-
-    x = agent(prompt, num_legal_actions, num_possible_obs)
-    assert isinstance(x, int)
-    assert not(isinstance(x, np.int64))
-    assert x == 0
 
 def test_eval_and_count_steps():
     from util import eval_and_count_steps

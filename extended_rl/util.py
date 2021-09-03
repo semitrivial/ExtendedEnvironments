@@ -47,22 +47,6 @@ def copy_with_meta(class_to_copy, meta_src):
     result.__qualname__ = class_to_copy.__qualname__
     return result
 
-def numpy_translator(T):
-    """
-    Unlike A2C and PPO, Stable Baselines3's DQN agent (with MLP policy)
-    apparently only works if all the inputs are wrapped as numpy int64's.
-    And when it does work, it outputs its results also so wrapped.
-    This function takes an agent and modifies it by performing the
-    necessary wrapping and unwrapping silently behind the scenes.
-    """
-    import numpy as np  # avoid numpy dependency for non-SBL3 users
-
-    def T_translated(prompt, num_legal_actions, num_possible_obs, **kwargs):
-        prompt = tuple(np.int64(prompt))
-        return int(T(prompt, num_legal_actions, num_possible_obs, **kwargs))
-
-    return T_translated
-
 def eval_and_count_steps(str, local_vars):
     # Count how many steps a string of code takes to execute, as measured
     # by the python debugger, pdb. This function works by hijacking pdb.
