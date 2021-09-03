@@ -20,6 +20,7 @@ finished = {
     ConstantAgent: [0,1,2,3,4],
     RandomAgent: [0,1,2,3,4],
     NaiveLearner: [0,1,2,3,4],
+    Q_learner: [0,1,2,3,4],
 }
 
 seeds = [0, 1, 2, 3, 4]
