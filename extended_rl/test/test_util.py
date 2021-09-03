@@ -1,7 +1,7 @@
 # The purpose of this file is to test the library to make sure
 # it works. End-users who are not working on contributing code
 # to the library do not need to worry about this.
-from util import annotate, copy_with_meta
+from util import annotate
 
 
 def test_util():
@@ -10,6 +10,7 @@ def test_util():
     test_eval_and_count_steps()
     test_annotate()
     test_copy_with_meta()
+    test_args_to_agent()
 
     print("Done testing util functions.")
 
@@ -93,6 +94,8 @@ def test_annotate():
     assert Foo.num_possible_obs == 5
 
 def test_copy_with_meta():
+    from util import copy_with_meta
+
     @annotate(num_legal_actions=99, num_possible_obs=5)
     class Foo:
         pass
@@ -105,3 +108,87 @@ def test_copy_with_meta():
     assert X.num_possible_obs == 5
     assert isinstance(X(), Bar)
     assert X.__name__ == 'Bar'
+
+def test_args_to_agent():
+    from util import args_to_agent, run_environment
+
+    class CustomizableConstAgent:
+        def __init__(self, action_to_play=0):
+            self.action_to_play = action_to_play
+        def act(self, obs):
+            return self.action_to_play % self.num_legal_actions
+        def train(self, o_prev, act, R, o_next):
+            pass
+
+    assert CustomizableConstAgent().action_to_play == 0
+
+    @annotate(num_legal_actions=2, num_possible_obs=1)
+    class RewardPlaying1:
+        def __init__(self, A):
+            pass
+        def start(self):
+            return 0
+        def step(self, action):
+            reward = 1 if (action==1) else -1
+            return (reward, 0)
+
+    result = run_environment(RewardPlaying1, CustomizableConstAgent, 10)
+    assert result['total_reward'] == -10
+
+    Plays1 = args_to_agent(CustomizableConstAgent, action_to_play=1)
+    assert Plays1.__name__ == 'CustomizableConstAgent'
+    assert Plays1().kwargs == {'action_to_play': 1}
+
+    result = run_environment(RewardPlaying1, Plays1, 10)
+    assert result['total_reward'] == 10
+
+    @annotate(num_legal_actions=2, num_possible_obs=1)
+    class RewardHypothetical1:
+        def __init__(self, A):
+            self.sim = A()
+        def start(self):
+            return 0
+        def step(self, action):
+            hypothetical_action = self.sim.act(0)
+            reward = 1 if (hypothetical_action==1) else -1
+            return (reward, 0)
+
+    result = run_environment(RewardHypothetical1, CustomizableConstAgent, 10)
+    assert result['total_reward'] == -10
+
+    result = run_environment(RewardHypothetical1, Plays1, 10)
+    assert result['total_reward'] == 10
+
+    @annotate(num_legal_actions=3, num_possible_obs=1)
+    class OverridesArg:
+        def __init__(self, A):
+            self.sim = A(action_to_play=2)
+        def start(self):
+            return 0
+        def step(self, action):
+            assert action == 1
+            hypothetical_action = self.sim.act(0)
+            reward = 1 if (hypothetical_action==2) else -1
+            return (reward, 0)
+
+    result = run_environment(OverridesArg, Plays1, 10)
+    assert result['total_reward'] == 10
+
+    # Args are applied to underlying, not to shell.
+    # And they are only applied to underlying upon first action.
+    @annotate(num_legal_actions=2, num_possible_obs=1)
+    class CheckArgs:
+        def __init__(self, A):
+            self.sim = A()
+            assert not(hasattr(self.sim, 'action_to_play'))
+            assert not(hasattr(self.sim, 'underlying'))
+            self.sim.act(0)
+            assert self.sim.underlying.action_to_play == 1
+        def start(self):
+            assert not(hasattr(self.sim, 'action_to_play'))
+            return 0
+        def step(self, action):
+            assert not(hasattr(self.sim, 'action_to_play'))
+            return (0,0)
+
+    run_environment(CheckArgs, Plays1, 10)
