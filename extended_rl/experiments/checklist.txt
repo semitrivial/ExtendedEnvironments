@@ -1,8 +1,8 @@
-BackwardConsciousness, RandomAgent, 0
-BackwardConsciousness, RandomAgent, 1
-BackwardConsciousness, RandomAgent, 2
-BackwardConsciousness, RandomAgent, 3
-BackwardConsciousness, RandomAgent, 4
+BackwardConsciousness, RandomAgent, 0: Done
+BackwardConsciousness, RandomAgent, 1: Done
+BackwardConsciousness, RandomAgent, 2: Done
+BackwardConsciousness, RandomAgent, 3: Done
+BackwardConsciousness, RandomAgent, 4: Done
 BackwardConsciousness, ConstantAgent, 0: Done
 BackwardConsciousness, ConstantAgent, 1: Done
 BackwardConsciousness, ConstantAgent, 2: Done
@@ -33,11 +33,11 @@ BackwardConsciousness, A2C_learner, 1
 BackwardConsciousness, A2C_learner, 2
 BackwardConsciousness, A2C_learner, 3
 BackwardConsciousness, A2C_learner, 4
-FalseMemories, RandomAgent, 0
-FalseMemories, RandomAgent, 1
-FalseMemories, RandomAgent, 2
-FalseMemories, RandomAgent, 3
-FalseMemories, RandomAgent, 4
+FalseMemories, RandomAgent, 0: Done
+FalseMemories, RandomAgent, 1: Done
+FalseMemories, RandomAgent, 2: Done
+FalseMemories, RandomAgent, 3: Done
+FalseMemories, RandomAgent, 4: Done
 FalseMemories, ConstantAgent, 0: Done
 FalseMemories, ConstantAgent, 1: Done
 FalseMemories, ConstantAgent, 2: Done
@@ -68,11 +68,11 @@ FalseMemories, A2C_learner, 1
 FalseMemories, A2C_learner, 2
 FalseMemories, A2C_learner, 3
 FalseMemories, A2C_learner, 4
-IgnoreRewards, RandomAgent, 0
-IgnoreRewards, RandomAgent, 1
-IgnoreRewards, RandomAgent, 2
-IgnoreRewards, RandomAgent, 3
-IgnoreRewards, RandomAgent, 4
+IgnoreRewards, RandomAgent, 0: Done
+IgnoreRewards, RandomAgent, 1: Done
+IgnoreRewards, RandomAgent, 2: Done
+IgnoreRewards, RandomAgent, 3: Done
+IgnoreRewards, RandomAgent, 4: Done
 IgnoreRewards, ConstantAgent, 0: Done
 IgnoreRewards, ConstantAgent, 1: Done
 IgnoreRewards, ConstantAgent, 2: Done
@@ -103,11 +103,11 @@ IgnoreRewards, A2C_learner, 1
 IgnoreRewards, A2C_learner, 2
 IgnoreRewards, A2C_learner, 3
 IgnoreRewards, A2C_learner, 4
-IgnoreRewards2, RandomAgent, 0
-IgnoreRewards2, RandomAgent, 1
-IgnoreRewards2, RandomAgent, 2
-IgnoreRewards2, RandomAgent, 3
-IgnoreRewards2, RandomAgent, 4
+IgnoreRewards2, RandomAgent, 0: Done
+IgnoreRewards2, RandomAgent, 1: Done
+IgnoreRewards2, RandomAgent, 2: Done
+IgnoreRewards2, RandomAgent, 3: Done
+IgnoreRewards2, RandomAgent, 4: Done
 IgnoreRewards2, ConstantAgent, 0: Done
 IgnoreRewards2, ConstantAgent, 1: Done
 IgnoreRewards2, ConstantAgent, 2: Done
@@ -138,11 +138,11 @@ IgnoreRewards2, A2C_learner, 1
 IgnoreRewards2, A2C_learner, 2
 IgnoreRewards2, A2C_learner, 3
 IgnoreRewards2, A2C_learner, 4
-IgnoreRewards3, RandomAgent, 0
-IgnoreRewards3, RandomAgent, 1
-IgnoreRewards3, RandomAgent, 2
-IgnoreRewards3, RandomAgent, 3
-IgnoreRewards3, RandomAgent, 4
+IgnoreRewards3, RandomAgent, 0: Done
+IgnoreRewards3, RandomAgent, 1: Done
+IgnoreRewards3, RandomAgent, 2: Done
+IgnoreRewards3, RandomAgent, 3: Done
+IgnoreRewards3, RandomAgent, 4: Done
 IgnoreRewards3, ConstantAgent, 0: Done
 IgnoreRewards3, ConstantAgent, 1: Done
 IgnoreRewards3, ConstantAgent, 2: Done
@@ -173,11 +173,11 @@ IgnoreRewards3, A2C_learner, 1
 IgnoreRewards3, A2C_learner, 2
 IgnoreRewards3, A2C_learner, 3
 IgnoreRewards3, A2C_learner, 4
-IgnoreObservations, RandomAgent, 0
-IgnoreObservations, RandomAgent, 1
-IgnoreObservations, RandomAgent, 2
-IgnoreObservations, RandomAgent, 3
-IgnoreObservations, RandomAgent, 4
+IgnoreObservations, RandomAgent, 0: Done
+IgnoreObservations, RandomAgent, 1: Done
+IgnoreObservations, RandomAgent, 2: Done
+IgnoreObservations, RandomAgent, 3: Done
+IgnoreObservations, RandomAgent, 4: Done
 IgnoreObservations, ConstantAgent, 0: Done
 IgnoreObservations, ConstantAgent, 1: Done
 IgnoreObservations, ConstantAgent, 2: Done
@@ -208,11 +208,11 @@ IgnoreObservations, A2C_learner, 1
 IgnoreObservations, A2C_learner, 2
 IgnoreObservations, A2C_learner, 3
 IgnoreObservations, A2C_learner, 4
-IgnoreActions, RandomAgent, 0
-IgnoreActions, RandomAgent, 1
-IgnoreActions, RandomAgent, 2
-IgnoreActions, RandomAgent, 3
-IgnoreActions, RandomAgent, 4
+IgnoreActions, RandomAgent, 0: Done
+IgnoreActions, RandomAgent, 1: Done
+IgnoreActions, RandomAgent, 2: Done
+IgnoreActions, RandomAgent, 3: Done
+IgnoreActions, RandomAgent, 4: Done
 IgnoreActions, ConstantAgent, 0: Done
 IgnoreActions, ConstantAgent, 1: Done
 IgnoreActions, ConstantAgent, 2: Done
@@ -243,11 +243,11 @@ IgnoreActions, A2C_learner, 1
 IgnoreActions, A2C_learner, 2
 IgnoreActions, A2C_learner, 3
 IgnoreActions, A2C_learner, 4
-IncentivizeZero, RandomAgent, 0
-IncentivizeZero, RandomAgent, 1
-IncentivizeZero, RandomAgent, 2
-IncentivizeZero, RandomAgent, 3
-IncentivizeZero, RandomAgent, 4
+IncentivizeZero, RandomAgent, 0: Done
+IncentivizeZero, RandomAgent, 1: Done
+IncentivizeZero, RandomAgent, 2: Done
+IncentivizeZero, RandomAgent, 3: Done
+IncentivizeZero, RandomAgent, 4: Done
 IncentivizeZero, ConstantAgent, 0: Done
 IncentivizeZero, ConstantAgent, 1: Done
 IncentivizeZero, ConstantAgent, 2: Done
@@ -278,11 +278,11 @@ IncentivizeZero, A2C_learner, 1
 IncentivizeZero, A2C_learner, 2
 IncentivizeZero, A2C_learner, 3
 IncentivizeZero, A2C_learner, 4
-PunishSlowAgent, RandomAgent, 0
-PunishSlowAgent, RandomAgent, 1
-PunishSlowAgent, RandomAgent, 2
-PunishSlowAgent, RandomAgent, 3
-PunishSlowAgent, RandomAgent, 4
+PunishSlowAgent, RandomAgent, 0: Done
+PunishSlowAgent, RandomAgent, 1: Done
+PunishSlowAgent, RandomAgent, 2: Done
+PunishSlowAgent, RandomAgent, 3: Done
+PunishSlowAgent, RandomAgent, 4: Done
 PunishSlowAgent, ConstantAgent, 0: Done
 PunishSlowAgent, ConstantAgent, 1: Done
 PunishSlowAgent, ConstantAgent, 2: Done
@@ -313,11 +313,11 @@ PunishSlowAgent, A2C_learner, 1
 PunishSlowAgent, A2C_learner, 2
 PunishSlowAgent, A2C_learner, 3
 PunishSlowAgent, A2C_learner, 4
-PunishDeterministicAgent, RandomAgent, 0
-PunishDeterministicAgent, RandomAgent, 1
-PunishDeterministicAgent, RandomAgent, 2
-PunishDeterministicAgent, RandomAgent, 3
-PunishDeterministicAgent, RandomAgent, 4
+PunishDeterministicAgent, RandomAgent, 0: Done
+PunishDeterministicAgent, RandomAgent, 1: Done
+PunishDeterministicAgent, RandomAgent, 2: Done
+PunishDeterministicAgent, RandomAgent, 3: Done
+PunishDeterministicAgent, RandomAgent, 4: Done
 PunishDeterministicAgent, ConstantAgent, 0: Done
 PunishDeterministicAgent, ConstantAgent, 1: Done
 PunishDeterministicAgent, ConstantAgent, 2: Done
@@ -348,11 +348,11 @@ PunishDeterministicAgent, A2C_learner, 1
 PunishDeterministicAgent, A2C_learner, 2
 PunishDeterministicAgent, A2C_learner, 3
 PunishDeterministicAgent, A2C_learner, 4
-CryingBaby, RandomAgent, 0
-CryingBaby, RandomAgent, 1
-CryingBaby, RandomAgent, 2
-CryingBaby, RandomAgent, 3
-CryingBaby, RandomAgent, 4
+CryingBaby, RandomAgent, 0: Done
+CryingBaby, RandomAgent, 1: Done
+CryingBaby, RandomAgent, 2: Done
+CryingBaby, RandomAgent, 3: Done
+CryingBaby, RandomAgent, 4: Done
 CryingBaby, ConstantAgent, 0: Done
 CryingBaby, ConstantAgent, 1: Done
 CryingBaby, ConstantAgent, 2: Done
@@ -383,11 +383,11 @@ CryingBaby, A2C_learner, 1
 CryingBaby, A2C_learner, 2
 CryingBaby, A2C_learner, 3
 CryingBaby, A2C_learner, 4
-CryingBaby2, RandomAgent, 0
-CryingBaby2, RandomAgent, 1
-CryingBaby2, RandomAgent, 2
-CryingBaby2, RandomAgent, 3
-CryingBaby2, RandomAgent, 4
+CryingBaby2, RandomAgent, 0: Done
+CryingBaby2, RandomAgent, 1: Done
+CryingBaby2, RandomAgent, 2: Done
+CryingBaby2, RandomAgent, 3: Done
+CryingBaby2, RandomAgent, 4: Done
 CryingBaby2, ConstantAgent, 0: Done
 CryingBaby2, ConstantAgent, 1: Done
 CryingBaby2, ConstantAgent, 2: Done
@@ -418,11 +418,11 @@ CryingBaby2, A2C_learner, 1
 CryingBaby2, A2C_learner, 2
 CryingBaby2, A2C_learner, 3
 CryingBaby2, A2C_learner, 4
-TemptingButton, RandomAgent, 0
-TemptingButton, RandomAgent, 1
-TemptingButton, RandomAgent, 2
-TemptingButton, RandomAgent, 3
-TemptingButton, RandomAgent, 4
+TemptingButton, RandomAgent, 0: Done
+TemptingButton, RandomAgent, 1: Done
+TemptingButton, RandomAgent, 2: Done
+TemptingButton, RandomAgent, 3: Done
+TemptingButton, RandomAgent, 4: Done
 TemptingButton, ConstantAgent, 0: Done
 TemptingButton, ConstantAgent, 1: Done
 TemptingButton, ConstantAgent, 2: Done
@@ -453,11 +453,11 @@ TemptingButton, A2C_learner, 1
 TemptingButton, A2C_learner, 2
 TemptingButton, A2C_learner, 3
 TemptingButton, A2C_learner, 4
-TemptingButtonVariation, RandomAgent, 0
-TemptingButtonVariation, RandomAgent, 1
-TemptingButtonVariation, RandomAgent, 2
-TemptingButtonVariation, RandomAgent, 3
-TemptingButtonVariation, RandomAgent, 4
+TemptingButtonVariation, RandomAgent, 0: Done
+TemptingButtonVariation, RandomAgent, 1: Done
+TemptingButtonVariation, RandomAgent, 2: Done
+TemptingButtonVariation, RandomAgent, 3: Done
+TemptingButtonVariation, RandomAgent, 4: Done
 TemptingButtonVariation, ConstantAgent, 0: Done
 TemptingButtonVariation, ConstantAgent, 1: Done
 TemptingButtonVariation, ConstantAgent, 2: Done
@@ -488,11 +488,11 @@ TemptingButtonVariation, A2C_learner, 1
 TemptingButtonVariation, A2C_learner, 2
 TemptingButtonVariation, A2C_learner, 3
 TemptingButtonVariation, A2C_learner, 4
-ThirdActionForbidden, RandomAgent, 0
-ThirdActionForbidden, RandomAgent, 1
-ThirdActionForbidden, RandomAgent, 2
-ThirdActionForbidden, RandomAgent, 3
-ThirdActionForbidden, RandomAgent, 4
+ThirdActionForbidden, RandomAgent, 0: Done
+ThirdActionForbidden, RandomAgent, 1: Done
+ThirdActionForbidden, RandomAgent, 2: Done
+ThirdActionForbidden, RandomAgent, 3: Done
+ThirdActionForbidden, RandomAgent, 4: Done
 ThirdActionForbidden, ConstantAgent, 0: Done
 ThirdActionForbidden, ConstantAgent, 1: Done
 ThirdActionForbidden, ConstantAgent, 2: Done
@@ -523,11 +523,11 @@ ThirdActionForbidden, A2C_learner, 1
 ThirdActionForbidden, A2C_learner, 2
 ThirdActionForbidden, A2C_learner, 3
 ThirdActionForbidden, A2C_learner, 4
-ShiftedRewards, RandomAgent, 0
-ShiftedRewards, RandomAgent, 1
-ShiftedRewards, RandomAgent, 2
-ShiftedRewards, RandomAgent, 3
-ShiftedRewards, RandomAgent, 4
+ShiftedRewards, RandomAgent, 0: Done
+ShiftedRewards, RandomAgent, 1: Done
+ShiftedRewards, RandomAgent, 2: Done
+ShiftedRewards, RandomAgent, 3: Done
+ShiftedRewards, RandomAgent, 4: Done
 ShiftedRewards, ConstantAgent, 0: Done
 ShiftedRewards, ConstantAgent, 1: Done
 ShiftedRewards, ConstantAgent, 2: Done
@@ -558,11 +558,11 @@ ShiftedRewards, A2C_learner, 1
 ShiftedRewards, A2C_learner, 2
 ShiftedRewards, A2C_learner, 3
 ShiftedRewards, A2C_learner, 4
-DelayedRewards, RandomAgent, 0
-DelayedRewards, RandomAgent, 1
-DelayedRewards, RandomAgent, 2
-DelayedRewards, RandomAgent, 3
-DelayedRewards, RandomAgent, 4
+DelayedRewards, RandomAgent, 0: Done
+DelayedRewards, RandomAgent, 1: Done
+DelayedRewards, RandomAgent, 2: Done
+DelayedRewards, RandomAgent, 3: Done
+DelayedRewards, RandomAgent, 4: Done
 DelayedRewards, ConstantAgent, 0: Done
 DelayedRewards, ConstantAgent, 1: Done
 DelayedRewards, ConstantAgent, 2: Done
@@ -593,11 +593,11 @@ DelayedRewards, A2C_learner, 1
 DelayedRewards, A2C_learner, 2
 DelayedRewards, A2C_learner, 3
 DelayedRewards, A2C_learner, 4
-Repeater, RandomAgent, 0
-Repeater, RandomAgent, 1
-Repeater, RandomAgent, 2
-Repeater, RandomAgent, 3
-Repeater, RandomAgent, 4
+Repeater, RandomAgent, 0: Done
+Repeater, RandomAgent, 1: Done
+Repeater, RandomAgent, 2: Done
+Repeater, RandomAgent, 3: Done
+Repeater, RandomAgent, 4: Done
 Repeater, ConstantAgent, 0: Done
 Repeater, ConstantAgent, 1: Done
 Repeater, ConstantAgent, 2: Done
@@ -628,11 +628,11 @@ Repeater, A2C_learner, 1
 Repeater, A2C_learner, 2
 Repeater, A2C_learner, 3
 Repeater, A2C_learner, 4
-AfterImages, RandomAgent, 0
-AfterImages, RandomAgent, 1
-AfterImages, RandomAgent, 2
-AfterImages, RandomAgent, 3
-AfterImages, RandomAgent, 4
+AfterImages, RandomAgent, 0: Done
+AfterImages, RandomAgent, 1: Done
+AfterImages, RandomAgent, 2: Done
+AfterImages, RandomAgent, 3: Done
+AfterImages, RandomAgent, 4: Done
 AfterImages, ConstantAgent, 0: Done
 AfterImages, ConstantAgent, 1: Done
 AfterImages, ConstantAgent, 2: Done
@@ -663,11 +663,11 @@ AfterImages, A2C_learner, 1
 AfterImages, A2C_learner, 2
 AfterImages, A2C_learner, 3
 AfterImages, A2C_learner, 4
-SelfRecognition, RandomAgent, 0
-SelfRecognition, RandomAgent, 1
-SelfRecognition, RandomAgent, 2
-SelfRecognition, RandomAgent, 3
-SelfRecognition, RandomAgent, 4
+SelfRecognition, RandomAgent, 0: Done
+SelfRecognition, RandomAgent, 1: Done
+SelfRecognition, RandomAgent, 2: Done
+SelfRecognition, RandomAgent, 3: Done
+SelfRecognition, RandomAgent, 4: Done
 SelfRecognition, ConstantAgent, 0: Done
 SelfRecognition, ConstantAgent, 1: Done
 SelfRecognition, ConstantAgent, 2: Done
@@ -698,11 +698,11 @@ SelfRecognition, A2C_learner, 1
 SelfRecognition, A2C_learner, 2
 SelfRecognition, A2C_learner, 3
 SelfRecognition, A2C_learner, 4
-LimitedMemory, RandomAgent, 0
-LimitedMemory, RandomAgent, 1
-LimitedMemory, RandomAgent, 2
-LimitedMemory, RandomAgent, 3
-LimitedMemory, RandomAgent, 4
+LimitedMemory, RandomAgent, 0: Done
+LimitedMemory, RandomAgent, 1: Done
+LimitedMemory, RandomAgent, 2: Done
+LimitedMemory, RandomAgent, 3: Done
+LimitedMemory, RandomAgent, 4: Done
 LimitedMemory, ConstantAgent, 0: Done
 LimitedMemory, ConstantAgent, 1: Done
 LimitedMemory, ConstantAgent, 2: Done
@@ -733,11 +733,11 @@ LimitedMemory, A2C_learner, 1
 LimitedMemory, A2C_learner, 2
 LimitedMemory, A2C_learner, 3
 LimitedMemory, A2C_learner, 4
-CensoredObservation, RandomAgent, 0
-CensoredObservation, RandomAgent, 1
-CensoredObservation, RandomAgent, 2
-CensoredObservation, RandomAgent, 3
-CensoredObservation, RandomAgent, 4
+CensoredObservation, RandomAgent, 0: Done
+CensoredObservation, RandomAgent, 1: Done
+CensoredObservation, RandomAgent, 2: Done
+CensoredObservation, RandomAgent, 3: Done
+CensoredObservation, RandomAgent, 4: Done
 CensoredObservation, ConstantAgent, 0: Done
 CensoredObservation, ConstantAgent, 1: Done
 CensoredObservation, ConstantAgent, 2: Done
@@ -768,11 +768,11 @@ CensoredObservation, A2C_learner, 1
 CensoredObservation, A2C_learner, 2
 CensoredObservation, A2C_learner, 3
 CensoredObservation, A2C_learner, 4
-NthRewardMultipliedByN, RandomAgent, 0
-NthRewardMultipliedByN, RandomAgent, 1
-NthRewardMultipliedByN, RandomAgent, 2
-NthRewardMultipliedByN, RandomAgent, 3
-NthRewardMultipliedByN, RandomAgent, 4
+NthRewardMultipliedByN, RandomAgent, 0: Done
+NthRewardMultipliedByN, RandomAgent, 1: Done
+NthRewardMultipliedByN, RandomAgent, 2: Done
+NthRewardMultipliedByN, RandomAgent, 3: Done
+NthRewardMultipliedByN, RandomAgent, 4: Done
 NthRewardMultipliedByN, ConstantAgent, 0: Done
 NthRewardMultipliedByN, ConstantAgent, 1: Done
 NthRewardMultipliedByN, ConstantAgent, 2: Done
@@ -803,11 +803,11 @@ NthRewardMultipliedByN, A2C_learner, 1
 NthRewardMultipliedByN, A2C_learner, 2
 NthRewardMultipliedByN, A2C_learner, 3
 NthRewardMultipliedByN, A2C_learner, 4
-AdversarialSequencePredictor, RandomAgent, 0
-AdversarialSequencePredictor, RandomAgent, 1
-AdversarialSequencePredictor, RandomAgent, 2
-AdversarialSequencePredictor, RandomAgent, 3
-AdversarialSequencePredictor, RandomAgent, 4
+AdversarialSequencePredictor, RandomAgent, 0: Done
+AdversarialSequencePredictor, RandomAgent, 1: Done
+AdversarialSequencePredictor, RandomAgent, 2: Done
+AdversarialSequencePredictor, RandomAgent, 3: Done
+AdversarialSequencePredictor, RandomAgent, 4: Done
 AdversarialSequencePredictor, ConstantAgent, 0: Done
 AdversarialSequencePredictor, ConstantAgent, 1: Done
 AdversarialSequencePredictor, ConstantAgent, 2: Done
@@ -838,11 +838,11 @@ AdversarialSequencePredictor, A2C_learner, 1
 AdversarialSequencePredictor, A2C_learner, 2
 AdversarialSequencePredictor, A2C_learner, 3
 AdversarialSequencePredictor, A2C_learner, 4
-AdversarialSequenceEvader, RandomAgent, 0
-AdversarialSequenceEvader, RandomAgent, 1
-AdversarialSequenceEvader, RandomAgent, 2
-AdversarialSequenceEvader, RandomAgent, 3
-AdversarialSequenceEvader, RandomAgent, 4
+AdversarialSequenceEvader, RandomAgent, 0: Done
+AdversarialSequenceEvader, RandomAgent, 1: Done
+AdversarialSequenceEvader, RandomAgent, 2: Done
+AdversarialSequenceEvader, RandomAgent, 3: Done
+AdversarialSequenceEvader, RandomAgent, 4: Done
 AdversarialSequenceEvader, ConstantAgent, 0: Done
 AdversarialSequenceEvader, ConstantAgent, 1: Done
 AdversarialSequenceEvader, ConstantAgent, 2: Done
@@ -873,11 +873,11 @@ AdversarialSequenceEvader, A2C_learner, 1
 AdversarialSequenceEvader, A2C_learner, 2
 AdversarialSequenceEvader, A2C_learner, 3
 AdversarialSequenceEvader, A2C_learner, 4
-IncentivizeLearningRate, RandomAgent, 0
-IncentivizeLearningRate, RandomAgent, 1
-IncentivizeLearningRate, RandomAgent, 2
-IncentivizeLearningRate, RandomAgent, 3
-IncentivizeLearningRate, RandomAgent, 4
+IncentivizeLearningRate, RandomAgent, 0: Done
+IncentivizeLearningRate, RandomAgent, 1: Done
+IncentivizeLearningRate, RandomAgent, 2: Done
+IncentivizeLearningRate, RandomAgent, 3: Done
+IncentivizeLearningRate, RandomAgent, 4: Done
 IncentivizeLearningRate, ConstantAgent, 0: Done
 IncentivizeLearningRate, ConstantAgent, 1: Done
 IncentivizeLearningRate, ConstantAgent, 2: Done

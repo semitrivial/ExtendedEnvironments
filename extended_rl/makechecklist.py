@@ -16,7 +16,10 @@ agents = [
     A2C_learner
 ]
 
-finished = {ConstantAgent: [0,1,2,3,4]}
+finished = {
+    ConstantAgent: [0,1,2,3,4],
+    RandomAgent: [0,1,2,3,4],
+}
 
 seeds = [0, 1, 2, 3, 4]
 
