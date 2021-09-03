@@ -8,6 +8,7 @@ def test_util():
     print("Testing util functions...")
     test_run_environment()
     test_eval_and_count_steps()
+    test_annotate()
 
     print("Done testing util functions.")
 
@@ -81,3 +82,11 @@ def test_eval_and_count_steps():
     assert (stepcount2 - stepcount1) == (stepcount1 - stepcount0)
     assert (stepcount3 - stepcount2) == (stepcount2 - stepcount1)
     assert (stepcount4 - stepcount3) == (stepcount3 - stepcount2)
+
+def test_annotate():
+    @annotate(num_legal_actions=99, num_possible_obs=5)
+    class Foo:
+        pass
+
+    assert Foo.num_legal_actions == 99
+    assert Foo.num_possible_obs == 5

@@ -47,6 +47,21 @@ def copy_with_meta(class_to_copy, meta_src):
     result.__qualname__ = class_to_copy.__qualname__
     return result
 
+def args_to_agent(A, **kwargs_outer):
+    class A_with_args:
+        def __init__(self, **kwargs_inner):
+            self.kwargs = dict(kwargs_outer, **kwargs_inner)
+        def act(self, obs):
+            A_with_meta = copy_with_meta(A, self)
+            self.underlying = A_with_meta(**self.kwargs)
+            self.act = self.underlying.act
+            self.train = self.underlying.train
+            return self.act(obs)
+
+    A_with_args.__name__ = A.__name__
+    A_with_args.__qualname__ = A.__qualname__
+    return A_with_args
+
 def eval_and_count_steps(str, local_vars):
     # Count how many steps a string of code takes to execute, as measured
     # by the python debugger, pdb. This function works by hijacking pdb.
@@ -74,18 +89,3 @@ def eval_and_count_steps(str, local_vars):
     result = runner.runeval(str, locals = local_vars)
 
     return result, stepcount[0]
-
-def args_to_agent(A, **kwargs_outer):
-    class A_with_args:
-        def __init__(self, **kwargs_inner):
-            self.kwargs = dict(kwargs_outer, **kwargs_inner)
-        def act(self, obs):
-            A_with_meta = copy_with_meta(A, self)
-            self.underlying = A_with_meta(**self.kwargs)
-            self.act = self.underlying.act
-            self.train = self.underlying.train
-            return self.act(obs)
-
-    A_with_args.__name__ = A.__name__
-    A_with_args.__qualname__ = A.__qualname__
-    return A_with_args
