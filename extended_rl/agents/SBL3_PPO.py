@@ -10,7 +10,12 @@ class PPO_learner:
     def __init__(self, **kwargs):
         self.gym = DummyGymEnv()
         self.gym.set_meta(self.num_legal_actions, self.num_possible_obs)
-        self.worker = PPO_factory('MlpPolicy', self.gym, **kwargs)
+        self.worker = PPO_factory(
+            policy='MlpPolicy',
+            env=self.gym,
+            device='cpu',
+            **kwargs
+        )
         self.worker.set_logger(dummy_logger)
         self.worker_forward = self.worker.policy.forward
         self.actions = []

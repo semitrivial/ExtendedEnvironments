@@ -12,9 +12,10 @@ class DQN_learner:
         self.gym = DummyGymEnv()
         self.gym.set_meta(self.num_legal_actions, self.num_possible_obs)
         self.worker = DQN_factory(
-            'MlpPolicy',
-            self.gym,
+            policy='MlpPolicy',
+            env=self.gym,
             learning_starts=1,
+            device='cpu',
             **kwargs
         )
         self.worker.set_logger(dummy_logger)
