@@ -83,15 +83,15 @@ def run_task(seed, agent, env, n):
     name_e = env.replace("(", "_").replace(")", "_")
     filename = f"../../extended_rl_results/{seed}_{name_a}_{name_e}.csv"
     os.system(
-        f"python -m experiments.experiment steps {steps} seed {seed} agent {name_a} env {name_e} logfile {filename}"
+        f"python -m experiments.experiment steps {steps} seed {seed} agent '{agent}' env '{env}' logfile {filename}"
     )
-    print("Task {n} completed.")
+    print(f"Task {n} completed.")
 
 #print("Deleting result_table.csv (if it exists)...")
 #os.system("rm experiments/result_table.csv")
 
 starting_task = 0
-steps = 10
+steps = 1000000
 n = 0
 for seed in seeds:
     for agent in agents.keys():
