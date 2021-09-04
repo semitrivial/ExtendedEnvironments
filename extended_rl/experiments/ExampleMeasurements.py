@@ -98,7 +98,7 @@ def run_task(seed, agent, env, n):
 #os.system("rm experiments/result_table.csv")
 
 starting_task = 0
-steps = 10
+steps = 1000000
 n = 0
 for seed in seeds:
     for agent in agents:
