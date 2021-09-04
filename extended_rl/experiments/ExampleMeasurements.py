@@ -62,7 +62,7 @@ agents = {
 rcs = [reality_check(x) for x in agents.values()]
 agents.update({rc.__name__: rc for rc in rcs})
 
-envs = {x.__name__: x for x in environments}
+envs = {x.__name__: x for x in environments if not x.slow}
 composed = [compose_envs(v,e) for v in vanilla_envs for e in environments]
 envs.update({c.__name__: c for c in composed})
 minus = [minus_rewards(e) for e in envs.values()]
@@ -83,7 +83,7 @@ def run_task(seed, agent, env, n):
     name_e = env.replace("(", "_").replace(")", "_")
     filename = f"../../extended_rl_results/{seed}_{name_a}_{name_e}.csv"
     os.system(
-        f"python -m experiments.experiment steps {steps} seed {seed} agent {agent} env {env} logfile {filename}"
+        f"python -m experiments.experiment steps {steps} seed {seed} agent {name_a} env {name_e} logfile {filename}"
     )
     print("Task {n} completed.")
 
