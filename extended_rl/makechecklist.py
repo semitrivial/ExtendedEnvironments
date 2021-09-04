@@ -23,6 +23,12 @@ finished = {
     Q_learner: [0,1,2,3,4],
 }
 
+# DQN plain: Done
+# DQN_RC plain:
+# DQN composed w/vanilla:
+# DQN_RC composed w/vanilla:
+
+
 seeds = [0, 1, 2, 3, 4]
 
 fp = open("experiments/checklist.txt", "w")
