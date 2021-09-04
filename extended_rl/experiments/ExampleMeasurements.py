@@ -38,22 +38,68 @@
 #
 import os
 
-print("Deleting result_table.csv (if it exists)...")
-os.system("rm experiments/result_table.csv")
+from agents.Q import Q_learner
+from agents.SBL3_DQN import DQN_learner
+from agents.SBL3_A2C import A2C_learner
+from agents.SBL3_PPO import PPO_learner
+from agents.misc_agents import RandomAgent, ConstantAgent
+from agents.naive_learner import NaiveLearner
+from agents.reality_check import reality_check
+from environments.EnvironmentLists import environments
+from environments.Vanilla import vanilla_envs
+from environments.composition import compose_envs
+from environments.MinusRewards import minus_rewards
 
-print("Measuring agents for 500 steps, 10 different seeds...")
+agents = {
+    'RandomAgent': RandomAgent,
+    'ConstantAgent': ConstantAgent,
+    'NaiveLearner': NaiveLearner,
+    'Q_learner': Q_learner,
+    'DQN_learner': DQN_learner,
+    'PPO_learner': PPO_learner,
+    'A2C_learner': A2C_learner,
+}
+rcs = [reality_check(x) for x in agents.values()]
+agents.update({rc.__name__: rc for rc in rcs})
 
-for seed in range(10):
-    log = f"logfile ../../extended_rl_results/seed{seed}_500step.csv"
-    os.system(f"python -m experiments.experiment steps 500 seed {seed} {log}")
+envs = {x.__name__: x for x in environments}
+composed = [compose_envs(v,e) for v in vanilla_envs for e in environments]
+envs.update({c.__name__: c for c in composed})
+minus = [minus_rewards(e) for e in envs.values()]
+envs.update({m.__name__: m for m in minus})
 
-print("Measuring agents for 1000 steps, 10 different seeds...")
+seeds = [0, 1, 2, 3, 4]
 
-for seed in range(10):
-    log = f"logfile ../../extended_rl_results/seed{seed}_1000step.csv"
+total_tasks = 0
+steps = 10
+for seed in seeds:
+    for agent in agents.keys():
+        for env in envs.keys():
+            total_tasks += 1
+
+def run_task(seed, agent, env, n):
+    print(f"Task {n} out of {total_tasks}:")
+    name_a = agent.replace("(", "_").replace(")", "_")
+    name_e = env.replace("(", "_").replace(")", "_")
+    filename = f"../../extended_rl_results/{seed}_{name_a}_{name_e}.csv"
     os.system(
-        f"python -m experiments.experiment steps 1000 seed {seed} {log}"
+        f"python -m experiments.experiment steps {steps} seed {seed} agent {agent} env {env} logfile {filename}"
     )
+    print("Task {n} completed.")
+
+#print("Deleting result_table.csv (if it exists)...")
+#os.system("rm experiments/result_table.csv")
+
+starting_task = 0
+steps = 10
+n = 0
+for seed in seeds:
+    for agent in agents.keys():
+        for env in envs.keys():
+            if n >= starting_task:
+                run_task(seed, agent, env, n)
+            n += 1
+
 
 print("Done.")
 print("""
