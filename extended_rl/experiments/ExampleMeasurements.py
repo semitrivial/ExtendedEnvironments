@@ -61,20 +61,24 @@ agents = {
 }
 rcs = [reality_check(x) for x in agents.values()]
 agents.update({rc.__name__: rc for rc in rcs})
+agents = agents.keys()
+agents.sort()
 
 envs = {x.__name__: x for x in environments if not x.slow}
 composed = [compose_envs(v,e) for v in vanilla_envs for e in environments]
 envs.update({c.__name__: c for c in composed})
 minus = [minus_rewards(e) for e in envs.values()]
 envs.update({m.__name__: m for m in minus})
+envs = envs.keys()
+envs.sort()
 
 seeds = [0, 1, 2, 3, 4]
 
 total_tasks = 0
-steps = 10
+steps = 1000000
 for seed in seeds:
-    for agent in agents.keys():
-        for env in envs.keys():
+    for agent in agents:
+        for env in envs:
             total_tasks += 1
 
 def run_task(seed, agent, env, n):
@@ -94,8 +98,8 @@ starting_task = 0
 steps = 1000000
 n = 0
 for seed in seeds:
-    for agent in agents.keys():
-        for env in envs.keys():
+    for agent in agents:
+        for env in envs:
             if n >= starting_task:
                 run_task(seed, agent, env, n)
             n += 1
