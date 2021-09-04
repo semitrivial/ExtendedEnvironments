@@ -69,7 +69,7 @@ def add_log_messages(env, A, logfile):
     if logfile.tell() == 0:
         logfile.write("agent,environment,message\n")
 
-    A_instance_counter = [0]
+    A_sim_counter = [1]
 
     log_prefix = f"{A.__name__},{env.__name__}"
 
@@ -81,8 +81,9 @@ def add_log_messages(env, A, logfile):
         num_possible_obs=env.num_possible_obs
     )
     class e:
-        def __init__(self, wrapped_A):
-            self.underlying = env(wrapped_A)
+        def __init__(self, A0):
+            sim_A = copy_with_meta(a_sim, A0)
+            self.underlying = env(sim_A)
 
         def start(self):
             obs = self.underlying.start()
@@ -95,43 +96,51 @@ def add_log_messages(env, A, logfile):
             log(f"Obs {obs}")
             return (reward, obs)
 
-    e.__name__ = env.__name__
-    e.__qualname__ = env.__qualname__
-
-    class a:
+    class a_true:
         def __init__(self):
-            self.serial_number = A_instance_counter[0]
-            A_instance_counter[0] += 1
-
-            if self.serial_number > 0:
-                self.name = f"Sim_{self.serial_number}"
-
+            pass
         def act(self, obs):
             A_with_meta = copy_with_meta(A, self)
             self.underlying = A_with_meta()
             self.act = self._act
             return self.act(obs)
-
         def _act(self, obs):
             action = self.underlying.act(obs)
-            if self.serial_number == 0:
-                log(f"Action {action}")
-            else:
-                log(f"Env queried {self.name} with obs {obs}")
-                log(f"{self.name} replied with action {action}")
+            log(f"Action {action}")
             return action
-
         def train(self, o_prev, act, R, o_next):
-            if self.serial_number > 0:
-                training_data = f"{(o_prev, act, R, o_next)}"
-                log(f"Env fed {self.name} training data {training_data}")
-
+            training_data = f"{(o_prev, act, R, o_next)}"
+            log(f"Agent trained on {training_data}")
             self.underlying.train(o_prev=o_prev, act=act, R=R, o_next=o_next)
 
-    a.__name__ = A.__name__
-    a.__qualname__ = A.__qualname__
+    class a_sim:
+        def __init__(self):
+            self.serial_number = A_sim_counter[0]
+            A_sim_counter[0] += 1
+            self.name = f"Sim_{self.serial_number}"
+        def act(self, obs):
+            A_with_meta = copy_with_meta(A, self)
+            self.underlying = A_with_meta()
+            self.act = self._act
+            return self.act(obs)
+        def _act(self, obs):
+            action = self.underlying.act(obs)
+            log(f"Env queried {self.name} with obs {obs}")
+            log(f"{self.name} replied with action {action}")
+            return action
+        def train(self, o_prev, act, R, o_next):
+            training_data = f"{(o_prev, act, R, o_next)}"
+            log(f"Env fed {self.name} training-data {training_data}")
+            self.underlying.train(o_prev=o_prev, act=act, R=R, o_next=o_next)
 
-    return (e, a)
+    a_true.__name__ = A.__name__
+    a_true.__qualname__ = A.__qualname__
+    a_sim.__name__ = A.__name__
+    a_sim.__qualname__ = A.__qualname__
+    e.__name__ = env.__name__
+    e.__qualname__ = env.__qualname__
+
+    return (e, a_true)
 
 def eval_and_count_steps(str, local_vars):
     # Count how many steps a string of code takes to execute, as measured
