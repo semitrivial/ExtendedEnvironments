@@ -92,13 +92,13 @@ def run_task(seed, agent, env, n):
     )
     print(f"Task {n} completed.")
     metalog = open("../../extended_rl_results/metalog.txt", "a")
-    metalog.write(f"{datetime.now()}: Finished task {n}")
+    metalog.write(f"{datetime.now()}: Finished task {n}\n")
 
 #print("Deleting result_table.csv (if it exists)...")
 #os.system("rm experiments/result_table.csv")
 
 starting_task = 0
-steps = 1000000
+steps = 10
 n = 0
 for seed in seeds:
     for agent in agents:
