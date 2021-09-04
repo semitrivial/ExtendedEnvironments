@@ -37,6 +37,7 @@
 #   python -m experiments.ExampleMeasurements
 #
 import os
+from datetime import datetime
 
 from agents.Q import Q_learner
 from agents.SBL3_DQN import DQN_learner
@@ -90,6 +91,8 @@ def run_task(seed, agent, env, n):
         f"python -m experiments.experiment steps {steps} seed {seed} agent '{agent}' env '{env}' logfile {filename}"
     )
     print(f"Task {n} completed.")
+    metalog = open("../../extended_rl_results/metalog.txt", "a")
+    metalog.write(f"{datetime.now()}: Finished task {n}")
 
 #print("Deleting result_table.csv (if it exists)...")
 #os.system("rm experiments/result_table.csv")
