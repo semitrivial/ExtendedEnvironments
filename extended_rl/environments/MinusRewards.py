@@ -23,5 +23,5 @@ def minus_rewards(env):
             return (-reward, obs)
 
     NewEnv.__name__ = f'minus_rewards({env.__name__})'
-    NewEnv.__qualname__ = NewEnv.__name__
+    NewEnv.__qualname__ = f'minus_rewards({env.__qualname__})'
     return NewEnv

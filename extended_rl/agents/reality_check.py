@@ -33,5 +33,5 @@ def reality_check(A0):
           self.found_unexpected_action = True
 
   A0_RC.__name__ = f'reality_check({A0.__name__})'
-  A0_RC.__qualname__ = A0_RC.__name__
+  A0_RC.__qualname__ = f'reality_check({A0.__qualname__})'
   return A0_RC
