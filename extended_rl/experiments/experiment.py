@@ -20,6 +20,7 @@ from util import args_to_agent
 from prerandom import populate_randoms
 
 seed, n_steps = 0, 100
+logfile = None
 
 # Parse command-line arguments
 args = deque(sys.argv[1:])
@@ -29,6 +30,8 @@ while args:
         seed = int(args.popleft())
     elif arg == 'steps':
         n_steps = int(args.popleft())
+    elif arg == 'logfile':
+        logfile = open(args.popleft(), "w")
     else:
         raise ValueError("Unrecognized commandline argument")
 
@@ -41,7 +44,7 @@ torch.manual_seed(seed)
 
 def measure_agent(name, agent):
     print(f"Testing {name}...")
-    result = selfrefl_benchmark(agent, n_steps)
+    result = selfrefl_benchmark(agent, n_steps, logfile=logfile)
 
     # If result_table.csv does not already exist, then create it and
     # write headers to it.
@@ -85,3 +88,6 @@ for (name, agent) in agents:
     name = f"reality_check({name})"
     agent = reality_check(agent)
     measure_agent(name, agent)
+
+if logfile:
+    logfile.close()
