@@ -84,12 +84,10 @@ def add_log_messages(env, A, logfile):
         def __init__(self, A0):
             sim_A = copy_with_meta(a_sim, A0)
             self.underlying = env(sim_A)
-
         def start(self):
             obs = self.underlying.start()
             log(f"Initial obs {obs}")
             return obs
-
         def step(self, action):
             reward, obs = self.underlying.step(action)
             log(f"Reward {reward}")
@@ -97,11 +95,11 @@ def add_log_messages(env, A, logfile):
             return (reward, obs)
 
     class a_true:
-        def __init__(self):
-            pass
+        def __init__(self, **kwargs):
+            self.kwargs = kwargs
         def act(self, obs):
             A_with_meta = copy_with_meta(A, self)
-            self.underlying = A_with_meta()
+            self.underlying = A_with_meta(**self.kwargs)
             self.act = self._act
             return self.act(obs)
         def _act(self, obs):
@@ -114,13 +112,14 @@ def add_log_messages(env, A, logfile):
             self.underlying.train(o_prev=o_prev, act=act, R=R, o_next=o_next)
 
     class a_sim:
-        def __init__(self):
+        def __init__(self, **kwargs):
             self.serial_number = A_sim_counter[0]
             A_sim_counter[0] += 1
             self.name = f"Sim_{self.serial_number}"
+            self.kwargs = kwargs
         def act(self, obs):
             A_with_meta = copy_with_meta(A, self)
-            self.underlying = A_with_meta()
+            self.underlying = A_with_meta(**self.kwargs)
             self.act = self._act
             return self.act(obs)
         def _act(self, obs):
