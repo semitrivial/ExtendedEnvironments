@@ -13,6 +13,7 @@ from test.monkeypatches import run_environment
 
 test_util()
 run_ad_hoc_tests()
+test_agents()
 
 agents = [Q_learner, RandomAgent, NaiveLearner, ConstantAgent]
 
