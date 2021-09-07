@@ -1,7 +1,6 @@
 # This is a utility file which gathers various environments
 # together into dictionaries.
 
-from extended_rl.environments.BackwardConsciousness import BackwardConsciousness
 from extended_rl.environments.FalseMemories import FalseMemories
 from extended_rl.environments.IgnoreRewards import IgnoreRewards
 from extended_rl.environments.IgnoreRewards2 import IgnoreRewards2
@@ -28,9 +27,9 @@ from extended_rl.environments.NthRewardMultipliedByN import NthRewardMultipliedB
 from extended_rl.environments.AdversarialSequencePredictor import AdversarialSequencePredictor
 from extended_rl.environments.AdversarialSequencePredictor import AdversarialSequenceEvader
 from extended_rl.environments.IncentivizeLearningRate import IncentivizeLearningRate
+from extended_rl.environments.ReverseHistory import ReverseHistory
 
 environments = [
-    BackwardConsciousness,
     FalseMemories,
     IgnoreRewards,
     IgnoreRewards2,
@@ -56,4 +55,5 @@ environments = [
     AdversarialSequencePredictor,
     AdversarialSequenceEvader,
     IncentivizeLearningRate,
+    ReverseHistory,
 ]
