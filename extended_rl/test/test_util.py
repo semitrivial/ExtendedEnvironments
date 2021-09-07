@@ -186,6 +186,7 @@ def test_add_log_messages():
             return 0 if self.new else 1
         def write(self, msg):
             msg_buffer.append(msg)
+            self.new = False
 
     @annotate(num_legal_actions=2, num_possible_obs=99)
     class SimpleEnv:

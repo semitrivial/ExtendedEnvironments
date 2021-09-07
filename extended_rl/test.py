@@ -4,7 +4,9 @@
 
 from test.ad_hoc_tests import run_ad_hoc_tests
 from test.test_util import test_util
+from test.test_agents import test_agents
 from agents.Q_learner import Q_learner
+from agents.naive_learner import NaiveLearner
 from agents.misc_agents import RandomAgent, ConstantAgent
 from environments.EnvironmentLists import environments
 from test.monkeypatches import run_environment
@@ -12,7 +14,7 @@ from test.monkeypatches import run_environment
 test_util()
 run_ad_hoc_tests()
 
-agents = [Q_learner, RandomAgent, ConstantAgent]
+agents = [Q_learner, RandomAgent, NaiveLearner, ConstantAgent]
 
 print("Running all environments...")
 
