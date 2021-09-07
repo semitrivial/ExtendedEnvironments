@@ -6,6 +6,7 @@ def reality_check(A0):
     def __init__(self, **kwargs):
       A0_with_meta = copy_with_meta(A0, meta_src=self)
       self.underlying = A0_with_meta(**kwargs)
+      self.found_unexpected_action = False
       self.first_action = None
       self.act_dict = {}
 
