@@ -10,6 +10,7 @@ def test_agents():
     test_random_agent()
     test_constant_agent()
     test_naive_learner()
+    test_SBL3_agents()
 
 def test_random_agent():
     from agents.misc_agents import RandomAgent
@@ -99,3 +100,44 @@ def test_naive_learner():
     assert total_actions[0] == 9000
     percent = total_correct_actions[0] / total_actions[0]
     assert percent > 1 - 2*.15
+
+def test_SBL3_agents():
+    try:
+        from agents.SBL3_DQN import DQN_learner
+        from agents.SBL3_PPO import PPO_learner
+        from agents.SBL3_A2C import A2C_learner
+    except ModuleNotFoundError:
+        print("Skipping test_SBL_agents: dependencies not installed")
+        return
+
+    from random import randrange
+    from util import args_to_agent
+
+    @annotate(num_possible_obs=2, num_legal_actions=2)
+    class EasyEnv:
+        def __init__(self, A):
+            self.sim=A()
+        def start(self):
+            obs = randrange(2)
+            self.prev_obs = obs
+            return obs
+        def step(self, action):
+            act1 = self.sim.act(self.prev_obs)
+            act2 = self.sim.act(self.prev_obs)
+            try:
+                assert action == act1 == act2
+            except Exception:
+                import pdb; pdb.set_trace()
+            obs = randrange(2)
+            reward = 1 if (action == self.prev_obs) else -1
+            self.sim.train(
+                o_prev=self.prev_obs,
+                act=action,
+                R=reward,
+                o_next = obs
+            )
+            self.prev_obs = obs
+            return (reward, obs)
+
+    for agent in [DQN_learner, A2C_learner, PPO_learner]:
+        run_environment(EasyEnv, agent, 100)

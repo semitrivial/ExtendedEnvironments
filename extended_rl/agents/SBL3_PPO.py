@@ -24,7 +24,7 @@ class PPO_learner:
         self.fInitialObs = False
         self.training_cnt = 0
         self.training_hash = 0
-        self.act_dict = get_act_dict(self)
+        self.act_dict = get_act_dict(self, PPO_learner)
 
     def act(self, obs):
         key = (obs, self.training_hash)
