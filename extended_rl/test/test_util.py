@@ -10,6 +10,7 @@ def test_util():
     test_eval_and_count_steps()
     test_annotate()
     test_copy_with_meta()
+    test_add_log_messages()
     test_args_to_agent()
 
     print("Done testing util functions.")
@@ -172,6 +173,57 @@ def test_args_to_agent():
             return (0,0)
 
     run_environment(CheckArgs, Plays1, 10)
+
+def test_add_log_messages():
+    from util import run_environment
+
+    msg_buffer = []
+
+    class FileMock:
+        def __init__(self):
+            self.new = True
+        def tell(self):
+            return 0 if self.new else 1
+        def write(self, msg):
+            msg_buffer.append(msg)
+
+    @annotate(num_legal_actions=2, num_possible_obs=99)
+    class SimpleEnv:
+        def __init__(self, A):
+            self.sim = A()
+        def start(self):
+            self.sim.act(obs=11)
+            self.sim.train(22,0,0,33)
+            return 0
+        def step(self, action):
+            self.sim.act(44)
+            self.sim.train(55,0,66,77)
+            return (-1, 88)
+
+    class SimpleAgent:
+        def act(self, obs):
+            return 0
+        def train(self, o_prev, act, R, o_next):
+            pass
+
+    run_environment(SimpleEnv, SimpleAgent, num_steps=1, logfile=FileMock())
+
+    expected = [
+        'agent,environment,message\n',
+        'SimpleAgent,SimpleEnv,Env queried Sim_1 with obs 11\n',
+        'SimpleAgent,SimpleEnv,Sim_1 replied with action 0\n',
+        'SimpleAgent,SimpleEnv,Env fed Sim_1 training-data (22, 0, 0, 33)\n',
+        'SimpleAgent,SimpleEnv,Initial obs 0\n',
+        'SimpleAgent,SimpleEnv,Action 0\n',
+        'SimpleAgent,SimpleEnv,Env queried Sim_1 with obs 44\n',
+        'SimpleAgent,SimpleEnv,Sim_1 replied with action 0\n',
+        'SimpleAgent,SimpleEnv,Env fed Sim_1 training-data (55, 0, 66, 77)\n',
+        'SimpleAgent,SimpleEnv,Reward -1\n',
+        'SimpleAgent,SimpleEnv,Obs 88\n',
+        'SimpleAgent,SimpleEnv,Agent trained on (0, 0, -1, 88)\n'
+    ]
+    assert msg_buffer == expected
+
 
 def test_eval_and_count_steps():
     from util import eval_and_count_steps
