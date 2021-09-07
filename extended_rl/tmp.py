@@ -1,5 +1,5 @@
 from util import run_environment
-from agents.Q import Q_learner
+from agents.Q_learner import Q_learner
 from agents.reality_check import reality_check
 from agents.SBL3_PPO import PPO_learner
 from agents.SBL3_A2C import A2C_learner

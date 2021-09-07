@@ -1,5 +1,5 @@
 from environments.EnvironmentLists import environments
-from agents.Q import Q_learner
+from agents.Q_learner import Q_learner
 from agents.SBL3_DQN import DQN_learner
 from agents.SBL3_A2C import A2C_learner
 from agents.SBL3_PPO import PPO_learner

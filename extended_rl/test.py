@@ -4,7 +4,7 @@
 
 from test.ad_hoc_tests import run_ad_hoc_tests
 from test.test_util import test_util
-from agents.Q import Q_learner
+from agents.Q_learner import Q_learner
 from agents.misc_agents import RandomAgent, ConstantAgent
 from environments.EnvironmentLists import environments
 from test.monkeypatches import run_environment
