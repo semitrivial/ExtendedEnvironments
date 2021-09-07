@@ -47,8 +47,6 @@ from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner
 from agents.reality_check import reality_check
 from environments.EnvironmentLists import environments
-from environments.Vanilla import vanilla_envs
-from environments.composition import compose_envs
 from environments.MinusRewards import minus_rewards
 
 agents = {
@@ -66,8 +64,6 @@ agents = list(agents.keys())
 agents.sort()
 
 envs = {x.__name__: x for x in environments if not x.slow}
-composed = [compose_envs(v,e) for v in vanilla_envs for e in environments]
-envs.update({c.__name__: c for c in composed})
 minus = [minus_rewards(e) for e in envs.values()]
 envs.update({m.__name__: m for m in minus})
 envs = list(envs.keys())

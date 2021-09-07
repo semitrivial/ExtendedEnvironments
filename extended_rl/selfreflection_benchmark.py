@@ -1,7 +1,5 @@
 from extended_rl.environments.EnvironmentLists import environments
 from extended_rl.environments.MinusRewards import minus_rewards
-from extended_rl.environments.composition import compose_envs
-from extended_rl.environments.Vanilla import vanilla_envs
 from extended_rl.util import run_environment
 
 # Generate dictionary of environments against which agents will be run
@@ -9,10 +7,6 @@ envs = []
 for env in environments:
     envs.append(env)
     envs.append(minus_rewards(env))
-
-    for vanilla in vanilla_envs:
-        envs.append(compose_envs(vanilla, env))
-        envs.append(minus_rewards(compose_envs(vanilla, env)))
 
 def selfrefl_benchmark(A, num_steps, include_slow=False, logfile=None):
     """
