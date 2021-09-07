@@ -5,36 +5,29 @@ def reality_check(A0):
   class A0_RC:
     def __init__(self, **kwargs):
       A0_with_meta = copy_with_meta(A0, meta_src=self)
-
       self.underlying = A0_with_meta(**kwargs)
       self.first_action = None
-      self.expected_training_action = None
-      self.expected_training_oprev = None
-      self.found_unexpected_action = False
+      self.act_dict = {}
 
     def act(self, obs):
       if self.found_unexpected_action:
         return self.first_action
 
-      self.expected_training_oprev = obs
-      if self.first_action is None:
-        self.first_action = self.underlying.act(obs)
-        self.expected_training_action = self.first_action
-        return self.first_action
-
-      self.expected_training_action = self.underlying.act(obs)
-      return self.expected_training_action
+      action = self.underlying.act(obs)
+      self.act_dict[obs] = action
+      self.first_action = self.first_action or action
+      return action
 
     def train(self, o_prev, act, R, o_next):
-      if not self.found_unexpected_action:
-        if act == self.expected_training_action:
-          self.underlying.train(o_prev, act, R, o_next)
-        elif o_prev != self.expected_training_oprev:
-          self.underlying.train(o_prev, act, R, o_next)
-        else:
-          if self.first_action is None:
-            raise ValueError('Realitycheck agent trained before ever acting')
-          self.found_unexpected_action = True
+      if self.found_unexpected_action:
+        return
+      if not(o_prev in self.act_dict):
+        self.act(o_prev)
+      if act == self.act_dict.get(o_prev, act):
+        self.underlying.train(o_prev, act, R, o_next)
+        self.act_dict.clear()
+      else:
+        self.found_unexpected_action = True
 
   A0_RC.__name__ = f'reality_check({A0.__name__})'
   A0_RC.__qualname__ = f'reality_check({A0.__qualname__})'
