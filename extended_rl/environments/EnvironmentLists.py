@@ -8,8 +8,7 @@ from extended_rl.environments.IgnoreRewards3 import IgnoreRewards3
 from extended_rl.environments.IgnoreObservations import IgnoreObservations
 from extended_rl.environments.IgnoreActions import IgnoreActions
 from extended_rl.environments.IncentivizeZero import IncentivizeZero
-from extended_rl.environments.RuntimeInspector import PunishSlowAgent, PunishFastAgent
-from extended_rl.environments.DeterminismInspector import PunishDeterministicAgent
+from extended_rl.environments.RuntimeInspector import PunishSlowAgent
 from extended_rl.environments.DeterminismInspector import PunishNondeterministicAgent
 from extended_rl.environments.CryingBaby import CryingBaby
 from extended_rl.environments.CryingBaby2 import CryingBaby2
@@ -38,7 +37,7 @@ environments = [
     IgnoreActions,
     IncentivizeZero,
     PunishSlowAgent,
-    PunishDeterministicAgent,
+    PunishNondeterministicAgent,
     CryingBaby,
     CryingBaby2,
     TemptingButton,
