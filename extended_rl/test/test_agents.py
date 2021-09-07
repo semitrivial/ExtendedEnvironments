@@ -8,6 +8,7 @@ from test.monkeypatches import run_environment
 def test_agents():
     print("Testing agents...")
     test_random_agent()
+    test_constant_agent()
 
 def test_random_agent():
     from agents.misc_agents import RandomAgent
@@ -44,3 +45,26 @@ def test_random_agent():
     assert sim_actions[1] == sim_actions[2]
     assert sim_actions[2] != sim_actions[3]
     assert all(sim_actions[3] == sim_actions[i] for i in range(100) if i>3)
+
+def test_constant_agent():
+    from agents.misc_agents import ConstantAgent
+    from random import randrange
+
+    @annotate(num_legal_actions=99, num_possible_obs=99)
+    class RandomEnv:
+        def __init__(self, A):
+            self.sim = A()
+        def start(self):
+            return randrange(99)
+        def step(self, action):
+            assert action == 0
+            assert self.sim.act(randrange(99)) == 0
+            self.sim.train(
+                o_prev=randrange(99),
+                act=randrange(99),
+                R=randrange(99) - 50,
+                o_next=randrange(99)
+            )
+            return (randrange(99)-50, randrange(99))
+
+    run_environment(RandomEnv, ConstantAgent, 1000)
