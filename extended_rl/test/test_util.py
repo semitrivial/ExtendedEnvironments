@@ -249,7 +249,10 @@ def test_eval_and_count_steps():
 
 def test_prerandoms():
     from copy import copy
+    import random
     from prerandom import agent_randoms, env_randoms, populate_randoms
+
+    reseed = random.randrange(1_000_000_000)
 
     agent_randoms_0 = copy(agent_randoms)
     env_randoms_0 = copy(env_randoms)
@@ -280,3 +283,6 @@ def test_prerandoms():
         if seed > 0:
             assert agent_randoms[0:10] != d_agent[seed-1][0:10]
             assert env_randoms[0:10] != d_env[seed-1][0:10]
+
+    random.seed(reseed)  # To ensure other tests are non-deterministic
+
