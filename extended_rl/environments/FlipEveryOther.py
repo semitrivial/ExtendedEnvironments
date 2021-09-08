@@ -1,0 +1,19 @@
+from util import annotate
+
+@annotate(num_legal_actions=2, num_possible_obs=1)
+class FlipEveryOther:
+    def __init__(self, A):
+        self.sim = A()
+        self.mult = 1
+
+    def start(self):
+        obs = 0
+        return obs
+
+    def step(self, action):
+        hypothetical_action = self.sim.act(obs=0)
+        reward = 1 if (action == hypothetical_action) else -1
+        obs = 0
+        self.sim.train(o_prev=0, act=action, R=reward*self.mult, o_next=0)
+        self.mult *= 1
+        return (reward, obs)
