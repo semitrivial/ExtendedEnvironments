@@ -24,7 +24,7 @@ def reality_check(A0):
         return
       if not(o_prev in self.act_dict):
         self.act(o_prev)
-      if act == self.act_dict.get(o_prev, act):
+      if act == self.act_dict[o_prev]:
         self.underlying.train(o_prev, act, R, o_next)
         self.act_dict.clear()
       else:
