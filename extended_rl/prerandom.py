@@ -7,7 +7,7 @@ agent_randoms = []
 env_randoms = []
 
 def populate_randoms(initial_seed=None):
-    if initial_seed:
+    if initial_seed is not None:
         random.seed(initial_seed)
 
     agent_randoms.clear()
