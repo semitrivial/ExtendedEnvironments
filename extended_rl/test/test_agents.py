@@ -10,7 +10,7 @@ def test_agents():
     test_random_agent()
     test_constant_agent()
     test_naive_learner()
-    #test_SBL3_agents()
+    test_SBL3_agents()
     test_Q_learner()
     test_reality_check()
 

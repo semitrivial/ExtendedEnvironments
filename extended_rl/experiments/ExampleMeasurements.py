@@ -72,7 +72,7 @@ envs.sort()
 seeds = [0, 1, 2, 3, 4]
 
 total_tasks = 0
-steps = 1000000
+steps = 100000
 for seed in seeds:
     for agent in agents:
         for env in envs:
@@ -94,7 +94,6 @@ def run_task(seed, agent, env, n):
 #os.system("rm experiments/result_table.csv")
 
 starting_task = 0
-steps = 1000000
 n = 0
 for seed in seeds:
     for agent in agents:
