@@ -12,6 +12,7 @@ def test_util():
     test_copy_with_meta()
     test_add_log_messages()
     test_args_to_agent()
+    test_prerandoms()
 
     print("Done testing util functions.")
 
@@ -245,3 +246,39 @@ def test_eval_and_count_steps():
     assert (stepcount2 - stepcount1) == (stepcount1 - stepcount0)
     assert (stepcount3 - stepcount2) == (stepcount2 - stepcount1)
     assert (stepcount4 - stepcount3) == (stepcount3 - stepcount2)
+
+def test_prerandoms():
+    from copy import copy
+    from prerandom import agent_randoms, env_randoms, populate_randoms
+
+    print("Testing prerandoms...")
+
+    agent_randoms_0 = copy(agent_randoms)
+    env_randoms_0 = copy(env_randoms)
+    populate_randoms()
+    assert agent_randoms != env_randoms
+    agent_randoms_1 = copy(agent_randoms)
+    env_randoms_1 = copy(env_randoms)
+    assert agent_randoms_0 != agent_randoms_1
+    assert env_randoms_0 != env_randoms_1
+    populate_randoms()
+    assert agent_randoms != env_randoms
+    assert agent_randoms_1 != agent_randoms
+    assert env_randoms_1 != env_randoms
+
+    d_agent = {}
+    d_env = {}
+
+    for seed in range(10):
+        populate_randoms(seed)
+        assert agent_randoms != env_randoms
+        d_agent[seed] = copy(agent_randoms)
+        d_env[seed] = copy(env_randoms)
+
+    for seed in range(10):
+        populate_randoms(seed)
+        assert agent_randoms == d_agent[seed]
+        assert env_randoms == d_env[seed]
+        if seed > 0:
+            assert agent_randoms != d_agent[seed-1]
+            assert env_randoms != d_env[seed-1]
