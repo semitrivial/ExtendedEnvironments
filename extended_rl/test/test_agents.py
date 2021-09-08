@@ -214,10 +214,10 @@ def test_reality_check():
     assert a.act(0) == 1
 
     sequences = [
-        [1,2,3,4,5,6,7,8,9], # Sequence 0
-        [9,8,7,6,5,4,3,2,1], # Sequence 1
-        [3,1,4,1,5,9,2,6,5], # Sequence 2
-        [1,1,1,1,1,1,1,1,1], # Sequence 3
+        [1,2,3,4,5,6,7,8,9],  # Sequence 0
+        [9,8,7,6,5,4,3,2,1],  # Sequence 1
+        [3,1,4,1,5,9,2,6,5],  # Sequence 2
+        [1,1,1,1,1,1,1,1,1],  # Sequence 3
     ]
 
     class Reciter2:
