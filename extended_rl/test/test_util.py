@@ -251,8 +251,6 @@ def test_prerandoms():
     from copy import copy
     from prerandom import agent_randoms, env_randoms, populate_randoms
 
-    print("Testing prerandoms...")
-
     agent_randoms_0 = copy(agent_randoms)
     env_randoms_0 = copy(env_randoms)
     populate_randoms()
