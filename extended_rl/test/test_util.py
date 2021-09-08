@@ -256,22 +256,22 @@ def test_prerandoms():
     agent_randoms_0 = copy(agent_randoms)
     env_randoms_0 = copy(env_randoms)
     populate_randoms()
-    assert agent_randoms != env_randoms
+    assert agent_randoms[0:10] != env_randoms[0:10]
     agent_randoms_1 = copy(agent_randoms)
     env_randoms_1 = copy(env_randoms)
-    assert agent_randoms_0 != agent_randoms_1
-    assert env_randoms_0 != env_randoms_1
+    assert agent_randoms_0[0:10] != agent_randoms_1[0:10]
+    assert env_randoms_0[0:10] != env_randoms_1[0:10]
     populate_randoms()
-    assert agent_randoms != env_randoms
-    assert agent_randoms_1 != agent_randoms
-    assert env_randoms_1 != env_randoms
+    assert agent_randoms[0:10] != env_randoms[0:10]
+    assert agent_randoms_1[0:10] != agent_randoms[0:10]
+    assert env_randoms_1[0:100] != env_randoms[0:0]
 
     d_agent = {}
     d_env = {}
 
     for seed in range(10):
         populate_randoms(seed)
-        assert agent_randoms != env_randoms
+        assert agent_randoms[0:10] != env_randoms[0:10]
         d_agent[seed] = copy(agent_randoms)
         d_env[seed] = copy(env_randoms)
 
@@ -280,5 +280,5 @@ def test_prerandoms():
         assert agent_randoms == d_agent[seed]
         assert env_randoms == d_env[seed]
         if seed > 0:
-            assert agent_randoms != d_agent[seed-1]
-            assert env_randoms != d_env[seed-1]
+            assert agent_randoms[0:10] != d_agent[seed-1][0:10]
+            assert env_randoms[0:10] != d_env[seed-1][0:10]
