@@ -10,7 +10,9 @@ def test_agents():
     test_random_agent()
     test_constant_agent()
     test_naive_learner()
-    test_SBL3_agents()
+    #test_SBL3_agents()
+    test_Q_learner()
+    test_reality_check()
 
 def test_random_agent():
     from agents.misc_agents import RandomAgent
@@ -141,3 +143,114 @@ def test_SBL3_agents():
 
     for agent in [DQN_learner, A2C_learner, PPO_learner]:
         run_environment(EasyEnv, agent, 100)
+
+def test_Q_learner():
+    from random import randrange
+    from agents.Q_learner import Q_learner
+
+    @annotate(num_legal_actions=2, num_possible_obs=1)
+    class EasyEnv:
+        def __init__(self, A):
+            pass
+        def start(self):
+            return 0
+        def step(self, action):
+            reward = 1 if (action==0) else -1
+            return (reward, 0)
+
+    result = run_environment(EasyEnv, Q_learner, 1000)
+    assert result['total_reward'] > 600
+
+    @annotate(num_legal_actions=10, num_possible_obs=10)
+    class StillPrettyEasy:
+        def __init__(self, A):
+            pass
+        def start(self):
+            obs = randrange(10)
+            self.prev_obs = obs
+            return obs
+        def step(self, action):
+            reward = 1 if (action == self.prev_obs) else -1
+            self.prev_obs = randrange(10)
+            return (reward, self.prev_obs)
+
+    result = run_environment(StillPrettyEasy, Q_learner, 1000)
+    assert result['total_reward'] > 400
+
+def test_reality_check():
+    from agents.reality_check import reality_check
+
+    class Reciter1:
+        def __init__(self):
+            self.cnt = 0
+        def act(self, obs):
+            return [1,2,3,4,5,6,7,8,9][self.cnt]
+        def train(self, o_prev, act, R, o_next):
+            self.cnt += 1
+
+    RC_Class = reality_check(Reciter1)
+    RC_Class.num_legal_actions = 10
+    RC_Class.num_possible_obs = 1
+    a = RC_Class()
+    assert a.act(0) == 1
+    assert a.act(0) == 1
+    a.train(0,1,0,0)
+    assert a.act(0) == 2
+    a.train(0,2,0,0)
+    assert a.act(0) == 3
+    a.train(0,3,0,0)
+    assert a.act(0) == 4
+    a.train(0,5,0,0)
+    assert a.act(0) == 1
+    a.train(0,1,0,0)
+    assert a.act(0) == 1
+
+    RC_Class = reality_check(Reciter1)
+    RC_Class.num_legal_actions = 10
+    RC_Class.num_possible_obs = 1
+    a.train(0,2,0,0)
+    assert a.act(0) == 1
+    a.train(0,1,0,0)
+    assert a.act(0) == 1
+
+    sequences = [
+        [1,2,3,4,5,6,7,8,9], # Sequence 0
+        [9,8,7,6,5,4,3,2,1], # Sequence 1
+        [3,1,4,1,5,9,2,6,5], # Sequence 2
+        [1,1,1,1,1,1,1,1,1], # Sequence 3
+    ]
+
+    class Reciter2:
+        def __init__(self):
+            self.cnt = 0
+        def act(self, obs):
+            return sequences[obs][self.cnt]
+        def train(self, o_prev, act, R, o_next):
+            self.cnt += 1
+
+    RC_Class = reality_check(Reciter2)
+    RC_Class.num_legal_actions = 10
+    RC_Class.num_possible_obs = len(sequences)
+    a = RC_Class()
+
+    for repetition in range(10):
+        for i in range(len(sequences)):
+            assert a.act(i) == sequences[i][0]
+
+    a.train(0,sequences[0][0],0,1)
+
+    for repetition in range(10):
+        for i in range(len(sequences)):
+            assert a.act(i) == sequences[i][1]
+
+    a.train(1,sequences[1][1],0,2)
+
+    for repetition in range(10):
+        for i in range(len(sequences)):
+            assert a.act(i) == sequences[i][2]
+
+    a.train(2,sequences[2][2]-1,0,3)
+
+    for repetition in range(10):
+        for i in range(len(sequences)):
+            assert a.act(i) == sequences[0][0]
