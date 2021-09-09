@@ -155,9 +155,9 @@ def test_SBL3_agents():
         agentcls = copy_with_meta(agent, meta_src=ManyLegalActions)
         sim1 = agentcls()
         sim2 = agentcls()
-        sim3 = agentcls(seed=1)
-        sim4 = agentcls(seed=1)
-        sim5 = agentcls(seed=2)
+        sim3 = agentcls(learning_rate=.1)
+        sim4 = agentcls(learning_rate=.1)
+        sim5 = agentcls(learning_rate=.2)
         acts1 = []
         acts2 = []
         acts3 = []
