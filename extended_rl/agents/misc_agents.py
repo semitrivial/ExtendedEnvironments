@@ -2,7 +2,7 @@ from prerandom import agentrandom
 
 
 class RandomAgent:
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.cnt = 0
 
     def act(self, obs):
@@ -12,7 +12,7 @@ class RandomAgent:
         self.cnt += 1
 
 class ConstantAgent:
-    def __init__(self):
+    def __init__(self, **kwargs):
         return
 
     def act(self, obs):

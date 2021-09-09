@@ -2,7 +2,7 @@ from prerandom import agentrandom
 
 
 class Q_learner:
-  def __init__(self, epsilon=0.9, learning_rate=0.1, gamma=0.9):
+  def __init__(self, epsilon=0.9, learning_rate=0.1, gamma=0.9, **kwags):
     self.epsilon = epsilon
     self.learning_rate = learning_rate
     self.gamma = gamma

@@ -1,7 +1,7 @@
 from prerandom import agentrandom
 
 class NaiveLearner:
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.n_actions = self.num_legal_actions
         self.n_obs = self.num_possible_obs
         self.actions = list(range(self.n_actions))
