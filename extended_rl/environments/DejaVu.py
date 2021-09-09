@@ -4,15 +4,15 @@ from util import annotate
 class DejaVu:
     """
     Environment inspired by the psychological phenomenon called Deja Vu.
-    Suppose the agent takes action y after history h. The environment
+    Suppose the agent takes action X after history h. The environment
     simulates the agent to determine the answer to the following question.
     If instead of the history h merely occurring once, instead the history
-    h had occurred twice, with the agent previously taking y after the
+    h had occurred twice, with the agent previously taking X after the
     first occurrence of h, which caused h to repeat, then would the agent
-    still take action y? Informally, "Would the agent take the same action
+    still take action X? Informally, "Would the agent take the same action
     if everything had actually happened before, up to and including the
-    agent taking the action?" If so, the agent receives reward +1, otherwise
-    the agent receives reward -1.
+    agent taking the action?" If so, the agent receives reward +1, else the
+    agent receives reward -1.
     """
     def __init__(self, A):
         self.A = A
@@ -36,8 +36,8 @@ class DejaVu:
 
         # Train the sim on a fictional transition encoding the fiction
         # that: "After h happened, you took action X, and for doing so,
-        # you received reward 0 and, and doing so set everything back
-        # to the initial observation."
+        # you received reward 0, and doing so set everything back to
+        # the initial observation."
         init_obs = self.transitions[0][0]
         last_obs = self.transitions[-1][-1]
         loop_transition = (last_obs, action, 0, first_obs)
