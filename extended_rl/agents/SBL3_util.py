@@ -60,8 +60,13 @@ dummy_logger = DummyLogger()
 
 act_dicts = {}
 
-def get_act_dict(A, family):
-    key = (family, A.num_legal_actions, A.num_possible_obs)
+def get_act_dict(A, family, hyperparams_dict):
+    hyperparam_keys = hyperparams_dict.keys()
+    hyperparams = [hyperparams_dict[k] for k in hyperparam_keys]
+    hyperparams.sort()
+    hyperparams = tuple(hyperparams)
+
+    key = (family, hyperparams, A.num_legal_actions, A.num_possible_obs)
     if key in act_dicts:
         return act_dicts[key]
     else:
