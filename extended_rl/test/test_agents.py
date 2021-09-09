@@ -158,13 +158,12 @@ def test_SBL3_agents():
         sim3 = agentcls(learning_rate=.1)
         sim4 = agentcls(learning_rate=.1)
         sim5 = agentcls(learning_rate=.2)
-        acts1, acts2, acts3, acts4, acts5 = [], [], [], [], []
 
-        acts1 += [sim1.act(obs=0) for _ in range(1000)]
-        acts2 += [sim2.act(obs=0) for _ in range(1000)]
-        acts3 += [sim3.act(obs=0) for _ in range(1000)]
-        acts4 += [sim4.act(obs=0) for _ in range(1000)]
-        acts5 += [sim5.act(obs=0) for _ in range(1000)]
+        acts1 = [sim1.act(obs=0) for _ in range(1000)]
+        acts2 = [sim2.act(obs=0) for _ in range(1000)]
+        acts3 = [sim3.act(obs=0) for _ in range(1000)]
+        acts4 = [sim4.act(obs=0) for _ in range(1000)]
+        acts5 = [sim5.act(obs=0) for _ in range(1000)]
 
         assert acts1 == acts2
         assert acts2 != acts3
