@@ -158,60 +158,19 @@ def test_SBL3_agents():
         sim3 = agentcls(learning_rate=.1)
         sim4 = agentcls(learning_rate=.1)
         sim5 = agentcls(learning_rate=.2)
-        acts1 = []
-        acts2 = []
-        acts3 = []
-        acts4 = []
-        acts5 = []
+        acts1, acts2, acts3, acts4, acts5 = [], [], [], [], []
 
-        i = 0
-        while i < 1000:
-            i += 1
-            acts1 += [sim1.act(obs=0)]
-            acts2 += [sim2.act(obs=0)]
-            acts3 += [sim3.act(obs=0)]
-            acts4 += [sim4.act(obs=0)]
-            acts5 += [sim5.act(obs=0)]
-            if acts1[-1] != acts3[-1]:
-                break
-        else:
-            raise ValueError("sim1 and sim3 did not differ")
-
-        if acts3 == acts5:
-            i = 0
-            while i < 1000:
-                i += 1
-                acts1 += [sim1.act(obs=0)]
-                acts2 += [sim2.act(obs=0)]
-                acts3 += [sim3.act(obs=0)]
-                acts4 += [sim4.act(obs=0)]
-                acts5 += [sim5.act(obs=0)]
-                if acts3[-1] != acts5[-1]:
-                    break
-            else:
-                raise ValueError("sim3 and sim5 did not differ")
-
-        if acts1 == acts5:
-            i = 0
-            while i < 1000:
-                i += 1
-                acts1 += [sim1.act(obs=0)]
-                acts2 += [sim2.act(obs=0)]
-                acts3 += [sim3.act(obs=0)]
-                acts4 += [sim4.act(obs=0)]
-                acts5 += [sim5.act(obs=0)]
-                if acts1[-1] != acts5[-1]:
-                    break
-            else:
-                raise ValueError("sim1 and sim5 did not differ")
-
-        acts1 += [sim1.act(obs=0) for _ in range(100)]
-        acts2 += [sim2.act(obs=0) for _ in range(100)]
-        acts3 += [sim3.act(obs=0) for _ in range(100)]
-        acts4 += [sim4.act(obs=0) for _ in range(100)]
+        acts1 += [sim1.act(obs=0) for _ in range(1000)]
+        acts2 += [sim2.act(obs=0) for _ in range(1000)]
+        acts3 += [sim3.act(obs=0) for _ in range(1000)]
+        acts4 += [sim4.act(obs=0) for _ in range(1000)]
+        acts5 += [sim5.act(obs=0) for _ in range(1000)]
 
         assert acts1 == acts2
+        assert acts2 != acts3
         assert acts3 == acts4
+        assert acts4 != acts5
+        assert acts1 != acts5
 
 
 def test_Q_learner():
