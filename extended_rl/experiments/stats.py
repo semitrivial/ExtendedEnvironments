@@ -41,7 +41,7 @@ fp.close()
 stepcnts = ["100000"]
 seeds = ["1", "2", "3", "4"]
 rewards = {
-    (agent, seed, stepcnt): []
+    (agent, seed, stepcnt): {}
     for agent in agents
     for seed in seeds
     for stepcnt in stepcnts
@@ -54,13 +54,13 @@ for line in lines:
         continue
 
     scaled_reward = float(reward)/int(nsteps)
-    rewards[(agent, seed, nsteps)].append(scaled_reward)
+    rewards[(agent, seed, nsteps)][env] = scaled_reward
 
 avg_rewards = {}
 for agent in agents:
     for seed in seeds:
         for stepcnt in stepcnts:
-            s = rewards[(agent, seed, stepcnt)]
+            s = rewards[(agent, seed, stepcnt)].values()
             avg_rewards[(agent, seed, stepcnt)] = sum(s)/len(s)
 
 avgs_by_agent_stepcnt = {
