@@ -55,4 +55,5 @@ environments = [
     AdversarialSequenceEvader,
     IncentivizeLearningRate,
     ReverseHistory,
+    FlipEveryOther,
 ]
