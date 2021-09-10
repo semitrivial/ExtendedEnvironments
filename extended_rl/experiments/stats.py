@@ -39,7 +39,7 @@ while True:
 fp.close()
 
 stepcnts = ["100000"]
-seeds = ["1", "2", "3", "4"]
+seeds = ["1", "2", "3", "4", "5"]
 rewards = {
     (agent, seed, stepcnt): {}
     for agent in agents
