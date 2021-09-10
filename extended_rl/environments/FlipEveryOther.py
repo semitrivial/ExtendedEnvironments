@@ -24,5 +24,5 @@ class FlipEveryOther:
         reward = 1 if (action == hypothetical_action) else -1
         obs = 0
         self.sim.train(o_prev=0, act=action, R=reward*self.mult, o_next=0)
-        self.mult *= 1
+        self.mult *= -1
         return (reward, obs)

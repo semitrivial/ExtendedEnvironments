@@ -29,6 +29,7 @@ def run_ad_hoc_tests():
     test_repeater_edgecases()
     test_self_recognition_edgecases()
     test_third_action_forbidden_edgecases()
+    test_flip_every_other_edgecases()
 
 class NoTraining:
     def train(self, **kwargs):
@@ -663,3 +664,20 @@ def test_third_action_forbidden_edgecases():
     assert result['total_reward'] == -100
     result = run_environment(ThirdActionForbidden, Lawyer, 1000)
     assert result['total_reward'] == -1000
+
+def test_flip_every_other_edgecases():
+    from environments.FlipEveryOther import FlipEveryOther
+
+    result = run_environment(FlipEveryOther, Repetitive, 10)
+    assert result['total_reward'] == 10
+
+    class PlaysReward:
+        def __init__(self):
+            self.prev_reward = 1
+        def act(self, obs):
+            return 0 if (self.prev_reward>0) else 1
+        def train(self, o_prev, act, R, o_next):
+            self.prev_reward = R
+
+    result = run_environment(FlipEveryOther, PlaysReward, 100)
+    assert result['total_reward'] == 2
