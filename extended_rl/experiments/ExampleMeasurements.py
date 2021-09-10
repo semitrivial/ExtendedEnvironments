@@ -69,7 +69,7 @@ envs.update({m.__name__: m for m in minus})
 envs = list(envs.keys())
 envs.sort()
 
-seeds = [0, 1, 2, 3, 4]
+seeds = [1,2,3,4,5]
 
 total_tasks = 0
 steps = 100000
