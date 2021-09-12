@@ -18,7 +18,6 @@ A2C_learner,LimitedMemory,0,100000,39942.0
 A2C_learner,NthRewardMultipliedByN,0,100000,99830.0
 A2C_learner,PunishNondeterministicAgent,0,100000,100000.0
 A2C_learner,Repeater,0,100000,99860.0
-A2C_learner,ReverseHistory,0,100000,96290.0
 A2C_learner,SelfRecognition,0,100000,66474.0
 A2C_learner,ShiftedRewards,0,100000,99698.0
 A2C_learner,TemptingButton,0,100000,-49726.0
@@ -43,7 +42,6 @@ A2C_learner,minus_rewards(LimitedMemory),0,100000,20442.0
 A2C_learner,minus_rewards(NthRewardMultipliedByN),0,100000,99898.0
 A2C_learner,minus_rewards(PunishNondeterministicAgent),0,100000,99900.0
 A2C_learner,minus_rewards(Repeater),0,100000,99868.0
-A2C_learner,minus_rewards(ReverseHistory),0,100000,99858.0
 A2C_learner,minus_rewards(SelfRecognition),0,100000,66694.0
 A2C_learner,minus_rewards(ShiftedRewards),0,100000,99906.0
 A2C_learner,minus_rewards(TemptingButton),0,100000,98582.0
@@ -67,7 +65,6 @@ ConstantAgent,LimitedMemory,0,100000,100000.0
 ConstantAgent,NthRewardMultipliedByN,0,100000,100000.0
 ConstantAgent,PunishNondeterministicAgent,0,100000,100000.0
 ConstantAgent,Repeater,0,100000,100000.0
-ConstantAgent,ReverseHistory,0,100000,100000.0
 ConstantAgent,SelfRecognition,0,100000,177.0
 ConstantAgent,ShiftedRewards,0,100000,100000.0
 ConstantAgent,TemptingButton,0,100000,-50124.0
@@ -91,7 +88,6 @@ ConstantAgent,minus_rewards(LimitedMemory),0,100000,-100000.0
 ConstantAgent,minus_rewards(NthRewardMultipliedByN),0,100000,-100000.0
 ConstantAgent,minus_rewards(PunishNondeterministicAgent),0,100000,-100000.0
 ConstantAgent,minus_rewards(Repeater),0,100000,-100000.0
-ConstantAgent,minus_rewards(ReverseHistory),0,100000,-100000.0
 ConstantAgent,minus_rewards(SelfRecognition),0,100000,-101.0
 ConstantAgent,minus_rewards(ShiftedRewards),0,100000,-100000.0
 ConstantAgent,minus_rewards(TemptingButton),0,100000,49908.0
@@ -116,7 +112,6 @@ DQN_learner,LimitedMemory,0,100000,40086.0
 DQN_learner,NthRewardMultipliedByN,0,100000,90226.0
 DQN_learner,PunishNondeterministicAgent,0,100000,100000.0
 DQN_learner,Repeater,0,100000,90252.0
-DQN_learner,ReverseHistory,0,100000,90174.0
 DQN_learner,SelfRecognition,0,100000,-1708.0
 DQN_learner,ShiftedRewards,0,100000,76968.0
 DQN_learner,TemptingButton,0,100000,-47306.0
@@ -141,7 +136,6 @@ DQN_learner,minus_rewards(LimitedMemory),0,100000,90386.0
 DQN_learner,minus_rewards(NthRewardMultipliedByN),0,100000,90288.0
 DQN_learner,minus_rewards(PunishNondeterministicAgent),0,100000,90288.0
 DQN_learner,minus_rewards(Repeater),0,100000,90386.0
-DQN_learner,minus_rewards(ReverseHistory),0,100000,90252.0
 DQN_learner,minus_rewards(SelfRecognition),0,100000,-1695.0
 DQN_learner,minus_rewards(ShiftedRewards),0,100000,58880.0
 DQN_learner,minus_rewards(TemptingButton),0,100000,95044.0
@@ -165,7 +159,6 @@ NaiveLearner,LimitedMemory,0,100000,84836.0
 NaiveLearner,NthRewardMultipliedByN,0,100000,99974.0
 NaiveLearner,PunishNondeterministicAgent,0,100000,100000.0
 NaiveLearner,Repeater,0,100000,71428.0
-NaiveLearner,ReverseHistory,0,100000,100000.0
 NaiveLearner,SelfRecognition,0,100000,56630.0
 NaiveLearner,ShiftedRewards,0,100000,99992.0
 NaiveLearner,TemptingButton,0,100000,-42882.0
@@ -189,7 +182,6 @@ NaiveLearner,minus_rewards(LimitedMemory),0,100000,85190.0
 NaiveLearner,minus_rewards(NthRewardMultipliedByN),0,100000,70512.0
 NaiveLearner,minus_rewards(PunishNondeterministicAgent),0,100000,69690.0
 NaiveLearner,minus_rewards(Repeater),0,100000,72174.0
-NaiveLearner,minus_rewards(ReverseHistory),0,100000,69960.0
 NaiveLearner,minus_rewards(SelfRecognition),0,100000,56424.0
 NaiveLearner,minus_rewards(ShiftedRewards),0,100000,-86224.0
 NaiveLearner,minus_rewards(TemptingButton),0,100000,85076.0
@@ -214,7 +206,6 @@ PPO_learner,LimitedMemory,0,100000,2582.0
 PPO_learner,NthRewardMultipliedByN,0,100000,-208.0
 PPO_learner,PunishNondeterministicAgent,0,100000,100000.0
 PPO_learner,Repeater,0,100000,362.0
-PPO_learner,ReverseHistory,0,100000,356.0
 PPO_learner,SelfRecognition,0,100000,37834.0
 PPO_learner,ShiftedRewards,0,100000,64.0
 PPO_learner,TemptingButton,0,100000,-36634.0
@@ -239,7 +230,6 @@ PPO_learner,minus_rewards(LimitedMemory),0,100000,252.0
 PPO_learner,minus_rewards(NthRewardMultipliedByN),0,100000,770.0
 PPO_learner,minus_rewards(PunishNondeterministicAgent),0,100000,1016.0
 PPO_learner,minus_rewards(Repeater),0,100000,486.0
-PPO_learner,minus_rewards(ReverseHistory),0,100000,716.0
 PPO_learner,minus_rewards(SelfRecognition),0,100000,35810.0
 PPO_learner,minus_rewards(ShiftedRewards),0,100000,1008.0
 PPO_learner,minus_rewards(TemptingButton),0,100000,75376.0
@@ -264,7 +254,6 @@ Q_learner,LimitedMemory,0,100000,89760.0
 Q_learner,NthRewardMultipliedByN,0,100000,99966.0
 Q_learner,PunishNondeterministicAgent,0,100000,100000.0
 Q_learner,Repeater,0,100000,81762.0
-Q_learner,ReverseHistory,0,100000,99998.0
 Q_learner,SelfRecognition,0,100000,50119.0
 Q_learner,ShiftedRewards,0,100000,99996.0
 Q_learner,TemptingButton,0,100000,-45580.0
@@ -289,7 +278,6 @@ Q_learner,minus_rewards(LimitedMemory),0,100000,89828.0
 Q_learner,minus_rewards(NthRewardMultipliedByN),0,100000,80024.0
 Q_learner,minus_rewards(PunishNondeterministicAgent),0,100000,80050.0
 Q_learner,minus_rewards(Repeater),0,100000,80918.0
-Q_learner,minus_rewards(ReverseHistory),0,100000,80000.0
 Q_learner,minus_rewards(SelfRecognition),0,100000,38147.0
 Q_learner,minus_rewards(ShiftedRewards),0,100000,75504.0
 Q_learner,minus_rewards(TemptingButton),0,100000,90176.0
@@ -313,7 +301,6 @@ RandomAgent,LimitedMemory,0,100000,258.0
 RandomAgent,NthRewardMultipliedByN,0,100000,100000.0
 RandomAgent,PunishNondeterministicAgent,0,100000,100000.0
 RandomAgent,Repeater,0,100000,318.0
-RandomAgent,ReverseHistory,0,100000,100000.0
 RandomAgent,SelfRecognition,0,100000,-42.0
 RandomAgent,ShiftedRewards,0,100000,100000.0
 RandomAgent,TemptingButton,0,100000,-100.0
@@ -337,7 +324,6 @@ RandomAgent,minus_rewards(LimitedMemory),0,100000,-386.0
 RandomAgent,minus_rewards(NthRewardMultipliedByN),0,100000,-100000.0
 RandomAgent,minus_rewards(PunishNondeterministicAgent),0,100000,-100000.0
 RandomAgent,minus_rewards(Repeater),0,100000,-218.0
-RandomAgent,minus_rewards(ReverseHistory),0,100000,-100000.0
 RandomAgent,minus_rewards(SelfRecognition),0,100000,41.0
 RandomAgent,minus_rewards(ShiftedRewards),0,100000,-100000.0
 RandomAgent,minus_rewards(TemptingButton),0,100000,128.0
@@ -362,7 +348,6 @@ reality_check(A2C_learner),LimitedMemory,0,100000,42858.0
 reality_check(A2C_learner),NthRewardMultipliedByN,0,100000,99906.0
 reality_check(A2C_learner),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(A2C_learner),Repeater,0,100000,99906.0
-reality_check(A2C_learner),ReverseHistory,0,100000,99870.0
 reality_check(A2C_learner),SelfRecognition,0,100000,66157.0
 reality_check(A2C_learner),ShiftedRewards,0,100000,99906.0
 reality_check(A2C_learner),TemptingButton,0,100000,-49854.0
@@ -387,7 +372,6 @@ reality_check(A2C_learner),minus_rewards(LimitedMemory),0,100000,99884.0
 reality_check(A2C_learner),minus_rewards(NthRewardMultipliedByN),0,100000,99892.0
 reality_check(A2C_learner),minus_rewards(PunishNondeterministicAgent),0,100000,99892.0
 reality_check(A2C_learner),minus_rewards(Repeater),0,100000,99912.0
-reality_check(A2C_learner),minus_rewards(ReverseHistory),0,100000,99910.0
 reality_check(A2C_learner),minus_rewards(SelfRecognition),0,100000,66518.0
 reality_check(A2C_learner),minus_rewards(ShiftedRewards),0,100000,99892.0
 reality_check(A2C_learner),minus_rewards(TemptingButton),0,100000,-50318.0
@@ -411,7 +395,6 @@ reality_check(ConstantAgent),LimitedMemory,0,100000,100000.0
 reality_check(ConstantAgent),NthRewardMultipliedByN,0,100000,100000.0
 reality_check(ConstantAgent),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(ConstantAgent),Repeater,0,100000,100000.0
-reality_check(ConstantAgent),ReverseHistory,0,100000,100000.0
 reality_check(ConstantAgent),SelfRecognition,0,100000,359.0
 reality_check(ConstantAgent),ShiftedRewards,0,100000,100000.0
 reality_check(ConstantAgent),TemptingButton,0,100000,-50032.0
@@ -435,7 +418,6 @@ reality_check(ConstantAgent),minus_rewards(LimitedMemory),0,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(NthRewardMultipliedByN),0,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(PunishNondeterministicAgent),0,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(Repeater),0,100000,-100000.0
-reality_check(ConstantAgent),minus_rewards(ReverseHistory),0,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(SelfRecognition),0,100000,-156.0
 reality_check(ConstantAgent),minus_rewards(ShiftedRewards),0,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(TemptingButton),0,100000,50362.0
@@ -460,7 +442,6 @@ reality_check(DQN_learner),LimitedMemory,0,100000,90326.0
 reality_check(DQN_learner),NthRewardMultipliedByN,0,100000,94854.0
 reality_check(DQN_learner),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(DQN_learner),Repeater,0,100000,94878.0
-reality_check(DQN_learner),ReverseHistory,0,100000,94764.0
 reality_check(DQN_learner),SelfRecognition,0,100000,2118.0
 reality_check(DQN_learner),ShiftedRewards,0,100000,94854.0
 reality_check(DQN_learner),TemptingButton,0,100000,-47294.0
@@ -485,7 +466,6 @@ reality_check(DQN_learner),minus_rewards(LimitedMemory),0,100000,95120.0
 reality_check(DQN_learner),minus_rewards(NthRewardMultipliedByN),0,100000,94994.0
 reality_check(DQN_learner),minus_rewards(PunishNondeterministicAgent),0,100000,94994.0
 reality_check(DQN_learner),minus_rewards(Repeater),0,100000,94996.0
-reality_check(DQN_learner),minus_rewards(ReverseHistory),0,100000,94980.0
 reality_check(DQN_learner),minus_rewards(SelfRecognition),0,100000,62941.0
 reality_check(DQN_learner),minus_rewards(ShiftedRewards),0,100000,94994.0
 reality_check(DQN_learner),minus_rewards(TemptingButton),0,100000,-51250.0
@@ -509,7 +489,6 @@ reality_check(NaiveLearner),LimitedMemory,0,100000,84752.0
 reality_check(NaiveLearner),NthRewardMultipliedByN,0,100000,85632.0
 reality_check(NaiveLearner),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(NaiveLearner),Repeater,0,100000,85234.0
-reality_check(NaiveLearner),ReverseHistory,0,100000,100000.0
 reality_check(NaiveLearner),SelfRecognition,0,100000,28565.0
 reality_check(NaiveLearner),ShiftedRewards,0,100000,84792.0
 reality_check(NaiveLearner),TemptingButton,0,100000,-42362.0
@@ -533,7 +512,6 @@ reality_check(NaiveLearner),minus_rewards(LimitedMemory),0,100000,85210.0
 reality_check(NaiveLearner),minus_rewards(NthRewardMultipliedByN),0,100000,84982.0
 reality_check(NaiveLearner),minus_rewards(PunishNondeterministicAgent),0,100000,84950.0
 reality_check(NaiveLearner),minus_rewards(Repeater),0,100000,85022.0
-reality_check(NaiveLearner),minus_rewards(ReverseHistory),0,100000,84912.0
 reality_check(NaiveLearner),minus_rewards(SelfRecognition),0,100000,56644.0
 reality_check(NaiveLearner),minus_rewards(ShiftedRewards),0,100000,85418.0
 reality_check(NaiveLearner),minus_rewards(TemptingButton),0,100000,96276.0
@@ -558,7 +536,6 @@ reality_check(PPO_learner),LimitedMemory,0,100000,53996.0
 reality_check(PPO_learner),NthRewardMultipliedByN,0,100000,54090.0
 reality_check(PPO_learner),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(PPO_learner),Repeater,0,100000,54090.0
-reality_check(PPO_learner),ReverseHistory,0,100000,52384.0
 reality_check(PPO_learner),SelfRecognition,0,100000,38106.0
 reality_check(PPO_learner),ShiftedRewards,0,100000,54090.0
 reality_check(PPO_learner),TemptingButton,0,100000,-23902.0
@@ -583,7 +560,6 @@ reality_check(PPO_learner),minus_rewards(LimitedMemory),0,100000,50584.0
 reality_check(PPO_learner),minus_rewards(NthRewardMultipliedByN),0,100000,52738.0
 reality_check(PPO_learner),minus_rewards(PunishNondeterministicAgent),0,100000,52738.0
 reality_check(PPO_learner),minus_rewards(Repeater),0,100000,53768.0
-reality_check(PPO_learner),minus_rewards(ReverseHistory),0,100000,53264.0
 reality_check(PPO_learner),minus_rewards(SelfRecognition),0,100000,38530.0
 reality_check(PPO_learner),minus_rewards(ShiftedRewards),0,100000,52738.0
 reality_check(PPO_learner),minus_rewards(TemptingButton),0,100000,-61726.0
@@ -608,7 +584,6 @@ reality_check(Q_learner),LimitedMemory,0,100000,89976.0
 reality_check(Q_learner),NthRewardMultipliedByN,0,100000,89916.0
 reality_check(Q_learner),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(Q_learner),Repeater,0,100000,89900.0
-reality_check(Q_learner),ReverseHistory,0,100000,89614.0
 reality_check(Q_learner),SelfRecognition,0,100000,49468.0
 reality_check(Q_learner),ShiftedRewards,0,100000,100000.0
 reality_check(Q_learner),TemptingButton,0,100000,-44648.0
@@ -633,7 +608,6 @@ reality_check(Q_learner),minus_rewards(LimitedMemory),0,100000,89562.0
 reality_check(Q_learner),minus_rewards(NthRewardMultipliedByN),0,100000,90014.0
 reality_check(Q_learner),minus_rewards(PunishNondeterministicAgent),0,100000,90110.0
 reality_check(Q_learner),minus_rewards(Repeater),0,100000,90114.0
-reality_check(Q_learner),minus_rewards(ReverseHistory),0,100000,89764.0
 reality_check(Q_learner),minus_rewards(SelfRecognition),0,100000,59965.0
 reality_check(Q_learner),minus_rewards(ShiftedRewards),0,100000,90032.0
 reality_check(Q_learner),minus_rewards(TemptingButton),0,100000,-52192.0
@@ -657,7 +631,6 @@ reality_check(RandomAgent),LimitedMemory,0,100000,110.0
 reality_check(RandomAgent),NthRewardMultipliedByN,0,100000,100000.0
 reality_check(RandomAgent),PunishNondeterministicAgent,0,100000,100000.0
 reality_check(RandomAgent),Repeater,0,100000,370.0
-reality_check(RandomAgent),ReverseHistory,0,100000,100000.0
 reality_check(RandomAgent),SelfRecognition,0,100000,-165.0
 reality_check(RandomAgent),ShiftedRewards,0,100000,100000.0
 reality_check(RandomAgent),TemptingButton,0,100000,-758.0
@@ -681,7 +654,6 @@ reality_check(RandomAgent),minus_rewards(LimitedMemory),0,100000,-230.0
 reality_check(RandomAgent),minus_rewards(NthRewardMultipliedByN),0,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(PunishNondeterministicAgent),0,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(Repeater),0,100000,-542.0
-reality_check(RandomAgent),minus_rewards(ReverseHistory),0,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(SelfRecognition),0,100000,-157.0
 reality_check(RandomAgent),minus_rewards(ShiftedRewards),0,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(TemptingButton),0,100000,-132.0
@@ -706,7 +678,6 @@ A2C_learner,LimitedMemory,1,100000,99912.0
 A2C_learner,NthRewardMultipliedByN,1,100000,99598.0
 A2C_learner,PunishNondeterministicAgent,1,100000,100000.0
 A2C_learner,Repeater,1,100000,99796.0
-A2C_learner,ReverseHistory,1,100000,99436.0
 A2C_learner,SelfRecognition,1,100000,66647.0
 A2C_learner,ShiftedRewards,1,100000,99816.0
 A2C_learner,TemptingButton,1,100000,-49640.0
@@ -730,7 +701,6 @@ A2C_learner,minus_rewards(LimitedMemory),1,100000,99790.0
 A2C_learner,minus_rewards(NthRewardMultipliedByN),1,100000,99072.0
 A2C_learner,minus_rewards(PunishNondeterministicAgent),1,100000,99074.0
 A2C_learner,minus_rewards(Repeater),1,100000,97840.0
-A2C_learner,minus_rewards(ReverseHistory),1,100000,99768.0
 A2C_learner,minus_rewards(SelfRecognition),1,100000,66629.0
 A2C_learner,minus_rewards(ShiftedRewards),1,100000,99812.0
 A2C_learner,minus_rewards(TemptingButton),1,100000,99638.0
@@ -754,7 +724,6 @@ ConstantAgent,LimitedMemory,1,100000,100000.0
 ConstantAgent,NthRewardMultipliedByN,1,100000,100000.0
 ConstantAgent,PunishNondeterministicAgent,1,100000,100000.0
 ConstantAgent,Repeater,1,100000,100000.0
-ConstantAgent,ReverseHistory,1,100000,100000.0
 ConstantAgent,SelfRecognition,1,100000,-45.0
 ConstantAgent,ShiftedRewards,1,100000,100000.0
 ConstantAgent,TemptingButton,1,100000,-49728.0
@@ -778,7 +747,6 @@ ConstantAgent,minus_rewards(LimitedMemory),1,100000,-100000.0
 ConstantAgent,minus_rewards(NthRewardMultipliedByN),1,100000,-100000.0
 ConstantAgent,minus_rewards(PunishNondeterministicAgent),1,100000,-100000.0
 ConstantAgent,minus_rewards(Repeater),1,100000,-100000.0
-ConstantAgent,minus_rewards(ReverseHistory),1,100000,-100000.0
 ConstantAgent,minus_rewards(SelfRecognition),1,100000,45.0
 ConstantAgent,minus_rewards(ShiftedRewards),1,100000,-100000.0
 ConstantAgent,minus_rewards(TemptingButton),1,100000,49728.0
@@ -803,7 +771,6 @@ DQN_learner,LimitedMemory,1,100000,95012.0
 DQN_learner,NthRewardMultipliedByN,1,100000,90356.0
 DQN_learner,PunishNondeterministicAgent,1,100000,100000.0
 DQN_learner,Repeater,1,100000,90308.0
-DQN_learner,ReverseHistory,1,100000,90356.0
 DQN_learner,SelfRecognition,1,100000,1587.0
 DQN_learner,ShiftedRewards,1,100000,77624.0
 DQN_learner,TemptingButton,1,100000,-46548.0
@@ -828,7 +795,6 @@ DQN_learner,minus_rewards(LimitedMemory),1,100000,94656.0
 DQN_learner,minus_rewards(NthRewardMultipliedByN),1,100000,90106.0
 DQN_learner,minus_rewards(PunishNondeterministicAgent),1,100000,90106.0
 DQN_learner,minus_rewards(Repeater),1,100000,90054.0
-DQN_learner,minus_rewards(ReverseHistory),1,100000,89914.0
 DQN_learner,minus_rewards(SelfRecognition),1,100000,279.0
 DQN_learner,minus_rewards(ShiftedRewards),1,100000,89642.0
 DQN_learner,minus_rewards(TemptingButton),1,100000,93972.0
@@ -852,7 +818,6 @@ NaiveLearner,LimitedMemory,1,100000,84902.0
 NaiveLearner,NthRewardMultipliedByN,1,100000,99976.0
 NaiveLearner,PunishNondeterministicAgent,1,100000,100000.0
 NaiveLearner,Repeater,1,100000,72384.0
-NaiveLearner,ReverseHistory,1,100000,99998.0
 NaiveLearner,SelfRecognition,1,100000,56567.0
 NaiveLearner,ShiftedRewards,1,100000,99992.0
 NaiveLearner,TemptingButton,1,100000,-42436.0
@@ -876,7 +841,6 @@ NaiveLearner,minus_rewards(LimitedMemory),1,100000,84898.0
 NaiveLearner,minus_rewards(NthRewardMultipliedByN),1,100000,69916.0
 NaiveLearner,minus_rewards(PunishNondeterministicAgent),1,100000,70036.0
 NaiveLearner,minus_rewards(Repeater),1,100000,71892.0
-NaiveLearner,minus_rewards(ReverseHistory),1,100000,-15216.0
 NaiveLearner,minus_rewards(SelfRecognition),1,100000,28383.0
 NaiveLearner,minus_rewards(ShiftedRewards),1,100000,-100000.0
 NaiveLearner,minus_rewards(TemptingButton),1,100000,85138.0
@@ -900,7 +864,6 @@ PPO_learner,LimitedMemory,1,100000,7660.0
 PPO_learner,NthRewardMultipliedByN,1,100000,24.0
 PPO_learner,PunishNondeterministicAgent,1,100000,100000.0
 PPO_learner,Repeater,1,100000,136.0
-PPO_learner,ReverseHistory,1,100000,296.0
 PPO_learner,SelfRecognition,1,100000,38705.0
 PPO_learner,ShiftedRewards,1,100000,734.0
 PPO_learner,TemptingButton,1,100000,-25710.0
@@ -925,7 +888,6 @@ PPO_learner,minus_rewards(LimitedMemory),1,100000,12960.0
 PPO_learner,minus_rewards(NthRewardMultipliedByN),1,100000,730.0
 PPO_learner,minus_rewards(PunishNondeterministicAgent),1,100000,1084.0
 PPO_learner,minus_rewards(Repeater),1,100000,648.0
-PPO_learner,minus_rewards(ReverseHistory),1,100000,838.0
 PPO_learner,minus_rewards(SelfRecognition),1,100000,37755.0
 PPO_learner,minus_rewards(ShiftedRewards),1,100000,778.0
 PPO_learner,minus_rewards(TemptingButton),1,100000,68790.0
@@ -950,7 +912,6 @@ Q_learner,LimitedMemory,1,100000,89456.0
 Q_learner,NthRewardMultipliedByN,1,100000,99998.0
 Q_learner,PunishNondeterministicAgent,1,100000,100000.0
 Q_learner,Repeater,1,100000,80506.0
-Q_learner,ReverseHistory,1,100000,99994.0
 Q_learner,SelfRecognition,1,100000,50371.0
 Q_learner,ShiftedRewards,1,100000,99996.0
 Q_learner,TemptingButton,1,100000,-44636.0
@@ -975,7 +936,6 @@ Q_learner,minus_rewards(LimitedMemory),1,100000,89962.0
 Q_learner,minus_rewards(NthRewardMultipliedByN),1,100000,79414.0
 Q_learner,minus_rewards(PunishNondeterministicAgent),1,100000,79418.0
 Q_learner,minus_rewards(Repeater),1,100000,80226.0
-Q_learner,minus_rewards(ReverseHistory),1,100000,79410.0
 Q_learner,minus_rewards(SelfRecognition),1,100000,36075.0
 Q_learner,minus_rewards(ShiftedRewards),1,100000,74968.0
 Q_learner,minus_rewards(TemptingButton),1,100000,89864.0
@@ -999,7 +959,6 @@ RandomAgent,LimitedMemory,1,100000,84.0
 RandomAgent,NthRewardMultipliedByN,1,100000,100000.0
 RandomAgent,PunishNondeterministicAgent,1,100000,100000.0
 RandomAgent,Repeater,1,100000,-468.0
-RandomAgent,ReverseHistory,1,100000,100000.0
 RandomAgent,SelfRecognition,1,100000,-45.0
 RandomAgent,ShiftedRewards,1,100000,100000.0
 RandomAgent,TemptingButton,1,100000,-280.0
@@ -1023,7 +982,6 @@ RandomAgent,minus_rewards(LimitedMemory),1,100000,-84.0
 RandomAgent,minus_rewards(NthRewardMultipliedByN),1,100000,-100000.0
 RandomAgent,minus_rewards(PunishNondeterministicAgent),1,100000,-100000.0
 RandomAgent,minus_rewards(Repeater),1,100000,468.0
-RandomAgent,minus_rewards(ReverseHistory),1,100000,-100000.0
 RandomAgent,minus_rewards(SelfRecognition),1,100000,45.0
 RandomAgent,minus_rewards(ShiftedRewards),1,100000,-100000.0
 RandomAgent,minus_rewards(TemptingButton),1,100000,280.0
@@ -1048,7 +1006,6 @@ reality_check(A2C_learner),LimitedMemory,1,100000,19340.0
 reality_check(A2C_learner),NthRewardMultipliedByN,1,100000,99918.0
 reality_check(A2C_learner),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(A2C_learner),Repeater,1,100000,99938.0
-reality_check(A2C_learner),ReverseHistory,1,100000,99928.0
 reality_check(A2C_learner),SelfRecognition,1,100000,66647.0
 reality_check(A2C_learner),ShiftedRewards,1,100000,99918.0
 reality_check(A2C_learner),TemptingButton,1,100000,-49640.0
@@ -1073,7 +1030,6 @@ reality_check(A2C_learner),minus_rewards(LimitedMemory),1,100000,99932.0
 reality_check(A2C_learner),minus_rewards(NthRewardMultipliedByN),1,100000,99930.0
 reality_check(A2C_learner),minus_rewards(PunishNondeterministicAgent),1,100000,99930.0
 reality_check(A2C_learner),minus_rewards(Repeater),1,100000,99928.0
-reality_check(A2C_learner),minus_rewards(ReverseHistory),1,100000,99896.0
 reality_check(A2C_learner),minus_rewards(SelfRecognition),1,100000,66615.0
 reality_check(A2C_learner),minus_rewards(ShiftedRewards),1,100000,99930.0
 reality_check(A2C_learner),minus_rewards(TemptingButton),1,100000,-49800.0
@@ -1097,7 +1053,6 @@ reality_check(ConstantAgent),LimitedMemory,1,100000,100000.0
 reality_check(ConstantAgent),NthRewardMultipliedByN,1,100000,100000.0
 reality_check(ConstantAgent),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(ConstantAgent),Repeater,1,100000,100000.0
-reality_check(ConstantAgent),ReverseHistory,1,100000,100000.0
 reality_check(ConstantAgent),SelfRecognition,1,100000,-45.0
 reality_check(ConstantAgent),ShiftedRewards,1,100000,100000.0
 reality_check(ConstantAgent),TemptingButton,1,100000,-49728.0
@@ -1121,7 +1076,6 @@ reality_check(ConstantAgent),minus_rewards(LimitedMemory),1,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(NthRewardMultipliedByN),1,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(PunishNondeterministicAgent),1,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(Repeater),1,100000,-100000.0
-reality_check(ConstantAgent),minus_rewards(ReverseHistory),1,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(SelfRecognition),1,100000,45.0
 reality_check(ConstantAgent),minus_rewards(ShiftedRewards),1,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(TemptingButton),1,100000,49728.0
@@ -1146,7 +1100,6 @@ reality_check(DQN_learner),LimitedMemory,1,100000,95018.0
 reality_check(DQN_learner),NthRewardMultipliedByN,1,100000,95064.0
 reality_check(DQN_learner),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(DQN_learner),Repeater,1,100000,94994.0
-reality_check(DQN_learner),ReverseHistory,1,100000,94966.0
 reality_check(DQN_learner),SelfRecognition,1,100000,1587.0
 reality_check(DQN_learner),ShiftedRewards,1,100000,95064.0
 reality_check(DQN_learner),TemptingButton,1,100000,-46548.0
@@ -1171,7 +1124,6 @@ reality_check(DQN_learner),minus_rewards(LimitedMemory),1,100000,94744.0
 reality_check(DQN_learner),minus_rewards(NthRewardMultipliedByN),1,100000,94802.0
 reality_check(DQN_learner),minus_rewards(PunishNondeterministicAgent),1,100000,94802.0
 reality_check(DQN_learner),minus_rewards(Repeater),1,100000,94738.0
-reality_check(DQN_learner),minus_rewards(ReverseHistory),1,100000,94522.0
 reality_check(DQN_learner),minus_rewards(SelfRecognition),1,100000,62953.0
 reality_check(DQN_learner),minus_rewards(ShiftedRewards),1,100000,94802.0
 reality_check(DQN_learner),minus_rewards(TemptingButton),1,100000,-50970.0
@@ -1195,7 +1147,6 @@ reality_check(NaiveLearner),LimitedMemory,1,100000,85136.0
 reality_check(NaiveLearner),NthRewardMultipliedByN,1,100000,85132.0
 reality_check(NaiveLearner),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(NaiveLearner),Repeater,1,100000,85134.0
-reality_check(NaiveLearner),ReverseHistory,1,100000,85132.0
 reality_check(NaiveLearner),SelfRecognition,1,100000,56567.0
 reality_check(NaiveLearner),ShiftedRewards,1,100000,85132.0
 reality_check(NaiveLearner),TemptingButton,1,100000,-42436.0
@@ -1219,7 +1170,6 @@ reality_check(NaiveLearner),minus_rewards(LimitedMemory),1,100000,84900.0
 reality_check(NaiveLearner),minus_rewards(NthRewardMultipliedByN),1,100000,84766.0
 reality_check(NaiveLearner),minus_rewards(PunishNondeterministicAgent),1,100000,84900.0
 reality_check(NaiveLearner),minus_rewards(Repeater),1,100000,84900.0
-reality_check(NaiveLearner),minus_rewards(ReverseHistory),1,100000,84896.0
 reality_check(NaiveLearner),minus_rewards(SelfRecognition),1,100000,56665.0
 reality_check(NaiveLearner),minus_rewards(ShiftedRewards),1,100000,-100000.0
 reality_check(NaiveLearner),minus_rewards(TemptingButton),1,100000,-53390.0
@@ -1244,7 +1194,6 @@ reality_check(PPO_learner),LimitedMemory,1,100000,50302.0
 reality_check(PPO_learner),NthRewardMultipliedByN,1,100000,50460.0
 reality_check(PPO_learner),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(PPO_learner),Repeater,1,100000,50530.0
-reality_check(PPO_learner),ReverseHistory,1,100000,49930.0
 reality_check(PPO_learner),SelfRecognition,1,100000,38705.0
 reality_check(PPO_learner),ShiftedRewards,1,100000,50460.0
 reality_check(PPO_learner),TemptingButton,1,100000,-25710.0
@@ -1269,7 +1218,6 @@ reality_check(PPO_learner),minus_rewards(LimitedMemory),1,100000,51688.0
 reality_check(PPO_learner),minus_rewards(NthRewardMultipliedByN),1,100000,52648.0
 reality_check(PPO_learner),minus_rewards(PunishNondeterministicAgent),1,100000,52648.0
 reality_check(PPO_learner),minus_rewards(Repeater),1,100000,51828.0
-reality_check(PPO_learner),minus_rewards(ReverseHistory),1,100000,51472.0
 reality_check(PPO_learner),minus_rewards(SelfRecognition),1,100000,37975.0
 reality_check(PPO_learner),minus_rewards(ShiftedRewards),1,100000,52648.0
 reality_check(PPO_learner),minus_rewards(TemptingButton),1,100000,-61212.0
@@ -1294,7 +1242,6 @@ reality_check(Q_learner),LimitedMemory,1,100000,89456.0
 reality_check(Q_learner),NthRewardMultipliedByN,1,100000,89452.0
 reality_check(Q_learner),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(Q_learner),Repeater,1,100000,89456.0
-reality_check(Q_learner),ReverseHistory,1,100000,89454.0
 reality_check(Q_learner),SelfRecognition,1,100000,50371.0
 reality_check(Q_learner),ShiftedRewards,1,100000,89452.0
 reality_check(Q_learner),TemptingButton,1,100000,-44636.0
@@ -1319,7 +1266,6 @@ reality_check(Q_learner),minus_rewards(LimitedMemory),1,100000,89962.0
 reality_check(Q_learner),minus_rewards(NthRewardMultipliedByN),1,100000,89952.0
 reality_check(Q_learner),minus_rewards(PunishNondeterministicAgent),1,100000,89962.0
 reality_check(Q_learner),minus_rewards(Repeater),1,100000,89962.0
-reality_check(Q_learner),minus_rewards(ReverseHistory),1,100000,89958.0
 reality_check(Q_learner),minus_rewards(SelfRecognition),1,100000,60045.0
 reality_check(Q_learner),minus_rewards(ShiftedRewards),1,100000,89952.0
 reality_check(Q_learner),minus_rewards(TemptingButton),1,100000,-52320.0
@@ -1343,7 +1289,6 @@ reality_check(RandomAgent),LimitedMemory,1,100000,-42.0
 reality_check(RandomAgent),NthRewardMultipliedByN,1,100000,100000.0
 reality_check(RandomAgent),PunishNondeterministicAgent,1,100000,100000.0
 reality_check(RandomAgent),Repeater,1,100000,-78.0
-reality_check(RandomAgent),ReverseHistory,1,100000,100000.0
 reality_check(RandomAgent),SelfRecognition,1,100000,-45.0
 reality_check(RandomAgent),ShiftedRewards,1,100000,100000.0
 reality_check(RandomAgent),TemptingButton,1,100000,-280.0
@@ -1367,7 +1312,6 @@ reality_check(RandomAgent),minus_rewards(LimitedMemory),1,100000,42.0
 reality_check(RandomAgent),minus_rewards(NthRewardMultipliedByN),1,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(PunishNondeterministicAgent),1,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(Repeater),1,100000,78.0
-reality_check(RandomAgent),minus_rewards(ReverseHistory),1,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(SelfRecognition),1,100000,45.0
 reality_check(RandomAgent),minus_rewards(ShiftedRewards),1,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(TemptingButton),1,100000,280.0
@@ -1392,7 +1336,6 @@ A2C_learner,LimitedMemory,2,100000,10276.0
 A2C_learner,NthRewardMultipliedByN,2,100000,99826.0
 A2C_learner,PunishNondeterministicAgent,2,100000,100000.0
 A2C_learner,Repeater,2,100000,99880.0
-A2C_learner,ReverseHistory,2,100000,99798.0
 A2C_learner,SelfRecognition,2,100000,66564.0
 A2C_learner,ShiftedRewards,2,100000,96106.0
 A2C_learner,TemptingButton,2,100000,-50210.0
@@ -1417,7 +1360,6 @@ A2C_learner,minus_rewards(LimitedMemory),2,100000,39950.0
 A2C_learner,minus_rewards(NthRewardMultipliedByN),2,100000,99870.0
 A2C_learner,minus_rewards(PunishNondeterministicAgent),2,100000,99842.0
 A2C_learner,minus_rewards(Repeater),2,100000,98918.0
-A2C_learner,minus_rewards(ReverseHistory),2,100000,99674.0
 ConstantAgent,SelfRecognition,0,100000,-314.0
 ConstantAgent,SelfRecognition,0,100000,16.0
 A2C_learner,minus_rewards(SelfRecognition),2,100000,66554.0
@@ -1445,7 +1387,6 @@ ConstantAgent,LimitedMemory,2,100000,100000.0
 ConstantAgent,NthRewardMultipliedByN,2,100000,100000.0
 ConstantAgent,PunishNondeterministicAgent,2,100000,100000.0
 ConstantAgent,Repeater,2,100000,100000.0
-ConstantAgent,ReverseHistory,2,100000,100000.0
 ConstantAgent,SelfRecognition,2,100000,-332.0
 ConstantAgent,ShiftedRewards,2,100000,100000.0
 ConstantAgent,TemptingButton,2,100000,-50336.0
@@ -1469,7 +1410,6 @@ ConstantAgent,minus_rewards(LimitedMemory),2,100000,-100000.0
 ConstantAgent,minus_rewards(NthRewardMultipliedByN),2,100000,-100000.0
 ConstantAgent,minus_rewards(PunishNondeterministicAgent),2,100000,-100000.0
 ConstantAgent,minus_rewards(Repeater),2,100000,-100000.0
-ConstantAgent,minus_rewards(ReverseHistory),2,100000,-100000.0
 ConstantAgent,minus_rewards(SelfRecognition),2,100000,332.0
 ConstantAgent,minus_rewards(ShiftedRewards),2,100000,-100000.0
 ConstantAgent,minus_rewards(TemptingButton),2,100000,50336.0
@@ -1494,7 +1434,6 @@ DQN_learner,LimitedMemory,2,100000,94982.0
 DQN_learner,NthRewardMultipliedByN,2,100000,90350.0
 DQN_learner,PunishNondeterministicAgent,2,100000,100000.0
 DQN_learner,Repeater,2,100000,90150.0
-DQN_learner,ReverseHistory,2,100000,90152.0
 DQN_learner,SelfRecognition,2,100000,2532.0
 DQN_learner,ShiftedRewards,2,100000,72608.0
 DQN_learner,TemptingButton,2,100000,-47464.0
@@ -1519,7 +1458,6 @@ DQN_learner,minus_rewards(LimitedMemory),2,100000,94752.0
 DQN_learner,minus_rewards(NthRewardMultipliedByN),2,100000,90210.0
 DQN_learner,minus_rewards(PunishNondeterministicAgent),2,100000,90210.0
 DQN_learner,minus_rewards(Repeater),2,100000,90076.0
-DQN_learner,minus_rewards(ReverseHistory),2,100000,89964.0
 DQN_learner,minus_rewards(SelfRecognition),2,100000,1052.0
 DQN_learner,minus_rewards(ShiftedRewards),2,100000,55480.0
 DQN_learner,minus_rewards(TemptingButton),2,100000,94224.0
@@ -1543,7 +1481,6 @@ NaiveLearner,LimitedMemory,2,100000,85148.0
 NaiveLearner,NthRewardMultipliedByN,2,100000,99998.0
 NaiveLearner,PunishNondeterministicAgent,2,100000,100000.0
 NaiveLearner,Repeater,2,100000,72620.0
-NaiveLearner,ReverseHistory,2,100000,100000.0
 NaiveLearner,SelfRecognition,2,100000,56818.0
 NaiveLearner,ShiftedRewards,2,100000,99996.0
 NaiveLearner,TemptingButton,2,100000,-42748.0
@@ -1567,7 +1504,6 @@ NaiveLearner,minus_rewards(LimitedMemory),2,100000,84938.0
 NaiveLearner,minus_rewards(NthRewardMultipliedByN),2,100000,70086.0
 NaiveLearner,minus_rewards(PunishNondeterministicAgent),2,100000,70086.0
 NaiveLearner,minus_rewards(Repeater),2,100000,72418.0
-NaiveLearner,minus_rewards(ReverseHistory),2,100000,70084.0
 NaiveLearner,minus_rewards(SelfRecognition),2,100000,56760.0
 NaiveLearner,minus_rewards(ShiftedRewards),2,100000,70084.0
 NaiveLearner,minus_rewards(TemptingButton),2,100000,85066.0
@@ -1592,7 +1528,6 @@ PPO_learner,LimitedMemory,2,100000,7400.0
 PPO_learner,NthRewardMultipliedByN,2,100000,548.0
 PPO_learner,PunishNondeterministicAgent,2,100000,100000.0
 PPO_learner,Repeater,2,100000,512.0
-PPO_learner,ReverseHistory,2,100000,154.0
 PPO_learner,SelfRecognition,2,100000,38094.0
 PPO_learner,ShiftedRewards,2,100000,244.0
 PPO_learner,TemptingButton,2,100000,-22916.0
@@ -1617,7 +1552,6 @@ PPO_learner,minus_rewards(LimitedMemory),2,100000,16286.0
 PPO_learner,minus_rewards(NthRewardMultipliedByN),2,100000,796.0
 PPO_learner,minus_rewards(PunishNondeterministicAgent),2,100000,746.0
 PPO_learner,minus_rewards(Repeater),2,100000,626.0
-PPO_learner,minus_rewards(ReverseHistory),2,100000,572.0
 PPO_learner,minus_rewards(SelfRecognition),2,100000,38798.0
 PPO_learner,minus_rewards(ShiftedRewards),2,100000,906.0
 PPO_learner,minus_rewards(TemptingButton),2,100000,68398.0
@@ -1642,7 +1576,6 @@ Q_learner,LimitedMemory,2,100000,89832.0
 Q_learner,NthRewardMultipliedByN,2,100000,99998.0
 Q_learner,PunishNondeterministicAgent,2,100000,100000.0
 Q_learner,Repeater,2,100000,80340.0
-Q_learner,ReverseHistory,2,100000,99986.0
 Q_learner,SelfRecognition,2,100000,49758.0
 Q_learner,ShiftedRewards,2,100000,99996.0
 Q_learner,TemptingButton,2,100000,-45234.0
@@ -1667,7 +1600,6 @@ Q_learner,minus_rewards(LimitedMemory),2,100000,89804.0
 Q_learner,minus_rewards(NthRewardMultipliedByN),2,100000,79632.0
 Q_learner,minus_rewards(PunishNondeterministicAgent),2,100000,79636.0
 Q_learner,minus_rewards(Repeater),2,100000,80508.0
-Q_learner,minus_rewards(ReverseHistory),2,100000,79634.0
 Q_learner,minus_rewards(SelfRecognition),2,100000,37066.0
 Q_learner,minus_rewards(ShiftedRewards),2,100000,75146.0
 Q_learner,minus_rewards(TemptingButton),2,100000,89770.0
@@ -1691,7 +1623,6 @@ RandomAgent,LimitedMemory,2,100000,204.0
 RandomAgent,NthRewardMultipliedByN,2,100000,100000.0
 RandomAgent,PunishNondeterministicAgent,2,100000,100000.0
 RandomAgent,Repeater,2,100000,-16.0
-RandomAgent,ReverseHistory,2,100000,100000.0
 RandomAgent,SelfRecognition,2,100000,-332.0
 RandomAgent,ShiftedRewards,2,100000,100000.0
 RandomAgent,TemptingButton,2,100000,-56.0
@@ -1715,7 +1646,6 @@ RandomAgent,minus_rewards(LimitedMemory),2,100000,-204.0
 RandomAgent,minus_rewards(NthRewardMultipliedByN),2,100000,-100000.0
 RandomAgent,minus_rewards(PunishNondeterministicAgent),2,100000,-100000.0
 RandomAgent,minus_rewards(Repeater),2,100000,16.0
-RandomAgent,minus_rewards(ReverseHistory),2,100000,-100000.0
 RandomAgent,minus_rewards(SelfRecognition),2,100000,332.0
 RandomAgent,minus_rewards(ShiftedRewards),2,100000,-100000.0
 RandomAgent,minus_rewards(TemptingButton),2,100000,56.0
@@ -1740,7 +1670,6 @@ reality_check(A2C_learner),LimitedMemory,2,100000,24894.0
 reality_check(A2C_learner),NthRewardMultipliedByN,2,100000,99950.0
 reality_check(A2C_learner),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(A2C_learner),Repeater,2,100000,99950.0
-reality_check(A2C_learner),ReverseHistory,2,100000,99888.0
 reality_check(A2C_learner),SelfRecognition,2,100000,66564.0
 reality_check(A2C_learner),ShiftedRewards,2,100000,99950.0
 reality_check(A2C_learner),TemptingButton,2,100000,-50210.0
@@ -1765,7 +1694,6 @@ reality_check(A2C_learner),minus_rewards(LimitedMemory),2,100000,99886.0
 reality_check(A2C_learner),minus_rewards(NthRewardMultipliedByN),2,100000,99928.0
 reality_check(A2C_learner),minus_rewards(PunishNondeterministicAgent),2,100000,99928.0
 reality_check(A2C_learner),minus_rewards(Repeater),2,100000,99912.0
-reality_check(A2C_learner),minus_rewards(ReverseHistory),2,100000,99884.0
 reality_check(A2C_learner),minus_rewards(SelfRecognition),2,100000,66534.0
 reality_check(A2C_learner),minus_rewards(ShiftedRewards),2,100000,99928.0
 reality_check(A2C_learner),minus_rewards(TemptingButton),2,100000,-50388.0
@@ -1789,7 +1717,6 @@ reality_check(ConstantAgent),LimitedMemory,2,100000,100000.0
 reality_check(ConstantAgent),NthRewardMultipliedByN,2,100000,100000.0
 reality_check(ConstantAgent),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(ConstantAgent),Repeater,2,100000,100000.0
-reality_check(ConstantAgent),ReverseHistory,2,100000,100000.0
 reality_check(ConstantAgent),SelfRecognition,2,100000,-332.0
 reality_check(ConstantAgent),ShiftedRewards,2,100000,100000.0
 reality_check(ConstantAgent),TemptingButton,2,100000,-50336.0
@@ -1813,7 +1740,6 @@ reality_check(ConstantAgent),minus_rewards(LimitedMemory),2,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(NthRewardMultipliedByN),2,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(PunishNondeterministicAgent),2,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(Repeater),2,100000,-100000.0
-reality_check(ConstantAgent),minus_rewards(ReverseHistory),2,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(SelfRecognition),2,100000,332.0
 reality_check(ConstantAgent),minus_rewards(ShiftedRewards),2,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(TemptingButton),2,100000,50336.0
@@ -1838,7 +1764,6 @@ reality_check(DQN_learner),LimitedMemory,2,100000,94892.0
 reality_check(DQN_learner),NthRewardMultipliedByN,2,100000,94470.0
 reality_check(DQN_learner),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(DQN_learner),Repeater,2,100000,94542.0
-reality_check(DQN_learner),ReverseHistory,2,100000,94796.0
 reality_check(DQN_learner),SelfRecognition,2,100000,2532.0
 reality_check(DQN_learner),ShiftedRewards,2,100000,94470.0
 reality_check(DQN_learner),TemptingButton,2,100000,-47464.0
@@ -1863,7 +1788,6 @@ reality_check(DQN_learner),minus_rewards(LimitedMemory),2,100000,94802.0
 reality_check(DQN_learner),minus_rewards(NthRewardMultipliedByN),2,100000,94640.0
 reality_check(DQN_learner),minus_rewards(PunishNondeterministicAgent),2,100000,94640.0
 reality_check(DQN_learner),minus_rewards(Repeater),2,100000,94832.0
-reality_check(DQN_learner),minus_rewards(ReverseHistory),2,100000,94648.0
 reality_check(DQN_learner),minus_rewards(SelfRecognition),2,100000,62758.0
 reality_check(DQN_learner),minus_rewards(ShiftedRewards),2,100000,94640.0
 reality_check(DQN_learner),minus_rewards(TemptingButton),2,100000,-51658.0
@@ -1887,7 +1811,6 @@ reality_check(NaiveLearner),LimitedMemory,2,100000,85148.0
 reality_check(NaiveLearner),NthRewardMultipliedByN,2,100000,84942.0
 reality_check(NaiveLearner),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(NaiveLearner),Repeater,2,100000,84898.0
-reality_check(NaiveLearner),ReverseHistory,2,100000,100000.0
 reality_check(NaiveLearner),SelfRecognition,2,100000,56818.0
 reality_check(NaiveLearner),ShiftedRewards,2,100000,84942.0
 reality_check(NaiveLearner),TemptingButton,2,100000,-42748.0
@@ -1910,7 +1833,6 @@ reality_check(NaiveLearner),minus_rewards(LimitedMemory),2,100000,84938.0
 reality_check(NaiveLearner),minus_rewards(NthRewardMultipliedByN),2,100000,84938.0
 reality_check(NaiveLearner),minus_rewards(PunishNondeterministicAgent),2,100000,84938.0
 reality_check(NaiveLearner),minus_rewards(Repeater),2,100000,84938.0
-reality_check(NaiveLearner),minus_rewards(ReverseHistory),2,100000,84936.0
 reality_check(NaiveLearner),minus_rewards(SelfRecognition),2,100000,56766.0
 reality_check(NaiveLearner),minus_rewards(ShiftedRewards),2,100000,84938.0
 reality_check(NaiveLearner),minus_rewards(TemptingButton),2,100000,-54046.0
@@ -1935,7 +1857,6 @@ reality_check(PPO_learner),LimitedMemory,2,100000,53812.0
 reality_check(PPO_learner),NthRewardMultipliedByN,2,100000,53792.0
 reality_check(PPO_learner),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(PPO_learner),Repeater,2,100000,53490.0
-reality_check(PPO_learner),ReverseHistory,2,100000,51746.0
 reality_check(PPO_learner),SelfRecognition,2,100000,38094.0
 reality_check(PPO_learner),ShiftedRewards,2,100000,53792.0
 reality_check(PPO_learner),TemptingButton,2,100000,-22916.0
@@ -1960,7 +1881,6 @@ reality_check(PPO_learner),minus_rewards(LimitedMemory),2,100000,51158.0
 reality_check(PPO_learner),minus_rewards(NthRewardMultipliedByN),2,100000,53486.0
 reality_check(PPO_learner),minus_rewards(PunishNondeterministicAgent),2,100000,53486.0
 reality_check(PPO_learner),minus_rewards(Repeater),2,100000,52768.0
-reality_check(PPO_learner),minus_rewards(ReverseHistory),2,100000,51288.0
 reality_check(PPO_learner),minus_rewards(SelfRecognition),2,100000,39386.0
 reality_check(PPO_learner),minus_rewards(ShiftedRewards),2,100000,53486.0
 reality_check(PPO_learner),minus_rewards(TemptingButton),2,100000,-61926.0
@@ -1985,7 +1905,6 @@ reality_check(Q_learner),LimitedMemory,2,100000,89832.0
 reality_check(Q_learner),NthRewardMultipliedByN,2,100000,89828.0
 reality_check(Q_learner),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(Q_learner),Repeater,2,100000,89830.0
-reality_check(Q_learner),ReverseHistory,2,100000,89832.0
 reality_check(Q_learner),SelfRecognition,2,100000,49758.0
 reality_check(Q_learner),ShiftedRewards,2,100000,89828.0
 reality_check(Q_learner),TemptingButton,2,100000,-45234.0
@@ -2010,7 +1929,6 @@ reality_check(Q_learner),minus_rewards(LimitedMemory),2,100000,89804.0
 reality_check(Q_learner),minus_rewards(NthRewardMultipliedByN),2,100000,89794.0
 reality_check(Q_learner),minus_rewards(PunishNondeterministicAgent),2,100000,89804.0
 reality_check(Q_learner),minus_rewards(Repeater),2,100000,89804.0
-reality_check(Q_learner),minus_rewards(ReverseHistory),2,100000,89802.0
 reality_check(Q_learner),minus_rewards(SelfRecognition),2,100000,59810.0
 reality_check(Q_learner),minus_rewards(ShiftedRewards),2,100000,89794.0
 reality_check(Q_learner),minus_rewards(TemptingButton),2,100000,-52848.0
@@ -2034,7 +1952,6 @@ reality_check(RandomAgent),LimitedMemory,2,100000,204.0
 reality_check(RandomAgent),NthRewardMultipliedByN,2,100000,100000.0
 reality_check(RandomAgent),PunishNondeterministicAgent,2,100000,100000.0
 reality_check(RandomAgent),Repeater,2,100000,198.0
-reality_check(RandomAgent),ReverseHistory,2,100000,100000.0
 reality_check(RandomAgent),SelfRecognition,2,100000,-332.0
 reality_check(RandomAgent),ShiftedRewards,2,100000,100000.0
 reality_check(RandomAgent),TemptingButton,2,100000,-56.0
@@ -2058,7 +1975,6 @@ reality_check(RandomAgent),minus_rewards(LimitedMemory),2,100000,-204.0
 reality_check(RandomAgent),minus_rewards(NthRewardMultipliedByN),2,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(PunishNondeterministicAgent),2,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(Repeater),2,100000,-198.0
-reality_check(RandomAgent),minus_rewards(ReverseHistory),2,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(SelfRecognition),2,100000,332.0
 reality_check(RandomAgent),minus_rewards(ShiftedRewards),2,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(TemptingButton),2,100000,56.0
@@ -2083,7 +1999,6 @@ A2C_learner,LimitedMemory,3,100000,19898.0
 A2C_learner,NthRewardMultipliedByN,3,100000,94490.0
 A2C_learner,PunishNondeterministicAgent,3,100000,100000.0
 A2C_learner,Repeater,3,100000,99898.0
-A2C_learner,ReverseHistory,3,100000,99616.0
 A2C_learner,SelfRecognition,3,100000,67077.0
 A2C_learner,ShiftedRewards,3,100000,99558.0
 A2C_learner,TemptingButton,3,100000,-49564.0
@@ -2108,7 +2023,6 @@ A2C_learner,minus_rewards(LimitedMemory),3,100000,39898.0
 A2C_learner,minus_rewards(NthRewardMultipliedByN),3,100000,99756.0
 A2C_learner,minus_rewards(PunishNondeterministicAgent),3,100000,99810.0
 A2C_learner,minus_rewards(Repeater),3,100000,99866.0
-A2C_learner,minus_rewards(ReverseHistory),3,100000,98782.0
 A2C_learner,minus_rewards(SelfRecognition),3,100000,67101.0
 A2C_learner,minus_rewards(ShiftedRewards),3,100000,99870.0
 A2C_learner,minus_rewards(TemptingButton),3,100000,98882.0
@@ -2132,7 +2046,6 @@ ConstantAgent,LimitedMemory,3,100000,100000.0
 ConstantAgent,NthRewardMultipliedByN,3,100000,100000.0
 ConstantAgent,PunishNondeterministicAgent,3,100000,100000.0
 ConstantAgent,Repeater,3,100000,100000.0
-ConstantAgent,ReverseHistory,3,100000,100000.0
 ConstantAgent,SelfRecognition,3,100000,109.0
 ConstantAgent,ShiftedRewards,3,100000,100000.0
 ConstantAgent,TemptingButton,3,100000,-49630.0
@@ -2156,7 +2069,6 @@ ConstantAgent,minus_rewards(LimitedMemory),3,100000,-100000.0
 ConstantAgent,minus_rewards(NthRewardMultipliedByN),3,100000,-100000.0
 ConstantAgent,minus_rewards(PunishNondeterministicAgent),3,100000,-100000.0
 ConstantAgent,minus_rewards(Repeater),3,100000,-100000.0
-ConstantAgent,minus_rewards(ReverseHistory),3,100000,-100000.0
 ConstantAgent,minus_rewards(SelfRecognition),3,100000,-109.0
 ConstantAgent,minus_rewards(ShiftedRewards),3,100000,-100000.0
 ConstantAgent,minus_rewards(TemptingButton),3,100000,49630.0
@@ -2181,7 +2093,6 @@ DQN_learner,LimitedMemory,3,100000,40250.0
 DQN_learner,NthRewardMultipliedByN,3,100000,90442.0
 DQN_learner,PunishNondeterministicAgent,3,100000,100000.0
 DQN_learner,Repeater,3,100000,90518.0
-DQN_learner,ReverseHistory,3,100000,90072.0
 DQN_learner,SelfRecognition,3,100000,-231.0
 DQN_learner,ShiftedRewards,3,100000,62500.0
 DQN_learner,TemptingButton,3,100000,-45840.0
@@ -2206,7 +2117,6 @@ DQN_learner,minus_rewards(LimitedMemory),3,100000,89888.0
 DQN_learner,minus_rewards(NthRewardMultipliedByN),3,100000,90026.0
 DQN_learner,minus_rewards(PunishNondeterministicAgent),3,100000,90026.0
 DQN_learner,minus_rewards(Repeater),3,100000,90126.0
-DQN_learner,minus_rewards(ReverseHistory),3,100000,90018.0
 DQN_learner,minus_rewards(SelfRecognition),3,100000,-1839.0
 DQN_learner,minus_rewards(ShiftedRewards),3,100000,90026.0
 DQN_learner,minus_rewards(TemptingButton),3,100000,94446.0
@@ -2230,7 +2140,6 @@ NaiveLearner,LimitedMemory,3,100000,84802.0
 NaiveLearner,NthRewardMultipliedByN,3,100000,99976.0
 NaiveLearner,PunishNondeterministicAgent,3,100000,100000.0
 NaiveLearner,Repeater,3,100000,72016.0
-NaiveLearner,ReverseHistory,3,100000,100000.0
 NaiveLearner,SelfRecognition,3,100000,57007.0
 NaiveLearner,ShiftedRewards,3,100000,99996.0
 NaiveLearner,TemptingButton,3,100000,-42098.0
@@ -2254,7 +2163,6 @@ NaiveLearner,minus_rewards(LimitedMemory),3,100000,84924.0
 NaiveLearner,minus_rewards(NthRewardMultipliedByN),3,100000,69726.0
 NaiveLearner,minus_rewards(PunishNondeterministicAgent),3,100000,69726.0
 NaiveLearner,minus_rewards(Repeater),3,100000,71974.0
-NaiveLearner,minus_rewards(ReverseHistory),3,100000,-15756.0
 NaiveLearner,minus_rewards(SelfRecognition),3,100000,28349.0
 NaiveLearner,minus_rewards(ShiftedRewards),3,100000,-99998.0
 NaiveLearner,minus_rewards(TemptingButton),3,100000,84818.0
@@ -2279,7 +2187,6 @@ PPO_learner,LimitedMemory,3,100000,642.0
 PPO_learner,NthRewardMultipliedByN,3,100000,-434.0
 PPO_learner,PunishNondeterministicAgent,3,100000,100000.0
 PPO_learner,Repeater,3,100000,-224.0
-PPO_learner,ReverseHistory,3,100000,92.0
 PPO_learner,SelfRecognition,3,100000,39049.0
 PPO_learner,ShiftedRewards,3,100000,126.0
 PPO_learner,TemptingButton,3,100000,-30234.0
@@ -2304,7 +2211,6 @@ PPO_learner,minus_rewards(LimitedMemory),3,100000,1120.0
 PPO_learner,minus_rewards(NthRewardMultipliedByN),3,100000,1228.0
 PPO_learner,minus_rewards(PunishNondeterministicAgent),3,100000,1278.0
 PPO_learner,minus_rewards(Repeater),3,100000,1106.0
-PPO_learner,minus_rewards(ReverseHistory),3,100000,1230.0
 PPO_learner,minus_rewards(SelfRecognition),3,100000,39213.0
 PPO_learner,minus_rewards(ShiftedRewards),3,100000,1096.0
 PPO_learner,minus_rewards(TemptingButton),3,100000,71872.0
@@ -2329,7 +2235,6 @@ Q_learner,LimitedMemory,3,100000,90368.0
 Q_learner,NthRewardMultipliedByN,3,100000,99968.0
 Q_learner,PunishNondeterministicAgent,3,100000,100000.0
 Q_learner,Repeater,3,100000,81352.0
-Q_learner,ReverseHistory,3,100000,99992.0
 Q_learner,SelfRecognition,3,100000,52007.0
 Q_learner,ShiftedRewards,3,100000,100000.0
 Q_learner,TemptingButton,3,100000,-44968.0
@@ -2354,7 +2259,6 @@ Q_learner,minus_rewards(LimitedMemory),3,100000,90262.0
 Q_learner,minus_rewards(NthRewardMultipliedByN),3,100000,80646.0
 Q_learner,minus_rewards(PunishNondeterministicAgent),3,100000,80646.0
 Q_learner,minus_rewards(Repeater),3,100000,81430.0
-Q_learner,minus_rewards(ReverseHistory),3,100000,80644.0
 Q_learner,minus_rewards(SelfRecognition),3,100000,37607.0
 Q_learner,minus_rewards(ShiftedRewards),3,100000,76626.0
 Q_learner,minus_rewards(TemptingButton),3,100000,90390.0
@@ -2378,7 +2282,6 @@ RandomAgent,LimitedMemory,3,100000,378.0
 RandomAgent,NthRewardMultipliedByN,3,100000,100000.0
 RandomAgent,PunishNondeterministicAgent,3,100000,100000.0
 RandomAgent,Repeater,3,100000,-236.0
-RandomAgent,ReverseHistory,3,100000,100000.0
 RandomAgent,SelfRecognition,3,100000,109.0
 RandomAgent,ShiftedRewards,3,100000,100000.0
 RandomAgent,TemptingButton,3,100000,-174.0
@@ -2402,7 +2305,6 @@ RandomAgent,minus_rewards(LimitedMemory),3,100000,-378.0
 RandomAgent,minus_rewards(NthRewardMultipliedByN),3,100000,-100000.0
 RandomAgent,minus_rewards(PunishNondeterministicAgent),3,100000,-100000.0
 RandomAgent,minus_rewards(Repeater),3,100000,236.0
-RandomAgent,minus_rewards(ReverseHistory),3,100000,-100000.0
 RandomAgent,minus_rewards(SelfRecognition),3,100000,-109.0
 RandomAgent,minus_rewards(ShiftedRewards),3,100000,-100000.0
 RandomAgent,minus_rewards(TemptingButton),3,100000,174.0
@@ -2427,7 +2329,6 @@ reality_check(A2C_learner),LimitedMemory,3,100000,99934.0
 reality_check(A2C_learner),NthRewardMultipliedByN,3,100000,99934.0
 reality_check(A2C_learner),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(A2C_learner),Repeater,3,100000,99934.0
-reality_check(A2C_learner),ReverseHistory,3,100000,99922.0
 reality_check(A2C_learner),SelfRecognition,3,100000,67077.0
 reality_check(A2C_learner),ShiftedRewards,3,100000,99934.0
 reality_check(A2C_learner),TemptingButton,3,100000,-49564.0
@@ -2452,7 +2353,6 @@ reality_check(A2C_learner),minus_rewards(LimitedMemory),3,100000,99918.0
 reality_check(A2C_learner),minus_rewards(NthRewardMultipliedByN),3,100000,99906.0
 reality_check(A2C_learner),minus_rewards(PunishNondeterministicAgent),3,100000,99906.0
 reality_check(A2C_learner),minus_rewards(Repeater),3,100000,99932.0
-reality_check(A2C_learner),minus_rewards(ReverseHistory),3,100000,99932.0
 reality_check(A2C_learner),minus_rewards(SelfRecognition),3,100000,67087.0
 reality_check(A2C_learner),minus_rewards(ShiftedRewards),3,100000,99906.0
 reality_check(A2C_learner),minus_rewards(TemptingButton),3,100000,-49664.0
@@ -2476,7 +2376,6 @@ reality_check(ConstantAgent),LimitedMemory,3,100000,100000.0
 reality_check(ConstantAgent),NthRewardMultipliedByN,3,100000,100000.0
 reality_check(ConstantAgent),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(ConstantAgent),Repeater,3,100000,100000.0
-reality_check(ConstantAgent),ReverseHistory,3,100000,100000.0
 reality_check(ConstantAgent),SelfRecognition,3,100000,109.0
 reality_check(ConstantAgent),ShiftedRewards,3,100000,100000.0
 reality_check(ConstantAgent),TemptingButton,3,100000,-49630.0
@@ -2500,7 +2399,6 @@ reality_check(ConstantAgent),minus_rewards(LimitedMemory),3,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(NthRewardMultipliedByN),3,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(PunishNondeterministicAgent),3,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(Repeater),3,100000,-100000.0
-reality_check(ConstantAgent),minus_rewards(ReverseHistory),3,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(SelfRecognition),3,100000,-109.0
 reality_check(ConstantAgent),minus_rewards(ShiftedRewards),3,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(TemptingButton),3,100000,49630.0
@@ -2525,7 +2423,6 @@ reality_check(DQN_learner),LimitedMemory,3,100000,28196.0
 reality_check(DQN_learner),NthRewardMultipliedByN,3,100000,94982.0
 reality_check(DQN_learner),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(DQN_learner),Repeater,3,100000,94422.0
-reality_check(DQN_learner),ReverseHistory,3,100000,94890.0
 reality_check(DQN_learner),SelfRecognition,3,100000,-231.0
 reality_check(DQN_learner),ShiftedRewards,3,100000,94982.0
 reality_check(DQN_learner),TemptingButton,3,100000,-45840.0
@@ -2550,7 +2447,6 @@ reality_check(DQN_learner),minus_rewards(LimitedMemory),3,100000,73372.0
 reality_check(DQN_learner),minus_rewards(NthRewardMultipliedByN),3,100000,94574.0
 reality_check(DQN_learner),minus_rewards(PunishNondeterministicAgent),3,100000,94574.0
 reality_check(DQN_learner),minus_rewards(Repeater),3,100000,94596.0
-reality_check(DQN_learner),minus_rewards(ReverseHistory),3,100000,94844.0
 reality_check(DQN_learner),minus_rewards(SelfRecognition),3,100000,63703.0
 reality_check(DQN_learner),minus_rewards(ShiftedRewards),3,100000,94574.0
 reality_check(DQN_learner),minus_rewards(TemptingButton),3,100000,-50990.0
@@ -2574,7 +2470,6 @@ reality_check(NaiveLearner),LimitedMemory,3,100000,-17482.0
 reality_check(NaiveLearner),NthRewardMultipliedByN,3,100000,84926.0
 reality_check(NaiveLearner),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(NaiveLearner),Repeater,3,100000,84926.0
-reality_check(NaiveLearner),ReverseHistory,3,100000,100000.0
 reality_check(NaiveLearner),SelfRecognition,3,100000,57007.0
 reality_check(NaiveLearner),ShiftedRewards,3,100000,84926.0
 reality_check(NaiveLearner),TemptingButton,3,100000,-42098.0
@@ -2598,7 +2493,6 @@ reality_check(NaiveLearner),minus_rewards(LimitedMemory),3,100000,84870.0
 reality_check(NaiveLearner),minus_rewards(NthRewardMultipliedByN),3,100000,84926.0
 reality_check(NaiveLearner),minus_rewards(PunishNondeterministicAgent),3,100000,84926.0
 reality_check(NaiveLearner),minus_rewards(Repeater),3,100000,84926.0
-reality_check(NaiveLearner),minus_rewards(ReverseHistory),3,100000,84924.0
 reality_check(NaiveLearner),minus_rewards(SelfRecognition),3,100000,57029.0
 reality_check(NaiveLearner),minus_rewards(ShiftedRewards),3,100000,84926.0
 reality_check(NaiveLearner),minus_rewards(TemptingButton),3,100000,-53442.0
@@ -2623,7 +2517,6 @@ reality_check(PPO_learner),LimitedMemory,3,100000,49552.0
 reality_check(PPO_learner),NthRewardMultipliedByN,3,100000,54754.0
 reality_check(PPO_learner),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(PPO_learner),Repeater,3,100000,54754.0
-reality_check(PPO_learner),ReverseHistory,3,100000,50894.0
 reality_check(PPO_learner),SelfRecognition,3,100000,39049.0
 reality_check(PPO_learner),ShiftedRewards,3,100000,54754.0
 reality_check(PPO_learner),TemptingButton,3,100000,-30234.0
@@ -2648,7 +2541,6 @@ reality_check(PPO_learner),minus_rewards(LimitedMemory),3,100000,50008.0
 reality_check(PPO_learner),minus_rewards(NthRewardMultipliedByN),3,100000,52360.0
 reality_check(PPO_learner),minus_rewards(PunishNondeterministicAgent),3,100000,52360.0
 reality_check(PPO_learner),minus_rewards(Repeater),3,100000,49234.0
-reality_check(PPO_learner),minus_rewards(ReverseHistory),3,100000,52220.0
 reality_check(PPO_learner),minus_rewards(SelfRecognition),3,100000,38689.0
 reality_check(PPO_learner),minus_rewards(ShiftedRewards),3,100000,52360.0
 reality_check(PPO_learner),minus_rewards(TemptingButton),3,100000,-61010.0
@@ -2673,7 +2565,6 @@ reality_check(Q_learner),LimitedMemory,3,100000,29914.0
 reality_check(Q_learner),NthRewardMultipliedByN,3,100000,90938.0
 reality_check(Q_learner),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(Q_learner),Repeater,3,100000,90272.0
-reality_check(Q_learner),ReverseHistory,3,100000,91562.0
 reality_check(Q_learner),SelfRecognition,3,100000,52007.0
 reality_check(Q_learner),ShiftedRewards,3,100000,100000.0
 reality_check(Q_learner),TemptingButton,3,100000,-44968.0
@@ -2698,7 +2589,6 @@ reality_check(Q_learner),minus_rewards(LimitedMemory),3,100000,90374.0
 reality_check(Q_learner),minus_rewards(NthRewardMultipliedByN),3,100000,90374.0
 reality_check(Q_learner),minus_rewards(PunishNondeterministicAgent),3,100000,90374.0
 reality_check(Q_learner),minus_rewards(Repeater),3,100000,90374.0
-reality_check(Q_learner),minus_rewards(ReverseHistory),3,100000,90372.0
 reality_check(Q_learner),minus_rewards(SelfRecognition),3,100000,60659.0
 reality_check(Q_learner),minus_rewards(ShiftedRewards),3,100000,90374.0
 reality_check(Q_learner),minus_rewards(TemptingButton),3,100000,-52114.0
@@ -2722,7 +2612,6 @@ reality_check(RandomAgent),LimitedMemory,3,100000,18.0
 reality_check(RandomAgent),NthRewardMultipliedByN,3,100000,100000.0
 reality_check(RandomAgent),PunishNondeterministicAgent,3,100000,100000.0
 reality_check(RandomAgent),Repeater,3,100000,-370.0
-reality_check(RandomAgent),ReverseHistory,3,100000,100000.0
 reality_check(RandomAgent),SelfRecognition,3,100000,109.0
 reality_check(RandomAgent),ShiftedRewards,3,100000,100000.0
 reality_check(RandomAgent),TemptingButton,3,100000,-174.0
@@ -2746,7 +2635,6 @@ reality_check(RandomAgent),minus_rewards(LimitedMemory),3,100000,-18.0
 reality_check(RandomAgent),minus_rewards(NthRewardMultipliedByN),3,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(PunishNondeterministicAgent),3,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(Repeater),3,100000,370.0
-reality_check(RandomAgent),minus_rewards(ReverseHistory),3,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(SelfRecognition),3,100000,-109.0
 reality_check(RandomAgent),minus_rewards(ShiftedRewards),3,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(TemptingButton),3,100000,174.0
@@ -2771,7 +2659,6 @@ A2C_learner,LimitedMemory,4,100000,19982.0
 A2C_learner,NthRewardMultipliedByN,4,100000,98224.0
 A2C_learner,PunishNondeterministicAgent,4,100000,100000.0
 A2C_learner,Repeater,4,100000,99882.0
-A2C_learner,ReverseHistory,4,100000,99636.0
 A2C_learner,SelfRecognition,4,100000,66604.0
 A2C_learner,ShiftedRewards,4,100000,94606.0
 A2C_learner,TemptingButton,4,100000,-49860.0
@@ -2796,7 +2683,6 @@ A2C_learner,minus_rewards(LimitedMemory),4,100000,66520.0
 A2C_learner,minus_rewards(NthRewardMultipliedByN),4,100000,98362.0
 A2C_learner,minus_rewards(PunishNondeterministicAgent),4,100000,98498.0
 A2C_learner,minus_rewards(Repeater),4,100000,99898.0
-A2C_learner,minus_rewards(ReverseHistory),4,100000,99586.0
 A2C_learner,minus_rewards(SelfRecognition),4,100000,66616.0
 A2C_learner,minus_rewards(ShiftedRewards),4,100000,97064.0
 A2C_learner,minus_rewards(TemptingButton),4,100000,98892.0
@@ -2820,7 +2706,6 @@ ConstantAgent,LimitedMemory,4,100000,100000.0
 ConstantAgent,NthRewardMultipliedByN,4,100000,100000.0
 ConstantAgent,PunishNondeterministicAgent,4,100000,100000.0
 ConstantAgent,Repeater,4,100000,100000.0
-ConstantAgent,ReverseHistory,4,100000,100000.0
 ConstantAgent,SelfRecognition,4,100000,202.0
 ConstantAgent,ShiftedRewards,4,100000,100000.0
 ConstantAgent,TemptingButton,4,100000,-49972.0
@@ -2844,7 +2729,6 @@ ConstantAgent,minus_rewards(LimitedMemory),4,100000,-100000.0
 ConstantAgent,minus_rewards(NthRewardMultipliedByN),4,100000,-100000.0
 ConstantAgent,minus_rewards(PunishNondeterministicAgent),4,100000,-100000.0
 ConstantAgent,minus_rewards(Repeater),4,100000,-100000.0
-ConstantAgent,minus_rewards(ReverseHistory),4,100000,-100000.0
 ConstantAgent,minus_rewards(SelfRecognition),4,100000,-202.0
 ConstantAgent,minus_rewards(ShiftedRewards),4,100000,-100000.0
 ConstantAgent,minus_rewards(TemptingButton),4,100000,49972.0
@@ -2869,7 +2753,6 @@ DQN_learner,LimitedMemory,4,100000,28572.0
 DQN_learner,NthRewardMultipliedByN,4,100000,90240.0
 DQN_learner,PunishNondeterministicAgent,4,100000,100000.0
 DQN_learner,Repeater,4,100000,90268.0
-DQN_learner,ReverseHistory,4,100000,90274.0
 DQN_learner,SelfRecognition,4,100000,5762.0
 DQN_learner,ShiftedRewards,4,100000,78328.0
 DQN_learner,TemptingButton,4,100000,-47494.0
@@ -2894,7 +2777,6 @@ DQN_learner,minus_rewards(LimitedMemory),4,100000,24418.0
 DQN_learner,minus_rewards(NthRewardMultipliedByN),4,100000,90108.0
 DQN_learner,minus_rewards(PunishNondeterministicAgent),4,100000,90108.0
 DQN_learner,minus_rewards(Repeater),4,100000,90040.0
-DQN_learner,minus_rewards(ReverseHistory),4,100000,90260.0
 DQN_learner,minus_rewards(SelfRecognition),4,100000,2218.0
 DQN_learner,minus_rewards(ShiftedRewards),4,100000,85078.0
 DQN_learner,minus_rewards(TemptingButton),4,100000,94808.0
@@ -2918,7 +2800,6 @@ NaiveLearner,LimitedMemory,4,100000,84976.0
 NaiveLearner,NthRewardMultipliedByN,4,100000,99972.0
 NaiveLearner,PunishNondeterministicAgent,4,100000,100000.0
 NaiveLearner,Repeater,4,100000,72120.0
-NaiveLearner,ReverseHistory,4,100000,100000.0
 NaiveLearner,SelfRecognition,4,100000,56934.0
 NaiveLearner,ShiftedRewards,4,100000,99996.0
 NaiveLearner,TemptingButton,4,100000,-42532.0
@@ -2942,7 +2823,6 @@ NaiveLearner,minus_rewards(LimitedMemory),4,100000,85454.0
 NaiveLearner,minus_rewards(NthRewardMultipliedByN),4,100000,70430.0
 NaiveLearner,minus_rewards(PunishNondeterministicAgent),4,100000,70430.0
 NaiveLearner,minus_rewards(Repeater),4,100000,72814.0
-NaiveLearner,minus_rewards(ReverseHistory),4,100000,70428.0
 NaiveLearner,minus_rewards(SelfRecognition),4,100000,56668.0
 NaiveLearner,minus_rewards(ShiftedRewards),4,100000,-99998.0
 NaiveLearner,minus_rewards(TemptingButton),4,100000,85022.0
@@ -2967,7 +2847,6 @@ PPO_learner,LimitedMemory,4,100000,5278.0
 PPO_learner,NthRewardMultipliedByN,4,100000,628.0
 PPO_learner,PunishNondeterministicAgent,4,100000,100000.0
 PPO_learner,Repeater,4,100000,88.0
-PPO_learner,ReverseHistory,4,100000,138.0
 PPO_learner,SelfRecognition,4,100000,37322.0
 PPO_learner,ShiftedRewards,4,100000,516.0
 PPO_learner,TemptingButton,4,100000,-24216.0
@@ -2992,7 +2871,6 @@ PPO_learner,minus_rewards(LimitedMemory),4,100000,-1402.0
 PPO_learner,minus_rewards(NthRewardMultipliedByN),4,100000,738.0
 PPO_learner,minus_rewards(PunishNondeterministicAgent),4,100000,960.0
 PPO_learner,minus_rewards(Repeater),4,100000,904.0
-PPO_learner,minus_rewards(ReverseHistory),4,100000,890.0
 PPO_learner,minus_rewards(SelfRecognition),4,100000,37320.0
 PPO_learner,minus_rewards(ShiftedRewards),4,100000,602.0
 PPO_learner,minus_rewards(TemptingButton),4,100000,73880.0
@@ -3017,7 +2895,6 @@ Q_learner,LimitedMemory,4,100000,89526.0
 Q_learner,NthRewardMultipliedByN,4,100000,99962.0
 Q_learner,PunishNondeterministicAgent,4,100000,100000.0
 Q_learner,Repeater,4,100000,80510.0
-Q_learner,ReverseHistory,4,100000,100000.0
 Q_learner,SelfRecognition,4,100000,50492.0
 Q_learner,ShiftedRewards,4,100000,100000.0
 Q_learner,TemptingButton,4,100000,-44752.0
@@ -3042,7 +2919,6 @@ Q_learner,minus_rewards(LimitedMemory),4,100000,89824.0
 Q_learner,minus_rewards(NthRewardMultipliedByN),4,100000,79346.0
 Q_learner,minus_rewards(PunishNondeterministicAgent),4,100000,79350.0
 Q_learner,minus_rewards(Repeater),4,100000,80346.0
-Q_learner,minus_rewards(ReverseHistory),4,100000,79348.0
 Q_learner,minus_rewards(SelfRecognition),4,100000,37344.0
 Q_learner,minus_rewards(ShiftedRewards),4,100000,74502.0
 Q_learner,minus_rewards(TemptingButton),4,100000,89638.0
@@ -3066,7 +2942,6 @@ RandomAgent,LimitedMemory,4,100000,326.0
 RandomAgent,NthRewardMultipliedByN,4,100000,100000.0
 RandomAgent,PunishNondeterministicAgent,4,100000,100000.0
 RandomAgent,Repeater,4,100000,-186.0
-RandomAgent,ReverseHistory,4,100000,100000.0
 RandomAgent,SelfRecognition,4,100000,202.0
 RandomAgent,ShiftedRewards,4,100000,100000.0
 RandomAgent,TemptingButton,4,100000,-90.0
@@ -3090,7 +2965,6 @@ RandomAgent,minus_rewards(LimitedMemory),4,100000,-326.0
 RandomAgent,minus_rewards(NthRewardMultipliedByN),4,100000,-100000.0
 RandomAgent,minus_rewards(PunishNondeterministicAgent),4,100000,-100000.0
 RandomAgent,minus_rewards(Repeater),4,100000,186.0
-RandomAgent,minus_rewards(ReverseHistory),4,100000,-100000.0
 RandomAgent,minus_rewards(SelfRecognition),4,100000,-202.0
 RandomAgent,minus_rewards(ShiftedRewards),4,100000,-100000.0
 RandomAgent,minus_rewards(TemptingButton),4,100000,90.0
@@ -3115,7 +2989,6 @@ reality_check(A2C_learner),LimitedMemory,4,100000,99934.0
 reality_check(A2C_learner),NthRewardMultipliedByN,4,100000,99940.0
 reality_check(A2C_learner),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(A2C_learner),Repeater,4,100000,99940.0
-reality_check(A2C_learner),ReverseHistory,4,100000,99888.0
 reality_check(A2C_learner),SelfRecognition,4,100000,66604.0
 reality_check(A2C_learner),ShiftedRewards,4,100000,99940.0
 reality_check(A2C_learner),TemptingButton,4,100000,-49860.0
@@ -3140,7 +3013,6 @@ reality_check(A2C_learner),minus_rewards(LimitedMemory),4,100000,99830.0
 reality_check(A2C_learner),minus_rewards(NthRewardMultipliedByN),4,100000,99936.0
 reality_check(A2C_learner),minus_rewards(PunishNondeterministicAgent),4,100000,99936.0
 reality_check(A2C_learner),minus_rewards(Repeater),4,100000,99918.0
-reality_check(A2C_learner),minus_rewards(ReverseHistory),4,100000,99898.0
 reality_check(A2C_learner),minus_rewards(SelfRecognition),4,100000,66576.0
 reality_check(A2C_learner),minus_rewards(ShiftedRewards),4,100000,99936.0
 reality_check(A2C_learner),minus_rewards(TemptingButton),4,100000,-50004.0
@@ -3164,7 +3036,6 @@ reality_check(ConstantAgent),LimitedMemory,4,100000,100000.0
 reality_check(ConstantAgent),NthRewardMultipliedByN,4,100000,100000.0
 reality_check(ConstantAgent),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(ConstantAgent),Repeater,4,100000,100000.0
-reality_check(ConstantAgent),ReverseHistory,4,100000,100000.0
 reality_check(ConstantAgent),SelfRecognition,4,100000,202.0
 reality_check(ConstantAgent),ShiftedRewards,4,100000,100000.0
 reality_check(ConstantAgent),TemptingButton,4,100000,-49972.0
@@ -3188,7 +3059,6 @@ reality_check(ConstantAgent),minus_rewards(LimitedMemory),4,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(NthRewardMultipliedByN),4,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(PunishNondeterministicAgent),4,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(Repeater),4,100000,-100000.0
-reality_check(ConstantAgent),minus_rewards(ReverseHistory),4,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(SelfRecognition),4,100000,-202.0
 reality_check(ConstantAgent),minus_rewards(ShiftedRewards),4,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(TemptingButton),4,100000,49972.0
@@ -3213,7 +3083,6 @@ reality_check(DQN_learner),LimitedMemory,4,100000,-78264.0
 reality_check(DQN_learner),NthRewardMultipliedByN,4,100000,95016.0
 reality_check(DQN_learner),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(DQN_learner),Repeater,4,100000,94636.0
-reality_check(DQN_learner),ReverseHistory,4,100000,94996.0
 reality_check(DQN_learner),SelfRecognition,4,100000,5762.0
 reality_check(DQN_learner),ShiftedRewards,4,100000,95016.0
 reality_check(DQN_learner),TemptingButton,4,100000,-47494.0
@@ -3238,7 +3107,6 @@ reality_check(DQN_learner),minus_rewards(LimitedMemory),4,100000,72548.0
 reality_check(DQN_learner),minus_rewards(NthRewardMultipliedByN),4,100000,94854.0
 reality_check(DQN_learner),minus_rewards(PunishNondeterministicAgent),4,100000,94854.0
 reality_check(DQN_learner),minus_rewards(Repeater),4,100000,95050.0
-reality_check(DQN_learner),minus_rewards(ReverseHistory),4,100000,94966.0
 reality_check(DQN_learner),minus_rewards(SelfRecognition),4,100000,63210.0
 reality_check(DQN_learner),minus_rewards(ShiftedRewards),4,100000,94854.0
 reality_check(DQN_learner),minus_rewards(TemptingButton),4,100000,-51194.0
@@ -3262,7 +3130,6 @@ reality_check(NaiveLearner),LimitedMemory,4,100000,84976.0
 reality_check(NaiveLearner),NthRewardMultipliedByN,4,100000,85456.0
 reality_check(NaiveLearner),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(NaiveLearner),Repeater,4,100000,85434.0
-reality_check(NaiveLearner),ReverseHistory,4,100000,100000.0
 reality_check(NaiveLearner),SelfRecognition,4,100000,56934.0
 reality_check(NaiveLearner),ShiftedRewards,4,100000,85456.0
 reality_check(NaiveLearner),TemptingButton,4,100000,-42532.0
@@ -3286,7 +3153,6 @@ reality_check(NaiveLearner),minus_rewards(LimitedMemory),4,100000,85454.0
 reality_check(NaiveLearner),minus_rewards(NthRewardMultipliedByN),4,100000,85454.0
 reality_check(NaiveLearner),minus_rewards(PunishNondeterministicAgent),4,100000,85454.0
 reality_check(NaiveLearner),minus_rewards(Repeater),4,100000,85454.0
-reality_check(NaiveLearner),minus_rewards(ReverseHistory),4,100000,85452.0
 reality_check(NaiveLearner),minus_rewards(SelfRecognition),4,100000,56816.0
 reality_check(NaiveLearner),minus_rewards(ShiftedRewards),4,100000,85454.0
 reality_check(NaiveLearner),minus_rewards(TemptingButton),4,100000,-53712.0
@@ -3311,7 +3177,6 @@ reality_check(PPO_learner),LimitedMemory,4,100000,53640.0
 reality_check(PPO_learner),NthRewardMultipliedByN,4,100000,51852.0
 reality_check(PPO_learner),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(PPO_learner),Repeater,4,100000,51852.0
-reality_check(PPO_learner),ReverseHistory,4,100000,50646.0
 reality_check(PPO_learner),SelfRecognition,4,100000,37322.0
 reality_check(PPO_learner),ShiftedRewards,4,100000,51852.0
 reality_check(PPO_learner),TemptingButton,4,100000,-24216.0
@@ -3336,7 +3201,6 @@ reality_check(PPO_learner),minus_rewards(LimitedMemory),4,100000,50500.0
 reality_check(PPO_learner),minus_rewards(NthRewardMultipliedByN),4,100000,53040.0
 reality_check(PPO_learner),minus_rewards(PunishNondeterministicAgent),4,100000,53040.0
 reality_check(PPO_learner),minus_rewards(Repeater),4,100000,52792.0
-reality_check(PPO_learner),minus_rewards(ReverseHistory),4,100000,52400.0
 reality_check(PPO_learner),minus_rewards(SelfRecognition),4,100000,38088.0
 reality_check(PPO_learner),minus_rewards(ShiftedRewards),4,100000,53040.0
 reality_check(PPO_learner),minus_rewards(TemptingButton),4,100000,-61496.0
@@ -3361,7 +3225,6 @@ reality_check(Q_learner),LimitedMemory,4,100000,-15378.0
 reality_check(Q_learner),NthRewardMultipliedByN,4,100000,89824.0
 reality_check(Q_learner),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(Q_learner),Repeater,4,100000,89826.0
-reality_check(Q_learner),ReverseHistory,4,100000,89816.0
 reality_check(Q_learner),SelfRecognition,4,100000,50492.0
 reality_check(Q_learner),ShiftedRewards,4,100000,100000.0
 reality_check(Q_learner),TemptingButton,4,100000,-44752.0
@@ -3386,7 +3249,6 @@ reality_check(Q_learner),minus_rewards(LimitedMemory),4,100000,89814.0
 reality_check(Q_learner),minus_rewards(NthRewardMultipliedByN),4,100000,89826.0
 reality_check(Q_learner),minus_rewards(PunishNondeterministicAgent),4,100000,89826.0
 reality_check(Q_learner),minus_rewards(Repeater),4,100000,89826.0
-reality_check(Q_learner),minus_rewards(ReverseHistory),4,100000,89824.0
 reality_check(Q_learner),minus_rewards(SelfRecognition),4,100000,59750.0
 reality_check(Q_learner),minus_rewards(ShiftedRewards),4,100000,89826.0
 reality_check(Q_learner),minus_rewards(TemptingButton),4,100000,-52496.0
@@ -3410,7 +3272,6 @@ reality_check(RandomAgent),LimitedMemory,4,100000,326.0
 reality_check(RandomAgent),NthRewardMultipliedByN,4,100000,100000.0
 reality_check(RandomAgent),PunishNondeterministicAgent,4,100000,100000.0
 reality_check(RandomAgent),Repeater,4,100000,-320.0
-reality_check(RandomAgent),ReverseHistory,4,100000,100000.0
 reality_check(RandomAgent),SelfRecognition,4,100000,202.0
 reality_check(RandomAgent),ShiftedRewards,4,100000,100000.0
 reality_check(RandomAgent),TemptingButton,4,100000,-90.0
@@ -3434,7 +3295,6 @@ reality_check(RandomAgent),minus_rewards(LimitedMemory),4,100000,-326.0
 reality_check(RandomAgent),minus_rewards(NthRewardMultipliedByN),4,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(PunishNondeterministicAgent),4,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(Repeater),4,100000,320.0
-reality_check(RandomAgent),minus_rewards(ReverseHistory),4,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(SelfRecognition),4,100000,-202.0
 reality_check(RandomAgent),minus_rewards(ShiftedRewards),4,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(TemptingButton),4,100000,90.0
@@ -3575,7 +3435,6 @@ A2C_learner,LimitedMemory,5,100000,99864.0
 A2C_learner,NthRewardMultipliedByN,5,100000,99874.0
 A2C_learner,PunishNondeterministicAgent,5,100000,100000.0
 A2C_learner,Repeater,5,100000,99554.0
-A2C_learner,ReverseHistory,5,100000,99730.0
 A2C_learner,SelfRecognition,5,100000,66548.0
 A2C_learner,ShiftedRewards,5,100000,99642.0
 A2C_learner,TemptingButton,5,100000,-49826.0
@@ -3600,7 +3459,6 @@ A2C_learner,minus_rewards(LimitedMemory),5,100000,27380.0
 A2C_learner,minus_rewards(NthRewardMultipliedByN),5,100000,99884.0
 A2C_learner,minus_rewards(PunishNondeterministicAgent),5,100000,99886.0
 A2C_learner,minus_rewards(Repeater),5,100000,99484.0
-A2C_learner,minus_rewards(ReverseHistory),5,100000,99694.0
 A2C_learner,minus_rewards(SelfRecognition),5,100000,66584.0
 A2C_learner,minus_rewards(ShiftedRewards),5,100000,99840.0
 A2C_learner,minus_rewards(TemptingButton),5,100000,99130.0
@@ -3625,7 +3483,6 @@ ConstantAgent,LimitedMemory,5,100000,100000.0
 ConstantAgent,NthRewardMultipliedByN,5,100000,100000.0
 ConstantAgent,PunishNondeterministicAgent,5,100000,100000.0
 ConstantAgent,Repeater,5,100000,100000.0
-ConstantAgent,ReverseHistory,5,100000,100000.0
 ConstantAgent,SelfRecognition,5,100000,38.0
 ConstantAgent,ShiftedRewards,5,100000,100000.0
 ConstantAgent,TemptingButton,5,100000,-49870.0
@@ -3650,7 +3507,6 @@ ConstantAgent,minus_rewards(LimitedMemory),5,100000,-100000.0
 ConstantAgent,minus_rewards(NthRewardMultipliedByN),5,100000,-100000.0
 ConstantAgent,minus_rewards(PunishNondeterministicAgent),5,100000,-100000.0
 ConstantAgent,minus_rewards(Repeater),5,100000,-100000.0
-ConstantAgent,minus_rewards(ReverseHistory),5,100000,-100000.0
 ConstantAgent,minus_rewards(SelfRecognition),5,100000,-38.0
 ConstantAgent,minus_rewards(ShiftedRewards),5,100000,-100000.0
 ConstantAgent,minus_rewards(TemptingButton),5,100000,49870.0
@@ -3675,7 +3531,6 @@ DQN_learner,LimitedMemory,5,100000,94896.0
 DQN_learner,NthRewardMultipliedByN,5,100000,90280.0
 DQN_learner,PunishNondeterministicAgent,5,100000,100000.0
 DQN_learner,Repeater,5,100000,89956.0
-DQN_learner,ReverseHistory,5,100000,90208.0
 DQN_learner,SelfRecognition,5,100000,-1346.0
 DQN_learner,ShiftedRewards,5,100000,63856.0
 DQN_learner,TemptingButton,5,100000,-46088.0
@@ -3700,7 +3555,6 @@ DQN_learner,minus_rewards(LimitedMemory),5,100000,95098.0
 DQN_learner,minus_rewards(NthRewardMultipliedByN),5,100000,90366.0
 DQN_learner,minus_rewards(PunishNondeterministicAgent),5,100000,90366.0
 DQN_learner,minus_rewards(Repeater),5,100000,90044.0
-DQN_learner,minus_rewards(ReverseHistory),5,100000,90256.0
 DQN_learner,minus_rewards(SelfRecognition),5,100000,-186.0
 DQN_learner,minus_rewards(ShiftedRewards),5,100000,50018.0
 DQN_learner,minus_rewards(TemptingButton),5,100000,94590.0
@@ -3725,7 +3579,6 @@ NaiveLearner,LimitedMemory,5,100000,85656.0
 NaiveLearner,NthRewardMultipliedByN,5,100000,99972.0
 NaiveLearner,PunishNondeterministicAgent,5,100000,100000.0
 NaiveLearner,Repeater,5,100000,73656.0
-NaiveLearner,ReverseHistory,5,100000,100000.0
 NaiveLearner,SelfRecognition,5,100000,56786.0
 NaiveLearner,ShiftedRewards,5,100000,99996.0
 NaiveLearner,TemptingButton,5,100000,-42886.0
@@ -3750,7 +3603,6 @@ NaiveLearner,minus_rewards(LimitedMemory),5,100000,84594.0
 NaiveLearner,minus_rewards(NthRewardMultipliedByN),5,100000,70250.0
 NaiveLearner,minus_rewards(PunishNondeterministicAgent),5,100000,70250.0
 NaiveLearner,minus_rewards(Repeater),5,100000,72682.0
-NaiveLearner,minus_rewards(ReverseHistory),5,100000,70248.0
 NaiveLearner,minus_rewards(SelfRecognition),5,100000,56824.0
 NaiveLearner,minus_rewards(ShiftedRewards),5,100000,69108.0
 NaiveLearner,minus_rewards(TemptingButton),5,100000,85408.0
@@ -3775,7 +3627,6 @@ PPO_learner,LimitedMemory,5,100000,182.0
 PPO_learner,NthRewardMultipliedByN,5,100000,416.0
 PPO_learner,PunishNondeterministicAgent,5,100000,100000.0
 PPO_learner,Repeater,5,100000,626.0
-PPO_learner,ReverseHistory,5,100000,452.0
 PPO_learner,SelfRecognition,5,100000,37886.0
 PPO_learner,ShiftedRewards,5,100000,724.0
 PPO_learner,TemptingButton,5,100000,-18008.0
@@ -3800,7 +3651,6 @@ PPO_learner,minus_rewards(LimitedMemory),5,100000,586.0
 PPO_learner,minus_rewards(NthRewardMultipliedByN),5,100000,462.0
 PPO_learner,minus_rewards(PunishNondeterministicAgent),5,100000,838.0
 PPO_learner,minus_rewards(Repeater),5,100000,838.0
-PPO_learner,minus_rewards(ReverseHistory),5,100000,250.0
 PPO_learner,minus_rewards(SelfRecognition),5,100000,38832.0
 PPO_learner,minus_rewards(ShiftedRewards),5,100000,728.0
 PPO_learner,minus_rewards(TemptingButton),5,100000,48092.0
@@ -3825,7 +3675,6 @@ Q_learner,LimitedMemory,5,100000,89806.0
 Q_learner,NthRewardMultipliedByN,5,100000,99966.0
 Q_learner,PunishNondeterministicAgent,5,100000,100000.0
 Q_learner,Repeater,5,100000,81180.0
-Q_learner,ReverseHistory,5,100000,99996.0
 Q_learner,SelfRecognition,5,100000,49598.0
 Q_learner,ShiftedRewards,5,100000,100000.0
 Q_learner,TemptingButton,5,100000,-44698.0
@@ -3850,7 +3699,6 @@ Q_learner,minus_rewards(LimitedMemory),5,100000,89952.0
 Q_learner,minus_rewards(NthRewardMultipliedByN),5,100000,79774.0
 Q_learner,minus_rewards(PunishNondeterministicAgent),5,100000,79774.0
 Q_learner,minus_rewards(Repeater),5,100000,80970.0
-Q_learner,minus_rewards(ReverseHistory),5,100000,79772.0
 Q_learner,minus_rewards(SelfRecognition),5,100000,39154.0
 Q_learner,minus_rewards(ShiftedRewards),5,100000,75126.0
 Q_learner,minus_rewards(TemptingButton),5,100000,89758.0
@@ -3875,7 +3723,6 @@ RandomAgent,LimitedMemory,5,100000,-406.0
 RandomAgent,NthRewardMultipliedByN,5,100000,100000.0
 RandomAgent,PunishNondeterministicAgent,5,100000,100000.0
 RandomAgent,Repeater,5,100000,-174.0
-RandomAgent,ReverseHistory,5,100000,100000.0
 RandomAgent,SelfRecognition,5,100000,38.0
 RandomAgent,ShiftedRewards,5,100000,100000.0
 RandomAgent,TemptingButton,5,100000,120.0
@@ -3900,7 +3747,6 @@ RandomAgent,minus_rewards(LimitedMemory),5,100000,406.0
 RandomAgent,minus_rewards(NthRewardMultipliedByN),5,100000,-100000.0
 RandomAgent,minus_rewards(PunishNondeterministicAgent),5,100000,-100000.0
 RandomAgent,minus_rewards(Repeater),5,100000,174.0
-RandomAgent,minus_rewards(ReverseHistory),5,100000,-100000.0
 RandomAgent,minus_rewards(SelfRecognition),5,100000,-38.0
 RandomAgent,minus_rewards(ShiftedRewards),5,100000,-100000.0
 RandomAgent,minus_rewards(TemptingButton),5,100000,-120.0
@@ -3925,7 +3771,6 @@ reality_check(A2C_learner),LimitedMemory,5,100000,5896.0
 reality_check(A2C_learner),NthRewardMultipliedByN,5,100000,99948.0
 reality_check(A2C_learner),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(A2C_learner),Repeater,5,100000,99948.0
-reality_check(A2C_learner),ReverseHistory,5,100000,99904.0
 reality_check(A2C_learner),SelfRecognition,5,100000,66548.0
 reality_check(A2C_learner),ShiftedRewards,5,100000,99948.0
 reality_check(A2C_learner),TemptingButton,5,100000,-49826.0
@@ -3950,7 +3795,6 @@ reality_check(A2C_learner),minus_rewards(LimitedMemory),5,100000,99924.0
 reality_check(A2C_learner),minus_rewards(NthRewardMultipliedByN),5,100000,99900.0
 reality_check(A2C_learner),minus_rewards(PunishNondeterministicAgent),5,100000,99900.0
 reality_check(A2C_learner),minus_rewards(Repeater),5,100000,99904.0
-reality_check(A2C_learner),minus_rewards(ReverseHistory),5,100000,99872.0
 reality_check(A2C_learner),minus_rewards(SelfRecognition),5,100000,66544.0
 reality_check(A2C_learner),minus_rewards(ShiftedRewards),5,100000,99900.0
 reality_check(A2C_learner),minus_rewards(TemptingButton),5,100000,-49910.0
@@ -3975,7 +3819,6 @@ reality_check(ConstantAgent),LimitedMemory,5,100000,100000.0
 reality_check(ConstantAgent),NthRewardMultipliedByN,5,100000,100000.0
 reality_check(ConstantAgent),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(ConstantAgent),Repeater,5,100000,100000.0
-reality_check(ConstantAgent),ReverseHistory,5,100000,100000.0
 reality_check(ConstantAgent),SelfRecognition,5,100000,38.0
 reality_check(ConstantAgent),ShiftedRewards,5,100000,100000.0
 reality_check(ConstantAgent),TemptingButton,5,100000,-49870.0
@@ -4000,7 +3843,6 @@ reality_check(ConstantAgent),minus_rewards(LimitedMemory),5,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(NthRewardMultipliedByN),5,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(PunishNondeterministicAgent),5,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(Repeater),5,100000,-100000.0
-reality_check(ConstantAgent),minus_rewards(ReverseHistory),5,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(SelfRecognition),5,100000,-38.0
 reality_check(ConstantAgent),minus_rewards(ShiftedRewards),5,100000,-100000.0
 reality_check(ConstantAgent),minus_rewards(TemptingButton),5,100000,49870.0
@@ -4025,7 +3867,6 @@ reality_check(DQN_learner),LimitedMemory,5,100000,95032.0
 reality_check(DQN_learner),NthRewardMultipliedByN,5,100000,95040.0
 reality_check(DQN_learner),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(DQN_learner),Repeater,5,100000,95040.0
-reality_check(DQN_learner),ReverseHistory,5,100000,95038.0
 reality_check(DQN_learner),SelfRecognition,5,100000,-1346.0
 reality_check(DQN_learner),ShiftedRewards,5,100000,95040.0
 reality_check(DQN_learner),TemptingButton,5,100000,-46088.0
@@ -4050,7 +3891,6 @@ reality_check(DQN_learner),minus_rewards(LimitedMemory),5,100000,95110.0
 reality_check(DQN_learner),minus_rewards(NthRewardMultipliedByN),5,100000,95178.0
 reality_check(DQN_learner),minus_rewards(PunishNondeterministicAgent),5,100000,95178.0
 reality_check(DQN_learner),minus_rewards(Repeater),5,100000,95178.0
-reality_check(DQN_learner),minus_rewards(ReverseHistory),5,100000,95068.0
 reality_check(DQN_learner),minus_rewards(SelfRecognition),5,100000,62716.0
 reality_check(DQN_learner),minus_rewards(ShiftedRewards),5,100000,95178.0
 reality_check(DQN_learner),minus_rewards(TemptingButton),5,100000,-51094.0
@@ -4075,7 +3915,6 @@ reality_check(NaiveLearner),LimitedMemory,5,100000,85656.0
 reality_check(NaiveLearner),NthRewardMultipliedByN,5,100000,84598.0
 reality_check(NaiveLearner),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(NaiveLearner),Repeater,5,100000,84588.0
-reality_check(NaiveLearner),ReverseHistory,5,100000,100000.0
 reality_check(NaiveLearner),SelfRecognition,5,100000,56786.0
 reality_check(NaiveLearner),ShiftedRewards,5,100000,84598.0
 reality_check(NaiveLearner),TemptingButton,5,100000,-42886.0
@@ -4100,7 +3939,6 @@ reality_check(NaiveLearner),minus_rewards(LimitedMemory),5,100000,84594.0
 reality_check(NaiveLearner),minus_rewards(NthRewardMultipliedByN),5,100000,84594.0
 reality_check(NaiveLearner),minus_rewards(PunishNondeterministicAgent),5,100000,84594.0
 reality_check(NaiveLearner),minus_rewards(Repeater),5,100000,84594.0
-reality_check(NaiveLearner),minus_rewards(ReverseHistory),5,100000,84592.0
 reality_check(NaiveLearner),minus_rewards(SelfRecognition),5,100000,56920.0
 reality_check(NaiveLearner),minus_rewards(ShiftedRewards),5,100000,84594.0
 reality_check(NaiveLearner),minus_rewards(TemptingButton),5,100000,96072.0
@@ -4125,7 +3963,6 @@ reality_check(PPO_learner),LimitedMemory,5,100000,52172.0
 reality_check(PPO_learner),NthRewardMultipliedByN,5,100000,53510.0
 reality_check(PPO_learner),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(PPO_learner),Repeater,5,100000,53510.0
-reality_check(PPO_learner),ReverseHistory,5,100000,52066.0
 reality_check(PPO_learner),SelfRecognition,5,100000,37886.0
 reality_check(PPO_learner),ShiftedRewards,5,100000,53510.0
 reality_check(PPO_learner),TemptingButton,5,100000,-18008.0
@@ -4150,7 +3987,6 @@ reality_check(PPO_learner),minus_rewards(LimitedMemory),5,100000,53792.0
 reality_check(PPO_learner),minus_rewards(NthRewardMultipliedByN),5,100000,50884.0
 reality_check(PPO_learner),minus_rewards(PunishNondeterministicAgent),5,100000,50884.0
 reality_check(PPO_learner),minus_rewards(Repeater),5,100000,51824.0
-reality_check(PPO_learner),minus_rewards(ReverseHistory),5,100000,50160.0
 reality_check(PPO_learner),minus_rewards(SelfRecognition),5,100000,37934.0
 reality_check(PPO_learner),minus_rewards(ShiftedRewards),5,100000,50884.0
 reality_check(PPO_learner),minus_rewards(TemptingButton),5,100000,-61776.0
@@ -4175,7 +4011,6 @@ reality_check(Q_learner),LimitedMemory,5,100000,19626.0
 reality_check(Q_learner),NthRewardMultipliedByN,5,100000,90630.0
 reality_check(Q_learner),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(Q_learner),Repeater,5,100000,89964.0
-reality_check(Q_learner),ReverseHistory,5,100000,91258.0
 reality_check(Q_learner),SelfRecognition,5,100000,49598.0
 reality_check(Q_learner),ShiftedRewards,5,100000,100000.0
 reality_check(Q_learner),TemptingButton,5,100000,-44698.0
@@ -4200,7 +4035,6 @@ reality_check(Q_learner),minus_rewards(LimitedMemory),5,100000,89810.0
 reality_check(Q_learner),minus_rewards(NthRewardMultipliedByN),5,100000,89810.0
 reality_check(Q_learner),minus_rewards(PunishNondeterministicAgent),5,100000,89810.0
 reality_check(Q_learner),minus_rewards(Repeater),5,100000,89810.0
-reality_check(Q_learner),minus_rewards(ReverseHistory),5,100000,89808.0
 reality_check(Q_learner),minus_rewards(SelfRecognition),5,100000,59894.0
 reality_check(Q_learner),minus_rewards(ShiftedRewards),5,100000,89810.0
 reality_check(Q_learner),minus_rewards(TemptingButton),5,100000,-52468.0
@@ -4225,7 +4059,6 @@ reality_check(RandomAgent),LimitedMemory,5,100000,-406.0
 reality_check(RandomAgent),NthRewardMultipliedByN,5,100000,100000.0
 reality_check(RandomAgent),PunishNondeterministicAgent,5,100000,100000.0
 reality_check(RandomAgent),Repeater,5,100000,-408.0
-reality_check(RandomAgent),ReverseHistory,5,100000,100000.0
 reality_check(RandomAgent),SelfRecognition,5,100000,38.0
 reality_check(RandomAgent),ShiftedRewards,5,100000,100000.0
 reality_check(RandomAgent),TemptingButton,5,100000,120.0
@@ -4250,7 +4083,6 @@ reality_check(RandomAgent),minus_rewards(LimitedMemory),5,100000,406.0
 reality_check(RandomAgent),minus_rewards(NthRewardMultipliedByN),5,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(PunishNondeterministicAgent),5,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(Repeater),5,100000,408.0
-reality_check(RandomAgent),minus_rewards(ReverseHistory),5,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(SelfRecognition),5,100000,-38.0
 reality_check(RandomAgent),minus_rewards(ShiftedRewards),5,100000,-100000.0
 reality_check(RandomAgent),minus_rewards(TemptingButton),5,100000,-120.0
