@@ -94,13 +94,15 @@ for agent in agents:
         avgs = avgs_by_agent_stepcnt[(agent, stepcnt)]
         avg = sum(avgs)/len(avgs)
         var = sum([(x-avg)*(x-avg) for x in avgs])/len(avgs)
-        #svar = (len(avgs)*var)/(len(avgs)-1)
-        svar = (len(avgs)*var)/(len(avgs))  # Switch back to above line after more seeds available
+        svar = (len(avgs)*var)/(len(avgs)-1)
         sdev = sqrt(svar)
         stderr = sdev/len(avgs)
 
-        avg = "{:10.5f}".format(avg)
-        stderr = "{:10.5f}".format(stderr)
+        avg = "{:10.5f}".format(avg).strip()
+        stderr = "{:10.5f}".format(stderr).strip()
+
+        if avg == "-0.00000":
+            avg = "0.00000"
 
         if not(agent.startswith("reality_check(")):
             results[agent] = {'original': (avg, stderr)}
@@ -109,7 +111,7 @@ for agent in agents:
             results[orig]['rc'] = (avg, stderr)
 
 template = r"""
-    {agent} & {orig_measure} $\pm$ {orig_stderr} & {rc_measure} $\pm$ {rc_stderr}\\
+    {agent} & ${orig_measure} \pm {orig_stderr}$ & ${rc_measure} \pm {rc_stderr}$\\
 """[1:-1]
 
 agents_in_order = [
