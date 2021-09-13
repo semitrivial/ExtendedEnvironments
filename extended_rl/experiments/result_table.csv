@@ -4228,3 +4228,6 @@ reality_check(Q_learner),FlipEveryOther,5,100000,89962.0
 reality_check(Q_learner),minus_rewards(FlipEveryOther),5,100000,89810.0
 reality_check(RandomAgent),FlipEveryOther,5,100000,100000.0
 reality_check(RandomAgent),minus_rewards(FlipEveryOther),5,100000,-100000.0
+PPO_learner,CensoredObservation,1,100000,560.0
+A2C_learner,minus_rewards(AdversarialSequenceEvader),1,100000,100000.0
+reality_check(NaiveLearner),minus_rewards(AdversarialSequenceEvader),2,100000,100000.0
