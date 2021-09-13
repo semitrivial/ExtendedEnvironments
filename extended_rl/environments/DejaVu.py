@@ -26,6 +26,7 @@ class DejaVu:
         if len(self.transitions) == 0:
             # If history is empty, give the agent reward 0
             obs = reward = 0
+            self.transitions.append((0, action, 0, 0))
             return (reward, obs)
 
         sim = A()  # Generate a new sim of the agent
