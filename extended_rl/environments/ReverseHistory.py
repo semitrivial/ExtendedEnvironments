@@ -25,7 +25,7 @@ class ReverseHistory:
             self.transitions.append((0, action, 0, 0))
             return (reward, obs)
 
-        sim = A()  # Generate a new sim of the agent
+        sim = self.A()  # Generate a new sim of the agent
 
         # Train the sim on a backwards version of history.
         for transition in reversed(self.transitions):
