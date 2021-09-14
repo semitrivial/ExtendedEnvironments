@@ -6,12 +6,21 @@ random.seed(0)
 # To show the library in action, we need an agent to test. The following
 # is a simple agent for that purpose. This agent acts randomly unless
 # either the last observation was 0 or the last reward was 0.
-def example_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    last_reward, last_obs = prompt[-2:]
-    if last_reward==0 or last_obs==0:
-        return 0
-    else:
-        return random.randrange(num_legal_actions)
+class ExampleAgent:
+    def __init__(self):
+        self.prev_obs_was_0 = False
+        self.prev_reward_was_0 = False
+
+    def act(self, obs):
+        if self.prev_obs_was_0 or self.prev_reward_was_0:
+            return 0
+        else:
+            return random.randrange(self.num_legal_actions)
+
+    def train(self, o_prev, a, r, o_next):
+        self.prev_obs_was_0 = (o_next == 0)
+        self.prev_reward_was_0 = (r == 0)
+
 
 from extended_rl import selfrefl_benchmark
 from extended_rl import selfrefl_measure
