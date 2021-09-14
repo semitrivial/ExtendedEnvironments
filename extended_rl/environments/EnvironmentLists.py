@@ -28,6 +28,7 @@ from extended_rl.environments.AdversarialSequencePredictor import AdversarialSeq
 from extended_rl.environments.IncentivizeLearningRate import IncentivizeLearningRate
 from extended_rl.environments.ReverseHistory import ReverseHistory
 from extended_rl.environments.FlipEveryOther import FlipEveryOther
+from extended_rl.environments.DejaVu import DejaVu
 
 environments = [
     FalseMemories,
@@ -57,4 +58,5 @@ environments = [
     IncentivizeLearningRate,
     ReverseHistory,
     FlipEveryOther,
+    DejaVu,
 ]
