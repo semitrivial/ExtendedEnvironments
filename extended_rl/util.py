@@ -1,6 +1,3 @@
-from functools import lru_cache
-
-
 def run_environment(env, A, num_steps, logfile=None):
     if logfile:
         env, A = add_log_messages(env, A, logfile)
