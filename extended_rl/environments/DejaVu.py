@@ -29,11 +29,11 @@ class DejaVu:
             self.transitions.append((0, action, 0, 0))
             return (reward, obs)
 
-        sim = A()  # Generate a new sim of the agent
+        sim = self.A()  # Generate a new sim of the agent
 
         # Train the sim on the true history h...
         for transition in self.transitions:
-            sim.train(transition)
+            sim.train(*transition)
 
         # Train the sim on a fictional transition encoding the fiction
         # that: "After h happened, you took action X, and for doing so,
@@ -41,14 +41,14 @@ class DejaVu:
         # the initial observation."
         init_obs = self.transitions[0][0]
         last_obs = self.transitions[-1][-1]
-        loop_transition = (last_obs, action, 0, first_obs)
-        sim.train(loop_tran)
+        loop_transition = (last_obs, action, 0, init_obs)
+        sim.train(*loop_transition)
 
         # Train the sim on the true history h *again*, encoding the
         # fiction that: "After you took action X in response to the
         # first occurrence of h, all of h then repeated itself."
         for transition in self.transitions:
-            sim.train(transition)
+            sim.train(*transition)
 
         # Determine whether the sim, in response to the above
         # fictional double-history, would take the same action as
