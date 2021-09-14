@@ -31,6 +31,7 @@ def run_ad_hoc_tests():
     test_third_action_forbidden_edgecases()
     test_flip_every_other_edgecases()
     test_reverse_history_edgecases()
+    test_deja_vu_edgecases()
 
 class NoTraining:
     def train(self, **kwargs):
@@ -718,3 +719,34 @@ def test_reverse_history_edgecases():
     result = run_environment(ReverseHistory, PlaysUsingLastReward, 100)
     assert result['total_reward'] == -97
 
+def test_deja_vu_edgecases():
+    from environments.DejaVu import DejaVu
+
+    result = run_environment(DejaVu, Repetitive, 10)
+    assert result['total_reward'] == 9
+
+    class ChangeAfter25Trainings(Counter):
+        def act(self, obs):
+            return 1 if (self.cnt > 25) else 0
+    class ChangeAfter30Trainings(Counter):
+        def act(self, obs):
+            return 1 if (self.cnt > 30) else 0
+    class ChangeAfter45Trainings(Counter):
+        def act(self, obs):
+            return 1 if (self.cnt > 45) else 0
+    class ChangeAfter90Trainings(Counter):
+        def act(self, obs):
+            return 1 if (self.cnt > 90) else 0
+
+    result25 = run_environment(DejaVu, ChangeAfter25Trainings, 100)
+    result30 = run_environment(DejaVu, ChangeAfter30Trainings, 100)
+    result45 = run_environment(DejaVu, ChangeAfter45Trainings, 100)
+    result90 = run_environment(DejaVu, ChangeAfter90Trainings, 100)
+
+    def f(n):
+        return 100-(n+2) if (n%2==1) else 100-(n+3)
+
+    assert result25['total_reward'] == f(25)
+    assert result30['total_reward'] == f(30)
+    assert result45['total_reward'] == f(45)
+    assert result90['total_reward'] == f(90)
