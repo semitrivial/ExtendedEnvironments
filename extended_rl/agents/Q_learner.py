@@ -22,13 +22,13 @@ class Q_learner:
     else:
       return max(actions, key=lambda a: qtable[obs,a])
 
-  def train(self, o_prev, act, R, o_next):
+  def train(self, o_prev, a, r, o_next):
     qtable, actions, gamma = self.qtable, self.actions, self.gamma
     maybe_add_obs_to_qtable(qtable, actions, o_prev)
     maybe_add_obs_to_qtable(qtable, actions, o_next)
-    qtarget = R + gamma * max([qtable[o_next,a] for a in actions])
-    qpredict = qtable[o_prev, act]
-    qtable[o_prev, act] += self.learning_rate * (qtarget - qpredict)
+    qtarget = r + gamma * max([qtable[o_next,actn] for actn in actions])
+    qpredict = qtable[o_prev, a]
+    qtable[o_prev, a] += self.learning_rate * (qtarget - qpredict)
     self.rand_counter += 2
 
 def maybe_add_obs_to_qtable(qtable, actions, obs):

@@ -40,7 +40,7 @@ def test_run_environment():
         def act(self, obs):
             num_agent_calls[0] += 1
             return 0
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             return
 
     run_environment(MockEnv, MockAgent, 100)
@@ -99,7 +99,7 @@ def test_args_to_agent():
             self.action_to_play = action_to_play
         def act(self, obs):
             return self.action_to_play % self.num_legal_actions
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             pass
 
     assert CustomizableConstAgent().action_to_play == 0
@@ -205,7 +205,7 @@ def test_add_log_messages():
     class SimpleAgent:
         def act(self, obs):
             return 0
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             pass
 
     run_environment(SimpleEnv, SimpleAgent, num_steps=1, logfile=FileMock())

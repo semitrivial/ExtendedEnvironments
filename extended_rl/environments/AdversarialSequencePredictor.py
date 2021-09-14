@@ -29,8 +29,8 @@ class AdversarialSequencePredictor:
         obs = evader_action
         self.sim.train(
             o_prev=self.prev_prediction,
-            act=evader_action,
-            R=-reward,
+            a=evader_action,
+            r=-reward,
             o_next=action
         )
         self.prev_prediction = action
@@ -63,8 +63,8 @@ class AdversarialSequenceEvader:
         obs = predictor_action
         self.sim.train(
             o_prev=self.prev_evasion,
-            act=predictor_action,
-            R=-reward,
+            a=predictor_action,
+            r=-reward,
             o_next=action
         )
         self.prev_evasion = action

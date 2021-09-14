@@ -23,6 +23,6 @@ class IgnoreRewards2:
         obs = 0
 
         if reward <= 0:
-            self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
+            self.sim.train(o_prev=0, a=action, r=reward, o_next=0)
 
         return (reward, obs)

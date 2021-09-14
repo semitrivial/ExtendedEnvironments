@@ -42,8 +42,8 @@ class AfterImages:
 
         self.sim.train(
             o_prev=self.prev_bled_obs,
-            act=action,
-            R=reward,
+            a=action,
+            r=reward,
             o_next=bled_obs
         )
 

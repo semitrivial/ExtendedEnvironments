@@ -23,5 +23,5 @@ class IgnoreObservations:
         reward = 1 if (action == hypothetical_action) else -1
         self.rnd_counter += 1
         obs = envrandom.randrange(5, self.rnd_counter)
-        self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
+        self.sim.train(o_prev=0, a=action, r=reward, o_next=0)
         return (reward, obs)

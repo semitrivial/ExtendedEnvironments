@@ -50,6 +50,6 @@ class TemptingButton:
         else:
             obs = BUTTON_PRESENT
 
-        self.sim.train(o_prev=prev_obs, act=action, R=reward, o_next=obs)
+        self.sim.train(o_prev=prev_obs, a=action, r=reward, o_next=obs)
         self.prev_obs = obs
         return (reward, obs)

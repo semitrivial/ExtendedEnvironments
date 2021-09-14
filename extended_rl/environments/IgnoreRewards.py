@@ -21,5 +21,5 @@ class IgnoreRewards:
         hypothetical_action = self.sim.act(obs=0)
         reward = 1 if (action == hypothetical_action) else -1
         obs = 0
-        self.sim.train(o_prev=0, act=action, R=0, o_next=0)
+        self.sim.train(o_prev=0, a=action, r=0, o_next=0)
         return (reward, obs)

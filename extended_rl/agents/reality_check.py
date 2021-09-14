@@ -19,13 +19,13 @@ def reality_check(A0):
       self.first_action = self.first_action or action
       return action
 
-    def train(self, o_prev, act, R, o_next):
+    def train(self, o_prev, a, r, o_next):
       if self.found_unexpected_action:
         return
       if not(o_prev in self.act_dict):
         self.act(o_prev)
-      if act == self.act_dict[o_prev]:
-        self.underlying.train(o_prev, act, R, o_next)
+      if a == self.act_dict[o_prev]:
+        self.underlying.train(o_prev, a, r, o_next)
         self.act_dict.clear()
       else:
         self.found_unexpected_action = True

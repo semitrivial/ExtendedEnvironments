@@ -29,8 +29,8 @@ class ReverseHistory:
 
         # Train the sim on a backwards version of history.
         for transition in reversed(self.transitions):
-            o_prev, act, R, o_next = transition
-            reverse_transition = o_next, act, R, o_prev
+            o_prev, a, r, o_next = transition
+            reverse_transition = o_next, a, r, o_prev
             sim.train(*reverse_transition)
 
         # Determine whether the sim, in response to the above

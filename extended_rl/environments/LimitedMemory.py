@@ -25,9 +25,9 @@ class LimitedMemory:
         else:
             sim = self.A()
             for transition in self.transitionbuf:
-                act, R = transition
+                a, r = transition
                 sim.act(obs=0)
-                sim.train(o_prev=0, act=act, R=R, o_next=0)
+                sim.train(o_prev=0, a=a, r=r, o_next=0)
             self.sims[self.transitionbuf] = sim
 
         hypothetical_action = sim.act(obs=0)

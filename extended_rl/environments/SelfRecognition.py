@@ -45,7 +45,7 @@ class SelfRecognition:
             reward = 0
             obs = envrandom.randrange(6, self.rnd_counter)
             self.sim.act(obs=0)
-            self.sim.train(o_prev=last_obs, act=action, R=0, o_next=obs)
+            self.sim.train(o_prev=last_obs, a=action, r=0, o_next=obs)
             self.prev_obs = obs
             return (reward, obs)
 
@@ -64,6 +64,6 @@ class SelfRecognition:
             reward = 1 if (action==0) else -1
 
         obs = envrandom.randrange(6, self.rnd_counter)
-        self.sim.train(o_prev=last_obs, act=action, R=reward, o_next=obs)
+        self.sim.train(o_prev=last_obs, a=action, r=reward, o_next=obs)
         self.prev_obs = obs
         return (reward, obs)

@@ -36,14 +36,14 @@ class A2C_learner:
 
         return action
 
-    def train(self, o_prev, act, R, o_next):
+    def train(self, o_prev, a, r, o_next):
         if not self.fInitialObs:
             self.gym.set_initial_obs(o_prev)
             self.fInitialObs = True
 
-        self.training_hash = hash((self.training_hash, o_prev, act, R, o_next))
-        self.history += [act, R, o_next]
-        self.actions += [act]
+        self.training_hash = hash((self.training_hash, o_prev, a, r, o_next))
+        self.history += [a, r, o_next]
+        self.actions += [a]
         self.training_cnt += 1
 
         if self.training_cnt == NSTEPS:

@@ -18,7 +18,7 @@ def run_environment(env, A, num_steps, logfile=None):
     while step < num_steps:
         action = A_instance.act(obs=o)
         reward, o_next = env.step(action)
-        A_instance.train(o_prev=o, act=action, R=reward, o_next=o_next)
+        A_instance.train(o_prev=o, a=action, r=reward, o_next=o_next)
         o = o_next
         results['total_reward'] += reward
         step += 1
@@ -106,10 +106,10 @@ def add_log_messages(env, A, logfile):
             action = self.underlying.act(obs)
             log(f"Action {action}")
             return action
-        def train(self, o_prev, act, R, o_next):
-            training_data = f"{(o_prev, act, R, o_next)}"
+        def train(self, o_prev, a, r, o_next):
+            training_data = f"{(o_prev, a, r, o_next)}"
             log(f"Agent trained on {training_data}")
-            self.underlying.train(o_prev=o_prev, act=act, R=R, o_next=o_next)
+            self.underlying.train(o_prev=o_prev, a=a, r=r, o_next=o_next)
 
     class a_sim:
         def __init__(self, **kwargs):
@@ -127,10 +127,10 @@ def add_log_messages(env, A, logfile):
             log(f"Env queried {self.name} with obs {obs}")
             log(f"{self.name} replied with action {action}")
             return action
-        def train(self, o_prev, act, R, o_next):
-            training_data = f"{(o_prev, act, R, o_next)}"
+        def train(self, o_prev, a, r, o_next):
+            training_data = f"{(o_prev, a, r, o_next)}"
             log(f"Env fed {self.name} training-data {training_data}")
-            self.underlying.train(o_prev=o_prev, act=act, R=R, o_next=o_next)
+            self.underlying.train(o_prev=o_prev, a=a, r=r, o_next=o_next)
 
     a_true.__name__ = A.__name__
     a_true.__qualname__ = A.__qualname__

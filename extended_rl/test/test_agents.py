@@ -65,8 +65,8 @@ def test_constant_agent():
             assert self.sim.act(randrange(99)) == 0
             self.sim.train(
                 o_prev=randrange(99),
-                act=randrange(99),
-                R=randrange(99) - 50,
+                a=randrange(99),
+                r=randrange(99) - 50,
                 o_next=randrange(99)
             )
             return (randrange(99)-50, randrange(99))
@@ -134,8 +134,8 @@ def test_SBL3_agents():
             reward = 1 if (action == self.prev_obs) else -1
             self.sim.train(
                 o_prev=self.prev_obs,
-                act=action,
-                R=reward,
+                a=action,
+                r=reward,
                 o_next = obs
             )
             self.prev_obs = obs
@@ -213,7 +213,7 @@ def test_reality_check():
             self.cnt = 0
         def act(self, obs):
             return [1,2,3,4,5,6,7,8,9][self.cnt]
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             self.cnt += 1
 
     RC_Class = reality_check(Reciter1)
@@ -253,7 +253,7 @@ def test_reality_check():
             self.cnt = 0
         def act(self, obs):
             return sequences[obs][self.cnt]
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             self.cnt += 1
 
     RC_Class = reality_check(Reciter2)

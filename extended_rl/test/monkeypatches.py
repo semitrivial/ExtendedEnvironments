@@ -26,10 +26,10 @@ def run_environment(env, A, num_steps):
             action = self.underlying.act(obs)
             assert 0 <= action < self.num_legal_actions
             return action
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             assert 0 <= o_prev < self.num_possible_obs
             assert 0 <= o_next < self.num_possible_obs
-            assert 0 <= act < self.num_legal_actions
-            self.underlying.train(o_prev=o_prev, act=act, R=R, o_next=o_next)
+            assert 0 <= a < self.num_legal_actions
+            self.underlying.train(o_prev=o_prev, a=a, r=r, o_next=o_next)
 
     return run_environment_backup(env_monkey, A_monkey, num_steps)

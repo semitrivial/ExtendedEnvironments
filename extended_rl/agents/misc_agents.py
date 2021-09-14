@@ -8,7 +8,7 @@ class RandomAgent:
     def act(self, obs):
         return agentrandom.randrange(self.num_legal_actions, self.cnt)
 
-    def train(self, o_prev, act, R, o_next):
+    def train(self, o_prev, a, r, o_next):
         self.cnt += 1
 
 class ConstantAgent:
@@ -18,5 +18,5 @@ class ConstantAgent:
     def act(self, obs):
         return 0
 
-    def train(self, o_prev, act, R, o_next):
+    def train(self, o_prev, a, r, o_next):
         return

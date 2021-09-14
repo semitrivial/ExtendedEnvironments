@@ -29,6 +29,6 @@ class NthRewardMultipliedByN:
         hypothetical_action = self.sim.act(obs=0)
         reward = 1 if (action == hypothetical_action) else -1
         obs = 0
-        self.sim.train(o_prev=0, act=action, R=reward*self.stepcnt, o_next=0)
+        self.sim.train(o_prev=0, a=action, r=reward*self.stepcnt, o_next=0)
         self.stepcnt += 1
         return (reward, obs)

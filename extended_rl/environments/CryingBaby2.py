@@ -39,8 +39,8 @@ class CryingBaby2:
         obs = parent_action
         self.sim.train(
             o_prev=self.prev_action,
-            act=parent_action,
-            R=1 if (action==LAUGH) else -1,
+            a=parent_action,
+            r=1 if (action==LAUGH) else -1,
             o_next=action
         )
         self.prev_action = action

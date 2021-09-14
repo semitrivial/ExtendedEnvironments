@@ -24,5 +24,5 @@ class PunishNondeterministicAgent:
         recomputed_action = self.sim.act(obs=0)
         reward = 1 if (action == recomputed_action) else -1
         obs = 0
-        self.sim.train(o_prev=0, act=action, R=reward, o_next=0)
+        self.sim.train(o_prev=0, a=action, r=reward, o_next=0)
         return (reward, obs)

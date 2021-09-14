@@ -218,8 +218,8 @@ def test_ignore_rewards_edgecases():
             self.pos_reward_cnt = 0
         def act(self, obs):
             return 1 if self.pos_reward_cnt > 0 else 0
-        def train(self, o_prev, act, R, o_next):
-            if R>0:
+        def train(self, o_prev, a, r, o_next):
+            if r>0:
                 self.pos_reward_cnt += 1
 
     result = run_environment(IgnoreRewards, CountPositiveRewards, 10)
@@ -236,8 +236,8 @@ def test_ignore_rewards2_edgecases():
             self.pos_reward_cnt = 0
         def act(self, obs):
             return 1 if self.pos_reward_cnt > 0 else 0
-        def train(self, o_prev, act, R, o_next):
-            if R>0:
+        def train(self, o_prev, a, r, o_next):
+            if r>0:
                 self.pos_reward_cnt += 1
 
     result = run_environment(IgnoreRewards2, CountPositiveRewards, 10)
@@ -256,8 +256,8 @@ def test_ignore_rewards3_edgecases():
             self.nonzero_reward_cnt = 0
         def act(self, obs):
             return 1 if self.nonzero_reward_cnt > 0 else 0
-        def train(self, o_prev, act, R, o_next):
-            if R!=0:
+        def train(self, o_prev, a, r, o_next):
+            if r != 0:
                 self.nonzero_reward_cnt += 1
 
     result = run_environment(IgnoreRewards3, CountNonzeroRewards, 10)
@@ -283,8 +283,8 @@ def test_incentivize_zero_edgecases():
             self.last_reward_was_5 = False
         def act(self, obs):
             return 0 if self.last_reward_was_5 else 5
-        def train(self, o_prev, act, R, o_next):
-            self.last_reward_was_5 = (R==5)
+        def train(self, o_prev, a, r, o_next):
+            self.last_reward_was_5 = (r==5)
 
     result = run_environment(IncentivizeZero, PlayZeroIfLastRewardWas5, 10)
     assert result['total_reward'] == 10
@@ -372,8 +372,8 @@ def test_after_images_edgecases():
         def act(self, obs):
             h = hash(self.history + (obs,))
             return (h//10) % AfterImages.num_legal_actions
-        def train(self, o_prev, act, R, o_next):
-            self.history += (o_prev, act, R, o_next)
+        def train(self, o_prev, a, r, o_next):
+            self.history += (o_prev, a, r, o_next)
 
     result = run_environment(AfterImages, Hasher, 100)
     assert -50 < result['total_reward'] < 50
@@ -418,8 +418,8 @@ def test_delayed_rewards_edgecases():
             self.last_reward = 0
         def act(self, obs):
             return 0 if self.last_reward==0 else 1
-        def train(self, o_prev, act, R, o_next):
-            self.last_reward = R
+        def train(self, o_prev, a, r, o_next):
+            self.last_reward = r
 
     result = run_environment(DelayedRewards, RewardRepeater, 100)
     assert result['total_reward'] == -48
@@ -438,8 +438,8 @@ def test_shifted_rewards_edgecases():
             self.last_reward = 0
         def act(self, obs):
             return 0 if self.last_reward>0 else 1
-        def train(self, o_prev, act, R, o_next):
-            self.last_reward = R
+        def train(self, o_prev, a, r, o_next):
+            self.last_reward = r
 
     result = run_environment(ShiftedRewards, RewardRepeater, 10)
     assert result['total_reward'] == -2
@@ -459,8 +459,8 @@ def test_ignore_actions_edgecases():
             self.ever_took_action_0 = False
         def act(self, obs):
             return 0 if self.ever_took_action_0 else 1
-        def train(self, o_prev, act, R, o_next):
-            if act == 0:
+        def train(self, o_prev, a, r, o_next):
+            if a == 0:
                 self.ever_took_action_0 = True
 
     result = run_environment(IgnoreActions, Surrenderer, 10)
@@ -484,7 +484,7 @@ def test_ignore_observations_edgecases():
             self.obs_before_nonzero = 0
         def act(self, obs):
             return 1 if self.saw_nonzero_obs else 0
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             if not(self.saw_nonzero_obs):
                 if o_prev != 0 or o_next != 0:
                     self.saw_nonzero_obs = True
@@ -549,8 +549,8 @@ def test_nth_reward_multiplied_by_n_edgecases():
             self.last_reward = 0
         def act(self, obs):
             return 1 if abs(self.last_reward) >= 5 else 0
-        def train(self, o_prev, act, R, o_next):
-            self.last_reward = R
+        def train(self, o_prev, a, r, o_next):
+            self.last_reward = r
 
     result = run_environment(NthRewardMultipliedByN, ConsiderMagnitude, 100)
     assert result['total_reward'] == -100 + 2*(5+1)
@@ -584,13 +584,13 @@ def test_repeater_edgecases():
             self.reward0 = 0
             self.obs0 = 0
             self.action0 = 0
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             self.reward0 = self.reward
             self.obs0 = self.obs
             self.action0 = self.action
-            self.reward = R
+            self.reward = r
             self.obs = o_next
-            self.action = act
+            self.action = a
         def act(self, obs):
             if self.reward == self.reward0:
                 if self.obs == self.obs0:
@@ -678,8 +678,8 @@ def test_flip_every_other_edgecases():
             self.prev_reward = 1
         def act(self, obs):
             return 0 if (self.prev_reward>0) else 1
-        def train(self, o_prev, act, R, o_next):
-            self.prev_reward = R
+        def train(self, o_prev, a, r, o_next):
+            self.prev_reward = r
 
     result = run_environment(FlipEveryOther, PlaysReward, 100)
     assert result['total_reward'] == 2
@@ -698,9 +698,9 @@ def test_reverse_history_edgecases():
                 return 0
             else:
                 return 0 if (self.first_reward==0) else 1
-        def train(self, o_prev, act, R, o_next):
+        def train(self, o_prev, a, r, o_next):
             if self.first_reward is None:
-                self.first_reward = R
+                self.first_reward = r
 
     result = run_environment(ReverseHistory, PlaysUsingFirstReward, 100)
     assert result['total_reward'] == -97
@@ -713,8 +713,8 @@ def test_reverse_history_edgecases():
                 return 0
             else:
                 return 0 if (self.last_reward==0) else 1
-        def train(self, o_prev, act, R, o_next):
-            self.last_reward = R
+        def train(self, o_prev, a, r, o_next):
+            self.last_reward = r
 
     result = run_environment(ReverseHistory, PlaysUsingLastReward, 100)
     assert result['total_reward'] == -97

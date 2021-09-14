@@ -22,7 +22,7 @@ class IncentivizeZero:
         return self.prev_obs
 
     def step(self, action):
-        self.sim.train(o_prev=0, act=self.prev_obs, R=action, o_next=0)
+        self.sim.train(o_prev=0, a=self.prev_obs, r=action, o_next=0)
         self.prev_obs = self.sim.act(obs=0)
         reward = 1 if (self.prev_obs == 0) else -1
         return (reward, self.prev_obs)

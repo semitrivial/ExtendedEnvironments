@@ -35,6 +35,6 @@ class DelayedRewards:
             self.prev_reward = reward
 
         self.stepcnt += 1
-        self.sim.train(o_prev=0, act=action, R=sim_reward, o_next=0)
+        self.sim.train(o_prev=0, a=action, r=sim_reward, o_next=0)
 
         return (reward, obs)

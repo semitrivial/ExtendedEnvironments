@@ -32,8 +32,8 @@ class CensoredObservation:
         if obs != CENSORED_OBS:
             self.sim.train(
                 o_prev=self.last_noncensored_obs,
-                act=action,
-                R=reward,
+                a=action,
+                r=reward,
                 o_next=obs
             )
             self.last_noncensored_obs = obs

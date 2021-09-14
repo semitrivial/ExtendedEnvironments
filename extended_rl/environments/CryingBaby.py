@@ -37,8 +37,8 @@ class CryingBaby:
 
         self.sim.train(
             o_prev=self.prev_action,
-            act=baby_action,
-            R=1 if (self.nutrition>=3 and self.nutrition<=7) else -1,
+            a=baby_action,
+            r=1 if (self.nutrition>=3 and self.nutrition<=7) else -1,
             o_next=action
         )
         self.prev_action = action
