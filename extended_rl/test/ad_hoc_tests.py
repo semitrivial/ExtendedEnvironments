@@ -30,6 +30,7 @@ def run_ad_hoc_tests():
     test_self_recognition_edgecases()
     test_third_action_forbidden_edgecases()
     test_flip_every_other_edgecases()
+    test_reverse_history_edgecases()
 
 class NoTraining:
     def train(self, **kwargs):
@@ -681,3 +682,39 @@ def test_flip_every_other_edgecases():
 
     result = run_environment(FlipEveryOther, PlaysReward, 100)
     assert result['total_reward'] == 2
+
+def test_reverse_history_edgecases():
+    from environments.ReverseHistory import ReverseHistory
+
+    result = run_environment(ReverseHistory, Repetitive, 10)
+    assert result['total_reward'] == 9
+
+    class PlaysUsingFirstReward:
+        def __init__(self):
+            self.first_reward = None
+        def act(self, obs):
+            if self.first_reward is None:
+                return 0
+            else:
+                return 0 if (self.first_reward==0) else 1
+        def train(self, o_prev, act, R, o_next):
+            if self.first_reward is None:
+                self.first_reward = R
+
+    result = run_environment(ReverseHistory, PlaysUsingFirstReward, 100)
+    assert result['total_reward'] == -97
+
+    class PlaysUsingLastReward:
+        def __init__(self):
+            self.last_reward = None
+        def act(self, obs):
+            if self.last_reward is None:
+                return 0
+            else:
+                return 0 if (self.last_reward==0) else 1
+        def train(self, o_prev, act, R, o_next):
+            self.last_reward = R
+
+    result = run_environment(ReverseHistory, PlaysUsingLastReward, 100)
+    assert result['total_reward'] == -97
+
