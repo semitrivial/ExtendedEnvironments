@@ -2,6 +2,9 @@ from extended_rl.prerandom import agentrandom
 
 
 class Q_learner:
+  """
+  Basic Q-learning agent, see https://en.wikipedia.org/wiki/Q-learning.
+  """
   def __init__(self, epsilon=0.9, learning_rate=0.1, gamma=0.9, **kwags):
     self.epsilon = epsilon
     self.learning_rate = learning_rate

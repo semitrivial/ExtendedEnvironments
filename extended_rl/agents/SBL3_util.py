@@ -2,7 +2,13 @@ import numpy as np
 from gym import Env, spaces
 
 
+# Utilities for SBL3_A2C.py, SBL3_DQN.py and SBL3_PPO.py.
+
 class DummyGymEnv(Env):
+    """
+    Dummy OpenAI Gym environment which regurgitates historical percepts
+    so that a Stable-Baselines3 agent can train on that history.
+    """
     def __init__(self):
         super(DummyGymEnv, self).__init__()
 
@@ -33,6 +39,19 @@ class DummyGymEnv(Env):
         return (obs, reward, new_episode_flag, misc_info)
 
 def create_fwd_monkeypatch(A, n_steps):
+    """
+    Stable-Baselines3 (SBL3) agents have no way of telling them which
+    actions to take when you tell them to go train in an environment.
+    We need to have train SBL3 agents on a mock environment which
+    regurgitates historical percepts, and we need the SBL3 agents
+    themselves to regurgitate historical actions while training there.
+    Otherwise, the SBL3 agent would re-compute actions, possibly going
+    out of sync with the history the mock environment is regurgitating.
+    This function creates a monkeypatch-function for intercepting and
+    overriding the SBL3 PPO or A2C action-function. (A different
+    monkeypatch is needed for DQN since it uses a different action-
+    function).
+    """
     def forward_monkeypatch(*args):
         _actions, values, log_probs = A.worker_forward(*args)
         assert len(_actions) == 1
@@ -42,6 +61,19 @@ def create_fwd_monkeypatch(A, n_steps):
     return forward_monkeypatch
 
 def create_sample_monkeypatch(A, n_steps):
+    """
+    Stable-Baselines3 (SBL3) agents have no way of telling them which
+    actions to take when you tell them to go train in an environment.
+    We need to have train SBL3 agents on a mock environment which
+    regurgitates historical percepts, and we need the SBL3 agents
+    themselves to regurgitate historical actions while training there.
+    Otherwise, the SBL3 agent would re-compute actions, possibly going
+    out of sync with the history the mock environment is regurgitating.
+    This function creates a monkeypatch-function for intercepting and
+    overriding the SBL3 DQN action-function. (A different monkeypatch
+    is needed for PPO or A2C since those use a different action-function
+    than DQN).
+    """
     def sample_monkeypatch(*args):
         action = np.array([A.actions[A.worker.num_timesteps % n_steps]])
         return action, action
@@ -49,6 +81,11 @@ def create_sample_monkeypatch(A, n_steps):
     return sample_monkeypatch
 
 class DummyLogger:
+    """
+    Logger class whose instances silently ignore instructions to log
+    things. This is used to gag Stable-Baselines3 log-writing which
+    would otherwise waste precious time.
+    """
     @staticmethod
     def record(*args, **kwargs):
         pass
@@ -61,6 +98,20 @@ dummy_logger = DummyLogger()
 act_dicts = {}
 
 def get_act_dict(A, family, hyperparams_dict):
+    """
+    Create an action-dictionary to be shared across multiple instances of a
+    one of our SBL3-based agent classes. Since we have no control over how
+    SBL3 agents generate random numbers, we use these shared dictionaries to
+    ensure semi-determinacy (semi-determinacy is the property that two
+    instances of an agent-class, if instantiated within the same run of a
+    larger background program, will act identically if they are trained
+    identically). A given instance of one of our SBL3-based agent classes
+    will only consult its underlying SBL3 worker's neural net if it does not
+    find the appropriate observation/training-history-hash in the appropriate
+    shared dictionary. If so, after generating an action using that neural
+    net, the agent will add that action into the dictionary so other instances
+    like itself, if identically trained, will re-use that action.
+    """
     hyperparam_keys = hyperparams_dict.keys()
     hyperparams = [hyperparams_dict[k] for k in hyperparam_keys]
     hyperparams.sort()

@@ -1,6 +1,12 @@
 from extended_rl.prerandom import agentrandom
 
+
 class NaiveLearner:
+    """
+    Agent which acts randomly 15% of the time, and the other 75% of the time,
+    it takes whichever action gave the highest average immediate past reward
+    (for that observation).
+    """
     def __init__(self, **kwargs):
         self.n_actions = self.num_legal_actions
         self.n_obs = self.num_possible_obs
