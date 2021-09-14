@@ -26,8 +26,8 @@ from extended_rl import selfrefl_benchmark
 from extended_rl import selfrefl_measure
 
 print("Results of running agent for 100 steps in various environments:")
-pprint(selfrefl_benchmark(example_agent, 100))
+pprint(selfrefl_benchmark(ExampleAgent, 100))
 
 print("---------------------------------------------------------------")
-avg_reward = selfrefl_measure(example_agent, 100)
+avg_reward = selfrefl_measure(ExampleAgent, 100)
 print("Average reward per turn: " + str(avg_reward))
