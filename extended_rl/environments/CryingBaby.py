@@ -1,4 +1,4 @@
-from util import annotate
+from extended_rl.util import annotate
 
 FEED, DONTFEED = 0, 1
 LAUGH, CRY = 0, 1

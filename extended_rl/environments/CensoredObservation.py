@@ -1,5 +1,5 @@
-from prerandom import envrandom
-from util import annotate
+from extended_rl.prerandom import envrandom
+from extended_rl.util import annotate
 
 
 CENSORED_OBS = 2

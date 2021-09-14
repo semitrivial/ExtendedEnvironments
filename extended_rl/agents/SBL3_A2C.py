@@ -1,7 +1,7 @@
 from stable_baselines3 import A2C as A2C_factory
 
-from agents.SBL3_util import DummyGymEnv, create_fwd_monkeypatch
-from agents.SBL3_util import dummy_logger, get_act_dict
+from extended_rl.agents.SBL3_util import DummyGymEnv, create_fwd_monkeypatch
+from extended_rl.agents.SBL3_util import dummy_logger, get_act_dict
 
 
 NSTEPS=5  # SBL3's default n_steps for A2C

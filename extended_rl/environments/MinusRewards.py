@@ -1,4 +1,4 @@
-from util import annotate
+from extended_rl.util import annotate
 
 def minus_rewards(env):
     """

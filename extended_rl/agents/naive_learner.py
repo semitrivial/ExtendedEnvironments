@@ -1,4 +1,4 @@
-from prerandom import agentrandom
+from extended_rl.prerandom import agentrandom
 
 class NaiveLearner:
     def __init__(self, **kwargs):

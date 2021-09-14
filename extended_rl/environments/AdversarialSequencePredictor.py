@@ -1,4 +1,4 @@
-from util import annotate
+from extended_rl.util import annotate
 
 # Environments based on adversarial sequence prediction. In games
 # of adversarial sequence prediction (Hibbard, 2008), a predictor

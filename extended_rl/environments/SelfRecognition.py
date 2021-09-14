@@ -1,5 +1,5 @@
-from prerandom import envrandom
-from util import annotate
+from extended_rl.prerandom import envrandom
+from extended_rl.util import annotate
 
 
 IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_0 = 2

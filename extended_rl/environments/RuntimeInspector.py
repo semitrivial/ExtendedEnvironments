@@ -1,4 +1,4 @@
-from util import annotate, eval_and_count_steps
+from extended_rl.util import annotate, eval_and_count_steps
 
 @annotate(num_legal_actions=2, num_possible_obs=1, slow=True)
 class PunishSlowAgent:

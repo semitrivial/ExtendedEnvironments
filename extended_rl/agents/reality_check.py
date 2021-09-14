@@ -1,4 +1,4 @@
-from util import copy_with_meta
+from extended_rl.util import copy_with_meta
 
 
 def reality_check(A0):

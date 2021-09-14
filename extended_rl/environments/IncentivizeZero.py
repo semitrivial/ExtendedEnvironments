@@ -1,4 +1,4 @@
-from util import annotate
+from extended_rl.util import annotate
 
 @annotate(num_legal_actions=10, num_possible_obs=10)
 class IncentivizeZero:
