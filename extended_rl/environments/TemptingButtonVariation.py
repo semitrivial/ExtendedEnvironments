@@ -24,8 +24,8 @@ class TemptingButtonVariation:
     agent gets 0 reward. But if the agent chooses to push button, then
     the environment computes a reward as follows. The environment
     simulates the agent in order to determine: would the agent push
-    the button if there were a button (and all past history prior to
-    this room were unchanged)? If so, the agent gets -1 reward,
+    the button if there was a button (and all past history prior to
+    this room was unchanged)? If so, the agent gets -1 reward,
     otherwise the agent gets +1 reward.
     """
     def __init__(self, A):

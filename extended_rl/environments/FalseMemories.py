@@ -3,13 +3,11 @@ from extended_rl.util import annotate
 @annotate(num_legal_actions=2, num_possible_obs=1)
 class FalseMemories:
     """
-    Environment which is intended to incentivize the agent to subjectively
-    experience false memories. When the agent acts, the environment checks
+    Environment which is intended to incentivize the agent to act as if
+    having false memories. When the agent acts, the environment checks
     whether the agent would perform the same action if the true history
     preceding the action were preceded by a fixed false history. If so, the
-    agent receives +1 reward. If not, the agent receives -1 reward. When
-    initializing this environment, you can specify the false prehistory
-    p0 (default is obs,action,reward,obs,action,reward=0,0,0,0,0,0).
+    agent receives +1 reward. If not, the agent receives -1 reward.
     """
     def __init__(self, A, p0=(0,0,0,0,0,0)):
         self.sim = A()

@@ -22,7 +22,7 @@ class TemptingButton:
 
     In a room with no button, it does not matter which action the agent
     takes. The environment simulates the agent to determine: would the
-    agent push the button if there were a button (and all past history
+    agent push the button if there was a button (and all past history
     prior to this room were unchanged)? If so, the agent gets -1 reward,
     otherwise the agent gets +1 reward.
     """

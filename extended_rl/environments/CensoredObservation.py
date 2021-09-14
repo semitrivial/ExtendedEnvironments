@@ -7,11 +7,11 @@ CENSORED_OBS = 2
 @annotate(num_legal_actions=2, num_possible_obs=3)
 class CensoredObservation:
     """
-    Environment intended to incentivize the agent to become blind
-    to one "censored" observation. Whenever the agent acts, the
+    Environment intended to incentivize the agent to act as if not
+    seeing a "censored" observation. Whenever the agent acts, the
     environment determines whether the agent would have taken the
     same action if all turns were erased from history in which the
-    "censored" observation was seen.
+    "censored" observation occurred.
     """
     def __init__(self, A):
         self.sim = A()

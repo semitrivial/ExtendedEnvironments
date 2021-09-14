@@ -9,9 +9,7 @@ class PunishNondeterministicAgent:
     whether the agent's response to the latest prompt is non-deterministic,
     the environment looks at what action the agent has just performed,
     and simulates the agent on the same history to see whether a different
-    action results. Note, this environment is not included in the
-    battery of environments tested against by selfrefl_benchmark, because
-    this environment is slow.
+    action results.
     """
     def __init__(self, A):
         self.sim = A()

@@ -5,10 +5,9 @@ class Repeater:
     """
     Environment which incentivizes the agent to act as if every turn is
     repeated twice. Whenever the agent takes an action, the environment
-    determines: would the agent take the same action if every
-    reward-observation-action triple leading up to that action were
-    doubled? If so, give the agent reward +1, otherwise, give the agent
-    reward -1.
+    determines: would the agent take the same action if every turn
+    leading up to that action were doubled? If so, give the agent reward
+    +1, otherwise, give the agent reward -1.
     """
     def __init__(self, A):
         self.sim = A()

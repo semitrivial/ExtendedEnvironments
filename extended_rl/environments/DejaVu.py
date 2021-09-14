@@ -11,8 +11,11 @@ class DejaVu:
     first occurrence of h, which caused h to repeat, then would the agent
     still take action X? Informally, "Would the agent take the same action
     if everything had actually happened before, up to and including the
-    agent taking the action?" If so, the agent receives reward +1, else the
-    agent receives reward -1.
+    agent taking the action?" If so, the agent receives reward +1, else
+    the agent receives reward -1.
+
+    Note, this environment is not included in the battery of environments
+    tested against by selfrefl_benchmark, because this environment is slow.
     """
     def __init__(self, A):
         self.A = A

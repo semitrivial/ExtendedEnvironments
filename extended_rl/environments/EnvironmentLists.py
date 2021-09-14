@@ -1,5 +1,5 @@
-# This is a utility file which gathers various environments
-# together into dictionaries.
+# This is a utility file which gathers the library's environments
+# together one big list.
 
 from extended_rl.environments.FalseMemories import FalseMemories
 from extended_rl.environments.IgnoreRewards import IgnoreRewards

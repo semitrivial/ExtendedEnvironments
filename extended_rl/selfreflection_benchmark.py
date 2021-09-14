@@ -2,7 +2,7 @@ from extended_rl.environments.EnvironmentLists import environments
 from extended_rl.environments.MinusRewards import minus_rewards
 from extended_rl.util import run_environment
 
-# Generate dictionary of environments against which agents will be run
+# Generate list of environments against which agents will be run
 envs = []
 for env in environments:
     envs.append(env)

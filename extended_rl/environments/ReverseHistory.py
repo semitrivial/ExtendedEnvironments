@@ -8,7 +8,9 @@ class ReverseHistory:
     environment determines whether the agent would have taken that
     action if all events preceding that action had happened in
     reverse order. If so, the agent is rewarded. Otherwise, the
-    agent is punished.
+    agent is punished. Note, this environment is not included in
+    the battery of environments tested against by selfrefl_benchmark,
+    because this environment is slow.
     """
     def __init__(self, A):
         self.A = A

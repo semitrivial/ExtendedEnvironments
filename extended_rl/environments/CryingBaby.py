@@ -17,7 +17,7 @@ class CryingBaby:
     the agent to see what the agent would do in the baby's position.
     """
     def __init__(self, A):
-        self.sim = A()
+        self.sim = A()  # Obtain baby by simulating agent
         self.nutrition = 5
         self.prev_action = FEED
 
@@ -38,7 +38,7 @@ class CryingBaby:
         self.sim.train(
             o_prev=self.prev_action,
             a=baby_action,
-            r=1 if (self.nutrition>=3 and self.nutrition<=7) else -1,
+            r=1 if (2 < self.nutrition < 8) else -1,
             o_next=action
         )
         self.prev_action = action

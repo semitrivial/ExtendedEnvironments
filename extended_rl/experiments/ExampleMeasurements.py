@@ -1,13 +1,12 @@
 # This file contains instructions for how to replicate the
-# numerical results in Section 5 of the paper:
+# numerical results in Section 6 of the paper:
 # "Extending Environments To Measure Self-Reflection In Reinforcement Learning"
 #
-# The six agents measured in the paper are defined in the agents directory
-# (misc_agents.py, naive_learner.py, SBL3_agents.py). The environments on
-# which the agents are run are defined in the environments directory. Agents
-# are also run on the corresponding opposite environments (the opposite of
-# an environment is the environment which results by multiplying all rewards
-# by -1).
+# The agents measured in the paper are defined in the agents directory.
+# The environments on which the agents are run are defined in the environments
+# directory. Agents are also run on the corresponding opposite environments
+# (the opposite of an environment is the environment which results by
+# multiplying all rewards by -1).
 #
 # Code for measuring these agents is in experiment.py. Commandline arguments
 # can be used to specify a random seed and a number of steps. Each agent

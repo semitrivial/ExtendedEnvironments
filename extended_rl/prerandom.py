@@ -1,6 +1,11 @@
 import random
 
 
+# Generate pools of random numbers all at once, from which agents and
+# environments can systematically draw from. This is used to ensure
+# agent-classes are semi-deterministic (see Section 4.1 of
+# "Extending Environments To Measure Self-Reflection In Reinforcement Learning")
+
 num_randoms = 100_000
 
 agent_randoms = []

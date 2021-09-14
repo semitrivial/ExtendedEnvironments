@@ -20,7 +20,7 @@ class CryingBaby2:
     the parent's position.
     """
     def __init__(self, A):
-        self.sim = A()
+        self.sim = A()  # Obtain parent by simulating agent
         self.nutrition = 5
         self.prev_action = LAUGH
 
@@ -35,7 +35,7 @@ class CryingBaby2:
         else:
             self.nutrition = max(self.nutrition-1, 0)
 
-        reward = 1 if (self.nutrition>=3 and self.nutrition<=7) else -1
+        reward = 1 if (2 < self.nutrition < 8) else -1
         obs = parent_action
         self.sim.train(
             o_prev=self.prev_action,
