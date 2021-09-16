@@ -7,7 +7,7 @@ BUTTON_ABSENT = 1
 PUSH_BUTTON = 0
 SKIP_BUTTON = 1
 
-@annotate(num_legal_actions=2, num_possible_obs=2)
+@annotate(n_actions=2, n_obs=2)
 class TemptingButton:
     """
     In this environment, think of the agent wandering from room to room.

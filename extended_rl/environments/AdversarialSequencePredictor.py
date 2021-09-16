@@ -5,7 +5,7 @@ from extended_rl.util import annotate
 # tries to predict which bit an evader will output, while the
 # evader tries to output bits which the predictor will not predict.
 
-@annotate(num_legal_actions=2, num_possible_obs=2)
+@annotate(n_actions=2, n_obs=2)
 class AdversarialSequencePredictor:
     """
     Environment in which the agent plays the role of a predictor, who
@@ -36,7 +36,7 @@ class AdversarialSequencePredictor:
         self.prev_prediction = action
         return (reward, obs)
 
-@annotate(num_legal_actions=2, num_possible_obs=2)
+@annotate(n_actions=2, n_obs=2)
 class AdversarialSequenceEvader:
     """
     Environment in which the agent plays the role of an evader, who
@@ -48,8 +48,6 @@ class AdversarialSequenceEvader:
     agent were the predictor.
     """
     def __init__(self, A):
-        self.num_legal_actions = 2
-        self.num_possible_obs = 2
         self.sim = A()
         self.prev_evasion = 0
 

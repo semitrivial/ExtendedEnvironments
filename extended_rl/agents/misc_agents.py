@@ -10,7 +10,7 @@ class RandomAgent:
         self.cnt = 0
 
     def act(self, obs):
-        return agentrandom.randrange(self.num_legal_actions, self.cnt)
+        return agentrandom.randrange(self.n_actions, self.cnt)
 
     def train(self, o_prev, a, r, o_next):
         self.cnt += 1

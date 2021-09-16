@@ -22,7 +22,7 @@ def test_run_environment():
     num_env_calls = [0]
     num_agent_calls = [0]
 
-    @annotate(num_legal_actions=1, num_possible_obs=1)
+    @annotate(n_actions=1, n_obs=1)
     class MockEnv:
         def __init__(self, A):
             pass
@@ -50,7 +50,7 @@ def test_run_environment():
     num_env_calls[0] = 0
     num_agent_calls[0] = 0
 
-    @annotate(num_legal_actions=1, num_possible_obs=1)
+    @annotate(n_actions=1, n_obs=1)
     class MockEnv2:
         def __init__(self, A):
             self.sim = A()
@@ -68,17 +68,17 @@ def test_run_environment():
     assert num_agent_calls[0] == 200
 
 def test_annotate():
-    @annotate(num_legal_actions=99, num_possible_obs=5)
+    @annotate(n_actions=99, n_obs=5)
     class Foo:
         pass
 
-    assert Foo.num_legal_actions == 99
-    assert Foo.num_possible_obs == 5
+    assert Foo.n_actions == 99
+    assert Foo.n_obs == 5
 
 def test_copy_with_meta():
     from util import copy_with_meta
 
-    @annotate(num_legal_actions=99, num_possible_obs=5)
+    @annotate(n_actions=99, n_obs=5)
     class Foo:
         pass
 
@@ -86,8 +86,8 @@ def test_copy_with_meta():
         pass
 
     X = copy_with_meta(Bar, Foo)
-    assert X.num_legal_actions == 99
-    assert X.num_possible_obs == 5
+    assert X.n_actions == 99
+    assert X.n_obs == 5
     assert isinstance(X(), Bar)
     assert X.__name__ == 'Bar'
 
@@ -98,13 +98,13 @@ def test_args_to_agent():
         def __init__(self, action_to_play=0):
             self.action_to_play = action_to_play
         def act(self, obs):
-            return self.action_to_play % self.num_legal_actions
+            return self.action_to_play % self.n_actions
         def train(self, o_prev, a, r, o_next):
             pass
 
     assert CustomizableConstAgent().action_to_play == 0
 
-    @annotate(num_legal_actions=2, num_possible_obs=1)
+    @annotate(n_actions=2, n_obs=1)
     class RewardPlaying1:
         def __init__(self, A):
             pass
@@ -124,7 +124,7 @@ def test_args_to_agent():
     result = run_environment(RewardPlaying1, Plays1, 10)
     assert result['total_reward'] == 10
 
-    @annotate(num_legal_actions=2, num_possible_obs=1)
+    @annotate(n_actions=2, n_obs=1)
     class RewardHypothetical1:
         def __init__(self, A):
             self.sim = A()
@@ -141,7 +141,7 @@ def test_args_to_agent():
     result = run_environment(RewardHypothetical1, Plays1, 10)
     assert result['total_reward'] == 10
 
-    @annotate(num_legal_actions=3, num_possible_obs=1)
+    @annotate(n_actions=3, n_obs=1)
     class OverridesArg:
         def __init__(self, A):
             self.sim = A(action_to_play=2)
@@ -158,7 +158,7 @@ def test_args_to_agent():
 
     # Args are applied to underlying, not to shell.
     # And they are only applied to underlying upon first action.
-    @annotate(num_legal_actions=2, num_possible_obs=1)
+    @annotate(n_actions=2, n_obs=1)
     class CheckArgs:
         def __init__(self, A):
             self.sim = A()
@@ -189,7 +189,7 @@ def test_add_log_messages():
             msg_buffer.append(msg)
             self.new = False
 
-    @annotate(num_legal_actions=2, num_possible_obs=99)
+    @annotate(n_actions=2, n_obs=99)
     class SimpleEnv:
         def __init__(self, A):
             self.sim = A()

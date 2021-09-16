@@ -3,7 +3,7 @@ from extended_rl.util import annotate
 FEED, DONTFEED = 0, 1
 LAUGH, CRY = 0, 1
 
-@annotate(num_legal_actions=2, num_possible_obs=2)
+@annotate(n_actions=2, n_obs=2)
 class CryingBaby:
     """
     Environment in which the agent must decide when to feed a baby.

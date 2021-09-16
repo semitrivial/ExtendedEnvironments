@@ -12,9 +12,9 @@ class DummyGymEnv(Env):
     def __init__(self):
         super(DummyGymEnv, self).__init__()
 
-    def set_meta(self, num_legal_actions, num_possible_obs):
-        self.action_space = spaces.Discrete(num_legal_actions)
-        self.observation_space = spaces.Discrete(num_possible_obs)
+    def set_meta(self, n_actions, n_obs):
+        self.action_space = spaces.Discrete(n_actions)
+        self.observation_space = spaces.Discrete(n_obs)
 
     def set_history(self, history):
         self.history = history
@@ -117,7 +117,7 @@ def get_act_dict(A, family, hyperparams_dict):
     hyperparams.sort()
     hyperparams = tuple(hyperparams)
 
-    key = (family, hyperparams, A.num_legal_actions, A.num_possible_obs)
+    key = (family, hyperparams, A.n_actions, A.n_obs)
     if key in act_dicts:
         return act_dicts[key]
     else:

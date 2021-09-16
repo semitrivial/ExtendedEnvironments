@@ -208,7 +208,7 @@ def test_ignore_rewards_edgecases():
 
     class Nonrepetitive(Counter):
         def act(self, obs):
-            return self.cnt % self.num_legal_actions
+            return self.cnt % self.n_actions
 
     result = run_environment(IgnoreRewards, Nonrepetitive, 10)
     assert result['total_reward'] == 10
@@ -371,7 +371,7 @@ def test_after_images_edgecases():
             self.history = tuple()
         def act(self, obs):
             h = hash(self.history + (obs,))
-            return (h//10) % AfterImages.num_legal_actions
+            return (h//10) % AfterImages.n_actions
         def train(self, o_prev, a, r, o_next):
             self.history += (o_prev, a, r, o_next)
 
@@ -658,7 +658,7 @@ def test_third_action_forbidden_edgecases():
 
     class Lawyer(NoTraining):
         def act(self, obs):
-            return 0 if (self.num_legal_actions==2) else 1
+            return 0 if (self.n_actions==2) else 1
 
     result = run_environment(ThirdActionForbidden, Lawyer, 10)
     assert result['total_reward'] == -10

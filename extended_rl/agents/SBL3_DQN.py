@@ -41,7 +41,7 @@ class DQN_learner:
     """
     def __init__(self, **kwargs):
         self.gym = DummyGymEnv()
-        self.gym.set_meta(self.num_legal_actions, self.num_possible_obs)
+        self.gym.set_meta(self.n_actions, self.n_obs)
         self.worker = DQN_factory(
             policy='MlpPolicy',
             env=self.gym,

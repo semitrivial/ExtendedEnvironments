@@ -22,14 +22,10 @@ def run_environment(env, A, num_steps, logfile=None):
 
     return results
 
-def annotate(
-    num_legal_actions,
-    num_possible_obs,
-    slow=False
-):
+def annotate(n_actions, n_obs, slow=False):
     def apply_annotations(env_class):
-        env_class.num_legal_actions = num_legal_actions
-        env_class.num_possible_obs = num_possible_obs
+        env_class.n_actions = n_actions
+        env_class.n_obs = n_obs
         env_class.slow = slow
         return env_class
 
@@ -37,8 +33,8 @@ def annotate(
 
 def copy_with_meta(class_to_copy, meta_src):
     @annotate(
-        num_legal_actions=meta_src.num_legal_actions,
-        num_possible_obs=meta_src.num_possible_obs
+        n_actions=meta_src.n_actions,
+        n_obs=meta_src.n_obs
     )
     class result(class_to_copy):
         pass
@@ -74,8 +70,8 @@ def add_log_messages(env, A, logfile):
         logfile.write(f"{log_prefix},{msg}\n")
 
     @annotate(
-        num_legal_actions=env.num_legal_actions,
-        num_possible_obs=env.num_possible_obs
+        n_actions=env.n_actions,
+        n_obs=env.n_obs
     )
     class e:
         def __init__(self, A0):

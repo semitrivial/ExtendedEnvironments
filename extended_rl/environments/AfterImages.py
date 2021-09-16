@@ -1,7 +1,7 @@
 from extended_rl.prerandom import envrandom
 from extended_rl.util import annotate
 
-@annotate(num_legal_actions=2, num_possible_obs=8)
+@annotate(n_actions=2, n_obs=8)
 class AfterImages:
     """
     An environment where the agent must act as if it sees

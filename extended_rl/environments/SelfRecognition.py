@@ -7,7 +7,7 @@ IF_THIS_OBS_WERE_0_YOU_WOULD_PLAY_1 = 3
 IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_0 = 4
 IF_THIS_OBS_WERE_1_YOU_WOULD_PLAY_1 = 5
 
-@annotate(num_legal_actions=2, num_possible_obs=6)
+@annotate(n_actions=2, n_obs=6)
 class SelfRecognition:
     """
     Environment which attempts to probe how well the agent can recognize

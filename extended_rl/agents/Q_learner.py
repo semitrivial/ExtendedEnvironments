@@ -9,7 +9,6 @@ class Q_learner:
     self.epsilon = epsilon
     self.learning_rate = learning_rate
     self.gamma = gamma
-    self.n_actions = self.num_legal_actions
     self.actions = range(self.n_actions)
     self.qtable = {}
     self.rand_counter = 0

@@ -6,11 +6,7 @@ def minus_rewards(env):
     instances are identical to the original environment class's instances
     except that they multiply all their rewards by -1.
     """
-    @annotate(
-        num_legal_actions=env.num_legal_actions,
-        num_possible_obs=env.num_possible_obs,
-        slow=env.slow
-    )
+    @annotate(n_actions=env.n_actions, n_obs=env.n_obs, slow=env.slow)
     class NewEnv:
         def __init__(self, A, **kwargs):
             self.underlying = env(A, **kwargs)

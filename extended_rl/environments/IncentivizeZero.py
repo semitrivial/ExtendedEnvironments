@@ -1,6 +1,6 @@
 from extended_rl.util import annotate
 
-@annotate(num_legal_actions=10, num_possible_obs=10)
+@annotate(n_actions=10, n_obs=10)
 class IncentivizeZero:
     """
     In this environment, the agent should be thought of as viewing a camera

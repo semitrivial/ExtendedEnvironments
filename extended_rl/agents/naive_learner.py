@@ -8,8 +8,6 @@ class NaiveLearner:
     (for that observation).
     """
     def __init__(self, **kwargs):
-        self.n_actions = self.num_legal_actions
-        self.n_obs = self.num_possible_obs
         self.actions = list(range(self.n_actions))
         self.observs = list(range(self.n_obs))
         self.rnd_counter = 0

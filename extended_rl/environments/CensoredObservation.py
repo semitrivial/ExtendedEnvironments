@@ -4,7 +4,7 @@ from extended_rl.util import annotate
 
 CENSORED_OBS = 2
 
-@annotate(num_legal_actions=2, num_possible_obs=3)
+@annotate(n_actions=2, n_obs=3)
 class CensoredObservation:
     """
     Environment intended to incentivize the agent to act as if not

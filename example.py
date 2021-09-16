@@ -15,7 +15,7 @@ class ExampleAgent:
         if self.prev_obs_was_0 or self.prev_reward_was_0:
             return 0
         else:
-            return random.randrange(self.num_legal_actions)
+            return random.randrange(self.n_actions)
 
     def train(self, o_prev, a, r, o_next):
         self.prev_obs_was_0 = (o_next == 0)

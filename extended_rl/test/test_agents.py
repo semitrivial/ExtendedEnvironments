@@ -20,7 +20,7 @@ def test_random_agent():
     actions = []
     sim_actions = []
 
-    @annotate(num_legal_actions=999999, num_possible_obs=1)
+    @annotate(n_actions=999999, n_obs=1)
     class SillyEnv:
         def __init__(self, A):
             self.sim = A()
@@ -54,7 +54,7 @@ def test_constant_agent():
     from agents.misc_agents import ConstantAgent
     from random import randrange
 
-    @annotate(num_legal_actions=99, num_possible_obs=99)
+    @annotate(n_actions=99, n_obs=99)
     class RandomEnv:
         def __init__(self, A):
             self.sim = A()
@@ -79,7 +79,7 @@ def test_naive_learner():
     total_correct_actions = [0]
     total_actions = [0]
 
-    @annotate(num_legal_actions=5, num_possible_obs=5)
+    @annotate(n_actions=5, n_obs=5)
     class EasyEnv:
         def __init__(self, A):
             self.cnt = 0
@@ -94,7 +94,7 @@ def test_naive_learner():
 
             reward = 1 if (action == self.prev_obs) else -1
             self.cnt += 1
-            obs = self.cnt % self.num_possible_obs
+            obs = self.cnt % self.n_obs
             self.prev_obs = obs
             return (reward, obs)
 
@@ -115,7 +115,7 @@ def test_SBL3_agents():
     from random import randrange
     from util import args_to_agent
 
-    @annotate(num_possible_obs=2, num_legal_actions=2)
+    @annotate(n_actions=2, n_obs=2)
     class EasyEnv:
         def __init__(self, A):
             self.sim=A()
@@ -147,7 +147,7 @@ def test_SBL3_agents():
     # Test that semi-determinacy is working
     from util import copy_with_meta
 
-    @annotate(num_legal_actions=100, num_possible_obs=1)
+    @annotate(n_actions=100, n_obs=1)
     class ManyLegalActions:
         pass
 
@@ -176,7 +176,7 @@ def test_Q_learner():
     from random import randrange
     from agents.Q_learner import Q_learner
 
-    @annotate(num_legal_actions=2, num_possible_obs=1)
+    @annotate(n_actions=2, n_obs=1)
     class EasyEnv:
         def __init__(self, A):
             pass
@@ -189,7 +189,7 @@ def test_Q_learner():
     result = run_environment(EasyEnv, Q_learner, 1000)
     assert result['total_reward'] > 600
 
-    @annotate(num_legal_actions=10, num_possible_obs=10)
+    @annotate(n_actions=10, n_obs=10)
     class StillPrettyEasy:
         def __init__(self, A):
             pass
@@ -217,8 +217,8 @@ def test_reality_check():
             self.cnt += 1
 
     RC_Class = reality_check(Reciter1)
-    RC_Class.num_legal_actions = 10
-    RC_Class.num_possible_obs = 1
+    RC_Class.n_actions = 10
+    RC_Class.n_obs = 1
     a = RC_Class()
     assert a.act(0) == 1
     assert a.act(0) == 1
@@ -234,8 +234,8 @@ def test_reality_check():
     assert a.act(0) == 1
 
     RC_Class = reality_check(Reciter1)
-    RC_Class.num_legal_actions = 10
-    RC_Class.num_possible_obs = 1
+    RC_Class.n_actions = 10
+    RC_Class.n_obs = 1
     a.train(0,2,0,0)
     assert a.act(0) == 1
     a.train(0,1,0,0)
@@ -257,8 +257,8 @@ def test_reality_check():
             self.cnt += 1
 
     RC_Class = reality_check(Reciter2)
-    RC_Class.num_legal_actions = 10
-    RC_Class.num_possible_obs = len(sequences)
+    RC_Class.n_actions = 10
+    RC_Class.n_obs = len(sequences)
     a = RC_Class()
 
     for repetition in range(10):
