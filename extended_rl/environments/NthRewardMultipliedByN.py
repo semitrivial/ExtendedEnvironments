@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class NthRewardMultipliedByN:
     """
     Environment which incentivizes the agent to act as if every Nth
@@ -17,6 +14,8 @@ class NthRewardMultipliedByN:
     identical except for every Nth reward being multiplied by N? If so,
     give the agent +1 reward. Otherwise, give the agent -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
         self.stepcnt = 0

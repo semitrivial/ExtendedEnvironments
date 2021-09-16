@@ -1,6 +1,5 @@
-from extended_rl.util import annotate, eval_and_count_steps
+from extended_rl.util import eval_and_count_steps
 
-@annotate(n_actions=2, n_obs=1, slow=True)
 class PunishSlowAgent:
     """
     Environment which punishes agents for taking too many steps to compute
@@ -12,6 +11,8 @@ class PunishSlowAgent:
     battery of environments tested against by selfrefl_benchmark, because
     this environment is slow.
     """
+    n_actions, n_obs, slow = 2, 1, True
+
     def __init__(self, A):
         self.sim = A()
         self.turn = 1

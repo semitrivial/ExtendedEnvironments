@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class PunishNondeterministicAgent:
     """
     Environment which attempts to determine whether the agent's response
@@ -11,6 +8,8 @@ class PunishNondeterministicAgent:
     and simulates the agent on the same history to see whether a different
     action results.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
 

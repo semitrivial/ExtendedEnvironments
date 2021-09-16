@@ -1,7 +1,5 @@
 from extended_rl.prerandom import envrandom
-from extended_rl.util import annotate
 
-@annotate(n_actions=2, n_obs=8)
 class AfterImages:
     """
     An environment where the agent must act as if it sees
@@ -24,6 +22,8 @@ class AfterImages:
     the same way the agent would act if those were
     2 (=010), 3 (=011), and 1 (=001).
     """
+    n_actions, n_obs = 2, 8
+
     def __init__(self, A):
         self.sim = A()
         self.rnd_counter = 0

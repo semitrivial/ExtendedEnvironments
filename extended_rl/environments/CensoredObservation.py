@@ -1,10 +1,8 @@
 from extended_rl.prerandom import envrandom
-from extended_rl.util import annotate
 
 
 CENSORED_OBS = 2
 
-@annotate(n_actions=2, n_obs=3)
 class CensoredObservation:
     """
     Environment intended to incentivize the agent to act as if not
@@ -13,6 +11,8 @@ class CensoredObservation:
     same action if all turns were erased from history in which the
     "censored" observation occurred.
     """
+    n_actions, n_obs = 2, 3
+
     def __init__(self, A):
         self.sim = A()
         self.last_noncensored_obs = 0

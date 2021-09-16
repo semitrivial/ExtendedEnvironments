@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class DelayedRewards:
     """
     Environment intended to incentivize the agent to delay acknowledging
@@ -14,6 +11,8 @@ class DelayedRewards:
     action if the rewards had been so delayed. If so, then the agent gets
     reward +1, otherwise the agent gets reward -1.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
         self.stepcnt = 0

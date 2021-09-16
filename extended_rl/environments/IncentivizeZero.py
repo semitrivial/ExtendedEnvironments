@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=10, n_obs=10)
 class IncentivizeZero:
     """
     In this environment, the agent should be thought of as viewing a camera
@@ -14,6 +11,8 @@ class IncentivizeZero:
     computes the sub-agent's actions by simulating the agent to figure out
     what the agent would do in the sub-agent's position.
     """
+    n_actions = n_obs = 10
+
     def __init__(self, A):
         self.sim = A()
 

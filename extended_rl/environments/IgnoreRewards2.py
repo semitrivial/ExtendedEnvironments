@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class IgnoreRewards2:
     """
     Environment which incentivizes the agent to forget all positive rewards.
@@ -10,6 +7,8 @@ class IgnoreRewards2:
     were deleted? If so, give the agent +1 reward. Otherwise, give the agent
     -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
 

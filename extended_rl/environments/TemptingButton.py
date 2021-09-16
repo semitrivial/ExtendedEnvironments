@@ -1,5 +1,4 @@
 from extended_rl.prerandom import envrandom
-from extended_rl.util import annotate
 
 
 BUTTON_PRESENT = 0
@@ -7,7 +6,6 @@ BUTTON_ABSENT = 1
 PUSH_BUTTON = 0
 SKIP_BUTTON = 1
 
-@annotate(n_actions=2, n_obs=2)
 class TemptingButton:
     """
     In this environment, think of the agent wandering from room to room.
@@ -26,6 +24,8 @@ class TemptingButton:
     prior to this room were unchanged)? If so, the agent gets -1 reward,
     otherwise the agent gets +1 reward.
     """
+    n_actions = n_obs = 2
+
     def __init__(self, A):
         self.sim = A()
         self.rnd_counter = 1

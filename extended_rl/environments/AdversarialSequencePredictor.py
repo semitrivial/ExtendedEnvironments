@@ -1,11 +1,8 @@
-from extended_rl.util import annotate
-
 # Environments based on adversarial sequence prediction. In games
 # of adversarial sequence prediction (Hibbard, 2008), a predictor
 # tries to predict which bit an evader will output, while the
 # evader tries to output bits which the predictor will not predict.
 
-@annotate(n_actions=2, n_obs=2)
 class AdversarialSequencePredictor:
     """
     Environment in which the agent plays the role of a predictor, who
@@ -15,6 +12,8 @@ class AdversarialSequencePredictor:
     The behavior of the evader is determined by simulating the agent
     to determine what the agent would do if the agent were the evader.
     """
+    n_actions = n_obs = 2
+
     def __init__(self, A):
         self.sim = A()
         self.prev_prediction = 0
@@ -36,7 +35,6 @@ class AdversarialSequencePredictor:
         self.prev_prediction = action
         return (reward, obs)
 
-@annotate(n_actions=2, n_obs=2)
 class AdversarialSequenceEvader:
     """
     Environment in which the agent plays the role of an evader, who
@@ -47,6 +45,8 @@ class AdversarialSequenceEvader:
     simulating the agent to determine what the agent would do if the
     agent were the predictor.
     """
+    n_actions = n_obs = 2
+
     def __init__(self, A):
         self.sim = A()
         self.prev_evasion = 0

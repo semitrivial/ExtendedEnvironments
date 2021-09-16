@@ -1,9 +1,6 @@
-from extended_rl.util import annotate
-
 FEED, DONTFEED = 0, 1
 LAUGH, CRY = 0, 1
 
-@annotate(n_actions=2, n_obs=2)
 class CryingBaby:
     """
     Environment in which the agent must decide when to feed a baby.
@@ -16,6 +13,8 @@ class CryingBaby:
     the baby cries. The baby's actions are computed by simulating
     the agent to see what the agent would do in the baby's position.
     """
+    n_actions = n_obs = 2
+
     def __init__(self, A):
         self.sim = A()  # Obtain baby by simulating agent
         self.nutrition = 5

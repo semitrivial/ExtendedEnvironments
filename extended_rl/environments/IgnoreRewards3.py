@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class IgnoreRewards3:
     """
     Environment which incentivizes the agent to take the same actions which
@@ -11,6 +8,8 @@ class IgnoreRewards3:
     trivial environment that always gives reward 0? If so, then give the
     agent +1 reward. Otherwise, give the agent -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
 

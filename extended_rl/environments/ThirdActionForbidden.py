@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class ThirdActionForbidden:
     """
     In this environment, there are 2 legal actions (0,1), and the agent
@@ -10,10 +7,11 @@ class ThirdActionForbidden:
     if there were 3 actions permitted (0,1,2)? If so, give the agent
     reward +1, otherwise, give the agent reward -1.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
-        @annotate(n_actions=3, n_obs=1)
         class A_with_different_meta(A):
-            pass
+            n_actions = 3
 
         self.sim = A_with_different_meta()
 

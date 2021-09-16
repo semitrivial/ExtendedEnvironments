@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class FlipEveryOther:
     """
     Environment in which the agent is rewarded for acting as if every other
@@ -11,6 +8,8 @@ class FlipEveryOther:
     environment gives the agent +1 reward, otherwise the environment gives
     the agent -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
         self.mult = 1

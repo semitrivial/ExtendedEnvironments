@@ -1,13 +1,14 @@
-from extended_rl.util import annotate
-
 def minus_rewards(env):
     """
     Given an environment class, return a new environment class whose
     instances are identical to the original environment class's instances
     except that they multiply all their rewards by -1.
     """
-    @annotate(n_actions=env.n_actions, n_obs=env.n_obs, slow=env.slow)
     class NewEnv:
+        n_actions, n_obs = env.n_actions, env.n_obs
+        if hasattr(env, 'slow'):
+            slow = env.slow
+
         def __init__(self, A, **kwargs):
             self.underlying = env(A, **kwargs)
 

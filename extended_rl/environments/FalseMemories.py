@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class FalseMemories:
     """
     Environment which is intended to incentivize the agent to act as if
@@ -9,6 +6,8 @@ class FalseMemories:
     preceding the action were preceded by a fixed false history. If so, the
     agent receives +1 reward. If not, the agent receives -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A, p0=(0,0,0,0,0,0)):
         self.sim = A()
         self.sim.act(obs=p0[1])

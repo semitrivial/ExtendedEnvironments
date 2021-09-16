@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1, slow=True)
 class DejaVu:
     """
     Environment inspired by the psychological phenomenon called Deja Vu.
@@ -17,6 +14,8 @@ class DejaVu:
     Note, this environment is not included in the battery of environments
     tested against by selfrefl_benchmark, because this environment is slow.
     """
+    n_actions, n_obs, slow = 2, 1, True
+
     def __init__(self, A):
         self.A = A
         self.transitions = []  # Maintain a record of history

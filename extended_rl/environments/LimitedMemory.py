@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class LimitedMemory:
     """
     Environment which incentivizes the agent to act as if it can only
@@ -10,6 +7,8 @@ class LimitedMemory:
     five most recent turns? If so, give the agent +1 reward, otherwise
     give the agent -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.A = A
         self.transitionbuf = tuple()

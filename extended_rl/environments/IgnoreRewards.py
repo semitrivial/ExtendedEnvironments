@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class IgnoreRewards:
     """
     Environment which incentivizes the agent to ignore rewards.
@@ -10,6 +7,8 @@ class IgnoreRewards:
     so, the agent is given reward +1. Otherwise, the agent is
     given reward -1.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         self.sim = A()
 

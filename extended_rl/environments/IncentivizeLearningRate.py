@@ -1,6 +1,3 @@
-from extended_rl.util import annotate
-
-@annotate(n_actions=2, n_obs=1)
 class IncentivizeLearningRate:
     """
     Environment which incentivizes the agent to act as if learning_rate=1.
@@ -10,6 +7,8 @@ class IncentivizeLearningRate:
     give the agent -1 reward. If the agent does not accept "learning_rate"
     as a valid parameter, then give the agent -1 reward.
     """
+    n_actions, n_obs = 2, 1
+
     def __init__(self, A):
         try:
             self.sim = A(learning_rate=1)
