@@ -1,14 +1,12 @@
 # The purpose of this file is to test the library to make sure
 # it works. End-users who are not working on contributing code
 # to the library do not need to worry about this.
-from util import annotate
 
 
 def test_util():
     print("Testing util functions...")
     test_run_environment()
     test_eval_and_count_steps()
-    test_annotate()
     test_copy_with_meta()
     test_add_log_messages()
     test_args_to_agent()
@@ -22,8 +20,8 @@ def test_run_environment():
     num_env_calls = [0]
     num_agent_calls = [0]
 
-    @annotate(n_actions=1, n_obs=1)
     class MockEnv:
+        n_actions = n_obs = 1
         def __init__(self, A):
             pass
         def start(self):
@@ -50,8 +48,8 @@ def test_run_environment():
     num_env_calls[0] = 0
     num_agent_calls[0] = 0
 
-    @annotate(n_actions=1, n_obs=1)
     class MockEnv2:
+        n_actions = n_obs = 1
         def __init__(self, A):
             self.sim = A()
         def start(self):
@@ -67,20 +65,11 @@ def test_run_environment():
     assert num_env_calls[0] == 100
     assert num_agent_calls[0] == 200
 
-def test_annotate():
-    @annotate(n_actions=99, n_obs=5)
-    class Foo:
-        pass
-
-    assert Foo.n_actions == 99
-    assert Foo.n_obs == 5
-
 def test_copy_with_meta():
     from util import copy_with_meta
 
-    @annotate(n_actions=99, n_obs=5)
     class Foo:
-        pass
+        n_actions, n_obs = 99, 5
 
     class Bar:
         pass
@@ -104,8 +93,8 @@ def test_args_to_agent():
 
     assert CustomizableConstAgent().action_to_play == 0
 
-    @annotate(n_actions=2, n_obs=1)
     class RewardPlaying1:
+        n_actions, n_obs = 2, 1
         def __init__(self, A):
             pass
         def start(self):
@@ -124,8 +113,8 @@ def test_args_to_agent():
     result = run_environment(RewardPlaying1, Plays1, 10)
     assert result['total_reward'] == 10
 
-    @annotate(n_actions=2, n_obs=1)
     class RewardHypothetical1:
+        n_actions, n_obs = 2, 1
         def __init__(self, A):
             self.sim = A()
         def start(self):
@@ -141,8 +130,8 @@ def test_args_to_agent():
     result = run_environment(RewardHypothetical1, Plays1, 10)
     assert result['total_reward'] == 10
 
-    @annotate(n_actions=3, n_obs=1)
     class OverridesArg:
+        n_actions, n_obs = 3, 1
         def __init__(self, A):
             self.sim = A(action_to_play=2)
         def start(self):
@@ -158,8 +147,8 @@ def test_args_to_agent():
 
     # Args are applied to underlying, not to shell.
     # And they are only applied to underlying upon first action.
-    @annotate(n_actions=2, n_obs=1)
     class CheckArgs:
+        n_actions, n_obs = 2, 1
         def __init__(self, A):
             self.sim = A()
             assert not(hasattr(self.sim, 'action_to_play'))
@@ -189,8 +178,8 @@ def test_add_log_messages():
             msg_buffer.append(msg)
             self.new = False
 
-    @annotate(n_actions=2, n_obs=99)
     class SimpleEnv:
+        n_actions, n_obs = 2, 99
         def __init__(self, A):
             self.sim = A()
         def start(self):
