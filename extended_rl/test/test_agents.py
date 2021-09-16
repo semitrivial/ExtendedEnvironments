@@ -2,7 +2,6 @@
 # defined in the library. End-users who are not working
 # on contributing code to the library do not need to
 # worry about this.
-from util import annotate
 from test.monkeypatches import run_environment
 
 def test_agents():
@@ -20,8 +19,8 @@ def test_random_agent():
     actions = []
     sim_actions = []
 
-    @annotate(n_actions=999999, n_obs=1)
     class SillyEnv:
+        n_actions, n_obs = 999999, 1
         def __init__(self, A):
             self.sim = A()
         def start(self):
@@ -54,8 +53,8 @@ def test_constant_agent():
     from agents.misc_agents import ConstantAgent
     from random import randrange
 
-    @annotate(n_actions=99, n_obs=99)
     class RandomEnv:
+        n_actions = n_obs = 99
         def __init__(self, A):
             self.sim = A()
         def start(self):
@@ -79,8 +78,8 @@ def test_naive_learner():
     total_correct_actions = [0]
     total_actions = [0]
 
-    @annotate(n_actions=5, n_obs=5)
     class EasyEnv:
+        n_actions = n_obs = 5
         def __init__(self, A):
             self.cnt = 0
         def start(self):
@@ -115,8 +114,8 @@ def test_SBL3_agents():
     from random import randrange
     from util import args_to_agent
 
-    @annotate(n_actions=2, n_obs=2)
     class EasyEnv:
+        n_actions = n_obs = 2
         def __init__(self, A):
             self.sim=A()
         def start(self):
@@ -147,9 +146,8 @@ def test_SBL3_agents():
     # Test that semi-determinacy is working
     from util import copy_with_meta
 
-    @annotate(n_actions=100, n_obs=1)
     class ManyLegalActions:
-        pass
+        n_actions, n_obs = 100, 1
 
     for agentcls in [DQN_learner, A2C_learner, PPO_learner]:
         agentcls = copy_with_meta(agent, meta_src=ManyLegalActions)
@@ -176,8 +174,8 @@ def test_Q_learner():
     from random import randrange
     from agents.Q_learner import Q_learner
 
-    @annotate(n_actions=2, n_obs=1)
     class EasyEnv:
+        n_actions, n_obs = 2, 1
         def __init__(self, A):
             pass
         def start(self):
@@ -189,8 +187,8 @@ def test_Q_learner():
     result = run_environment(EasyEnv, Q_learner, 1000)
     assert result['total_reward'] > 600
 
-    @annotate(n_actions=10, n_obs=10)
     class StillPrettyEasy:
+        n_actions = n_obs = 10
         def __init__(self, A):
             pass
         def start(self):
