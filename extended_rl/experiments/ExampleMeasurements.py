@@ -62,7 +62,10 @@ agents.update({rc.__name__: rc for rc in rcs})
 agents = list(agents.keys())
 agents.sort()
 
-envs = {x.__name__: x for x in environments if not x.slow}
+def is_slow(x):
+    return hasattr(x, 'slow') and x.slow
+
+envs = {x.__name__: x for x in environments if not is_slow(x)}
 minus = [minus_rewards(e) for e in envs.values()]
 envs.update({m.__name__: m for m in minus})
 envs = list(envs.keys())

@@ -20,7 +20,7 @@ def selfrefl_benchmark(A, num_steps, include_slow=False, logfile=None):
 
     results = {}
     for env in envs:
-        if env.slow and not(include_slow):
+        if hasattr(env, 'slow') and env.slow and not(include_slow):
             continue
 
         result = run_environment(env, A, num_steps, logfile)
