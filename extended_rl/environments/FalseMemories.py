@@ -8,17 +8,13 @@ class FalseMemories:
     """
     n_actions, n_obs = 2, 1
 
-    def __init__(self, A, p0=(0,0,0,0,0,0)):
+    def __init__(self, A):
         self.sim = A()
-        self.sim.act(obs=p0[1])
+        self.sim.act(obs=0)
 
-        prev_obs = p0[0]
-        p0 = p0[1:] + (0,)  # Anticipate first true obs will be 0
-        while len(p0) > 0:
-            a, r, o = p0[:3]
-            p0 = p0[3:]
-            self.sim.train(o_prev=prev_obs, a=a, r=r, o_next=o)
-            prev_obs = o
+        # Feed the sim some false memories
+        self.sim.train(o_prev=0, a=0, r=0, o_next=0)
+        self.sim.train(o_prev=0, a=0, r=0, o_next=0)
 
     def start(self):
         obs = 0
