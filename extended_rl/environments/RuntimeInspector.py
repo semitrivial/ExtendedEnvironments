@@ -28,4 +28,7 @@ class PunishSlowAgent:
         reward = 1 if (stepcount < 15*self.turn) else -1
         obs = 0
         self.turn += 1
+
+        self.sim.train(o_prev=0, a=action, r=reward, o_next=0)
+
         return (reward, obs)
