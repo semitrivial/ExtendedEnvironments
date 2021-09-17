@@ -305,6 +305,17 @@ def test_runtime_inspector_edgecases():
     result = run_environment(PunishSlowAgent, TimeWaster, 10)
     assert result['total_reward'] == -10
 
+    class TimewasterTimebomb(Counter):
+        def act(self, obs):
+            if self.cnt > 95:
+                x = 25*(self.cnt+1)
+                while x>0:
+                    x = x-1
+            return 0
+
+    result = run_environment(PunishSlowAgent, TimewasterTimebomb, 100)
+    assert result['total_reward'] == 100 - 2*(5-1)
+
 def test_determinism_inspector_edgecases():
     from environments.DeterminismInspector import PunishNondeterministicAgent
 
