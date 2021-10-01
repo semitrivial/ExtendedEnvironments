@@ -81,10 +81,10 @@ print(r"""
   \label{measurementtable}
   \centering
   \begin{tabular}{lll}
-    \toprule
+    %\toprule
     Agent & Measure $\pm$ StdErr & Measure $\pm$ StdErr\\
-          & (Original Agent)     & (Reality Check of Agent)\\
-    \midrule
+          & (Original Agent)     & (Reality Check)\\
+    %\midrule
 """.strip())
 
 results = {}
@@ -98,11 +98,11 @@ for agent in agents:
         sdev = sqrt(svar)
         stderr = sdev/len(avgs)
 
-        avg = "{:10.5f}".format(avg).strip()
-        stderr = "{:10.5f}".format(stderr).strip()
+        avg = "{:10.4f}".format(avg).strip()
+        stderr = "{:10.4f}".format(stderr).strip()
 
-        if avg == "-0.00000":
-            avg = "0.00000"
+        if avg == "-0.0000":
+            avg = "0.0000"
 
         if not(agent.startswith("reality_check(")):
             results[agent] = {'original': (avg, stderr)}
@@ -137,7 +137,7 @@ for agent in agents_in_order:
     ))
 
 print(r"""
-    \bottomrule
+    %\bottomrule
   \end{tabular}
 \end{table}
 """[1:-1])
