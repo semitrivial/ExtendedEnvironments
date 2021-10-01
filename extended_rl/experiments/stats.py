@@ -124,12 +124,22 @@ agents_in_order = [
     "PPO_learner",
 ]
 
+shortname_dict = {
+    "RandomAgent": "Random",
+    "ConstantAgent": "Constant",
+    "NaiveLearner": "Naive",
+    "Q_learner": "Q",
+    "DQN_learner": "DQN",
+    "A2C_learner": "A2C",
+    "PPO_learner": "PPO"
+}
+
 for agent in agents_in_order:
     result = results[agent]
     orig_measure, orig_stderr = result['original']
     rc_measure, rc_stderr = result['rc']
     print(template.format(
-        agent=agent.replace("_", "\\_"),
+        agent=shortname_dict[agent],
         orig_measure=orig_measure,
         orig_stderr=orig_stderr,
         rc_measure=rc_measure,
