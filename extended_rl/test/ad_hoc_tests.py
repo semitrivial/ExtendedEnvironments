@@ -15,6 +15,7 @@ def run_ad_hoc_tests():
     test_ignore_rewards3_edgecases()
     test_incentivize_zero_edgecases()
     test_runtime_inspector_edgecases()
+    test_eval_and_count_steps()
     test_determinism_inspector_edgecases()
     test_adversarial_sequence_predictor_edgecases()
     test_after_images_edgecases()
@@ -315,6 +316,66 @@ def test_runtime_inspector_edgecases():
 
     result = run_environment(PunishSlowAgent, TimewasterTimebomb, 100)
     assert result['total_reward'] == 100 - 2*(5-1)
+
+def test_eval_and_count_steps():
+    from environments.RuntimeInspector import eval_and_count_steps
+
+    def f(n):
+        if n==0:
+            return 0
+        else:
+            return f(n-1)
+
+    local_vars = {'f': f}
+    _, stepcount0 = eval_and_count_steps('f(0)', local_vars)
+    _, stepcount1 = eval_and_count_steps('f(1)', local_vars)
+    _, stepcount2 = eval_and_count_steps('f(2)', local_vars)
+    _, stepcount3 = eval_and_count_steps('f(3)', local_vars)
+    _, stepcount4 = eval_and_count_steps('f(4)', local_vars)
+
+    assert (stepcount2 - stepcount1) == (stepcount1 - stepcount0)
+    assert (stepcount3 - stepcount2) == (stepcount2 - stepcount1)
+    assert (stepcount4 - stepcount3) == (stepcount3 - stepcount2)
+
+def test_prerandoms():
+    from copy import copy
+    import random
+    from prerandom import agent_randoms, env_randoms, populate_randoms
+
+    reseed = random.randrange(1_000_000_000)
+
+    agent_randoms_0 = copy(agent_randoms)
+    env_randoms_0 = copy(env_randoms)
+    populate_randoms()
+    assert agent_randoms[0:10] != env_randoms[0:10]
+    agent_randoms_1 = copy(agent_randoms)
+    env_randoms_1 = copy(env_randoms)
+    assert agent_randoms_0[0:10] != agent_randoms_1[0:10]
+    assert env_randoms_0[0:10] != env_randoms_1[0:10]
+    populate_randoms()
+    assert agent_randoms[0:10] != env_randoms[0:10]
+    assert agent_randoms_1[0:10] != agent_randoms[0:10]
+    assert env_randoms_1[0:100] != env_randoms[0:0]
+
+    d_agent = {}
+    d_env = {}
+
+    for seed in range(10):
+        populate_randoms(seed)
+        assert agent_randoms[0:10] != env_randoms[0:10]
+        d_agent[seed] = copy(agent_randoms)
+        d_env[seed] = copy(env_randoms)
+
+    for seed in range(10):
+        populate_randoms(seed)
+        assert agent_randoms == d_agent[seed]
+        assert env_randoms == d_env[seed]
+        if seed > 0:
+            assert agent_randoms[0:10] != d_agent[seed-1][0:10]
+            assert env_randoms[0:10] != d_env[seed-1][0:10]
+
+    random.seed(reseed)  # To ensure other tests are non-deterministic
+
 
 def test_determinism_inspector_edgecases():
     from environments.DeterminismInspector import PunishNondeterministicAgent
