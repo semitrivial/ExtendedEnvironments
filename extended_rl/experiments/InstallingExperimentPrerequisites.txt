@@ -1,0 +1,27 @@
+If you are familiar with how python environments work, you can vary these
+instructions (using a different environment system than conda, etc.)
+
+Otherwise, these instructions assume you have conda installed.
+(We used miniconda version 4.10.3 but any recent version *should* work.)
+
+1. Create a new conda environment named "ExtendedRLExperiment" set to include
+    python version 3.6 (we did the experiments with python 3.6.13 but any
+    recent version of python 3.6 should work):
+
+conda create -n ExtendedRLExperiment python=3.6
+
+2. Activate the environment
+
+conda activate ExtendedRLExperiment
+
+3. Install Stable Baselines3.
+
+pip install stable-baselines3==1.1.0
+
+4. Install extended-rl. Go to the ExtendedEnvironments directory (the
+    directory two levels above this file, where setup.py is located), and type:
+
+pip install -e .
+
+You should now have the prerequisites installed which are necessary to run the experiment.
+Instructions for running the experiment are in ExampleMeasurements.py.

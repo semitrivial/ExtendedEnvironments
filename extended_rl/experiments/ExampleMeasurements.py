@@ -22,18 +22,27 @@
 # * The average reward the agent earned in the environment (per turn)
 #
 # For the purpose of the paper, the agents were run against the environments
-# for 500 steps, repeated 10 times with random seeds 0,1,...,9. The agents
-# were also run against the environments for 1000 steps, repeated 10 times
-# with random seeds 0,1,...,9. From the resulting result_table.csv, we
-# compiled the table in the paper using the script "stats.py".
+# for 100k steps, repeated 5 times with random seeds 1,2,3,4,5.
+# From the resulting result_table.csv, we compiled the table in the paper
+# using the script "stats.py".
 #
 # If you wish, you can run this file you're reading now and have it perform
 # the above measurements for you. In order for the script to work, you will
-# need to have first followed the installation instructions to activate the
-# library's prerequisite, Stable Baselines3. See README.md for details about
-# how to do this. Assuming the prerequisite is installed, to run this script
-# you should go to the src directory and type:
+# need to have installed Stable Baselines3. We used version 1.1.0 of
+# Stable Baselines3 for the experiment. We recommend installing Stable
+# Baselines3 in a conda environment so as to keep it isolated from any other
+# projects on your machine. See "InstallingExperimentPrerequisites.txt" for
+# instructions of how to install Stable Baselines3. In addition, you'll
+# also need to have installed extended_rl (this package). The same textfile
+# includes instructions about that as well.
+#
+# Assuming the prerequisites are installed, to run this script
+# you should go to the extended_rl directory (one directory above this file)
+# and type:
 #   python -m experiments.ExampleMeasurements
+#
+# Depending on your machine, it may take several days for the computations
+# to finish.
 #
 import os
 from datetime import datetime
@@ -91,8 +100,8 @@ def run_task(seed, agent, env, n):
     metalog = open("../../extended_rl_results/metalog.txt", "a")
     metalog.write(f"{datetime.now()}: Finished task {n}\n")
 
-#print("Deleting result_table.csv (if it exists)...")
-#os.system("rm experiments/result_table.csv")
+print("Deleting result_table.csv (if it exists)...")
+os.system("rm experiments/result_table.csv")
 
 starting_task = 0
 n = 0
