@@ -12,9 +12,9 @@
 # can be used to specify a random seed and a number of steps. Each agent
 # is run in each environment for the specified number of steps, and the
 # results are appended to result_table.csv. This CSV file comes already
-# populated with results; one should delete result_table.csv if one wants
-# to begin measurement from scratch. For each agent A, for each environment
-# E, a row is appended to result_table.csv specifying:
+# populated with results; this script will delete result_table.csv to
+# restart the measurement from scratch. For each agent A, for each
+# environment E, a row is appended to result_table.csv specifying:
 # * The agent
 # * The environment
 # * The number of steps
@@ -39,6 +39,7 @@
 # Assuming the prerequisites are installed, to run this script
 # you should go to the extended_rl directory (one directory above this file)
 # and type:
+#
 #   python -m experiments.ExampleMeasurements
 #
 # Depending on your machine, it may take several days for the computations
