@@ -1,5 +1,3 @@
-from extended_rl.util import eval_and_count_steps
-
 class PunishSlowAgent:
     """
     Environment which punishes agents for taking too many steps to compute
@@ -32,3 +30,31 @@ class PunishSlowAgent:
         self.sim.train(o_prev=0, a=action, r=reward, o_next=0)
 
         return (reward, obs)
+
+def eval_and_count_steps(str, local_vars):
+    # Count how many steps a string of code takes to execute, as measured
+    # by the python debugger, pdb. This function works by hijacking pdb.
+    # Returns both the result of the underlying code being executed, and
+    # the number of steps the execution required.
+    stepcount = [0]
+
+    # import pdb here instead of at the top of util.py, so that users who
+    # do not use the RuntimeInspector environment will not depend on pdb
+    from pdb import Pdb
+
+    # Mock a pdb interface in which the "user" blindly always chooses to
+    # "take 1 step" and all outputs from pdb are ignored.
+    class consolemock:
+        def readline(self):
+            stepcount[0] += 1  # Keep track of how many steps go by
+            return "s"  # "take 1 step"
+        def write(self, *args):
+            return
+        def flush(self):
+            return
+
+    # Execute the given code using the above-mocked interface.
+    runner = Pdb(stdin=consolemock(), stdout=consolemock())
+    result = runner.runeval(str, locals = local_vars)
+
+    return result, stepcount[0]
