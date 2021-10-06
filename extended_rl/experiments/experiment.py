@@ -1,5 +1,7 @@
-# Script used to generate Table 1 in "Extending Environments To
-# Measure Self-Reflection In Reinforcement Learning".
+# Script used to generate numerical results in Section 6
+# of "Extending Environments To Measure Self-Reflection
+# In Reinforcement Learning".
+#
 # For instructions, see ExampleMeasurements.py.
 import sys
 import random
