@@ -1,8 +1,10 @@
+These instructions assume a Linux or OSX operating system.
+
 If you are familiar with how python environments work, you can vary these
 instructions (using a different environment system than conda, etc.)
 
 Otherwise, these instructions assume you have conda installed.
-(We used miniconda version 4.10.3 but any recent version *should* work.)
+(We used miniconda3 version 4.9.2 but any recent version *should* work.)
 
 1. Create a new conda environment named "ExtendedRLExperiment" set to include
     python version 3.6 (we did the experiments with python 3.6.13 but any
