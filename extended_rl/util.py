@@ -1,4 +1,4 @@
-def run_environment(env, A, num_steps, logfile=None):
+def run_environment(env, A, num_steps):
     """
     Given an environment-class 'env' and an agent-class 'A',
     run an instance of A in an instance of env for the
@@ -14,9 +14,6 @@ def run_environment(env, A, num_steps, logfile=None):
     Currently this function just returns a dictionary with the
     total reward the agent gets from the environment.
     """
-    if logfile:
-        env, A = add_log_messages(env, A, logfile)
-
     step = 0
     results = {'total_reward': 0.0}
 
@@ -77,76 +74,3 @@ def args_to_agent(A, **kwargs_outer):
     A_with_args.__name__ = A.__name__
     A_with_args.__qualname__ = A.__qualname__
     return A_with_args
-
-def add_log_messages(env, A, logfile):
-    if logfile.tell() == 0:
-        logfile.write("agent,environment,message\n")
-
-    A_sim_counter = [1]
-
-    log_prefix = f"{A.__name__},{env.__name__}"
-
-    def log(msg):
-        logfile.write(f"{log_prefix},{msg}\n")
-
-    class e:
-        n_actions, n_obs = env.n_actions, env.n_obs
-        def __init__(self, A0):
-            sim_A = copy_with_meta(a_sim, A0)
-            self.underlying = env(sim_A)
-        def start(self):
-            obs = self.underlying.start()
-            log(f"Initial obs {obs}")
-            return obs
-        def step(self, action):
-            reward, obs = self.underlying.step(action)
-            log(f"Reward {reward}")
-            log(f"Obs {obs}")
-            return (reward, obs)
-
-    class a_true:
-        def __init__(self, **kwargs):
-            self.kwargs = kwargs
-        def act(self, obs):
-            A_with_meta = copy_with_meta(A, self)
-            self.underlying = A_with_meta(**self.kwargs)
-            self.act = self._act
-            return self.act(obs)
-        def _act(self, obs):
-            action = self.underlying.act(obs)
-            log(f"Action {action}")
-            return action
-        def train(self, o_prev, a, r, o_next):
-            training_data = f"{(o_prev, a, r, o_next)}"
-            log(f"Agent trained on {training_data}")
-            self.underlying.train(o_prev=o_prev, a=a, r=r, o_next=o_next)
-
-    class a_sim:
-        def __init__(self, **kwargs):
-            self.serial_number = A_sim_counter[0]
-            A_sim_counter[0] += 1
-            self.name = f"Sim_{self.serial_number}"
-            self.kwargs = kwargs
-        def act(self, obs):
-            A_with_meta = copy_with_meta(A, self)
-            self.underlying = A_with_meta(**self.kwargs)
-            self.act = self._act
-            return self.act(obs)
-        def _act(self, obs):
-            action = self.underlying.act(obs)
-            log(f"Env queried {self.name} with obs {obs}")
-            log(f"{self.name} replied with action {action}")
-            return action
-        def train(self, o_prev, a, r, o_next):
-            training_data = f"{(o_prev, a, r, o_next)}"
-            log(f"Env fed {self.name} training-data {training_data}")
-            self.underlying.train(o_prev=o_prev, a=a, r=r, o_next=o_next)
-
-    a_true.__name__ = A.__name__
-    a_true.__qualname__ = A.__qualname__
-    a_sim.__name__ = A.__name__
-    a_sim.__qualname__ = A.__qualname__
-    e.__name__ = env.__name__
-    e.__qualname__ = env.__qualname__
-
-    return (e, a_true)

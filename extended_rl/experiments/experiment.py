@@ -21,7 +21,6 @@ from util import run_environment, args_to_agent
 from prerandom import populate_randoms
 
 seed, n_steps = 0, 100
-logfile = None
 agent_name = None
 env_name = None
 
@@ -33,8 +32,6 @@ while args:
         seed = int(args.popleft())
     elif arg == 'steps':
         n_steps = int(args.popleft())
-    elif arg == 'logfile':
-        logfile = open(args.popleft(), "w")
     elif arg == 'agent':
         agent_name = args.popleft()
     elif arg == 'env':
@@ -73,7 +70,7 @@ env = envs[env_name]
 
 print(f"Testing {agent_name} in {env_name}, seed={seed}, n_steps={n_steps}")
 
-result = run_environment(env, agent, n_steps, logfile)
+result = run_environment(env, agent, n_steps)
 
 try:
     fp = open("experiments/result_table.csv", "r")
@@ -92,6 +89,3 @@ fp.write(line)
 fp.close()
 
 print(f"Result: {agent_name} got total reward: {result['total_reward']}")
-
-if logfile:
-    logfile.close()

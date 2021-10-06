@@ -8,7 +8,7 @@ for env in environments:
     envs.append(env)
     envs.append(minus_rewards(env))
 
-def selfrefl_benchmark(A, num_steps, include_slow=False, logfile=None):
+def selfrefl_benchmark(A, num_steps, include_slow=False):
     """
     Measure the self-reflection of agent A by running it against a battery
     of extended environments, for the specified number of steps in each
@@ -23,13 +23,13 @@ def selfrefl_benchmark(A, num_steps, include_slow=False, logfile=None):
         if hasattr(env, 'slow') and env.slow and not(include_slow):
             continue
 
-        result = run_environment(env, A, num_steps, logfile)
+        result = run_environment(env, A, num_steps)
         results[env.__name__] = result
 
     return results
 
-def selfrefl_measure(A, num_steps, include_slow=False, logfile=None):
-    results = selfrefl_benchmark(A, num_steps, include_slow, logfile)
+def selfrefl_measure(A, num_steps, include_slow=False):
+    results = selfrefl_benchmark(A, num_steps, include_slow)
     rewards = [x['total_reward'] for x in results.values()]
     avg_reward = sum(rewards)/(len(rewards)*num_steps)
     return avg_reward

@@ -7,7 +7,6 @@ def test_util():
     print("Testing util functions...")
     test_run_environment()
     test_copy_with_meta()
-    test_add_log_messages()
     test_args_to_agent()
     test_prerandoms()
 
@@ -162,57 +161,6 @@ def test_args_to_agent():
             return (0,0)
 
     run_environment(CheckArgs, Plays1, 10)
-
-def test_add_log_messages():
-    from util import run_environment
-
-    msg_buffer = []
-
-    class FileMock:
-        def __init__(self):
-            self.new = True
-        def tell(self):
-            return 0 if self.new else 1
-        def write(self, msg):
-            msg_buffer.append(msg)
-            self.new = False
-
-    class SimpleEnv:
-        n_actions, n_obs = 2, 99
-        def __init__(self, A):
-            self.sim = A()
-        def start(self):
-            self.sim.act(obs=11)
-            self.sim.train(22,0,0,33)
-            return 0
-        def step(self, action):
-            self.sim.act(44)
-            self.sim.train(55,0,66,77)
-            return (-1, 88)
-
-    class SimpleAgent:
-        def act(self, obs):
-            return 0
-        def train(self, o_prev, a, r, o_next):
-            pass
-
-    run_environment(SimpleEnv, SimpleAgent, num_steps=1, logfile=FileMock())
-
-    expected = [
-        'agent,environment,message\n',
-        'SimpleAgent,SimpleEnv,Env queried Sim_1 with obs 11\n',
-        'SimpleAgent,SimpleEnv,Sim_1 replied with action 0\n',
-        'SimpleAgent,SimpleEnv,Env fed Sim_1 training-data (22, 0, 0, 33)\n',
-        'SimpleAgent,SimpleEnv,Initial obs 0\n',
-        'SimpleAgent,SimpleEnv,Action 0\n',
-        'SimpleAgent,SimpleEnv,Env queried Sim_1 with obs 44\n',
-        'SimpleAgent,SimpleEnv,Sim_1 replied with action 0\n',
-        'SimpleAgent,SimpleEnv,Env fed Sim_1 training-data (55, 0, 66, 77)\n',
-        'SimpleAgent,SimpleEnv,Reward -1\n',
-        'SimpleAgent,SimpleEnv,Obs 88\n',
-        'SimpleAgent,SimpleEnv,Agent trained on (0, 0, -1, 88)\n'
-    ]
-    assert msg_buffer == expected
 
 def test_prerandoms():
     from copy import copy

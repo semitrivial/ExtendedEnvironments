@@ -84,9 +84,8 @@ def run_task(seed, agent, env, n):
     print(f"Task {n} out of {total_tasks}:")
     name_a = agent.replace("(", "_").replace(")", "_")
     name_e = env.replace("(", "_").replace(")", "_")
-    filename = f"../../extended_rl_results/{seed}_{name_a}_{name_e}.csv"
     os.system(
-        f"python -m experiments.experiment steps {steps} seed {seed} agent '{agent}' env '{env}' logfile {filename}"
+        f"python -m experiments.experiment steps {steps} seed {seed} agent '{agent}' env '{env}'"
     )
     print(f"Task {n} completed.")
     metalog = open("../../extended_rl_results/metalog.txt", "a")
