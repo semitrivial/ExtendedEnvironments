@@ -1,7 +1,7 @@
 from math import sqrt
 
 # This file is used for taking the individual numbers in result_table.csv
-# and turning them into the numbers in the table from the paper,
+# and turning them into the numbers in the table from Section 6 of
 # "Extending Environments To Measure Self-Reflection In Reinforcement Learning".
 #
 # Note, the table was originally computed using the following kdb+/q script, but
@@ -52,6 +52,8 @@ for line in lines:
 
     if not(seed in seeds):
         continue
+    if not(nsteps in stepcnts):
+        continue
 
     scaled_reward = float(reward)/int(nsteps)
     rewards[(agent, seed, nsteps)][env] = scaled_reward
@@ -81,10 +83,10 @@ print(r"""
   \label{measurementtable}
   \centering
   \begin{tabular}{lll}
-    %\toprule
+    \toprule
     Agent & Measure $\pm$ StdErr & Measure $\pm$ StdErr\\
           & (Original Agent)     & (Reality Check)\\
-    %\midrule
+    \midrule
 """.strip())
 
 results = {}
@@ -147,7 +149,7 @@ for agent in agents_in_order:
     ))
 
 print(r"""
-    %\bottomrule
+    \bottomrule
   \end{tabular}
 \end{table}
 """[1:-1])
