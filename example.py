@@ -8,18 +8,16 @@ random.seed(0)
 # either the last observation was 0 or the last reward was 0.
 class ExampleAgent:
     def __init__(self):
-        self.prev_obs_was_0 = False
-        self.prev_reward_was_0 = False
+        self.prev_obs = 0
 
     def act(self, obs):
-        if self.prev_obs_was_0 or self.prev_reward_was_0:
+        if self.prev_obs == obs:
             return 0
         else:
             return random.randrange(self.n_actions)
 
     def train(self, o_prev, a, r, o_next):
-        self.prev_obs_was_0 = (o_next == 0)
-        self.prev_reward_was_0 = (r == 0)
+        self.prev_obs = o_prev
 
 
 from extended_rl import selfrefl_benchmark

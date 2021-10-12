@@ -66,103 +66,98 @@ our paper).
 
 ### Documentation
 
-See `example.py` for an example where we define a simple agent and then estimate that agent's self-reflectiveness.
+See `example.py` for an example where we define a simple agent-class and then estimate that the self-reflectiveness of instances of that class.
 
 #### selfrefl_measure
 
 The library's main function is:
 ```
 from extended_rl import selfrefl_measure
-selfrefl_measure(agent, num_steps)
+selfrefl_measure(A, num_steps)
 ```
 ...where:
-* `agent` is an agent (see below)
+* `A` is an agent-class (see below)
 * `num_steps` is the number of steps to run the agent in each environment 
 
-This function returns the average reward-per-turn after running `agent` in
+This function returns the average reward-per-turn after running instances of `A` in
 25 extended environments and their opposites, running it for `num_steps` steps in
 each environment. (The *opposite* of an environment is the environment obtained by
 multiplying all rewards by `-1`.)
 
 For finer-grain details about the average reward-per-turn on each environment,
 call `selfrefl_benchmark` instead (it has the same signature as `selfrefl_measure`
-but returns a dictionary telling what average reward-per-turn the agent achieved
-on each environment).
+but returns a dictionary telling what average reward-per-turn are achieved in each
+environment).
 
 #### Agents
 
-An *agent* is a function of the following form:
+An *agent-class* is a Python class of the following form:
 ```
-def A(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    ...
-    return action
+class A:
+    def __init__(self, **kwargs):
+        ...
+
+    def act(self, obs):
+        ...
+        return action
+
+    def train(self, o_prev, a, r, o_next):
+        ...
 ```
-...where:
-* `num_legal_actions` is the number of actions the agent may take
-* `num_possible_obs` is the number of observations possible in the environment
-* `prompt` is a tuple of one of the following two forms:
-    * (The initial percept) `reward_0`, `observation_0`
-    * `reward_0`, `observation_0`, `action_0`, ..., `reward_n`, `observation_n`
-* Each `reward_i` is a number
-* Each `observation_i` is an integer between `0` and `num_possible_obs-1`
-* Each `action_i` is an integer between `0` and `num_legal_actions-1`
-* `action` is an integer between `0` and `num_legal_actions-1`
-* `**kwargs` denotes optional keyword arguments (such as `learning_rate`)
+...where, for the `act` method:
+* The intuition is that the method tells how the agent will act in response to a given observation.
+* `obs` is an observation (a natural number below `self.n_obs`)
+* (`self.n_obs` will be set automatically when instances of `A` are placed in environments)
+* `action` is an action (a natural number below `self.n_actions`)
+* (`self.n_actions` will be set automatically when instances of `A` are placed in environments)
+...and, for the `train` method:
+* The intuition is that the agent has taken action `a` in response to observation `o_prev`, received reward `r` for doing so, and this has caused the new observation to be `o_next`; and the agent is to modify itself accordingly.
+* `o_prev` and `o_next` are observations (natural numbers below `self.n_obs`)
+* `a` is an action (a natural number below `self.n_actions`)
+* `r` is a reward (a number)
 
-If `A(prompt, num_legal_actions, num_possible_obs)==action`, then the
-semantic interpretation is as follows:
-* The history encoded in `prompt` says that the environment initially gave the agent `reward_0` and `observation_0`, to which the agent responded with `action_0`, to which the environment responded with `reward_1` and `observation_1`, to which the agent responded with `action_1`, and so forth.
-* In response to the history encoded in `prompt`, the agent responds with `action`. 
-
-For example, here is the code for an agent who plays randomly, except that it always takes
-action `0` in response to reward `0` or observation `0`:
+For example, here is an agent-class whose agent instances act randomly unless the current observation equals the previous observation, in which case they take action 0.
 ```
 import random
 
-def example_agent(prompt, num_legal_actions, num_possible_obs, **kwargs):
-    last_reward, last_obs = prompt[-2:]
-    if last_reward==0 or last_obs==0:
-        return 0
-    else:
-        return random.randrange(num_legal_actions)
-```
+class ExampleAgent:
+    def __init__(self):
+        self.prev_obs = 0
 
-See Section 2.1 of "Extending Environments To Measure Self-Reflection In Reinforcement
-Learning" for instructions on how practical RL agents can be converted into this abstract
-form.
+    def act(self, obs):
+        if self.prev_obs == obs:
+            return 0
+        else:
+            return random.randrange(self.n_actions)
+
+    def train(self, o_prev, a, r, o_next):
+        self.prev_obs = o_prev
+```
 
 #### Environments
 
 An *environment* is a class of the following form:
 ```
 class E:
-    def __init__(self):
-        self.num_legal_actions = M
-        self.num_possible_obs = N
+    n_actions, n_obs = M, N
+    def __init__(self, A):
+        ...
 
-    def react(self, T, play):
+    def start(self):
+        ...
+        return obs
+
+    def step(self, action):
         ...
         return (reward, obs)
 ```
 ...where:
-* `M` and `N` are positive integers
-* `T` is an agent
-* `play` is a tuple of one of the following two forms:
-    * The empty tuple
-    * `reward_0`, `observation_0`, `action_0`, ..., `reward_n`, `observation_n`, `action_n`
-* Each `reward_i` is a number
-* Each `observation_i` is an integer between `0` and `num_possible_obs-1`
-* Each `action_i` is an integer between `0` and `num_legal_actions-1`
-* `reward` is a number
-* `obs` is an integer between `0` and `num_possible_obs-1`
-
-If `E().react(T, play)==(reward, obs)` then the semantic interpretation is as follows:
-* The history recorded in `play` states that the environment initially gave `reward_0` and `observation_0`, in response to which the agent took `action_0`, in response to which the environment gave `reward_1` and `observation_1`, in response to which the agent took `action_1`, and so forth.
-* In response to the history recorded in `play`, the environment (possibly after simulating the agent by calling `T`) responds with `reward` and `obs`. 
-
-**Note:** When calling `T` within `E().react(T, play)`, it is only necessary to pass the
-`prompt` argument to `T`. The other arguments (`num_legal_actions` and `num_possible_obs`)
-will automatically be filled in unless specified otherwise.
+* `M` is a positive integer representing how many actions an agent may choose from
+* `N` is a positive integer representing how many observations are possible
+* `A` is an agent-class which can be used to instantiate copies of the agent, which copies can be used to simulate the agent in order to inspect the agent's behavior in hypothetical circumstances
+* `obs` is an observation (a natural number below `self.n_obs`)
+* `action` is an action (a natural number below `self.n_actions`)
+* `reward` is a reward (a number)
 
 See the `extended_rl/environments` directory for many examples of environments.
 
