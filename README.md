@@ -2,48 +2,18 @@
 
 # Extended Environments
 
-Empirically estimate how self-reflective a reinforcement learning agent is.
-This proof-of-concept library contains 25 so-called "extended environments"
-and infrastructure allowing you to run a reinforcement learning agent against
-those environments. Performing well on average across the space of all
-extended environments seems to require that an agent self-reflect about
-itself (see Theory below), therefore it should be possible to empirically
-estimate an agent's self-reflection ability by running it across a suite of
-benchmark extended environments such as those in this library.
+Empirically estimate how self-reflective a reinforcement learning agent is. This proof-of-concept library contains 25 so-called "extended environments" and infrastructure allowing you to run a reinforcement learning agent against those environments. Performing well on average across the space of all extended environments seems to require that an agent self-reflect about itself (see Theory below), therefore it should be possible to empirically estimate an agent's self-reflection ability by running it across a suite of benchmark extended environments such as those in this library.
 
-**Note:** As this library is first-of-kind, we have made no attempt to
-optimize it. It is meant to serve more as a proof-of-concept. Rather than
-strenuously optimize the environments in the library, we have instead
-designed environments of theoretical interest. Measurements obtained from
-this library should not be used to make real-world policy-decisions related
-to self-reflection.
+**Note:** As this library is first-of-kind, we have made no attempt to optimize it. It is meant to serve more as a proof-of-concept. Rather than strenuously optimize the environments in the library, we have instead designed environments of theoretical interest. Measurements obtained from this library should not be used to make real-world policy-decisions related to self-reflection.
 
 
 ## Theory
 
-In an ordinary obstacle course, things happen based on what you do: step on a button
-and spikes appear, for example. Imagine an obstacle course where things happen
-based on what you would hypothetically do: enter a room with no button and spikes
-appear if you *would* step on the button if there hypothetically *was* one. Such an
-environment would be impossible to stage for a human participant, because it is
-impossible to determine what a human would hypothetically do in some counterfactual
-scenario. But if we have the source-code of an AI participant, then we **can**
-determine what that participant would do in hypothetical scenarios, and so we
-**can** put AI participants into such obstacle courses.
+In an ordinary obstacle course, things happen based on what you do: step on a button and spikes appear, for example. Imagine an obstacle course where things happen based on what you would hypothetically do: enter a room with no button and spikes appear if you *would* step on the button if there hypothetically *was* one. Such an environment would be impossible to stage for a human participant, because it is impossible to determine what a human would hypothetically do in some counterfactual scenario. But if we have the source-code of an AI participant, then we **can** determine what that participant would do in hypothetical scenarios, and so we **can** put AI participants into such obstacle courses.
 
-An *extended environment* is a reinforcement learning environment which is able to
-simulate the agent and use the results when it determines which rewards and
-observations to send to the agent. Although this is a departure from traditional RL environments (which are not able to simulate agents), nevertheless, a traditional
-RL agent does not require any extension in order to interact with an Extended
-Environment. Thus, Extended Environments can be used to benchmark RL agents in ways
-that traditional RL environments cannot.
+An *extended environment* is a reinforcement learning environment which is able to simulate the agent and use the results when it determines which rewards and observations to send to the agent. Although this is a departure from traditional RL environments (which are not able to simulate agents), nevertheless, a traditional RL agent does not require any extension in order to interact with an Extended Environment. Thus, Extended Environments can be used to benchmark RL agents in ways that traditional RL environments cannot.
 
-If an agent does not self-reflect about its own actions, then an extended
-environment might be difficult for the agent to figure out. Therefore, our thesis
-is that self-reflection is needed for an agent to achieve good performance on
-average over the space of all extended environments. This would imply that by
-measuring how an agent performs across a battery of such environments, it is
-possible to empirically estimate how self-reflective an agent is. 
+If an agent does not self-reflect about its own actions, then an extended environment might be difficult for the agent to figure out. Therefore, our thesis is that self-reflection is needed for an agent to achieve good performance on average over the space of all extended environments. This would imply that by measuring how an agent performs across a battery of such environments, it is possible to empirically estimate how self-reflective an agent is. 
 
 ## Installation
 
@@ -59,10 +29,7 @@ cd ExtendedEnvironments
 pip install -e .
 ```
 
-Optionally, if you wish to replicate the experiments in our paper, see
-`extended_rl/experiments/InstallingExperimentPrerequisites.txt` for how to
-install Stable Baselines3 (needed for the DQN/A2C/PPO agents measured in
-our paper).
+Optionally, if you wish to replicate the experiments in our paper, see `extended_rl/experiments/InstallingExperimentPrerequisites.txt` for how to install Stable Baselines3 (needed for the DQN/A2C/PPO agents measured in our paper).
 
 ### Documentation
 
@@ -79,15 +46,9 @@ selfrefl_measure(A, num_steps)
 * `A` is an agent-class (see below)
 * `num_steps` is the number of steps to run the agent in each environment 
 
-This function returns the average reward-per-turn after running instances of `A` in
-25 extended environments and their opposites, running it for `num_steps` steps in
-each environment. (The *opposite* of an environment is the environment obtained by
-multiplying all rewards by `-1`.)
+This function returns the average reward-per-turn after running instances of `A` in 25 extended environments and their opposites, running it for `num_steps` steps in each environment. (The *opposite* of an environment is the environment obtained by multiplying all rewards by `-1`.)
 
-For finer-grain details about the average reward-per-turn on each environment,
-call `selfrefl_benchmark` instead (it has the same signature as `selfrefl_measure`
-but returns a dictionary telling what average reward-per-turn are achieved in each
-environment).
+For finer-grain details about the average reward-per-turn on each environment, call `selfrefl_benchmark` instead (it has the same signature as `selfrefl_measure` but returns a dictionary telling what average reward-per-turn are achieved in each environment).
 
 #### Agents
 
