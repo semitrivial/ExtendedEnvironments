@@ -5,18 +5,18 @@
 Empirically estimate how self-reflective a reinforcement learning agent is.
 This proof-of-concept library contains 25 so-called "extended environments"
 and infrastructure allowing you to run a reinforcement learning agent against
-those environments. Figuring out these environments seems to require that an
-agent self-reflect about itself (see Theory below), therefore an agent's
-performance in these environments can serve as a rough empirical estimate of
-how self-reflective the agent is.
+those environments. Performing well on average across the space of all
+extended environments seems to require that an agent self-reflect about
+itself (see Theory below), therefore it should be possible to empirically
+estimate an agent's self-reflection ability by running it across a suite of
+benchmark extended environments such as those in this library.
 
 **Note:** As this library is first-of-kind, we have made no attempt to
 optimize it. It is meant to serve more as a proof-of-concept. Rather than
 strenuously optimize the environments in the library, we have instead
 designed environments of theoretical interest. Measurements obtained from
 this library should not be used to make real-world policy-decisions related
-to self-reflection. Self-reflection should not be confused with consciousness
-(the two might be related, but that is beyond the scope of this library).
+to self-reflection.
 
 
 ## Theory
@@ -31,18 +31,19 @@ scenario. But if we have the source-code of an AI participant, then we **can**
 determine what that participant would do in hypothetical scenarios, and so we
 **can** put AI participants into such obstacle courses.
 
-An *extended environment* is a reinforcement learning environment which is aware of
-the source-code of whatever agent is interacting with it. This enables the
-environment to simulate the agent and use the results when it determines which
-rewards and observations to send to the agent. Although this is a departure from
-traditional RL environments (which are not able to simulate agents), nevertheless,
-a traditional RL agent does not require any extension in order to interact with an
-Extended Environment. Thus, Extended Environments can be used to benchmark RL agents
-in ways that traditional RL environments cannot.
+An *extended environment* is a reinforcement learning environment which is able to
+simulate the agent and use the results when it determines which rewards and
+observations to send to the agent. Although this is a departure from traditional RL environments (which are not able to simulate agents), nevertheless, a traditional
+RL agent does not require any extension in order to interact with an Extended
+Environment. Thus, Extended Environments can be used to benchmark RL agents in ways
+that traditional RL environments cannot.
 
 If an agent does not self-reflect about its own actions, then an extended
-environment might be difficult for the agent to figure out. Therefore, our thesis is that self-reflection is needed for an agent to achieve good performance on average over a battery of suitably chosen extended environments. This would imply that by measuring how an agent performs across such a battery of environments, it is possible to empirically estimate how
-self-reflective an agent is. 
+environment might be difficult for the agent to figure out. Therefore, our thesis
+is that self-reflection is needed for an agent to achieve good performance on
+average over the space of all extended environments. This would imply that by
+measuring how an agent performs across a battery of such environments, it is
+possible to empirically estimate how self-reflective an agent is. 
 
 ## Installation
 
@@ -58,13 +59,10 @@ cd ExtendedEnvironments
 pip install -e .
 ```
 
-Optionally, if you wish to use the Stable Baselines3 agents in
-`extended_rl/agents/SBL3_agents.py` (required for running the experiment in the
-`extended_rl/experiments` directory) you will additionally need to install
-Stable Baselines3:
-```
-pip install stable-baselines3
-```
+Optionally, if you wish to replicate the experiments in our paper, see
+`extended_rl/experiments/InstallingExperimentPrerequisites.txt` for how to
+install Stable Baselines3 (needed for the DQN/A2C/PPO agents measured in
+our paper).
 
 ### Documentation
 
