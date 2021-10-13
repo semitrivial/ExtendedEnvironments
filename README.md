@@ -77,22 +77,21 @@ class A:
 * `a` is an action (a natural number below `self.n_actions`)
 * `r` is a reward (a number)
 
-For example, here is an agent-class whose agent instances act randomly unless the current observation equals the previous observation, in which case they take action 0.
+For example, here is an agent-class whose agent instances take the first available action which has not previously yielded a punishment for the observation in question (or action 0 if there is no such action).
 ```
-import random
-
-class ExampleAgent:
-    def __init__(self):
-        self.prev_obs = 0
+class SimpleAgent:
+    def __init__(self, **kwargs):
+        self.punishments = set()
 
     def act(self, obs):
-        if self.prev_obs == obs:
-            return 0
-        else:
-            return random.randrange(self.n_actions)
+        for action in range(self.n_actions):
+            if (obs, action) not in self.punishments:
+                return action
+        return 0
 
     def train(self, o_prev, a, r, o_next):
-        self.prev_obs = o_prev
+        if r < 0:
+            self.punishments.add((o_prev, a))
 ```
 
 #### Environments
