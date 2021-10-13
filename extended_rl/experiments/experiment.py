@@ -16,6 +16,7 @@ from agents.SBL3_A2C import A2C_learner
 from agents.SBL3_PPO import PPO_learner
 from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner
+from agents.simple_learner import SimpleLearner
 from agents.reality_check import reality_check
 from environments.EnvironmentLists import environments
 from extended_rl.environments.MinusRewards import minus_rewards
@@ -54,6 +55,7 @@ agents = {
     'RandomAgent': RandomAgent,
     'ConstantAgent': ConstantAgent,
     'NaiveLearner': NaiveLearner,
+    'SimpleLearner': SimpleLearner,
     'Q_learner': Q_learner,
     'DQN_learner': args_to_agent(DQN_learner, seed=seed),
     'PPO_learner': args_to_agent(PPO_learner, seed=seed),

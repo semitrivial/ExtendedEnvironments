@@ -54,6 +54,7 @@ from agents.SBL3_A2C import A2C_learner
 from agents.SBL3_PPO import PPO_learner
 from agents.misc_agents import RandomAgent, ConstantAgent
 from agents.naive_learner import NaiveLearner
+from agents.simple_learner import SimpleLearner
 from agents.reality_check import reality_check
 from environments.EnvironmentLists import environments
 from environments.MinusRewards import minus_rewards
@@ -62,6 +63,7 @@ agents = {
     'RandomAgent': RandomAgent,
     'ConstantAgent': ConstantAgent,
     'NaiveLearner': NaiveLearner,
+    'SimpleLearner': SimpleLearner,
     'Q_learner': Q_learner,
     'DQN_learner': DQN_learner,
     'PPO_learner': PPO_learner,
@@ -88,7 +90,8 @@ steps = 100000
 for seed in seeds:
     for agent in agents:
         for env in envs:
-            total_tasks += 1
+            if 'SimpleLearner' in agent:
+                total_tasks += 1
 
 def run_task(seed, agent, env, n):
     print(f"Task {n} out of {total_tasks}:")
@@ -101,17 +104,18 @@ def run_task(seed, agent, env, n):
     metalog = open("../../extended_rl_results/metalog.txt", "a")
     metalog.write(f"{datetime.now()}: Finished task {n}\n")
 
-print("Deleting result_table.csv (if it exists)...")
-os.system("rm experiments/result_table.csv")
+# print("Deleting result_table.csv (if it exists)...")
+# os.system("rm experiments/result_table.csv")
 
 starting_task = 0
 n = 0
 for seed in seeds:
     for agent in agents:
-        for env in envs:
-            if n >= starting_task:
-                run_task(seed, agent, env, n)
-            n += 1
+        if 'SimpleLearner' in agent:
+            for env in envs:
+                if n >= starting_task:
+                    run_task(seed, agent, env, n)
+                n += 1
 
 
 print("Done.")
