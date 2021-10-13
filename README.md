@@ -81,17 +81,21 @@ For example, here is an agent-class whose agent instances take the first availab
 ```
 class SimpleAgent:
     def __init__(self, **kwargs):
-        self.punishments = set()
+        self.was_action_punished = {
+            (o, a): False
+            for o in range(self.n_obs)
+            for a in range(self.n_actions)
+        }
 
     def act(self, obs):
         for action in range(self.n_actions):
-            if (obs, action) not in self.punishments:
+            if not(self.was_action_punished[obs, action]):
                 return action
         return 0
 
     def train(self, o_prev, a, r, o_next):
         if r < 0:
-            self.punishments.add((o_prev, a))
+            self.was_action_punished[o_prev, a] = True
 ```
 
 #### Environments
