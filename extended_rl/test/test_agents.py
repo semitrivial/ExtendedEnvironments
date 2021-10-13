@@ -8,7 +8,6 @@ def test_agents():
     print("Testing agents...")
     test_random_agent()
     test_constant_agent()
-    test_naive_learner()
     test_SBL3_agents()
     test_Q_learner()
     test_reality_check()
@@ -71,36 +70,6 @@ def test_constant_agent():
             return (randrange(99)-50, randrange(99))
 
     run_environment(RandomEnv, ConstantAgent, 1000)
-
-def test_naive_learner():
-    from agents.naive_learner import NaiveLearner
-
-    total_correct_actions = [0]
-    total_actions = [0]
-
-    class EasyEnv:
-        n_actions = n_obs = 5
-        def __init__(self, A):
-            self.cnt = 0
-        def start(self):
-            self.prev_obs = self.cnt
-            return self.cnt
-        def step(self, action):
-            if self.cnt >= 1000:
-                total_actions[0] += 1
-                if action == self.prev_obs:
-                    total_correct_actions[0] += 1
-
-            reward = 1 if (action == self.prev_obs) else -1
-            self.cnt += 1
-            obs = self.cnt % self.n_obs
-            self.prev_obs = obs
-            return (reward, obs)
-
-    run_environment(EasyEnv, NaiveLearner, 10000)
-    assert total_actions[0] == 9000
-    percent = total_correct_actions[0] / total_actions[0]
-    assert percent > 1 - 2*.15
 
 def test_SBL3_agents():
     try:

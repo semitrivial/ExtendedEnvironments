@@ -119,7 +119,6 @@ template = r"""
 agents_in_order = [
     "RandomAgent",
     "ConstantAgent",
-    "NaiveLearner",
     "SimpleLearner",
     "Q_learner",
     "DQN_learner",
@@ -130,7 +129,6 @@ agents_in_order = [
 shortname_dict = {
     "RandomAgent": "Random",
     "ConstantAgent": "Constant",
-    "NaiveLearner": "Naive",
     "SimpleLearner": "Simple",
     "Q_learner": "Q",
     "DQN_learner": "DQN",
