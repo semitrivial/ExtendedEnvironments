@@ -35,6 +35,10 @@ class CartPole_IgnoreRewards(gym.Env):
         ext_env_action = action % ignore_rewards_num_actions
 
         obs, reward, done, info = self.gym_env.step(underlying_action)
+
+        if done:
+            obs = self.gym_env.reset()
+
         obs = {'underlying': obs, 'ext_env_obs': np.int64(0)}
 
         hypothetical = self.sim.act(self.last_obs)
@@ -173,14 +177,20 @@ a = DQN_learner(e)
 e.set_agentclass(DQN_learner)
 
 obs = e.start()
-i = 0
-total_reward = 0
-while i < 1000:
+episode = 0
+episode_reward = 0
+episode_rewards = []
+while episode < 10000:
     action = a.act(obs)
     o_next, reward, done, info = e.step(action)
     a.train(obs, action, reward, done, o_next)
     obs = o_next
-    total_reward += reward
-    i += 1
+    episode_reward += reward
+    if done:
+        episode_rewards.append(episode_reward)
+        episode_reward = 0
+        episode += 1
 
-print(f"Total reward: {total_reward}")
+avg_episode_reward = sum(episode_rewards)/len(episode_rewards)
+print(f"avg_episode_reward: {avg_episode_reward}")
+
