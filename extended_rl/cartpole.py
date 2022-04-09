@@ -133,12 +133,6 @@ class DQN_learner:
     def obs_to_tuple(self, obs):
         return tuple(obs['underlying']) + (obs['ext_env_obs'],)
 
-    def tuple_to_obs(self, tpl):
-        return {
-            'underlying': np.array(tpl[:cartpole_obs_dimension]),
-            'ext_env_obs': tpl[cartpole_obs_dimension]
-        }
-
     def act(self, obs):
         tpl = self.obs_to_tuple(obs)
         key = (tpl, self.training_hash)
@@ -204,7 +198,7 @@ def reality_check(A0):
 
   return A0_RC
 
-n_episodes = 10000
+n_turns = 5000
 
 def test_agent(A):
     e = CartPole_IgnoreRewards()
@@ -215,9 +209,11 @@ def test_agent(A):
     episode = 0
     episode_reward = 0
     episode_len = 0
+    turn = 0
     episode_rewards = []
     episode_lengths = []
-    while episode < n_episodes:
+    while turn < n_turns:
+        turn += 1
         action = a.act(obs)
         o_next, reward, done, info = e.step(action)
         a.train(obs, action, reward, done, o_next)
@@ -229,7 +225,6 @@ def test_agent(A):
             episode_lengths.append(episode_len)
             episode_reward = 0
             episode_len = 0
-            episode += 1
 
     avg_episode_reward = sum(episode_rewards)/len(episode_rewards)
     avg_episode_len = sum(episode_lengths)/len(episode_lengths)
