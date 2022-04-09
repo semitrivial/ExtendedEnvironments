@@ -233,6 +233,5 @@ def test_agent(A):
 
 print("Testing DQN_learner")
 test_agent(DQN_learner)
-dqn_act_dict.clear()
 print("Testing reality_check(DQN_learner)")
 test_agent(reality_check(DQN_learner))
