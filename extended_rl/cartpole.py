@@ -101,7 +101,7 @@ class DummyLogger:
 dummy_logger = DummyLogger()
 
 
-NSTEPS=4  # SBL3's default train_freq for DQN
+NSTEPS=1024  # SBL3's default train_freq for DQN is 4
 
 def create_sample_monkeypatch(A, n_steps):
     def sample_monkeypatch(*args):
@@ -198,7 +198,7 @@ def reality_check(A0):
 
   return A0_RC
 
-n_turns = 5000
+n_turns = 100000
 
 def test_agent(A):
     e = CartPole_IgnoreRewards()
