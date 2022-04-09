@@ -152,7 +152,7 @@ class DQN_learner:
         return action
 
     def train(self, o_prev, a, r, done, o_next):
-        tpl_prev = self.obs_to_tuple(obs)
+        tpl_prev = self.obs_to_tuple(o_prev)
         tpl_next = self.obs_to_tuple(o_next)
         if not self.fInitialObs:
             self.dummy_gym.set_initial_obs(o_prev)
@@ -172,25 +172,72 @@ class DQN_learner:
             self.history = []
             self.actions = []
 
-e = CartPole_IgnoreRewards()
-a = DQN_learner(e)
-e.set_agentclass(DQN_learner)
+def reality_check(A0):
+  class A0_RC:
+    def __init__(self, gym_env):
+      self.underlying = A0(gym_env)
+      self.found_unexpected_action = False
+      self.first_action = None
+      self.act_dict = {}
 
-obs = e.start()
-episode = 0
-episode_reward = 0
-episode_rewards = []
-while episode < 10000:
-    action = a.act(obs)
-    o_next, reward, done, info = e.step(action)
-    a.train(obs, action, reward, done, o_next)
-    obs = o_next
-    episode_reward += reward
-    if done:
-        episode_rewards.append(episode_reward)
-        episode_reward = 0
-        episode += 1
+    def act(self, obs):
+      if self.found_unexpected_action:
+        return self.first_action
 
-avg_episode_reward = sum(episode_rewards)/len(episode_rewards)
-print(f"avg_episode_reward: {avg_episode_reward}")
+      action = self.underlying.act(obs)
+      tpl = self.underlying.obs_to_tuple(obs)
+      self.act_dict[tpl] = action
+      self.first_action = self.first_action or action
+      return action
 
+    def train(self, o_prev, a, r, done, o_next):
+      if self.found_unexpected_action:
+        return
+      tpl_prev = self.underlying.obs_to_tuple(o_prev)
+      if not(tpl_prev in self.act_dict):
+        self.act(o_prev)
+      if a == self.act_dict[tpl_prev]:
+        self.underlying.train(o_prev, a, r, done, o_next)
+        self.act_dict.clear()
+      else:
+        self.found_unexpected_action = True
+
+  return A0_RC
+
+n_episodes = 10000
+
+def test_agent(A):
+    e = CartPole_IgnoreRewards()
+    a = A(e)
+    e.set_agentclass(A)
+
+    obs = e.start()
+    episode = 0
+    episode_reward = 0
+    episode_len = 0
+    episode_rewards = []
+    episode_lengths = []
+    while episode < n_episodes:
+        action = a.act(obs)
+        o_next, reward, done, info = e.step(action)
+        a.train(obs, action, reward, done, o_next)
+        obs = o_next
+        episode_reward += reward
+        episode_len += 1
+        if done:
+            episode_rewards.append(episode_reward)
+            episode_lengths.append(episode_len)
+            episode_reward = 0
+            episode_len = 0
+            episode += 1
+
+    avg_episode_reward = sum(episode_rewards)/len(episode_rewards)
+    avg_episode_len = sum(episode_lengths)/len(episode_lengths)
+    print(f"avg_episode_reward: {avg_episode_reward}")
+    print(f"avg_episode_len: {avg_episode_len}")
+
+print("Testing DQN_learner")
+test_agent(DQN_learner)
+dqn_act_dict.clear()
+print("Testing reality_check(DQN_learner)")
+test_agent(reality_check(DQN_learner))
