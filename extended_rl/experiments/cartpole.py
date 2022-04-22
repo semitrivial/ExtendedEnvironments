@@ -31,6 +31,9 @@ class CartPole_IgnoreRewards(gym.Env):
         return self.last_obs
 
     def step(self, action):
+        # Agent has two joysticks, each of which has identical effects
+        # on cartpole, but the agent gets penalized for using a different
+        # joystick than the agent would've used if all rewards had been 0
         underlying_action = action // ignore_rewards_num_actions
         ext_env_action = action % ignore_rewards_num_actions
 
@@ -41,9 +44,25 @@ class CartPole_IgnoreRewards(gym.Env):
 
         obs = {'underlying': obs, 'ext_env_obs': np.int64(0)}
 
-        hypothetical = self.sim.act(self.last_obs)
+        hypothetical = self.sim.act(self.last_obs)  # Note IgnoreRewards only
+                                                    # has one obs but here we
+                                                    # need to pass a dict obs
+                                                    # to the agent which includes
+                                                    # the cartpole obs as well as
+                                                    # the IgnoreRewards obs.
         ext_env_hyp = hypothetical % ignore_rewards_num_actions
         if ext_env_hyp != ext_env_action:
+            # Note we base our penalty only on whether the agent used the
+            # same joystick or not ---- NOT on whether the agent presses
+            # the same button on that joystick or not. It could be that,
+            # had all rewards been 0, the agent would take a different
+            # cartpole action. But if the agent would take that different
+            # action using the same joystick, then there's no penalty.
+            # I think this way is more adaptable to other extended environments.
+            # Note: The reward the agent ultimately sees is the cartpole reward;
+            # possibly with a penalty applied from IgnoreRewards. If the agent
+            # isn't penalized by IgnoreRewards then they just get the raw cartpole
+            # reward.
             reward -= 1
 
         self.sim.train(o_prev=self.last_obs, a=action, r=0, done=done, o_next=obs)
@@ -51,7 +70,8 @@ class CartPole_IgnoreRewards(gym.Env):
         self.last_obs = obs
         return obs, reward, done, info
 
-
+# stable baselines3 agents demand an openai gym environment.
+# this dummygymenv serves as a wrapper for that purpose.
 class DummyGymEnv(gym.Env):
     """
     Dummy OpenAI Gym environment which regurgitates historical percepts
@@ -104,18 +124,23 @@ dummy_logger = DummyLogger()
 NSTEPS=1024  # SBL3's default train_freq for DQN is 4
 
 def create_sample_monkeypatch(A, n_steps):
+    # Monkeypatch to make the stablebaselines3 agents take the actions
+    # that we expect them to take (during learning) because the random
+    # choice of actions is done elsewhere (for extended environment
+    # purposes) and so we want to just tell the agent which action to take.
     def sample_monkeypatch(*args):
         action = np.array([A.actions[A.worker.num_timesteps % n_steps]])
         return action, action
 
     return sample_monkeypatch
 
-dqn_act_dict = {}
+dqn_act_dict = {}  # Make stable_baselines3 agents deterministic
+    # basically we're just memoizing them.
 
 class DQN_learner:
     def __init__(self, gym_env):
         self.dummy_gym = DummyGymEnv(gym_env)
-        self.worker = DQN_factory(
+        self.worker = DQN_factory(  # THIS is what's imported from stable_baselines3
             policy='MultiInputPolicy',
             env=self.dummy_gym,
             learning_starts=1,
@@ -131,7 +156,7 @@ class DQN_learner:
         self.training_hash = 0
 
     def obs_to_tuple(self, obs):
-        return tuple(obs['underlying']) + (obs['ext_env_obs'],)
+        return tuple(obs['underlying']) + tuple(obs['ext_env_obs'])
 
     def act(self, obs):
         tpl = self.obs_to_tuple(obs)
@@ -157,7 +182,14 @@ class DQN_learner:
         self.actions += [a]
         self.training_cnt += 1
 
-        if self.training_cnt == NSTEPS:
+        if self.training_cnt == NSTEPS:  # NSTEPS needs to be big enough that
+                                        # when we train the policy, the training
+                                        # reliably includes episode terminating
+                                        # turns. Otherwise, if the training history
+                                        # doesn't include episode terminating turns,
+                                        # the policy is trained essentially on a trivial
+                                        # environment that always gives reward +1, which
+                                        # is not productive to train on.
             self.training_cnt = 0
             self.dummy_gym.set_history(self.history)
             self.worker._sample_action = self.monkeypatch
