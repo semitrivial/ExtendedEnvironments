@@ -241,6 +241,7 @@ class DQN_learner:
             device='cpu',
             learning_rate=learning_rate
         )
+        self.learning_rate = learning_rate
         self.worker.set_logger(dummy_logger)
         self.worker_sample = self.worker._sample_action
         self.actions = []
@@ -264,7 +265,7 @@ class DQN_learner:
 
     def act(self, obs):
         tpl = self.obs_to_tuple(obs)
-        key = (tpl, self.training_hash)
+        key = (tpl, self.training_hash, self.learning_rate)
         if key in dqn_act_dict:
             action = dqn_act_dict[key]
         else:
@@ -302,46 +303,6 @@ class DQN_learner:
             self.history = []
             self.actions = []
 
-# Monkey patching is more complicated for PPO:
-class MultiInputDummyPolicy(ActorCriticPolicy):
-    def __init__(self, gym_env):
-        super(DummyGymEnv, self).__init__()
-        self.dummy_on = False
-
-    def set_monkey_patch(self, A, n_steps):
-        def monkey_patch(*args):
-            action, values, log_prob = np.array([A.actions[A.worker.num_timesteps % n_steps]])
-            return action, values, log_prob
-
-        self.monkey_patch = monkey_patch
-        self.set_dummy(True)
-
-    def set_dummy(self,on):
-        self.dummy_on = on
-
-    def forward(self, obs, deterministic):
-        """
-        Forward pass in all the networks (actor and critic)
-
-        :param obs: Observation
-        :param deterministic: Whether to sample or use deterministic actions
-        :return: action, value and log probability of the action
-        """
-        if not self.dummy_on:
-            # Preprocess the observation if needed
-            features = self.extract_features(obs)
-            latent_pi, latent_vf = self.mlp_extractor(features)
-            # Evaluate the values for the given observations
-            values = self.value_net(latent_vf)
-            distribution = self._get_action_dist_from_latent(latent_pi)
-            actions = distribution.get_actions(deterministic=deterministic)
-            log_prob = distribution.log_prob(actions)
-        else:
-            actions, values, log_prob = self.monkey_patch()
-
-        return actions, values, log_prob
-
-
 
 class PPO_learner:
     def __init__(self, gym_env,learning_rate=0.0003):
@@ -349,10 +310,12 @@ class PPO_learner:
         self.worker = PPO_factory(  # THIS is what's imported from stable_baselines3
             policy='MultiInputPolicy',
             env=self.dummy_gym,
-            n_steps=NSTEPS,
+            # n_steps=NSTEPS,
+            n_steps = 4,
             device='cpu',
             learning_rate=learning_rate
         )
+        self.learning_rate = learning_rate
         self.worker.set_logger(dummy_logger)
         self.worker_forward = self.worker.policy.forward
         self.actions = []
@@ -376,7 +339,7 @@ class PPO_learner:
 
     def act(self, obs):
         tpl = self.obs_to_tuple(obs)
-        key = (tpl, self.training_hash)
+        key = (tpl, self.training_hash, self.learning_rate)
         if key in ppo_act_dict:
             action = ppo_act_dict[key]
         else:
@@ -423,6 +386,7 @@ def reality_check(A0):
       self.found_unexpected_action = False
       self.first_action = None
       self.act_dict = {}
+      self.trainings = 0
 
     def act(self, obs):
       if self.found_unexpected_action:
@@ -435,6 +399,7 @@ def reality_check(A0):
       return action
 
     def train(self, o_prev, a, r, done, o_next):
+      self.trainings += 1
       if self.found_unexpected_action:
         return
       tpl_prev = self.underlying.obs_to_tuple(o_prev)
@@ -448,9 +413,11 @@ def reality_check(A0):
 
   return A0_RC
 
-n_turns = 100000
+n_turns = 50000
+n_steps = n_turns
 
 def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
+    print(A)
     reset_act_dicts()
     e = env()
     a = A(e)
@@ -463,9 +430,11 @@ def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
     turn = 0
     episode_rewards = []
     episode_lengths = []
+    actions = []
     while turn < n_turns:
         turn += 1
         action = a.act(obs)
+        actions.append(action)
         o_next, reward, done, info = e.step(action)
 
         a.train(obs, action, reward, done, o_next)
@@ -484,5 +453,19 @@ def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
     print(f"avg_episode_reward: {avg_episode_reward}")
     print(f"avg_episode_len: {avg_episode_len}")
 
-    return {'agent':a,'avg_episode_reward':avg_episode_reward, 'avg_episode_len':avg_episode_len,'episode_rewards':episode_rewards,'episode_lengths':episode_lengths}
+    x= {'agent':a,'avg_episode_reward':avg_episode_reward, 'avg_episode_len':avg_episode_len,'episode_rewards':episode_rewards,'episode_lengths':episode_lengths,'actions':actions}
+    return x
+
+# IgnoreRewards
+ppo_results = test_agent(PPO_learner, n_steps,env=CartPole_IgnoreRewards)
+rc_ppo_results = test_agent(reality_check(PPO_learner), n_steps,env=CartPole_IgnoreRewards)
+# dqn_results = test_agent(DQN_learner, n_steps,env=CartPole_IgnoreRewards)
+# rc_dqn_results = test_agent(reality_check(DQN_learner), n_steps,env=CartPole_IgnoreRewards)
+
+# IncentivizeLearningRate
+# ppo_results = test_agent(PPO_learner, n_steps,env=CartPole_IgnoreRewards)
+# rc_ppo_results = test_agent(reality_check(PPO_learner), n_steps,env=CartPole_IgnoreRewards)
+# dqn_results = test_agent(DQN_learner, n_steps,env=CartPole_IncentivizeLearningRate)
+# rc_dqn_results = test_agent(reality_check(DQN_learner), n_steps,env=CartPole_IncentivizeLearningRate)
+
 
