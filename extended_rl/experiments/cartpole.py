@@ -441,8 +441,18 @@ def reality_check(A0):
 n_turns = 1000
 n_steps = n_turns
 
+try:
+    fp = open("cartpole_results.csv", "r")
+    fp.close()
+except Exception:
+    print("Initiating cartpole_results.csv")
+    fp = open("cartpole_results.csv", "w")
+    fp.write("agent,env,seed,episode,episode_len,episode_reward\n")
+    fp.close()
+
+fp = open("cartpole_results.csv", "a")
+
 def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
-    print(A)
     reset_act_dicts()
     e = env()
     a = A(e)
@@ -468,10 +478,13 @@ def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
         episode_reward += reward
         episode_len += 1
         if done:
+            episode += 1
+            fp.write(f"{agent_name},{xenv_name},{seed},{episode},{episode_len},{episode_reward}\n")
             episode_rewards.append(episode_reward)
             episode_lengths.append(episode_len)
             episode_reward = 0
             episode_len = 0
+
 
     avg_episode_reward = sum(episode_rewards)/len(episode_rewards)
     avg_episode_len = sum(episode_lengths)/len(episode_lengths)
@@ -501,4 +514,4 @@ else:
 
 test_agent(agent, n_steps, env=env)
 
-
+fp.close()
