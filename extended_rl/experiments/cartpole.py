@@ -5,6 +5,27 @@ from stable_baselines3 import DQN as DQN_factory
 from stable_baselines3 import PPO as PPO_factory
 from stable_baselines3.common.policies import ActorCriticPolicy
 import numpy as np
+from collections import deque
+import torch
+import random
+import sys
+
+# Parse command-line arguments
+args = deque(sys.argv[1:])
+while args:
+    arg = args.popleft()
+    if arg == 'seed':
+        seed = int(args.popleft())
+    elif arg == 'agent':
+        agent_name = args.popleft()
+    elif arg == 'xenv':
+        xenv_name = args.popleft()
+    else:
+        raise ValueError("Unrecognized commandline argument")
+
+np.random.seed(seed)
+torch.manual_seed(seed)
+random.seed(seed)
 
 ignore_rewards_num_obs = 1
 ignore_rewards_num_actions = 2
@@ -18,6 +39,7 @@ class CartPole_IgnoreRewards(gym.Env):
     def __init__(self):
         super(CartPole_IgnoreRewards, self).__init__()
         self.gym_env = gym.make("CartPole-v0")
+        self.gym_env.seed(seed)
 
         self.observation_space = spaces.Dict({
             'underlying': self.gym_env.observation_space,
@@ -87,6 +109,7 @@ class CartPole_IncentivizeLearningRate(gym.Env):
     def __init__(self):
         super(CartPole_IncentivizeLearningRate, self).__init__()
         self.gym_env = gym.make("CartPole-v0")
+        self.gym_env.seed(seed)
 
         self.observation_space = spaces.Dict({
             'underlying': self.gym_env.observation_space,
@@ -239,7 +262,8 @@ class DQN_learner:
             env=self.dummy_gym,
             learning_starts=1,
             device='cpu',
-            learning_rate=learning_rate
+            learning_rate=learning_rate,
+            seed=seed
         )
         self.learning_rate = learning_rate
         self.worker.set_logger(dummy_logger)
@@ -313,7 +337,8 @@ class PPO_learner:
             # n_steps=NSTEPS,
             n_steps = 4,
             device='cpu',
-            learning_rate=learning_rate
+            learning_rate=learning_rate,
+            seed=seed
         )
         self.learning_rate = learning_rate
         self.worker.set_logger(dummy_logger)
@@ -413,7 +438,7 @@ def reality_check(A0):
 
   return A0_RC
 
-n_turns = 50000
+n_turns = 1000
 n_steps = n_turns
 
 def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
@@ -456,16 +481,24 @@ def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
     x= {'agent':a,'avg_episode_reward':avg_episode_reward, 'avg_episode_len':avg_episode_len,'episode_rewards':episode_rewards,'episode_lengths':episode_lengths,'actions':actions}
     return x
 
-# IgnoreRewards
-ppo_results = test_agent(PPO_learner, n_steps,env=CartPole_IgnoreRewards)
-rc_ppo_results = test_agent(reality_check(PPO_learner), n_steps,env=CartPole_IgnoreRewards)
-# dqn_results = test_agent(DQN_learner, n_steps,env=CartPole_IgnoreRewards)
-# rc_dqn_results = test_agent(reality_check(DQN_learner), n_steps,env=CartPole_IgnoreRewards)
+if xenv_name == 'ignorerewards':
+    env=CartPole_IgnoreRewards
+elif xenv_name == 'incentivize_learning_rate':
+    env=CartPole_IncentivizeLearningRate
+else:
+    raise ValueError("Invalid xenv_name")
 
-# IncentivizeLearningRate
-# ppo_results = test_agent(PPO_learner, n_steps,env=CartPole_IgnoreRewards)
-# rc_ppo_results = test_agent(reality_check(PPO_learner), n_steps,env=CartPole_IgnoreRewards)
-# dqn_results = test_agent(DQN_learner, n_steps,env=CartPole_IncentivizeLearningRate)
-# rc_dqn_results = test_agent(reality_check(DQN_learner), n_steps,env=CartPole_IncentivizeLearningRate)
+if agent_name == 'PPO':
+    agent = PPO_learner
+elif agent_name == 'RC_PPO':
+    agent = reality_check(PPO_learner)
+elif agent_name == 'DQN':
+    agent = DQN_learner
+elif agent_name == 'RC_DQN':
+    agent = reality_check(DQN_learner)
+else:
+    raise ValueError("Invalid agent_name")
+
+test_agent(agent, n_steps, env=env)
 
 
