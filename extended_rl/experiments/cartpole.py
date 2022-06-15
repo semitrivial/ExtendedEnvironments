@@ -438,7 +438,7 @@ def reality_check(A0):
 
   return A0_RC
 
-n_turns = 1000
+n_turns = 100_000
 n_steps = n_turns
 
 try:
