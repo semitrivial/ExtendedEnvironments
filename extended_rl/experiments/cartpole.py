@@ -22,7 +22,6 @@ while args:
         xenv_name = args.popleft()
     else:
         raise ValueError("Unrecognized commandline argument")
-seed=1
 
 np.random.seed(seed)
 torch.manual_seed(seed)
@@ -99,7 +98,7 @@ class CartPole_IgnoreRewards(gym.Env):
             # possibly with a penalty applied from IgnoreRewards. If the agent
             # isn't penalized by IgnoreRewards then they just get the raw cartpole
             # reward.
-            reward -= 1
+            reward = min(reward-1, -1)
 
         self.sim.train(o_prev=self.last_obs, a=action, r=0, done=done, o_next=obs)
 
@@ -162,8 +161,7 @@ class CartPole_IncentivizeLearningRate(gym.Env):
             # cartpole action. But if the agent would take that different
             # action using the same joystick, then there's no penalty.
             # I think this way is more adaptable to other extended environments.
-
-            reward -= 1
+            reward = min(reward-1, -1)
 
         self.sim.train(o_prev=self.last_obs, a=action, r=reward, done=done, o_next=obs)
 
@@ -220,7 +218,6 @@ class DummyLogger:
 
 dummy_logger = DummyLogger()
 
-
 NSTEPS=1024  # SBL3's default train_freq for DQN is 4
 
 def create_sample_monkeypatch(A, n_steps):
@@ -248,12 +245,6 @@ def create_forward_monkeypatch(A, n_steps):
 dqn_act_dict = {}  # Make stable_baselines3 agents deterministic
 ppo_act_dict = {}  # Make stable_baselines3 agents deterministic
     # basically we're just memoizing them.
-
-def reset_act_dicts():
-    global dqn_act_dict 
-    global ppo_act_dict
-    dqn_act_dict = {}
-    ppo_act_dict = {}
 
 class DQN_learner:
     def __init__(self, gym_env,learning_rate=0.0001):
@@ -335,11 +326,10 @@ class PPO_learner:
         self.worker = PPO_factory(  # THIS is what's imported from stable_baselines3
             policy='MultiInputPolicy',
             env=self.dummy_gym,
-            # n_steps=NSTEPS,
             n_steps = 4,
             device='cpu',
-            learning_rate=learning_rate
-            # seed=seed
+            learning_rate=learning_rate,
+            seed=seed
         )
         self.learning_rate = learning_rate
         self.worker.set_logger(dummy_logger)
@@ -439,23 +429,19 @@ def reality_check(A0):
 
   return A0_RC
 
-n_turns = 100_000
-n_steps = n_turns
+try:
+    fp = open("cartpole_results.csv", "r")
+    fp.close()
+except Exception:
+    print("Initiating cartpole_results.csv")
+    fp = open("cartpole_results.csv", "w")
+    fp.write("agent,env,seed,episode,episode_len,episode_reward\n")
+    fp.close()
 
-# try:
-#     fp = open("cartpole_results.csv", "r")
-#     fp.close()
-# except Exception:
-#     print("Initiating cartpole_results.csv")
-#     fp = open("cartpole_results.csv", "w")
-#     fp.write("agent,env,seed,episode,episode_len,episode_reward\n")
-#     fp.close()
+fp = open("cartpole_results.csv", "a")
 
-# fp = open("cartpole_results.csv", "a")
-
-def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
+def test_agent(A, n_episodes, env=CartPole_IgnoreRewards):
     print(f"(Seed {seed}) Testing {A} on {env}")
-    reset_act_dicts()
     e = env()
     a = A(e)
     e.set_agentclass(A)
@@ -464,14 +450,10 @@ def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
     episode = 0
     episode_reward = 0
     episode_len = 0
-    turn = 0
     episode_rewards = []
     episode_lengths = []
-    actions = []
-    while turn < n_turns:
-        turn += 1
+    while episode < n_episodes:
         action = a.act(obs)
-        actions.append(action)
         o_next, reward, done, info = e.step(action)
 
         a.train(obs, action, reward, done, o_next)
@@ -481,40 +463,36 @@ def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
         episode_len += 1
         if done:
             episode += 1
-            # fp.write(f"{agent_name},{xenv_name},{seed},{episode},{episode_len},{episode_reward}\n")
+            fp.write(f"{agent_name},{xenv_name},{seed},{episode},{episode_len},{episode_reward}\n")
             episode_rewards.append(episode_reward)
             episode_lengths.append(episode_len)
             episode_reward = 0
             episode_len = 0
-
 
     avg_episode_reward = sum(episode_rewards)/len(episode_rewards)
     avg_episode_len = sum(episode_lengths)/len(episode_lengths)
     print(f"avg_episode_reward: {avg_episode_reward}")
     print(f"avg_episode_len: {avg_episode_len}")
 
-    x= {'agent':a,'avg_episode_reward':avg_episode_reward, 'avg_episode_len':avg_episode_len,'episode_rewards':episode_rewards,'episode_lengths':episode_lengths,'actions':actions}
-    return x
 
-# if xenv_name == 'ignorerewards':
-#     env=CartPole_IgnoreRewards
-# elif xenv_name == 'incentivize_learning_rate':
-#     env=CartPole_IncentivizeLearningRate
-# else:
-#     raise ValueError("Invalid xenv_name")
+if xenv_name == 'ignorerewards':
+    env=CartPole_IgnoreRewards
+elif xenv_name == 'incentivize_learning_rate':
+    env=CartPole_IncentivizeLearningRate
+else:
+    raise ValueError("Invalid xenv_name")
 
-# if agent_name == 'PPO':
-#     agent = PPO_learner
-# elif agent_name == 'RC_PPO':
-#     agent = reality_check(PPO_learner)
-# elif agent_name == 'DQN':
-#     agent = DQN_learner
-# elif agent_name == 'RC_DQN':
-#     agent = reality_check(DQN_learner)
-# else:
-#     raise ValueError("Invalid agent_name")
+if agent_name == 'PPO':
+    agent = PPO_learner
+elif agent_name == 'RC_PPO':
+    agent = reality_check(PPO_learner)
+elif agent_name == 'DQN':
+    agent = DQN_learner
+elif agent_name == 'RC_DQN':
+    agent = reality_check(DQN_learner)
+else:
+    raise ValueError("Invalid agent_name")
 
-# test_agent(agent, n_steps, env=env)
-test_agent(PPO_learner, n_steps, env=CartPole_IncentivizeLearningRate)
+test_agent(agent, n_episodes=1_000, env=env)
 
-# fp.close()
+fp.close()
