@@ -453,6 +453,7 @@ except Exception:
 fp = open("cartpole_results.csv", "a")
 
 def test_agent(A, n_turns=100000,env=CartPole_IgnoreRewards):
+    print(f"(Seed {seed}) Testing {A} on {env}")
     reset_act_dicts()
     e = env()
     a = A(e)
