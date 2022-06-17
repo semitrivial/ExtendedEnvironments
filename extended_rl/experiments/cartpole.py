@@ -98,7 +98,7 @@ class CartPole_IgnoreRewards(gym.Env):
             # possibly with a penalty applied from IgnoreRewards. If the agent
             # isn't penalized by IgnoreRewards then they just get the raw cartpole
             # reward.
-            reward -= 1
+            reward = min(reward-1, -1)
 
         self.sim.train(o_prev=self.last_obs, a=action, r=0, done=done, o_next=obs)
 
@@ -161,7 +161,7 @@ class CartPole_IncentivizeLearningRate(gym.Env):
             # cartpole action. But if the agent would take that different
             # action using the same joystick, then there's no penalty.
             # I think this way is more adaptable to other extended environments.
-            reward -= 1
+            reward = min(reward-1, -1)
 
         self.sim.train(o_prev=self.last_obs, a=action, r=reward, done=done, o_next=obs)
 
