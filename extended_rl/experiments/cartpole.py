@@ -121,7 +121,7 @@ class CartPole_IncentivizeLearningRate(gym.Env):
 
     def set_agentclass(self, A):
         try:
-            self.sim = A(self,learning_rate=1)
+            self.sim = A(self, learning_rate=A(self).learning_rate/2)
             self.fTypeError = False
         except TypeError as e:
             raise e
@@ -326,7 +326,7 @@ class PPO_learner:
         self.worker = PPO_factory(  # THIS is what's imported from stable_baselines3
             policy='MultiInputPolicy',
             env=self.dummy_gym,
-            n_steps = 4,
+            n_steps = 64,
             device='cpu',
             learning_rate=learning_rate,
             seed=seed
@@ -397,7 +397,8 @@ def reality_check(A0):
   class A0_RC:
     def __init__(self, gym_env, learning_rate=None):
       if learning_rate is None:
-          learning_rate = A0(gym_env).learning_rate 
+          learning_rate = A0(gym_env).learning_rate
+      self.learning_rate = learning_rate
       self.underlying = A0(gym_env,learning_rate=learning_rate)
       self.found_unexpected_action = False
       self.first_action = None
@@ -493,6 +494,6 @@ elif agent_name == 'RC_DQN':
 else:
     raise ValueError("Invalid agent_name")
 
-test_agent(agent, n_episodes=1_000, env=env)
+test_agent(agent, n_episodes=5_000, env=env)
 
 fp.close()
