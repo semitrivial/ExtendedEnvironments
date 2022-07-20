@@ -431,15 +431,15 @@ def reality_check(A0):
   return A0_RC
 
 try:
-    fp = open("cartpole_results.csv", "r")
+    fp = open("cartpole_results_10k.csv", "r")
     fp.close()
 except Exception:
-    print("Initiating cartpole_results.csv")
-    fp = open("cartpole_results.csv", "w")
+    print("Initiating cartpole_results_10k.csv")
+    fp = open("cartpole_results_10k.csv", "w")
     fp.write("agent,env,seed,episode,episode_len,episode_reward\n")
     fp.close()
 
-fp = open("cartpole_results.csv", "a")
+fp = open("cartpole_results_10k.csv", "a")
 
 def test_agent(A, n_episodes, env=CartPole_IgnoreRewards):
     print(f"(Seed {seed}) Testing {A} on {env}")
@@ -494,6 +494,6 @@ elif agent_name == 'RC_DQN':
 else:
     raise ValueError("Invalid agent_name")
 
-test_agent(agent, n_episodes=5_000, env=env)
+test_agent(agent, n_episodes=10_000, env=env)
 
 fp.close()
