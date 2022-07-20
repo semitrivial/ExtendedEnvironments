@@ -53,11 +53,6 @@ class CartPole_IgnoreRewards(gym.Env):
         self.sim = A(self)
 
     def start(self):
-        '''
-        self.last_obs = {
-           'underlying': torch.tensor(self.gym_env.reset()),
-           'ext_env_obs': torch.tensor(0).int()
-        }'''
         self.last_obs = {
            'underlying': self.gym_env.reset(),
            'ext_env_obs': np.int64(0)
@@ -76,7 +71,6 @@ class CartPole_IgnoreRewards(gym.Env):
         if done:
             obs = self.gym_env.reset()
 
-        #obs = {'underlying': torch.tensor(obs), 'ext_env_obs': torch.tensor(0).int()}
         obs = {'underlying': obs, 'ext_env_obs': np.int64(0)}
 
         hypothetical = self.sim.act(self.last_obs)  # Note IgnoreRewards only
@@ -275,7 +269,6 @@ class DQN_learner:
             tuple_obs = tuple(obs['underlying']) + tuple(obs['ext_env_obs'])
         except TypeError:
             tuple_obs = tuple(obs['underlying']) + (obs['ext_env_obs'],)
-
 
         return tuple_obs
 

@@ -1,6 +1,4 @@
-# Script used to generate numerical results in Section 6
-# of "Extending Environments To Measure Self-Reflection
-# In Reinforcement Learning".
+# Script used to generate result_table.csv
 #
 # For instructions, see ExampleMeasurements.py.
 import sys

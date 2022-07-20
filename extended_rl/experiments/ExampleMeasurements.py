@@ -1,14 +1,7 @@
 # This file contains instructions for how to replicate the
-# numerical results in Section 6 of the paper:
-# "Extending Environments To Measure Self-Reflection In Reinforcement Learning"
+# numerical results "result_table.csv"
 #
-# The agents measured in the paper are defined in the agents directory.
-# The environments on which the agents are run are defined in the environments
-# directory. Agents are also run on the corresponding opposite environments
-# (the opposite of an environment is the environment which results by
-# multiplying all rewards by -1).
-#
-# Code for measuring these agents is in experiment.py. Commandline arguments
+# Code for measuring agents is in experiment.py. Commandline arguments
 # can be used to specify a random seed and a number of steps. Each agent
 # is run in each environment for the specified number of steps, and the
 # results are appended to result_table.csv. This CSV file comes already
@@ -21,13 +14,8 @@
 # * The random seed
 # * The average reward the agent earned in the environment (per turn)
 #
-# For the purpose of the paper, the agents were run against the environments
-# for 100k steps, repeated 5 times with random seeds 1,2,3,4,5.
-# From the resulting result_table.csv, we compiled the table in the paper
-# using the script "stats.py".
-#
 # If you wish, you can run this file you're reading now and have it perform
-# the above measurements for you. In order for the script to work, you will
+# the measurements for you. In order for the script to work, you will
 # need to have installed Stable Baselines3. We used version 1.1.0 of
 # Stable Baselines3 for the experiment. We recommend installing Stable
 # Baselines3 in a conda environment so as to keep it isolated from any other
@@ -117,8 +105,4 @@ for seed in seeds:
 
 
 print("Done.")
-print("""
-    Results should now be written in result_table.csv,
-    and the table in the paper can be compiled using
-    stats.py
-""")
+print("Results should now be written in result_table.csv")
